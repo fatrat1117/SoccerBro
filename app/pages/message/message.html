@@ -1,17 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Message
-    </ion-title>
+    <ion-segment [(ngModel)]="message">
+      <ion-segment-button value="chats">
+        Chats
+        <ion-badge secondary>10</ion-badge>
+      </ion-segment-button>
+      <ion-segment-button value="notifications">
+        Notifications
+        <ion-badge danger>3</ion-badge>
+      </ion-segment-button>
+    </ion-segment>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  <div  [ngSwitch]="message">
+    <ion-list *ngSwitchCase="'chats'">
+      <ion-list-header>Teams</ion-list-header>
+      <ion-item>
+        <ion-icon name="ionic" item-left></ion-icon>
+        STK Soccer
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'notifications'">
+      <ion-item>
+        <ion-icon name="ionic" item-left></ion-icon>
+        New game invitation
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {TeamPage} from '../team/team';
+import {MyTeamPage} from '../my-team/my-team';
 
 // @Component({
 //   templateUrl: 'build/pages/my/myDetails.html',
@@ -16,7 +16,7 @@ import {TeamPage} from '../team/team';
 @Component({
   templateUrl: 'build/pages/me/me.html'
 })
-export class MyPage {
+export class MePage {
   //items = [];
 
   constructor(private nav: NavController) {
@@ -79,7 +79,7 @@ export class MyPage {
   }
 
   openNavTeamPage(){
-    this.nav.push(TeamPage);
+    this.nav.push(MyTeamPage);
   }
 
 }
