@@ -14,7 +14,7 @@ import {TeamPage} from '../team/team';
 // }
 
 @Component({
-  templateUrl: 'build/pages/my/my.html'
+  templateUrl: 'build/pages/me/me.html'
 })
 export class MyPage {
   //items = [];
