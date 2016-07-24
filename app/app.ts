@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, enableProdMode} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
-
+import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav [root]="rootPage"></ion-nav>',
 })
 export class MyApp {
 
@@ -22,4 +22,13 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [
+  FIREBASE_PROVIDERS,
+  // Initialize Firebase app  
+  defaultFirebase({
+    apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
+    authDomain: "project-3416565325366537224.firebaseapp.com",
+    databaseURL: "https://project-3416565325366537224.firebaseio.com",
+    storageBucket: "project-3416565325366537224.appspot.com",
+  })
+]);
