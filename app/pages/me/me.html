@@ -1,17 +1,69 @@
+<!--<ion-header>-->
+  <!--<ion-navbar>-->
+    <!--<ion-title>-->
+      <!--Me-->
+    <!--</ion-title>-->
+  <!--</ion-navbar>-->
+<!--</ion-header>-->
+
+<!--<ion-content>-->
+<!--<ion-list>-->
+    <!--<button ion-item (click)="openNavTeamPage()">-->
+      <!--<ion-icon name="people" item-left></ion-icon>-->
+      <!--My Team-->
+      <!--&lt;!&ndash;<ion-icon name="ios-arrow-forward" item-right></ion-icon>&ndash;&gt;-->
+    <!--</button>-->
+  <!--</ion-list>-->
+<!--</ion-content>-->
+
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Me
-    </ion-title>
+    <ion-title>ME</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-<ion-list>
-    <button ion-item (click)="openNavTeamPage()">
-      <ion-icon name="people" item-left></ion-icon>
-      My Team
-      <!--<ion-icon name="ios-arrow-forward" item-right></ion-icon>-->
-    </button>
-  </ion-list>
-</ion-content>
+<ion-content class="cards-bg social-cards">
+
+  <ion-card>
+
+    <ion-item class="me-self-info">
+      <ion-avatar class="me-avatar" item-middle>
+        <!--<ion-icon name="heart"></ion-icon>-->
+        <img src="img/test_avatar.png"/>
+      </ion-avatar>
+      <h2>Marty McFly</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
+
+    <ion-card-content>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button primary clear small>
+          <ion-icon name='thumbs-up'></ion-icon>
+          <div>12 Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button primary clear small>
+          <ion-icon name='text'></ion-icon>
+          <div>4 Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>
