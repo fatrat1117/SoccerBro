@@ -16,12 +16,7 @@ import {AccountManager} from './providers/account-manager';
             databaseURL: "https://project-3416565325366537224.firebaseio.com",
             storageBucket: "project-3416565325366537224.appspot.com",
         }),
-        firebaseAuthConfig({
-            provider: AuthProviders.Facebook,
-            method: AuthMethods.OAuthToken,
-            remember: 'default',
-            scope: ['email']
-        }),
+    firebaseAuthConfig({}),
         AccountManager
     ]
 })
