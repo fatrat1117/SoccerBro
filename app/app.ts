@@ -18,7 +18,9 @@ import {AccountManager} from './providers/account-manager';
         }),
         firebaseAuthConfig({
             provider: AuthProviders.Facebook,
-            method: AuthMethods.OAuthToken
+            method: AuthMethods.OAuthToken,
+            remember: 'default',
+            scope: ['email']
         }),
         AccountManager
     ]

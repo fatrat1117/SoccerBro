@@ -13,8 +13,13 @@ export class AccountManager {
   facebook() {
          this.cordovaOauth.login().then(success => {
             console.log("Facebook success: " + JSON.stringify(success));
-            console.log(success["access_token"]);
+            //console.log(success["access_token"]);
+            // var provider = new firebase.auth.FacebookAuthProvider();
+            // console.log(provider);
+            //  let creds = provider.credential(success["access_token"]);//firebase.auth.FacebookAuthProvider;.credential(success["access_token"]);
+            //  console.log(creds);
             this.af.auth.login(success["access_token"]).then((value) => {
+              console.log('firebase success');
             console.log(value);
             //this.dismiss()
         }).catch((error) => {
