@@ -6,11 +6,10 @@ import {AccountManager} from '../../providers/account-manager'
   templateUrl: 'build/pages/rank/rank.html'
 })
 export class RankPage {
+  rank: string = "team";
   constructor(private navCtrl: NavController, private am : AccountManager) {
 
   }
 
-  OnLogin() {
-      this.am.facebook();
-  }
+
 }
