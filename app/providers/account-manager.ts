@@ -13,7 +13,7 @@ export class AccountManager {
   private cordovaOauth: CordovaOauth;
 
   constructor(private af: AngularFire) {
-    this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "463670290510920", appScope: ["email"]}));
+    this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
   }
 
   facebook() {
@@ -41,21 +41,6 @@ export class AccountManager {
             //this.error = error
             console.log(error)
         });
-            //var provider = new firebase.auth.FacebookAuthProvider();
-            //alert('1');
-            // firebase.auth().signInWithCredential(provider.credential(success["access_token"]))
-            //   .then((success) => {
-            //     alert('2');
-            //     console.log("Firebase success: " + JSON.stringify(success));
-            //   },
-            //   (error) => {
-            //     alert('3');
-            //     console.log("Firebase failure: " + JSON.stringify(error));
-            //   });
-            //   // .catch((error) => {
-            //   //   console.log("Firebase failure: " + JSON.stringify(error));
-            //   // });
-            //   alert('4');
       });
     }
 }
