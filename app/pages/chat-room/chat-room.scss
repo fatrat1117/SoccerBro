@@ -1,4 +1,5 @@
 .chat-room {
+  background-color: #EBEBEB;
 }
 
 //override
@@ -12,6 +13,7 @@ ion-item{
 .chat-room-item{
   padding-left: 2%;
   padding-right: 2%;
+  background-color: #EBEBEB;
 }
 .item .item-inner{
   padding-right: 0 !important;
@@ -97,7 +99,7 @@ $break-plus:480px;
   position: absolute;
   border-style: solid;
   border-width: 8px 8px 8px 0;
-  border-color: rgba(56, 126, 245, 0) #ececec;
+  border-color: rgba(56, 126, 245, 0) white;
   display: block;
   width: 0;
   z-index: 1;
@@ -106,9 +108,8 @@ $break-plus:480px;
 }
 
 .bubble-right{
-  background-color: #c4daff;
+  background-color: #9de856;
   padding: 10px 15px 5px 10px;
-
 }
 
 .bubble-right:after{
@@ -116,7 +117,7 @@ $break-plus:480px;
   position: absolute;
   border-style: solid;
   border-width: 8px 0px 8px 8px;
-  border-color: rgba(56, 126, 245, 0) #387ef5;
+  border-color: rgba(56, 126, 245, 0) #9de856;
   display: block;
   width: 0;
   z-index: 1;
@@ -140,7 +141,7 @@ $break-plus:480px;
 }
 
 .bubble{
-  background-color: #F2F2F2;
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 6px #B2B2B2;
   display: inline-block;
@@ -152,7 +153,7 @@ $break-plus:480px;
 }
 
 .bubble::before {
-  background-color: #F2F2F2;
+  background-color: white;
   content: "\00a0";
   display: block;
   height: 16px;
