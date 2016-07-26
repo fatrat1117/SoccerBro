@@ -49,3 +49,10 @@
   - [ ] Logout
 3. Others
   - [ ] Send feedback
+
+
+##JIXIANG's PENDING ISSUE:
+1. bubble 三角形加上border
+2. 右边bubble 去掉 name
+3. ion-item 整体弄小一点，包括image和字体，这样每一页能显示多一点消息
+4. ion-item 的top 和 bottom padding 减少一点
