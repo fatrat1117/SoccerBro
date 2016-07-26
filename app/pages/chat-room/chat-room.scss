@@ -1,18 +1,40 @@
 .chat-room {
 }
+
+//override
 ion-label{
   white-space: normal;
+  margin: 13px 0px 13px 0 !important;
 }
-
 ion-item{
   overflow: visible;
 }
+.chat-room-item{
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.item .item-inner{
+  padding-right: 0 !important;
+}
+
+ion-avatar[item-left], ion-thumbnail[item-left] {
+  margin: 8px 3px 8px 0;
+}
+ion-avatar[item-right], ion-thumbnail[item-right]{
+  margin: 8px 0px 8px 3px;
+}
+
+//start
 .chat-room-avatar{
 
 }
 
-.chat-room-avatar-div{
-  float: left;
+.chat-room-avatar-div-left{
+
+}
+
+.chat-room-avatar-div-right{
+
 }
 
 $break-verysmall: 252px;
@@ -21,7 +43,7 @@ $break-medium: 380px;
 $break-plus:480px;
 
 .chat-room-person-info{
-  float:left;
+  //float:left;
   min-width:55px;
   padding: 8px;
   @media screen and (min-width: $break-plus){
@@ -41,10 +63,22 @@ $break-plus:480px;
   }
 }
 
+.chat-room-person-info-right{
+
+
+}
+
+.f-left{
+  float: left;
+}
+.f-right{
+  float: right;
+}
+
 
 .chat-room-person-bubble{
-  margin: 8px 0px 8px 0;
-  padding: 10px 10px 10px 10px;
+
+
   font-size: 0.9em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   min-width: 55px;
@@ -53,23 +87,56 @@ $break-plus:480px;
   border-radius: 5px;
 }
 
-.chat-room-person-bubble:after{
+.bubble-left{
+  margin: 3px 0px 8px 0px;
+  padding: 10px 10px 10px 10px;
+}
+
+.bubble-left:after{
   content: '';
   position: absolute;
   border-style: solid;
   border-width: 8px 8px 8px 0;
-  border-color: rgba(56, 126, 245, 0) #387ef5;
+  border-color: rgba(56, 126, 245, 0) #ececec;
   display: block;
   width: 0;
   z-index: 1;
   left: -8px;
-  top:2px;
+  top:10px;
 }
+
+.bubble-right{
+  background-color: #c4daff;
+  padding: 10px 15px 5px 10px;
+
+}
+
+.bubble-right:after{
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 8px 0px 8px 8px;
+  border-color: rgba(56, 126, 245, 0) #387ef5;
+  display: block;
+  width: 0;
+  z-index: 1;
+  right: -8px;
+  top:10px;
+}
+
+
 
 .chat-room-avatar-img{
   border-radius: 0;
   max-width: 8rem;
   max-height: 8rem;
+}
+
+.chat-room-you-p{
+  text-align: right;
+  font-size: 1.0rem;
+  color: #666;
+
 }
 
 .bubble{
@@ -108,4 +175,6 @@ $break-plus:480px;
   box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
   left: -9px;
 }
+
+
 
