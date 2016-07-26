@@ -5,6 +5,7 @@ import {
   AngularFire, firebaseAuthConfig, AuthProviders,
   AuthMethods
 } from 'angularfire2';
+import {LoginPage} from '../pages/login/login'
 
 declare let firebase: any;
 
