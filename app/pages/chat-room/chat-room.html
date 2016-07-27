@@ -8,115 +8,31 @@
 <ion-content class="chat-room">
   <ion-list no-lines>
     <ion-item class="chat-room-item">
+      <div class="chat-room-avatar-div f-right">
+        <ion-avatar class="chat-room-avatar" item-right>
+          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
+        </ion-avatar>
+      </div>
+      <div class="chat-room-person-info f-right chat-room-person-info-right">
+        <!--<p class="chat-room-person-name">Jixiang Li</p>-->
+        <div class="chat-room-person-bubble bubble-right">
+          !
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item class="chat-room-item" *ngFor="let item of items | async">
       <div class="chat-room-avatar-div f-left">
         <ion-avatar class="chat-room-avatar" item-left>
           <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
         </ion-avatar>
       </div>
       <div class="chat-room-person-info f-left">
-          <p class="chat-room-person-name">Hao Li</p>
+          <p class="chat-room-person-name">{{item.created_by}}</p>
           <div class="chat-room-person-bubble bubble-left">
-           Hello, hello. I am Hao Li.
+            {{item.content}}
           </div>
       </div>
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-left">
-        <ion-avatar class="chat-room-avatar" item-left>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-left">
-        <p class="chat-room-person-name">Ray</p>
-        <div class="chat-room-person-bubble bubble-left">
-          Hi. I'm an expandeable chat box with box shadow. How are you? I expand horizontally and vertically, as you can see here.
-        </div>
-      </div>
-
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-right">
-        <ion-avatar class="chat-room-avatar" item-right>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-right chat-room-person-info-right">
-        <!--<p class="chat-room-person-name">Jixiang Li</p>-->
-        <div class="chat-room-person-bubble bubble-right">
-            If there is any question or suggestion, draft me a hand lijixiang.nus@gmail.com
-          <div class="chat-room-you-p">Jixiang</div>
-        </div>
-      </div>
-
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-left">
-        <ion-avatar class="chat-room-avatar" item-left>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-left">
-        <p class="chat-room-person-name">王添翼</p>
-        <div class="chat-room-person-bubble bubble-left">
-          周六下午17:00 麦佛森 7人制报名!</div>
-      </div>
-
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-right">
-        <ion-avatar class="chat-room-avatar" item-right>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-right chat-room-person-info-right">
-        <!--<p class="chat-room-person-name">Jixiang Li</p>-->
-        <div class="chat-room-person-bubble bubble-right">
-          爆爆爆!
-          <div class="chat-room-you-p">Jixiang</div>
-        </div>
-      </div>
-
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-left">
-        <ion-avatar class="chat-room-avatar" item-left>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-left">
-        <p class="chat-room-person-name">陆昂霄</p>
-        <div class="chat-room-person-bubble bubble-left">
-          आप पूरा करने की कृपा,
-          Selamat berkenalan,
-          会えてうれしいです
-          繁體</div>
-      </div>
-
-    </ion-item>
-
-    <ion-item class="chat-room-item">
-      <div class="chat-room-avatar-div f-left">
-        <ion-avatar class="chat-room-avatar" item-left>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-
-      <div class="chat-room-person-info f-left">
-        <p class="chat-room-person-name">于总</p>
-        <div class="chat-room-person-bubble bubble-left">
-         之后最好能用上这个 https://github.com/gregjacobs/Autolinker.js/</div>
-      </div>
-
     </ion-item>
   </ion-list>
 
