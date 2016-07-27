@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-segment [(ngModel)]="stats">
+      <ion-segment-button value="team">
+        Teams
+      </ion-segment-button>
+      <ion-segment-button value="player">
+        Players
+      </ion-segment-button>
+    </ion-segment>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="stats">
+    <ion-list *ngSwitchCase="'team'">
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src="img/test_team.jpg">
+        </ion-thumbnail>
+        <h2>Ever Pioneer</h2>
+        <ion-row>
+          <ion-col>
+            <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
+            <p text-center>1</p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Played</label></p>
+            <p text-center>11</p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Point</label></p>
+            <p text-center><label>38</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Player</label></p>
+            <p text-center><label>20</label></p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'player'">
+      <ion-item>
+        Player 1
+      </ion-item>
+      <ion-item>
+        Player 2
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

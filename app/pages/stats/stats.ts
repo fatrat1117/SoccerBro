@@ -3,13 +3,10 @@ import {NavController} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager'
 
 @Component({
-  templateUrl: 'build/pages/rank/rank.html'
+  templateUrl: 'build/pages/stats/stats.html'
 })
-export class RankPage {
-  rank: string = "team";
+export class StatsPage {
+  stats: string = "team";
   constructor(private navCtrl: NavController, private am : AccountManager) {
-
   }
-
-
 }
