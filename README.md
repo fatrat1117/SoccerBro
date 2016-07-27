@@ -22,7 +22,7 @@
 1. Invitation
   - [ ] SMS
   - [ ] WeChat
-  - [ ] Facebook
+  - [x] Facebook
 2. Team Info
   - [ ] Show recent scores
   - [ ] Show player list, able to redirect to `Player` page
@@ -33,7 +33,7 @@
 ## Message page
 1. Chat
   - [ ] Show chat list, including team chat and group people chat (for example, team captains group)
-  - [ ] Click to enter chat room
+  - [x] Click to enter chat room
 2. Notification
   - [ ] Show match notifications
   - [ ] Toggle Going and Not going
@@ -53,6 +53,6 @@
 
 ##JIXIANG's PENDING ISSUE:
 1. bubble 三角形加上border
-2. 右边bubble 去掉 name
-3. ion-item 整体弄小一点，包括image和字体，这样每一页能显示多一点消息
-4. ion-item 的top 和 bottom padding 减少一点
+2. ion-item 整体弄小一点，包括image和字体，这样每一页能显示多一点消息
+3. ion-item 的top 和 bottom padding 减少一点
+4. bubble minimum width issue
