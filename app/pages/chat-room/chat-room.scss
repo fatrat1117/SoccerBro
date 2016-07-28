@@ -5,7 +5,7 @@
 //override
 ion-label{
   white-space: normal;
-  margin: 13px 0px 13px 0 !important;
+  margin: 6px 0px 6px 0 !important;
 }
 ion-item{
   overflow: visible;
@@ -20,10 +20,10 @@ ion-item{
 }
 
 ion-avatar[item-left], ion-thumbnail[item-left] {
-  margin: 8px 3px 8px 0;
+  margin: 3px 3px 3px 0px;
 }
 ion-avatar[item-right], ion-thumbnail[item-right]{
-  margin: 8px 0px 8px 3px;
+  margin: 3px 0px 3px 3px;
 }
 
 //start
@@ -48,6 +48,7 @@ $break-plus:480px;
   //float:left;
   min-width:55px;
   padding: 8px;
+  padding-top: 3px;
   @media screen and (min-width: $break-plus){
     max-width: 80%;
   }
@@ -100,17 +101,35 @@ $break-plus:480px;
   padding: 10px 10px 10px 10px;
 }
 
+//.bubble-left:after{
+//  content: '';
+//  position: absolute;
+//  border-style: solid;
+//  border-width: 8px 8px 8px 0;
+//  border-color: rgba(56, 126, 245, 0) white;
+//  display: block;
+//  width: 0;
+//  z-index: 1;
+//  left: -8px;
+//  top:10px;
+//}
+
 .bubble-left:after{
-  content: '';
-  position: absolute;
-  border-style: solid;
-  border-width: 8px 8px 8px 0;
-  border-color: rgba(56, 126, 245, 0) white;
+  background-color: #fff;
+  content: "\00a0";
   display: block;
-  width: 0;
+  height: 9px;
+  position: absolute;
+  top: 14px;
+  transform: rotate(29deg) skew(-35deg);
+  -moz-transform: rotate(29deg) skew(-35deg);
+  -ms-transform: rotate(29deg) skew(-35deg);
+  -o-transform: rotate(29deg) skew(-35deg);
+  -webkit-transform: rotate(48deg) skew(0deg);
+  width: 10px;
+  box-shadow: -2px 1px 1px 0 rgba(178, 178, 178, 0.4);
+  left: -5px;
   z-index: 1;
-  left: -8px;
-  top:10px;
 }
 
 .bubble-right{
@@ -118,17 +137,35 @@ $break-plus:480px;
   padding: 10px 10px 10px 10px;
 }
 
+//.bubble-right:after{
+//  content: '';
+//  position: absolute;
+//  border-style: solid;
+//  border-width: 8px 0px 8px 8px;
+//  border-color: rgba(56, 126, 245, 0) #9de856;
+//  display: block;
+//  width: 0;
+//  z-index: 1;
+//  right: -8px;
+//  top:10px;
+//}
+
 .bubble-right:after{
-  content: '';
-  position: absolute;
-  border-style: solid;
-  border-width: 8px 0px 8px 8px;
-  border-color: rgba(56, 126, 245, 0) #9de856;
+  background-color: #9de856;
+  content: "\00a0";
   display: block;
-  width: 0;
+  height: 9px;
+  position: absolute;
+  top: 14px;
+  transform: rotate(29deg) skew(-35deg);
+  -moz-transform: rotate(29deg) skew(-35deg);
+  -ms-transform: rotate(29deg) skew(-35deg);
+  -o-transform: rotate(29deg) skew(-35deg);
+  -webkit-transform: rotate(48deg) skew(0deg);
+  width: 10px;
+  box-shadow: 1px -2px 1px 0 rgba(0, 0, 0, 0.12);
+  right: -5px;
   z-index: 1;
-  right: -8px;
-  top:10px;
 }
 
 
@@ -137,6 +174,7 @@ $break-plus:480px;
   border-radius: 0;
   max-width: 8rem;
   max-height: 8rem;
+  border: 1px solid #999;
 }
 
 .chat-room-you-p{
