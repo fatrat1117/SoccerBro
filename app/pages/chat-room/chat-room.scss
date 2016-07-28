@@ -13,7 +13,7 @@ ion-item{
 .chat-room-item{
   padding-left: 2%;
   padding-right: 2%;
-  background-color: #EBEBEB;
+  background-color: transparent;
 }
 .item .item-inner{
   padding-right: 0 !important;
@@ -77,6 +77,14 @@ $break-plus:480px;
   float: right;
 }
 
+.chat-room-time-label{
+  display: inline-block;
+  background: #D3D3D3;
+  padding: 3px 5px 3px 5px;
+  border-radius: 3px;
+  color: white;
+  font-size: 0.7em;
+}
 
 .chat-room-person-bubble{
   font-size: 0.9em;
