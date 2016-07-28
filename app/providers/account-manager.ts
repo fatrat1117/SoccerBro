@@ -1,5 +1,5 @@
 import {Modal, NavController, Page} from 'ionic-angular';
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
@@ -11,7 +11,7 @@ import {LoginPage} from '../pages/login/login'
 declare let firebase: any;
 
 @Injectable()
-export class AccountManager {
+export class AccountManager{
   private cordovaOauth: CordovaOauth;
 
   constructor(public af: AngularFire) {
