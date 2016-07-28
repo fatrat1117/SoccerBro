@@ -1,3 +1,4 @@
+import {Modal, NavController, Page} from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import {
@@ -13,8 +14,35 @@ declare let firebase: any;
 export class AccountManager {
   private cordovaOauth: CordovaOauth;
 
-  constructor(private af: AngularFire) {
+  constructor(public af: AngularFire) {
     this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
+  }
+
+  getUser() {
+    var auth = this.af.auth.getAuth().auth;
+    console.log(auth);
+    if (auth)
+    {
+      var user = {
+          uid: auth.uid,
+          type: 'facebook'
+      }
+      return user;
+    }  
+    return null;
+  }
+
+displayLoginModal(nav) {
+        let loginPage = Modal.create(LoginPage);
+        nav.present(loginPage);
+    }
+
+  checkLogin(nav) {
+    var user = this.getUser();
+    console.log(user);
+    if (!user) {
+      this.displayLoginModal(nav);
+    }
   }
 
   facebook() {
