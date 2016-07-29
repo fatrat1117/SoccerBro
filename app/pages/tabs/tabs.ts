@@ -34,10 +34,10 @@ ngOnInit() {
         // execute the firebase query...
         // .. otherwise
         // show the login modal page
-        this.af.auth.subscribe((data) => {
-            console.log("in auth subscribe", data)
+        //this.af.auth.subscribe((data) => {
+         //   console.log("in auth subscribe", data)
 
-            if (data) {
+         //   if (data) {
             
             // this.af.auth.unsubscribe()
 
@@ -61,15 +61,15 @@ ngOnInit() {
 
                 //this.getMoreData()
 
-            } else {
+           // } else {
                 // this.buttonTitle = "LOGIN"
                 // this.authInfo = null
                 // this.displayLoginModal()
-            }
-        })
+          //  }
+        //})
     }
 
   checkLogin() {
-    //this.am.checkLogin(this.nav);
+    this.am.checkLogin(this.nav);
   }
 }

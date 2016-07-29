@@ -1,6 +1,13 @@
 import {Modal, NavController, Page, ViewController} from 'ionic-angular';
 import {Component, OnInit, Inject} from '@angular/core';
-import {AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import {
+  FIREBASE_PROVIDERS, defaultFirebase,
+  AngularFire, firebaseAuthConfig, AuthProviders,
+  AuthMethods
+} from 'angularfire2';
+import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
+
+declare let firebase: any;
 
 @Page({
     templateUrl: 'build/pages/login/login.html'
@@ -8,9 +15,13 @@ import {AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 export class LoginPage {
 
     error: any
+    private cordovaOauth: CordovaOauth;
 
     constructor(public af: AngularFire,
-        public viewCtrl: ViewController) { }
+        public viewCtrl: ViewController
+        ) { 
+            this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
+        }
     /** 
      * this will dismiss the modal page
      */
@@ -43,17 +54,28 @@ export class LoginPage {
     registerUserWithFacebook(_credentials, _event) {
         _event.preventDefault();
 
-        this.af.auth.login({
-            provider: AuthProviders.Github,
-            method: AuthMethods.Popup
-        }).then((value) => {
-            this.dismiss()
-        }).catch((error) => {
-            this.error = error
-            console.log(error)
-        });
-    }
+        this.cordovaOauth.login().then(success => {
+            console.log("Facebook success: " + JSON.stringify(success));
+            let creds = firebase.auth.FacebookAuthProvider.credential(success["access_token"]);
+            console.log(creds);
 
+            let providerConfig = {
+            provider: AuthProviders.Facebook,
+            method: AuthMethods.OAuthToken,
+            remember: 'default',
+            scope: ['email'],
+          };
+
+            this.af.auth.login(creds, providerConfig).then((value) => {
+              console.log('firebase success');
+            console.log(value);
+            this.dismiss();
+        }).catch((error) => {
+            this.error = error;
+        });
+      });
+
+    }
 
     registerUserWithTwitter(_credentials, _event) {
         _event.preventDefault();
