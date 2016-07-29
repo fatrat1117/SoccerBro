@@ -51,7 +51,7 @@ export class LoginPage {
             .catch(e => console.error(`Create User Failure:`, e));
     }
 
-    registerUserWithFacebook(_credentials, _event) {
+    registerUserWithFacebook(_event) {
         _event.preventDefault();
 
         this.cordovaOauth.login().then(success => {
@@ -67,44 +67,17 @@ export class LoginPage {
           };
 
             this.af.auth.login(creds, providerConfig).then((value) => {
-              console.log('firebase success');
-            console.log(value);
-            this.dismiss();
-        }).catch((error) => {
-            this.error = error;
+                console.log('firebase success');
+                console.log(value);
+                this.dismiss();
+            }).catch((error) => {
+                this.error = error;
+            });
         });
-      });
-
     }
 
-    registerUserWithTwitter(_credentials, _event) {
-        _event.preventDefault();
+    registerUserWithWechat( _event) {
 
-        this.af.auth.login({
-            provider: AuthProviders.Twitter,
-            method: AuthMethods.Redirect
-        }).then((authData) => {
-            console.log(authData)
-
-            // already has user... need better info??
-            if (!authData) {
-                this.dismiss()
-            }
-
-
-            const itemObservable = this.af.database.object('/users/' + authData.uid);
-            itemObservable.set({
-                "provider": authData.auth.providerData[0].providerId,
-                "avatar": authData.auth.photoURL || "MISSING",
-                "displayName": authData.auth.providerData[0].displayName || authData.auth.email,
-            })
-
-        }).then((value) => {
-            this.dismiss()
-        }).catch((error) => {
-            this.error = error
-            console.log(error)
-        });
     }
     /**
      * this logs in the user using the form credentials.

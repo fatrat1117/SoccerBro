@@ -13,6 +13,13 @@ declare let firebase: any;
 export class AccountManager{
 
   constructor(public af: AngularFire) {
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        console.log("User is signed in", user);
+      } else {
+        console.log("logout");
+      }
+    });
   }
 
   getUser() {
@@ -41,5 +48,9 @@ displayLoginModal(nav) {
     if (!user) {
       this.displayLoginModal(nav);
     }
+  }
+
+  logout() {
+    this.af.auth.logout();
   }
 }

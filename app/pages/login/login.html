@@ -1,12 +1,13 @@
-<ion-navbar *navbar>
-    <ion-title>
-        Please log in
-    </ion-title>
-</ion-navbar>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Please log in</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content padding>
     <h1>User Login</h1>
-    <form #loginCreds="ngForm">
-        <ion-item>
+    <form>
+        <!--<ion-item>
             <ion-label>Username</ion-label>
             <ion-input type="text" ngControl="email"></ion-input>
         </ion-item>
@@ -19,10 +20,10 @@
         <div padding>
             <button block (click)="login(loginCreds.value, $event)">Login</button>
             <button block (click)="registerUser(loginCreds.value, $event)">Create Account</button>
-         </div>        
+         </div>        -->
         <div padding>
-            <button block (click)="registerUserWithFacebook(loginCreds.value, $event)">Connect with facebook</button>
-            <button block (click)="registerUserWithTwitter(loginCreds.value, $event)">Connect with Twitter</button>
+            <button block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
+            <button block (click)="registerUserWithWechat($event)">Connect with Wechat</button>
         </div>
         <div padding>
             <p *ngIf="error" class="error">Error:&nbsp;{{ error.code }}</p>
