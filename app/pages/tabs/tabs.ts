@@ -17,7 +17,7 @@ export class TabsPage implements OnInit {
   private tab3Root: any;
   private tab4Root: any;
 
-  @ViewChild('mainTabs') tabRef: Tabs;
+  //@ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(private am: AccountManager, private nav: NavController, private af: AngularFire) {
     // this tells the tabs component which Pages
@@ -34,7 +34,7 @@ export class TabsPage implements OnInit {
       if (user) {
       } else {
         console.log(this.tabRef);
-        this.tabRef.select(0);
+        //this.tabRef.select(0);
       }
     });
   }
