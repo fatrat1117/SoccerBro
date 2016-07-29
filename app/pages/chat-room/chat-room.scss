@@ -5,7 +5,7 @@
 //override
 ion-label{
   white-space: normal;
-  margin: 6px 0px 6px 0 !important;
+  margin: 2px 0px 2px 0 !important;
 }
 ion-item{
   overflow: visible;
@@ -49,6 +49,8 @@ $break-plus:480px;
   min-width:55px;
   padding: 8px;
   padding-top: 3px;
+  padding-bottom: 3px;
+
   @media screen and (min-width: $break-plus){
     max-width: 80%;
   }
@@ -174,7 +176,6 @@ $break-plus:480px;
   border-radius: 0;
   max-width: 8rem;
   max-height: 8rem;
-  border: 1px solid #999;
 }
 
 .chat-room-you-p{
