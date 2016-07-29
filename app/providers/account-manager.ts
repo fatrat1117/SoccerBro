@@ -11,18 +11,23 @@ declare let firebase: any;
 
 @Injectable()
 export class AccountManager{
+  private currentUser : any;
 
   constructor(public af: AngularFire) {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("User is signed in", user);
+        this.currentUser = this.getFbUser();
       } else {
         console.log("logout");
+        this.currentUser = null;
       }
     });
+
+    this.currentUser = this.getUser();
   }
 
-  getUser() {
+  getFbUser() {
     //console.log(firebase.auth());
     var currentUser = firebase.auth().currentUser;
     console.log(currentUser);
@@ -37,13 +42,18 @@ export class AccountManager{
     return null;
   }
 
+
+  getUser() {
+    return this.getFbUser();
+  }
+
 displayLoginModal(nav) {
         let loginPage = Modal.create(LoginPage);
         nav.present(loginPage);
     }
 
   checkLogin(nav) {
-    var user = this.getUser();
+    var user = this.currentUser;
     console.log(user);
     if (!user) {
       this.displayLoginModal(nav);
