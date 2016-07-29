@@ -24,19 +24,25 @@
       </div>
     </ion-item>
 
-    <ion-item class="chat-room-item" *ngFor="let item of items | async">
-      <div class="chat-room-avatar-div f-left">
-        <ion-avatar class="chat-room-avatar" item-left>
-          <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
-        </ion-avatar>
-      </div>
-      <div class="chat-room-person-info f-left">
-          <p class="chat-room-person-name">{{item.created_by}}</p>
-          <div class="chat-room-person-bubble bubble-left">
-            {{item.content}}
-          </div>
-      </div>
-    </ion-item>
+    <div *ngFor="let item of items | async">
+      <ion-item *ngIf="showTime(item)" class="chat-room-item" style="text-align:center">
+        <label class="chat-room-time-label">{{item.created_at | amCalendar}}</label>
+      </ion-item>
+
+      <ion-item class="chat-room-item">
+        <div class="chat-room-avatar-div f-left">
+          <ion-avatar class="chat-room-avatar" item-left>
+            <img class="chat-room-avatar-img" src="img/test_avatar.jpg">
+          </ion-avatar>
+        </div>
+        <div class="chat-room-person-info f-left">
+            <p class="chat-room-person-name">{{item.created_by}}</p>
+            <div class="chat-room-person-bubble bubble-left">
+              {{item.content}}
+            </div>
+        </div>
+      </ion-item>
+    </div>
   </ion-list>
 
 
