@@ -14,13 +14,14 @@ export class AccountManager{
   private currentUser : any;
 
   constructor(public af: AngularFire) {
+    let self = this;
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        console.log("User is signed in", user);
-        this.currentUser = this.getFbUser();
+        self.currentUser = self.getFbUser();
+        console.log("User is signed in", self.currentUser);
       } else {
         console.log("logout");
-        this.currentUser = null;
+        self.currentUser = null;
       }
     });
 

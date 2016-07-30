@@ -8,16 +8,15 @@ import {MePage} from '../me/me';
 import {AccountManager} from '../../providers/account-manager'
 
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html',
+  templateUrl: 'build/pages/tabs/tabs.html'
 })
 export class TabsPage implements OnInit {
+  @ViewChild('mainTabs') tabRef: Tabs;
 
   private tab1Root: any;
   private tab2Root: any;
   private tab3Root: any;
   private tab4Root: any;
-
-  //@ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(private am: AccountManager, private nav: NavController, private af: AngularFire) {
     // this tells the tabs component which Pages
@@ -30,11 +29,11 @@ export class TabsPage implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit");
+    let self = this;
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
       } else {
-        console.log(this.tabRef);
-        //this.tabRef.select(0);
+          self.tabRef.select(0);
       }
     });
   }
