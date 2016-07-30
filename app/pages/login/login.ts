@@ -20,7 +20,8 @@ export class LoginPage {
     constructor(public af: AngularFire,
         public viewCtrl: ViewController
         ) { 
-            this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
+            this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "463670290510920", appScope: ["email"]}));
+            //this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
         }
     /** 
      * this will dismiss the modal page
@@ -55,9 +56,9 @@ export class LoginPage {
         _event.preventDefault();
 
         this.cordovaOauth.login().then(success => {
-            console.log("Facebook success: " + JSON.stringify(success));
+            //console.log("Facebook success: " + JSON.stringify(success));
             let creds = firebase.auth.FacebookAuthProvider.credential(success["access_token"]);
-            console.log(creds);
+            //console.log(creds);
 
             let providerConfig = {
             provider: AuthProviders.Facebook,
@@ -68,7 +69,7 @@ export class LoginPage {
 
             this.af.auth.login(creds, providerConfig).then((value) => {
                 console.log('firebase success');
-                console.log(value);
+                //console.log(value);
                 this.dismiss();
             }).catch((error) => {
                 this.error = error;

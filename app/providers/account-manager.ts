@@ -10,13 +10,13 @@ import {LoginPage} from '../pages/login/login'
 declare let firebase: any;
 
 @Injectable()
-export class AccountManager{
-  private currentUser : any;
+export class AccountManager {
+  private currentUser: any;
 
   constructor(public af: AngularFire) {
     let self = this;
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
         self.currentUser = self.getFbUser();
         console.log("User is signed in", self.currentUser);
       } else {
@@ -32,14 +32,13 @@ export class AccountManager{
     //console.log(firebase.auth());
     var currentUser = firebase.auth().currentUser;
     console.log(currentUser);
-    if (currentUser)
-    {
+    if (currentUser) {
       var user = {
-          uid: currentUser.uid,
-          type: 'facebook'
+        uid: currentUser.uid,
+        type: 'facebook'
       }
       return user;
-    }  
+    }
     return null;
   }
 
@@ -48,10 +47,10 @@ export class AccountManager{
     return this.getFbUser();
   }
 
-displayLoginModal(nav) {
-        let loginPage = Modal.create(LoginPage);
-        nav.present(loginPage);
-    }
+  displayLoginModal(nav) {
+    let loginPage = Modal.create(LoginPage);
+    nav.present(loginPage);
+  }
 
   checkLogin(nav) {
     var user = this.currentUser;
@@ -63,5 +62,13 @@ displayLoginModal(nav) {
 
   logout() {
     this.af.auth.logout();
+  }
+
+  getPlayerRef(id) {
+    return "/players/" + id;
+  }
+
+  getCurrentPlayerRef() {
+    return this.getPlayerRef(this.currentUser.uid);
   }
 }
