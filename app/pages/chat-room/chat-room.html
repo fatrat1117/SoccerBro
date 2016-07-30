@@ -26,7 +26,7 @@
 
     <div *ngFor="let item of items | async">
       <ion-item *ngIf="showTime(item)" class="chat-room-item" style="text-align:center">
-        <label class="chat-room-time-label">{{item.created_at | amCalendar}}</label>
+        <label class="chat-room-time-label">{{getTime(item)}}</label>
       </ion-item>
 
       <ion-item class="chat-room-item">
