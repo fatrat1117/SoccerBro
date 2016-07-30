@@ -26,22 +26,13 @@
 
   <ion-card>
 
-
     <ion-item class="me-self-info">
-      <ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon>
       <ion-avatar class="me-avatar" item-middle>
-        <!--<ion-icon name="heart"></ion-icon>-->
-        <img class="me-avatar-img" src="img/test_avatar.jpg"/>
+        <img [src]="(player | async)?.photoURL" class="me-avatar-img"/>
       </ion-avatar>
-      <h2>Hao Li</h2>
+      <h2>{{ (player | async)?.displayName }}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
       <p>STK先驱联</p>
     </ion-item>
-
-
-
-    <!--<ion-card-content>-->
-      <!--<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>-->
-    <!--</ion-card-content>-->
 
     <ion-row>
       <ion-col>
@@ -66,7 +57,7 @@
   </ion-card>
 
   <ion-list>
-      <ion-item (click)="openNavTeamPage()">
+      <ion-item>
         <div class="me-team-default">
           <img src="img/test_team.jpg">
           <div class="me-team-default-info">
