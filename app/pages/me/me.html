@@ -28,10 +28,7 @@
 
     <ion-item class="me-self-info">
       <ion-avatar class="me-avatar" item-middle>
-        <!--<ion-icon name="heart"></ion-icon>-->
-        <!--<img [src]="{{ (player | async)?.photoURL}}">-->
-          <!--<ion-img src="img/test_avatar.jpg"/>-->
-        <img class="me-avatar-img" src="img/test_avatar.jpg"/>
+        <img [src]="(player | async)?.photoURL" class="me-avatar-img"/>
       </ion-avatar>
       <h2>{{ (player | async)?.displayName }}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
       <p>STK先驱联</p>
