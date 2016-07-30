@@ -16,8 +16,8 @@ export class AccountManager{
   constructor(public af: AngularFire) {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        console.log("User is signed in", user);
         this.currentUser = this.getFbUser();
+        console.log("User is signed in", this.currentUser);
       } else {
         console.log("logout");
         this.currentUser = null;
