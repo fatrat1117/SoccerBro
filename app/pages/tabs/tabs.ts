@@ -32,13 +32,17 @@ export class TabsPage implements OnInit {
     let self = this;
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        console.log("logged in gopage");
+        self.tab4Root = MePage;
       } else {
           self.tabRef.select(0);
+          self.tab4Root = null;
       }
     });
   }
 
   checkLogin() {
     this.am.checkLogin(this.nav);
+    console.log("checkLogin");
   }
 }
