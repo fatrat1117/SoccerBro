@@ -1,6 +1,11 @@
 .me {
 }
 
+//over ride
+.item{
+  padding-left: 0;
+}
+
 .card-background-page {
 
   ion-card {
@@ -39,4 +44,33 @@
 
 .me-avatar-img{
   margin: 0 auto;
+  max-width: 5rem;
+  max-height: 5rem;
+  border-radius: 3rem;
+}
+
+
+.me-team-default{
+  float: left;
+  width: 33.3%;
+  text-align: center;
+}
+
+.me-team-default img{
+  max-width: 4rem;
+  max-height: 4rem;
+  border-radius: 2rem;
+}
+
+.me-team-switch{
+}
+.me-team-switch-icon{
+  font-size:3em !important;
+}
+
+.me-team-add{
+
+}
+.me-team-add-icon{
+  font-size:3em !important;
 }

@@ -31,7 +31,7 @@
         <!--<ion-icon name="heart"></ion-icon>-->
         <img class="me-avatar-img" src="img/test_avatar.jpg"/>
       </ion-avatar>
-      <h2>Hao Li</h2>
+      <h2>Hao Li <ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
       <p>STK先驱联</p>
     </ion-item>
 
@@ -60,6 +60,29 @@
     </ion-row>
 
   </ion-card>
+
+  <ion-list>
+      <ion-item>
+        <div class="me-team-default">
+          <img src="img/test_team.jpg">
+          <div class="me-team-default-info">
+            <h4>先驱联<p>tmp</p></h4>
+          </div>
+        </div>
+        <div class="me-team-default me-team-switch">
+          <ion-icon class="me-team-switch-icon" name="ios-swap-outline"></ion-icon>
+          <div class="me-team-switch-info">
+          <p>更换球队</p>
+          </div>
+        </div>
+        <div class="me-team-default me-team-add">
+          <ion-icon class="me-team-add-icon" name="ios-add-outline"></ion-icon>
+          <div class="me-team-default-info">
+            <p>添加球队</p>
+          </div>
+        </div>
+      </ion-item>
+  </ion-list>
 
 <button (click)="onLogout()" full>logout</button>
 </ion-content>
