@@ -5,6 +5,42 @@
 </ion-header>
 
 <ion-content padding class="team">
-  <button (click)="login()" full>Create Team</button>
-  <button full>Join Team</button>
+  <ion-card>
+    <ion-item class="my-team-info">
+      <ion-avatar class="my-team-avatar" item-middle>
+        <!--<ion-icon name="heart"></ion-icon>-->
+        <div class="my-team-info-popular">
+          <p>人气</p>
+          <h6>66</h6>
+        </div>
+        <img class="my-team-avatar-img" src="img/test_avatar.jpg"/>
+        <div class="my-team-info-power">
+          <p>能力</p>
+          <h6>0</h6>
+        </div>
+      </ion-avatar>
+      <h2>Hao Li</h2>
+      <p>STK先驱联</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-row>
+    <ion-col>
+      <button primary clear small>
+        <ion-icon name='thumbs-up'></ion-icon>
+        <div>12 Likes</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button primary clear small>
+        <ion-icon name='text'></ion-icon>
+        <div>4 Comments</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        11h ago
+      </ion-note>
+    </ion-col>
+  </ion-row>
 </ion-content>
