@@ -16,6 +16,11 @@ export class MePage {
     console.log(pRef);
 
     this.player = this.af.database.object(this.am.getCurrentPlayerRef());
+    let playerSnapshot = this.af.database.object(this.am.getCurrentPlayerRef(), { preserveSnapshot: true });
+    playerSnapshot.subscribe(snapshot => {
+      console.log(snapshot.key)
+      console.log(snapshot.val())
+    });
   }
 
   openNavTeamPage() {
