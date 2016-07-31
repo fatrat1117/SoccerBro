@@ -24,7 +24,7 @@ export class TabsPage implements OnInit {
     this.tab1Root = HomePage;
     this.tab2Root = StatsPage;
     this.tab3Root = MessagePage;
-    this.tab4Root = MePage;
+    this.tab4Root = null;
   }
 
   ngOnInit() {
@@ -42,7 +42,8 @@ export class TabsPage implements OnInit {
   }
 
   checkLogin() {
-    this.am.checkLogin(this.nav);
     console.log("checkLogin");
+    this.am.checkLogin(this.nav);
+    console.log("checkLogin finish");
   }
 }

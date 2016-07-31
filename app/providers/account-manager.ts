@@ -25,7 +25,7 @@ export class AccountManager {
       }
     });
 
-    this.currentUser = this.getUser();
+    //this.currentUser = this.getUser();
   }
 
   getFbUser() {
