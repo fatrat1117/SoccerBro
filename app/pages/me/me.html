@@ -40,9 +40,9 @@
   <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <img src="img/test_team.jpg">
+          <img [src] = "(defaultTeam | async)?.logo">
           <div class="me-team-default-info">
-            <h4>先驱联<p>tmp</p></h4>
+            <h4>{{ (defaultTeam | async)?.name }}<p>tmp</p></h4>
           </div>
         </div>
         <div class="me-team-default me-team-switch">

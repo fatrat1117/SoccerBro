@@ -71,4 +71,8 @@ export class AccountManager {
   getCurrentPlayerRef() {
     return this.getPlayerRef(this.currentUser.uid);
   }
+
+  getTeamRef(id) {
+    return "/teams/" + id;
+  }
 }
