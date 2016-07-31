@@ -6,6 +6,10 @@
 </ion-header>
 
 <ion-content class="chat-room">
+  <ion-refresher (refresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list no-lines>
     <ion-item class="chat-room-item" style="text-align:center">
       <label class="chat-room-time-label">13:30</label>
@@ -44,6 +48,16 @@
       </ion-item>
     </div>
   </ion-list>
-
-
 </ion-content>
+
+<!--
+<ion-footer style="background:white;" class="item-input-inset">
+  <ion-input type="text"></ion-input>
+  <button>Send</button>
+</ion-footer>
+-->
+
+<ion-footer style="background:white;">
+  <ion-input type="text" [(ngModel)]="newMessage"></ion-input>
+  <button (click)="sendMessage()">Send</button>
+</ion-footer>
