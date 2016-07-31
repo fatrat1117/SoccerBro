@@ -25,7 +25,7 @@ export class AccountManager {
       }
     });
 
-    this.currentUser = this.getUser();
+    //this.currentUser = this.getUser();
   }
 
   getFbUser() {
@@ -70,5 +70,9 @@ export class AccountManager {
 
   getCurrentPlayerRef() {
     return this.getPlayerRef(this.currentUser.uid);
+  }
+
+  getTeamRef(id) {
+    return "/teams/" + id;
   }
 }

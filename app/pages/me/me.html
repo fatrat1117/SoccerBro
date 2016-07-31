@@ -1,21 +1,3 @@
-<!--<ion-header>-->
-  <!--<ion-navbar>-->
-    <!--<ion-title>-->
-      <!--Me-->
-    <!--</ion-title>-->
-  <!--</ion-navbar>-->
-<!--</ion-header>-->
-
-<!--<ion-content>-->
-<!--<ion-list>-->
-    <!--<button ion-item (click)="openNavTeamPage()">-->
-      <!--<ion-icon name="people" item-left></ion-icon>-->
-      <!--My Team-->
-      <!--&lt;!&ndash;<ion-icon name="ios-arrow-forward" item-right></ion-icon>&ndash;&gt;-->
-    <!--</button>-->
-  <!--</ion-list>-->
-<!--</ion-content>-->
-
 <ion-header>
   <ion-navbar>
     <ion-title>ME</ion-title>
@@ -31,7 +13,6 @@
         <img [src]="(player | async)?.photoURL" class="me-avatar-img"/>
       </ion-avatar>
       <h2>{{ (player | async)?.displayName }}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
-      <p>STK先驱联</p>
     </ion-item>
 
     <ion-row>
@@ -59,9 +40,9 @@
   <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <img src="img/test_team.jpg">
+          <img [src] = "(defaultTeam | async)?.logo">
           <div class="me-team-default-info">
-            <h4>先驱联<p>tmp</p></h4>
+            <h4>{{ (defaultTeam | async)?.name }}<p>tmp</p></h4>
           </div>
         </div>
         <div class="me-team-default me-team-switch">
