@@ -61,11 +61,31 @@ export class ChatRoomPage {
   }
 */
 
+  trackByKey(_item) {
+    return _item.key
+  }
+
   showTime(_item) {
+    /*
+    console.log(index);
+    console.log(this.items.count);
+    if (index == 0) {
+      return true;
+    }
+    else {
+      
+      console.log(this.items[index]);
+      console.log(this.items[index-1]);
+      var diff = this.items[index].created_at - this.items[index - 1].created_at;
+      return diff > 300000;
+    }
+*/
+    //console.log(this.items);
     var current = _item.created_at;
     var isShow = current - this.tempTime > 300000; // 5 mins
     this.tempTime = current;
     return isShow;
+
   }
 
   getTime(_item) {
@@ -76,15 +96,15 @@ export class ChatRoomPage {
     if (count != this.daysAgo) {
       
       newTime = moment(current).calendar(null, {
-        sameDay: '[Today] HH:MM',
-        lastDay: '[Yesterday] HH:MM',
-        lastWeek: 'ddd HH:MM',
-        sameElse: 'M/DD/YY HH:MM'
+        sameDay: '[Today] HH:mm',
+        lastDay: '[Yesterday] HH:mm',
+        lastWeek: 'ddd HH:mm',
+        sameElse: 'M/DD/YY HH:mm'
       });
       this.daysAgo = count;
     }
     else {
-      newTime = moment(current).format('HH:MM');
+      newTime = moment(current).format('HH:mm');
     }
     
     return newTime;

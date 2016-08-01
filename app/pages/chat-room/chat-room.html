@@ -28,8 +28,9 @@
       </div>
     </ion-item>
 
-    <div *ngFor="let item of items | async">
-      <ion-item *ngIf="showTime(item)" class="chat-room-item" style="text-align:center">
+    <div *ngFor="let item of items | async; trackBy:trackByKey">
+      <!-- *ngIf="showTime(item)" -->
+      <ion-item class="chat-room-item" style="text-align:center">
         <label class="chat-room-time-label">{{getTime(item)}}</label>
       </ion-item>
 
