@@ -12,6 +12,7 @@ declare let firebase: any;
 })
 export class ChatRoomPage {
   items: FirebaseListObservable<any[]>;
+  items2: FirebaseListObservable<any[]>;
   // histroy
   tempTime: number;
   today: number;
@@ -26,13 +27,13 @@ export class ChatRoomPage {
     this.newMessage = '';
 
     this.items = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ');
-    /*
-    this.items = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
+    
+    this.items2 = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
       query: {
         limitToLast: 10
       }
     });
-    */
+    
   }
 
 /*
@@ -123,7 +124,16 @@ export class ChatRoomPage {
     
   }
 
-  doRefresh(af: AngularFire) {
+  doRefresh(refresher) {
+    this.items2 = this.af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
+      query: {
+        limitToLast: 20
+      }
+    });
+
+    setTimeout(() => {
+      refresher.complete();
+    }, 500);
     /*
     console.log('Refreshing!'); 
     this.items = this.af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
@@ -149,5 +159,6 @@ export class ChatRoomPage {
     );
     */
   }
+
 
 }

@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content class="chat-room">
-  <ion-refresher (refresh)="doRefresh($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
@@ -28,7 +28,7 @@
       </div>
     </ion-item>
 
-    <div *ngFor="let item of items | async; trackBy:trackByKey">
+    <div *ngFor="let item of items2 | async; trackBy:trackByKey">
       <!-- *ngIf="showTime(item)" -->
       <ion-item class="chat-room-item" style="text-align:center">
         <label class="chat-room-time-label">{{getTime(item)}}</label>
