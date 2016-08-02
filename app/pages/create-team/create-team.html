@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create Team</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div id="newTeam-form1">
+    <label class="item item-input " id="newTeam-input2">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="" [(ngModel)]="teamName" maxlength="32">
+    </label>
+    <label>
+        <span class="input-label">Location</span>
+        <ion-select [(ngModel)]="Location">
+          <ion-option value="SG">Singapore</ion-option>
+        </ion-select>
+    </label>
+  </div>
+  <button id="newTeam-button7" (click)="doCreateTeam()" [disabled]="!teamName.trim().length" full>Create</button>
+</ion-content>
