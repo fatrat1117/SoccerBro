@@ -182,8 +182,19 @@ $break-plus:480px;
   text-align: right;
   font-size: 1.0rem;
   color: #666;
-
 }
+
+.chat-room-footer-input{
+  width:80%;
+}
+
+.chat-room-footer-send-btn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  max-width: 15%;
+}
+
 
 .bubble{
   background-color: white;
