@@ -64,6 +64,7 @@ export class AccountManager {
     this.af.auth.logout();
   }
 
+  //player
   getPlayerRef(id) {
     return "/players/" + id;
   }
@@ -71,8 +72,21 @@ export class AccountManager {
   getCurrentPlayerRef() {
     return this.getPlayerRef(this.currentUser.uid);
   }
-
+  //Team
   getTeamRef(id) {
     return "/teams/" + id;
+  }
+
+  createTeam(teamObj) {
+    const queryObservable = this.af.database.list('/teams', {
+      query: {
+        orderByChild: 'name',
+        equalTo: teamObj.name
+      }
+    });
+    
+    return queryObservable.subscribe(queriedItems => {
+      console.log(queriedItems);
+    });
   }
 }

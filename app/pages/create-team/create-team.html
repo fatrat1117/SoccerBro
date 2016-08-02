@@ -13,9 +13,10 @@
     <label>
         <span class="input-label">Location</span>
         <ion-select [(ngModel)]="Location">
-          <ion-option value="SG">Singapore</ion-option>
+          <ion-option value="SG" checked="true">Singapore</ion-option>
         </ion-select>
     </label>
   </div>
   <button id="newTeam-button7" (click)="doCreateTeam()" [disabled]="!teamName.trim().length" full>Create</button>
+  <button (click)="doCancel()" [disabled]="busy" full>Cancel</button>
 </ion-content>
