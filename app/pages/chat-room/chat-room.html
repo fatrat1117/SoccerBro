@@ -28,11 +28,13 @@
       </div>
     </ion-item>
 
-    <div *ngFor="let item of items2 | async; trackBy:trackByKey">
-      <!-- *ngIf="showTime(item)" -->
+    <div *ngFor="let item of items | async; trackBy:trackByKey">
+      <!-->
+      <*ngIf="showTime(item)">
       <ion-item class="chat-room-item" style="text-align:center">
         <label class="chat-room-time-label">{{getTime(item)}}</label>
       </ion-item>
+      <-->
 
       <ion-item class="chat-room-item">
         <div class="chat-room-avatar-div f-left">
@@ -58,7 +60,7 @@
 </ion-footer>
 -->
 
-<ion-footer style="background:white;">
+<ion-footer class="chat-room-footer">
   <ion-input class="chat-room-footer-input" type="text" [(ngModel)]="newMessage"></ion-input>
-  <button class="chat-room-footer-send-btn" (click)="sendMessage()">Send</button>
+  <button secondary class="chat-room-footer-send-btn" *ngIf="newMessage != ''" (click)="sendMessage()">Send</button>
 </ion-footer>
