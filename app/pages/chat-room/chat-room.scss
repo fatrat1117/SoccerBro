@@ -188,6 +188,17 @@ $break-plus:480px;
   width:80%;
 }
 
+.text-input{
+  margin: 6px 8px 6px 8px;
+  padding: 6px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.text-input:focus{
+  outline: none;
+  border-bottom: 1px solid #9de856;
+}
+
 .chat-room-footer-send-btn{
   position: absolute;
   right: 0;
