@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {MyTeamPage} from '../my-team/my-team';
+import {NavController, NavParams, Modal} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager'
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import {MyTeamPage} from '../my-team/my-team';
+import {CreateTeamPage} from '../create-team/create-team';
 
 @Component({
   templateUrl: 'build/pages/me/me.html'
@@ -33,5 +34,10 @@ export class MePage {
 
   onLogout() {
     this.am.logout();
+  }
+
+  showCreateTeamModel() {
+      let page = Modal.create(CreateTeamPage);
+      this.nav.present(page);
   }
 }

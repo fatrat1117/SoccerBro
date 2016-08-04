@@ -6,17 +6,18 @@
 
 <ion-content padding>
   <div id="newTeam-form1">
-    <label class="item item-input " id="newTeam-input2">
-        <span class="input-label">Name</span>
+    <label>
+        <span>Name</span>
         <input type="text" placeholder="" [(ngModel)]="teamName" maxlength="32">
     </label>
-    <label>
+    </div>
+    <!--<label>
         <span class="input-label">Location</span>
         <ion-select [(ngModel)]="Location">
           <ion-option value="SG" checked="true">Singapore</ion-option>
         </ion-select>
     </label>
-  </div>
+  
   <button id="newTeam-button7" (click)="doCreateTeam()" [disabled]="!teamName.trim().length" full>Create</button>
-  <button (click)="doCancel()" [disabled]="busy" full>Cancel</button>
+  <button (click)="doCancel()" [disabled]="busy" full>Cancel</button>-->
 </ion-content>

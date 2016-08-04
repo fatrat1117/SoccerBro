@@ -3,9 +3,9 @@ import {ViewController} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager'
 
 @Component({
-  templateUrl: 'build/pages/my-team/my-team.html'
+  templateUrl: 'build/pages/create-team/create-team.html'
 })
-export class MyTeamPage {
+export class CreateTeamPage {
   teamName : any;
   location : any;
   busy : boolean;
