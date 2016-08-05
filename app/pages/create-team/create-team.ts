@@ -12,6 +12,7 @@ export class CreateTeamPage {
   constructor(private viewCtrl: ViewController,
               private am: AccountManager) {
     this.busy = false;
+    this.location = 'SG';
   }
 
   dismiss() {
@@ -26,6 +27,7 @@ export class CreateTeamPage {
     let teamObj = {name : this.teamName.trim(),
       location: this.location};
       this.busy = true;
-      this.am.createTeam(teamObj);
+      console.log(teamObj);
+      //this.am.createTeam(teamObj);
   }
 }
