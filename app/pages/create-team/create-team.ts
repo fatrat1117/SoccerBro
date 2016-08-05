@@ -13,6 +13,7 @@ export class CreateTeamPage {
               private am: AccountManager) {
     this.busy = false;
     this.location = 'SG';
+    this.teamName = '';
   }
 
   dismiss() {

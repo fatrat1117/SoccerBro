@@ -16,7 +16,7 @@
         <ion-option value="SG">Singapore</ion-option>
       </ion-select>
     </ion-item>
-    <button (click)="doCreateTeam()" full>Create</button>
+    <button (click)="doCreateTeam()" [disabled]="!teamName.trim().length" full>Create</button>
     <button (click)="doCancel()" [disabled]="busy" full>Cancel</button>
   </ion-list>
 </ion-content>
