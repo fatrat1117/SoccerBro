@@ -78,6 +78,8 @@ export class AccountManager {
   }
 
   createTeam(teamObj) {
+    console.log("createTeam", teamObj);
+
     const queryObservable = this.af.database.list('/teams', {
       query: {
         orderByChild: 'name',
@@ -86,7 +88,13 @@ export class AccountManager {
     });
     
     return queryObservable.subscribe(queriedItems => {
-      console.log(queriedItems);
+      console.log("check team name" + queriedItems);
+      if (0 == queriedItems.length) {
+
+      } else
+        {
+          throw new Error("Team exists");
+        }
     });
   }
 }
