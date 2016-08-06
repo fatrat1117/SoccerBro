@@ -27,18 +27,21 @@ export class CreateTeamPage {
   doCreateTeam() {
     let teamObj = {
       name: this.teamName.trim(),
-      location: this.location
+      location: this.location,
+      isDefault: true
     };
+
     this.busy = true;
-    var success = function () {
-      console.log('create success callback');
-        this.dismiss();
+    let self = this;
+
+    let success = function () {
+      self.dismiss();
     }
 
-    var error = function (e) {
-      this.busy = false;
+    let error = function (e) {
+      self.busy = false;
       alert(e);
     }
-    this.am.createTeam(teamObj, true, success, error);
+    this.am.createTeam(teamObj, success, error);
   }
 }

@@ -15,7 +15,7 @@ declare let firebase: any;
 export class LoginPage {
 
     error: any
-    private cordovaOauth: CordovaOauth;
+    cordovaOauth: CordovaOauth;
 
     constructor(public af: AngularFire,
         public viewCtrl: ViewController

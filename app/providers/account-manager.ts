@@ -78,7 +78,7 @@ export class AccountManager {
     return "/teams/" + id;
   }
 
-  createTeam(teamObj, bDefault, success, error) {
+  createTeam(teamObj, success, error) {
     console.log("createTeam", teamObj);
     const queryObservable = this.af.database.list('/teams', {
       query: {
@@ -87,8 +87,10 @@ export class AccountManager {
       }
     });
 
-    queryObservable.subscribe(queriedItems => {
+    let subscription = queryObservable.subscribe(queriedItems => {
       console.log("check team name", queriedItems);
+      //stopping monitoring changes
+      subscription.unsubscribe();
       if (0 === queriedItems.length) {
         var teamData = {
           name: teamObj.name,
@@ -100,8 +102,8 @@ export class AccountManager {
 
         const promise = this.teams.push(teamData);
         promise
-          .then(data => {
-            console.log('create success', data);
+          .then(newTeam => {
+            console.log('create team success', newTeam);
             success();
         })
           .catch(err => error(err));
@@ -119,8 +121,8 @@ export class AccountManager {
         //           });
         //       }
         //   });
-        // } else {
-        //   error("Team exists");
+        } else {
+          error("Team exists");
       }
     });
   }
