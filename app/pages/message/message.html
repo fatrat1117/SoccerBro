@@ -30,9 +30,11 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'notifications'">
-      <ion-item>
-        <b>This is an unread message.</b>
-        <ion-note item-right>3:43 pm</ion-note>
+      <ion-item *ngFor="let item of items | async; trackBy:trackByKey;">
+        <div>
+          {{ (getContent(item.id) | async)?.content }}
+          <ion-note item-right>3:43 pm</ion-note>
+        </div>
       </ion-item>
       <ion-item>
         old message
@@ -43,5 +45,7 @@
         <ion-note item-right>2016-6-21</ion-note>
       </ion-item>
     </ion-list>
+    
   </div>
+  <button (click)="test()">test notification</button>
 </ion-content>

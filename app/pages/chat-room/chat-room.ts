@@ -1,12 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {Content} from 'ionic-angular';
 import {NavController} from 'ionic-angular';
-import {AngularFire, FirebaseListObservable, FirebaseDatabase} from 'angularfire2';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {CalendarPipe} from 'angular2-moment';
-import * as moment from 'moment';
-
 import { Subject } from 'rxjs/Subject';
 
+import * as moment from 'moment';
 
 declare let firebase: any;
 
@@ -18,6 +17,7 @@ export class ChatRoomPage {
   @ViewChild(Content) content: Content;
   // firebase
   items: FirebaseListObservable<any[]>;
+  saveItems: FirebaseListObservable<any[]>;
   sizeSubject: Subject<any>;
   currentSize: number;
   tempTime: number;
@@ -33,7 +33,7 @@ export class ChatRoomPage {
     this.daysAgo = -1;
     this.newMessage = '';
     this.sizeSubject = new Subject();
-    
+    this.saveItems = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ');
     this.items = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
       query: {
         limitToLast: this.sizeSubject
@@ -71,7 +71,6 @@ export class ChatRoomPage {
     var count = moment(this.today).diff(moment(current), 'days');
     
     if (count != this.daysAgo) {
-      
       newTime = moment(current).calendar(null, {
         sameDay: '[Today] HH:mm',
         lastDay: '[Yesterday] HH:mm',
@@ -88,14 +87,14 @@ export class ChatRoomPage {
   }
 
   sendMessage() {
-    this.items.push({
+    this.saveItems.push({
       content: this.newMessage,
       created_at: firebase.database.ServerValue.TIMESTAMP,
       created_by: 'Lei Zeng',
       creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
       creator_img: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c137.42.527.527/s50x50/564861_2507790311879_276618826_n.jpg?oh=00e78ee4def9be67f27037883729c6fb&oe=580B5051',
     });
-  
+    
     this.newMessage = '';
   }
 

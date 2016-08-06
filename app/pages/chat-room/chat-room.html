@@ -61,6 +61,6 @@
 -->
 
 <ion-footer class="chat-room-footer">
-  <ion-input class="chat-room-footer-input" type="text" [(ngModel)]="newMessage"></ion-input>
+  <ion-input type="text" [(ngModel)]="newMessage"></ion-input>
   <button secondary class="chat-room-footer-send-btn" *ngIf="newMessage != ''" (click)="sendMessage()">Send</button>
 </ion-footer>
