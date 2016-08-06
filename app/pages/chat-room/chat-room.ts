@@ -19,6 +19,7 @@ export class ChatRoomPage {
   // firebase
   items: FirebaseListObservable<any[]>;
   sizeSubject: Subject<any>;
+  currentSize: number;
   tempTime: number;
   today: number;
   daysAgo: number;
@@ -26,75 +27,42 @@ export class ChatRoomPage {
   newMessage: string;
 
   constructor(private navCtrl: NavController, private af: AngularFire) {
+    this.currentSize = 10;
     this.tempTime = 0;
     this.today = moment().unix() * 1000;
     this.daysAgo = -1;
     this.newMessage = '';
     this.sizeSubject = new Subject();
+    
     this.items = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
       query: {
         limitToLast: this.sizeSubject
       }
     });
-
-
+    
     this.items.subscribe(() => {
       this.content.scrollToBottom();
     });
     
   }
 
-/*
-  ngOnInit() {
-    console.log("init");
-    
-    var msgs = this.af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
-      preserveSnapshot: true,
-      query: {
-        limitToLast: 20
-      }
-    });
-
-    var self = this;
-    msgs.subscribe(snapshots => {
-      console.log(self.items.length);
-      snapshots.forEach(snapshot => {
-        self.items.push(snapshot);
-      }
-      
-      );
-      console.log(self.items.length);
-    })
-
-
+  ionViewWillEnter() {
+    this.sizeSubject.next(this.currentSize);
   }
-*/
+
+  ionViewDidEnter() {
+    this.content.scrollToBottom();
+  }
 
   trackByKey(_item) {
     return _item.key
   }
 
   showTime(_item) {
-    /*
-    console.log(index);
-    console.log(this.items.count);
-    if (index == 0) {
-      return true;
-    }
-    else {
-      
-      console.log(this.items[index]);
-      console.log(this.items[index-1]);
-      var diff = this.items[index].created_at - this.items[index - 1].created_at;
-      return diff > 300000;
-    }
-*/
-    //console.log(this.items);
     var current = _item.created_at;
     var isShow = current - this.tempTime > 300000; // 5 mins
     this.tempTime = current;
     return isShow;
-
   }
 
   getTime(_item) {
@@ -120,8 +88,6 @@ export class ChatRoomPage {
   }
 
   sendMessage() {
-    this.sizeSubject.next(10); 
-    /*
     this.items.push({
       content: this.newMessage,
       created_at: firebase.database.ServerValue.TIMESTAMP,
@@ -129,45 +95,17 @@ export class ChatRoomPage {
       creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
       creator_img: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c137.42.527.527/s50x50/564861_2507790311879_276618826_n.jpg?oh=00e78ee4def9be67f27037883729c6fb&oe=580B5051',
     });
-  */
+  
     this.newMessage = '';
   }
 
   doRefresh(refresher) {
-    this.items = this.af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
-      query: {
-        limitToLast: 20
-      }
-    });
+    this.currentSize +=10;
+    this.sizeSubject.next(this.currentSize); 
 
     setTimeout(() => {
+      this.content.scrollToTop();
       refresher.complete();
     }, 500);
-    /*
-    console.log('Refreshing!'); 
-    this.items = this.af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
-      query: {
-        limitToLast: 20
-      }
-    });
-    */
-    /*
-    var newItems = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
-      preserveSnapshot: true, 
-      query: {
-        limitToLast: 40
-      }
-    });
-
-    newItems.subscribe(
-      snapshots => {
-        snapshots.forEach(snapshot => {
-          console.log(snapshot.key)
-          console.log(snapshot.val())
-        });
-    );
-    */
   }
-
-
 }
