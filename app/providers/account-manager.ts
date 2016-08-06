@@ -82,6 +82,10 @@ export class AccountManager {
     return "/teams/" + id;
   }
 
+  getPlayersOfTeamRef(pId, tId) {
+    return "/playersOfTeam/" + tId + '/' + pId;
+  }
+
   createTeam(teamObj, success, error) {
     console.log("createTeam", teamObj);
     const queryObservable = this.af.database.list('/teams', {
@@ -109,30 +113,22 @@ export class AccountManager {
           .then(newTeam => {
             let newTeamId = newTeam["key"];
             console.log('create team success', newTeamId);
+            //update teams list of player
             let teamsOfPlayer = this.af.database.object(this.getTeamsOfPlayerRef(this.currentUser.uid, newTeamId));
             const promiseTP = teamsOfPlayer.set(true);
             promiseTP.then(_ => {
-              // if (teamObj.isDefault) {
-              //   let player = this.af.database.object(this.getCurrentPlayerRef());
-              //   player.update({ currentTeamId: newTeam['key'] });
-              // }
+              //update players list of team
+              let playersOfTeam = this.af.database.object(this.getPlayersOfTeamRef(this.currentUser.uid, newTeamId));
+              const promisePT = playersOfTeam.set(true);
+              promisePT.then(_ => {
+                if (teamObj.isDefault) {
+                  let player = this.af.database.object(this.getCurrentPlayerRef());
+                  player.update({ currentTeamId: newTeamId });
+                }
+              }).catch(err => error(err));
               success();
             }).catch(err => error(err));
           }).catch(err => error(err));
-
-        //   teamData.players[authData.uid] = true;
-        //   return list.$add(teamData).then(function (teamData) {
-        //       //update player
-        //       var teamId = teamData.key;
-        //       if (bDefault) {
-        //           service.playerObj.currentTeamId = teamId;
-        //           return service.playerObj.$save().then(function () {
-        //               var playerTeamsObj = $firebaseObject(firebase.database().ref("players/" + authData.uid + "/teams/" + teamId));
-        //               playerTeamsObj.$value = true;
-        //               return playerTeamsObj.$save();
-        //           });
-        //       }
-        //   });
       } else {
         error("Team exists");
       }
