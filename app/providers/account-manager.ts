@@ -31,10 +31,10 @@ export class AccountManager {
 
   getFbUser() {
     //console.log(firebase.auth());
-    var currentUser = firebase.auth().currentUser;
+    let currentUser = firebase.auth().currentUser;
     console.log(currentUser);
     if (currentUser) {
-      var user = {
+      let user = {
         uid: currentUser.uid,
         type: 'facebook'
       }
@@ -54,7 +54,7 @@ export class AccountManager {
   }
 
   checkLogin(nav) {
-    var user = this.currentUser;
+    let user = this.currentUser;
     console.log(user);
     if (!user) {
       this.displayLoginModal(nav);
@@ -72,6 +72,10 @@ export class AccountManager {
 
   getCurrentPlayerRef() {
     return this.getPlayerRef(this.currentUser.uid);
+  }
+
+  getTeamsOfPlayerRef(pId, tId) {
+    return "/teamsOfPlayer/" + pId + '/' + tId;
   }
   //Team
   getTeamRef(id) {
@@ -92,7 +96,7 @@ export class AccountManager {
       //stopping monitoring changes
       subscription.unsubscribe();
       if (0 === queriedItems.length) {
-        var teamData = {
+        let teamData = {
           name: teamObj.name,
           location: teamObj.location,
           founder: this.currentUser.uid,
@@ -103,10 +107,18 @@ export class AccountManager {
         const promise = this.teams.push(teamData);
         promise
           .then(newTeam => {
-            console.log('create team success', newTeam);
-            success();
-        })
-          .catch(err => error(err));
+            let newTeamId = newTeam["key"];
+            console.log('create team success', newTeamId);
+            let teamsOfPlayer = this.af.database.object(this.getTeamsOfPlayerRef(this.currentUser.uid, newTeamId));
+            const promiseTP = teamsOfPlayer.set(true);
+            promiseTP.then(_ => {
+              // if (teamObj.isDefault) {
+              //   let player = this.af.database.object(this.getCurrentPlayerRef());
+              //   player.update({ currentTeamId: newTeam['key'] });
+              // }
+              success();
+            }).catch(err => error(err));
+          }).catch(err => error(err));
 
         //   teamData.players[authData.uid] = true;
         //   return list.$add(teamData).then(function (teamData) {
@@ -121,8 +133,8 @@ export class AccountManager {
         //           });
         //       }
         //   });
-        } else {
-          error("Team exists");
+      } else {
+        error("Team exists");
       }
     });
   }

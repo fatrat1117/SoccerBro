@@ -13,11 +13,7 @@ export class MePage {
   defaultTeam: FirebaseObjectObservable<any>;
 
   constructor(private nav: NavController, private am: AccountManager, private af: AngularFire) {
-    var self = this;
-    let user = this.am.getUser();
-    let pRef = this.am.getCurrentPlayerRef();
-    console.log(pRef);
-
+    let self = this;
     this.player = this.af.database.object(this.am.getCurrentPlayerRef());
     let playerSnapshot = this.af.database.object(this.am.getCurrentPlayerRef(), { preserveSnapshot: true });
     playerSnapshot.subscribe(snapshot => {
