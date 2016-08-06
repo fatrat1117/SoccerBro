@@ -30,12 +30,15 @@ export class CreateTeamPage {
       location: this.location
     };
     this.busy = true;
-    try {
-      this.am.createTeam(teamObj);
+    var success = function () {
+      console.log('create success callback');
+        this.dismiss();
     }
-    catch (e) {
+
+    var error = function (e) {
       this.busy = false;
       alert(e);
     }
+    this.am.createTeam(teamObj, true, success, error);
   }
 }

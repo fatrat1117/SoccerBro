@@ -3,7 +3,7 @@ import { Injectable} from '@angular/core';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
-  AuthMethods
+  AuthMethods, FirebaseListObservable
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login'
 
@@ -11,7 +11,8 @@ declare let firebase: any;
 
 @Injectable()
 export class AccountManager {
-  private currentUser: any;
+  currentUser: any;
+  teams: FirebaseListObservable<any>;
 
   constructor(public af: AngularFire) {
     let self = this;
@@ -25,7 +26,7 @@ export class AccountManager {
       }
     });
 
-    //this.currentUser = this.getUser();
+    this.teams = this.af.database.list('/teams');
   }
 
   getFbUser() {
@@ -77,24 +78,50 @@ export class AccountManager {
     return "/teams/" + id;
   }
 
-  createTeam(teamObj) {
+  createTeam(teamObj, bDefault, success, error) {
     console.log("createTeam", teamObj);
-
     const queryObservable = this.af.database.list('/teams', {
       query: {
         orderByChild: 'name',
         equalTo: teamObj.name
       }
     });
-    
-    return queryObservable.subscribe(queriedItems => {
-      console.log("check team name" + queriedItems);
-      if (0 == queriedItems.length) {
 
-      } else
-        {
-          throw new Error("Team exists");
-        }
+    queryObservable.subscribe(queriedItems => {
+      console.log("check team name", queriedItems);
+      if (0 === queriedItems.length) {
+        var teamData = {
+          name: teamObj.name,
+          location: teamObj.location,
+          founder: this.currentUser.uid,
+          captain: this.currentUser.uid,
+          logo: 'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/teamDefault.png?alt=media&token=6d669a7b-8a91-4d1e-9bc9-6be456a7505c'
+        };
+
+        const promise = this.teams.push(teamData);
+        promise
+          .then(data => {
+            console.log('create success', data);
+            success();
+        })
+          .catch(err => error(err));
+
+        //   teamData.players[authData.uid] = true;
+        //   return list.$add(teamData).then(function (teamData) {
+        //       //update player
+        //       var teamId = teamData.key;
+        //       if (bDefault) {
+        //           service.playerObj.currentTeamId = teamId;
+        //           return service.playerObj.$save().then(function () {
+        //               var playerTeamsObj = $firebaseObject(firebase.database().ref("players/" + authData.uid + "/teams/" + teamId));
+        //               playerTeamsObj.$value = true;
+        //               return playerTeamsObj.$save();
+        //           });
+        //       }
+        //   });
+        // } else {
+        //   error("Team exists");
+      }
     });
   }
 }
