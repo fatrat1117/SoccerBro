@@ -125,8 +125,8 @@ export class AccountManager {
                   let player = this.af.database.object(this.getCurrentPlayerRef());
                   player.update({ currentTeamId: newTeamId });
                 }
+                success();
               }).catch(err => error(err));
-              success();
             }).catch(err => error(err));
           }).catch(err => error(err));
       } else {
