@@ -44,6 +44,6 @@ export class TabsPage implements OnInit {
   checkLogin() {
     console.log("checkLogin");
     this.am.checkLogin(this.nav);
-    console.log("checkLogin finish");
+    //console.log("checkLogin finish");
   }
 }
