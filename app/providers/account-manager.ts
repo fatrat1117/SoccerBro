@@ -74,6 +74,10 @@ export class AccountManager {
     return this.getPlayerRef(this.currentUser.uid);
   }
 
+getAllTeamsOfPlayerRef(pId) {
+    return "/teamsOfPlayer/" + pId;
+  }
+
   getTeamsOfPlayerRef(pId, tId) {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
