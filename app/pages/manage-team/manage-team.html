@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Manage Team</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let team of teams">
+      <ion-thumbnail item-left>
+        <img [src]="team.logo">
+      </ion-thumbnail>
+      <h2>{{team.name}}</h2>
+      <button clear item-right>quit</button>
+      <button clear item-right>default</button>
+    </ion-item>
+    <!--<ion-item>
+      <ion-label primary>Name</ion-label>
+      <ion-input type="text" placeholder="" [(ngModel)]="teamName" maxlength="32"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-select [(ngModel)]="location">
+        <ion-option value="SG">Singapore</ion-option>
+      </ion-select>
+    </ion-item>
+    <button (click)="doCreateTeam()" [disabled]="!teamName.trim().length || busy" full>Create</button>
+    -->
+  </ion-list>
+  <button (click)="migrateOldData()" full>Migrate</button>
+</ion-content>

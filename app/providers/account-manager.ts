@@ -134,4 +134,11 @@ export class AccountManager {
       }
     });
   }
+
+  switchTeam(tId, success, error) {
+      let player = this.af.database.object(this.getCurrentPlayerRef());
+      player.update({currentTeamId: tId})
+      .then(_ => success())
+      .catch(err => error(err));;
+  }
 }
