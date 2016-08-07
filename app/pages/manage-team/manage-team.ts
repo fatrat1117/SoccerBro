@@ -16,10 +16,23 @@ export class ManageTeamPage {
   }
 
   migrateOldData() {
-    let players = this.af.database.object('/players');
+    let players = this.af.database.list('/players');
     players.subscribe(ps => {
-      ps.foreach(p => {
-        console.log(p);
+      ps.forEach(p => {
+        for (let tId in p.teams) {
+          let teamsOfPlayer = this.af.database.object(this.am.getTeamsOfPlayerRef(p.$key, tId));
+          teamsOfPlayer.set(true);
+        }
+      })
+    })
+
+    let teams = this.af.database.list('/teams');
+    teams.subscribe(ts => {
+      ts.forEach(t => {
+        for (let pId in t.players) {
+          let playersOfTeam = this.af.database.object(this.am.getPlayersOfTeamRef(pId, t.$key));
+          playersOfTeam.set(true);
+        }
       })
     })
   }

@@ -111,8 +111,8 @@ export class AccountManager {
         const promise = this.teams.push(teamData);
         promise
           .then(newTeam => {
+            console.log('create team success', newTeam);
             let newTeamId = newTeam["key"];
-            console.log('create team success', newTeamId);
             //update teams list of player
             let teamsOfPlayer = this.af.database.object(this.getTeamsOfPlayerRef(this.currentUser.uid, newTeamId));
             const promiseTP = teamsOfPlayer.set(true);
