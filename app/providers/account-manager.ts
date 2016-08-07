@@ -74,6 +74,10 @@ export class AccountManager {
     return this.getPlayerRef(this.currentUser.uid);
   }
 
+getAllTeamsOfPlayerRef(pId) {
+    return "/teamsOfPlayer/" + pId;
+  }
+
   getTeamsOfPlayerRef(pId, tId) {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
@@ -111,8 +115,8 @@ export class AccountManager {
         const promise = this.teams.push(teamData);
         promise
           .then(newTeam => {
+            console.log('create team success', newTeam);
             let newTeamId = newTeam["key"];
-            console.log('create team success', newTeamId);
             //update teams list of player
             let teamsOfPlayer = this.af.database.object(this.getTeamsOfPlayerRef(this.currentUser.uid, newTeamId));
             const promiseTP = teamsOfPlayer.set(true);
@@ -133,5 +137,12 @@ export class AccountManager {
         error("Team exists");
       }
     });
+  }
+
+  switchTeam(tId, success, error) {
+      let player = this.af.database.object(this.getCurrentPlayerRef());
+      player.update({currentTeamId: tId})
+      .then(_ => success())
+      .catch(err => error(err));;
   }
 }
