@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="login-content" padding>
     <h1>User Login</h1>
     <form>
         <!--<ion-item>
@@ -21,9 +21,9 @@
             <button block (click)="login(loginCreds.value, $event)">Login</button>
             <button block (click)="registerUser(loginCreds.value, $event)">Create Account</button>
          </div>        -->
-        <div padding>
-            <button block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
-            <button block (click)="registerUserWithWechat($event)">Connect with Wechat</button>
+        <div class="login-connect"padding>
+            <button class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
+            <button class="login-connect-btn login-connect-btn-wc" block (click)="registerUserWithWechat($event)">Connect with Wechat</button>
         </div>
         <div padding>
             <p *ngIf="error" class="error">Error:&nbsp;{{ error.code }}</p>
