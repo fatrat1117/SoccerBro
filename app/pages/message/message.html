@@ -30,18 +30,20 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'notifications'">
-      <!--ion-item *ngFor="let item of items | async; trackBy:trackByKey;"-->
-      <ion-item *ngFor="let n of notifications">
-        <b>{{n.content}}</b>
-        <ion-note item-right>3:43 pm</ion-note>
-      </ion-item>
-      <ion-item>
-        old message
-        <ion-note item-right>Yesterday</ion-note>
-      </ion-item>
-      <ion-item>
-        old message
-        <ion-note item-right>2016-6-21</ion-note>
+      <ion-list-header>
+        Upcoming Matches
+      </ion-list-header>
+      <ion-item *ngFor="let m of matchItems | async;" (click)="showNotification(m.$key)">
+        <ion-avatar item-left>
+          <img src="img/test_team.jpg">
+        </ion-avatar>
+        <h2>{{m.opponent_id}}</h2>
+        <p>{{m.location}}</p>
+        <ion-note item-right>{{getTime(m.time)}}</ion-note>
+        <!-->
+        <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">{{n.title}}</div>
+        <ion-note item-right>{{getTime(n.timestamp)}}</ion-note>
+        <-->
       </ion-item>
     </ion-list>
     

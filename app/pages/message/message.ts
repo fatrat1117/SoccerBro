@@ -1,92 +1,88 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {ChatRoomPage} from '../chat-room/chat-room';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
-
-import { Observable } from 'rxjs/Observable';
-
+import {CalendarPipe} from 'angular2-moment';
+import * as moment from 'moment';
 declare let firebase: any;
+
+import {ChatRoomPage} from '../chat-room/chat-room';
+import {NotificationPage} from '../notification/notification';
+
 @Component({
   templateUrl: 'build/pages/message/message.html'
 })
 export class MessagePage {
   message: string;
-  notifications = [];
+  //matches = [];
   // firebase
-  items: FirebaseListObservable<any[]>;
+  matchItems: FirebaseListObservable<any[]>;
   
   constructor(private navCtrl: NavController, private af: AngularFire) {
     this.message = "chats";
 
     // firebase
+    this.matchItems = af.database.list('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
+      query: { orderByChild: 'time'}
+    });
 
-    this.items = af.database.list('/notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2');
-    this.items.subscribe(snapshots => {
+    /*
+    this.matchItems.subscribe(snapshots => {
+      this.matches = [];
       snapshots.forEach(snapshot => {
-        var n = af.database.object(`/notification-contents/${snapshot.id}`).subscribe(
+        var n = af.database.object(`/notification-details/${snapshot.$key}`).subscribe(
           s => {
-            this.notifications.push(s)
+            s.isRead = snapshot.isRead;
+            this.matches.push(s);
         })
-        //this.notifications.push(af.database.object(`/notification-contents/${snapshot.id}`));
-        //console.log(this.notifications[0]);      
       });
     })
-  }
-
-  getNotification() {
-
+    */
   }
 
   enterChatRoom(){
     this.navCtrl.push(ChatRoomPage);
   }
 
+  showNotification(_key){
+    this.navCtrl.push(NotificationPage, {
+      match_id: _key
+    });
+  }
+
   trackByKey(_item) {
       return _item.key
   }
 
-  getTitle(_id) {
-    return this.af.database.object('/notification-contents/' + _id)
+  getTime(_timestamp) {
+    return moment(_timestamp).calendar(null, {
+      sameDay: '[Today] HH:mm',
+      nextDay: '[Tomorrow] HH:mm',
+      nextWeek: 'ddd HH:mm',
+      sameElse: 'MM/DD HH:mm'
+    });
   }
+
 
   test() {
-    this.af.database.list('/notification-contents/').push({
+    let _time = 1471244400000;
+    let _location = "Yio Chu Kang";
+    let _opponent_id = '-KLAat2qWsWJVuzVmXlP';
+    this.af.database.list('/matches').push({
       timestamp: firebase.database.ServerValue.TIMESTAMP,
-      title: "new notification",
-      content: 'this is a test notification',
+      time: _time,
+      location: _location,
+      team_id: '-KLBMI-QFYiaW5nSqOjR',
+      opponent_id: _opponent_id,
       creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      team_id: '-KL1QXqFWsC1Jbb-HXsJ'
+      content: 'this is a test notification'  
+    }).then(item => {
+      
+      this.af.database.object('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2/' + item["key"]).set({
+        isRead: false,
+        time: _time,
+        location: _location,
+        opponent_id: _opponent_id
+      });
     });
-
-    /*
-    var uid = this.uuid();
-    this.af.database.object('/notification-contents/' + uid).set({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      content: 'this is a test notification',
-      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      team_id: '-KL1QXqFWsC1Jbb-HXsJ'
-    });
-
-    this.items.push({
-      id: uid,
-      isRead: false,
-     });
-     */
   }
-
-  uuid() {
-    var i, random;
-    var result = '';
-
-    for (i = 0; i < 32; i++) {
-        random = Math.random() * 16 | 0;
-        if (i === 8 || i === 12 || i === 16 || i === 20) {
-            result += '-';
-        }
-        result += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
-            .toString(16);
-    }
-
-    return result;
-  };
 }
