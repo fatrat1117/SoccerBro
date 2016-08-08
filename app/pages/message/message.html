@@ -7,7 +7,7 @@
       </ion-segment-button>
       <ion-segment-button value="notifications">
         Notifications
-        <ion-badge danger>1</ion-badge>
+        <ion-badge danger *ngIf="unReadCount > 0">{{unReadCount}}</ion-badge>
       </ion-segment-button>
     </ion-segment>
   </ion-navbar>
@@ -30,18 +30,23 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'notifications'">
-      <!--ion-item *ngFor="let item of items | async; trackBy:trackByKey;"-->
-      <ion-item *ngFor="let n of notifications">
-        <b>{{n.content}}</b>
-        <ion-note item-right>3:43 pm</ion-note>
-      </ion-item>
-      <ion-item>
-        old message
-        <ion-note item-right>Yesterday</ion-note>
-      </ion-item>
-      <ion-item>
-        old message
-        <ion-note item-right>2016-6-21</ion-note>
+      <ion-list-header>
+        Upcoming Matches
+      </ion-list-header>
+      <ion-item *ngFor="let m of matches" (click)="showNotification(m.$key)">
+        <ion-avatar item-left>
+          <img src="{{m.opponent_logo}}">
+        </ion-avatar>
+        <h2>
+          {{m.opponent_name}}
+          <ion-badge *ngIf="!m.isRead">new</ion-badge>
+        </h2>
+        <p>{{m.location}}</p>
+        <ion-note item-right>{{getTime(m.time)}}</ion-note>
+        <!-->
+        <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">{{n.title}}</div>
+        <ion-note item-right>{{getTime(n.timestamp)}}</ion-note>
+        <-->
       </ion-item>
     </ion-list>
     
