@@ -13,30 +13,36 @@ import {NotificationPage} from '../notification/notification';
 })
 export class MessagePage {
   message: string;
-  //matches = [];
+  matches: any[];
+  unReadCount: number;
   // firebase
   matchItems: FirebaseListObservable<any[]>;
   
   constructor(private navCtrl: NavController, private af: AngularFire) {
     this.message = "chats";
+    this.matches = [];
+    this.unReadCount = 0;
 
     // firebase
     this.matchItems = af.database.list('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
       query: { orderByChild: 'time'}
     });
 
-    /*
     this.matchItems.subscribe(snapshots => {
       this.matches = [];
+      this.unReadCount = 0;
       snapshots.forEach(snapshot => {
-        var n = af.database.object(`/notification-details/${snapshot.$key}`).subscribe(
-          s => {
-            s.isRead = snapshot.isRead;
-            this.matches.push(s);
+        af.database.object(`/teams/${snapshot.opponent_id}`).subscribe(
+          t => {
+            snapshot.opponent_name = t.name;
+            snapshot.opponent_logo = t.logo;
+            this.matches.push(snapshot);
+            if (!snapshot.isRead)
+              this.unReadCount++;
         })
       });
     })
-    */
+    
   }
 
   enterChatRoom(){

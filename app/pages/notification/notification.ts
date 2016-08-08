@@ -9,7 +9,10 @@ import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'ang
 export class NotificationPage {
   constructor(private navCtrl: NavController, private navParams: NavParams, private af: AngularFire) {
     let id = navParams.get("match_id");
-    console.log(id);
+    af.database.object('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2/' + id).update({
+      isRead: true
+    });
+    
     
     // af.database.object('/notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2/' + id).set({
     //   isRead: true

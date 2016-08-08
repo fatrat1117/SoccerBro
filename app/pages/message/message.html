@@ -7,7 +7,7 @@
       </ion-segment-button>
       <ion-segment-button value="notifications">
         Notifications
-        <ion-badge danger>1</ion-badge>
+        <ion-badge danger *ngIf="unReadCount > 0">{{unReadCount}}</ion-badge>
       </ion-segment-button>
     </ion-segment>
   </ion-navbar>
@@ -33,11 +33,14 @@
       <ion-list-header>
         Upcoming Matches
       </ion-list-header>
-      <ion-item *ngFor="let m of matchItems | async;" (click)="showNotification(m.$key)">
+      <ion-item *ngFor="let m of matches" (click)="showNotification(m.$key)">
         <ion-avatar item-left>
-          <img src="img/test_team.jpg">
+          <img src="{{m.opponent_logo}}">
         </ion-avatar>
-        <h2>{{m.opponent_id}}</h2>
+        <h2>
+          {{m.opponent_name}}
+          <ion-badge *ngIf="!m.isRead">new</ion-badge>
+        </h2>
         <p>{{m.location}}</p>
         <ion-note item-right>{{getTime(m.time)}}</ion-note>
         <!-->
