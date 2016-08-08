@@ -189,13 +189,31 @@ $break-plus:480px;
 
 }
 
-.text-input{
+.chat-room-footer ion-input{
+
+  @media screen and (min-width: $break-plus){
+    max-width: 85%;
+  }
+  @media screen and (min-width: $break-medium) and (max-width: $break-plus){
+    max-width: 83%;
+  }
+  @media screen and (min-width: $break-small) and (max-width: $break-medium){
+    max-width: 82%;
+  }
+  @media screen and (min-width: $break-verysmall) and (max-width: $break-small){
+    max-width: 80%;
+  }
+  @media screen and (min-width: 0px) and (max-width: $break-verysmall){
+    max-width: 80%;
+  }
+}
+.chat-room-footer ion-input >.text-input{
   margin: 6px 8px 6px 8px;
   padding: 6px;
   border-bottom: 1px solid #cccccc;
 }
 
-.text-input:focus{
+.chat-room-footer .text-input:focus{
   outline: none;
   border-bottom: 1px solid #9de856;
 }
