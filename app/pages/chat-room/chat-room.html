@@ -60,10 +60,25 @@
 </ion-footer>
 -->
 
+<!-->
 <ion-footer class="chat-room-footer">
   <div id="chat-room-footer-input-area">
   <ion-input type="text" [(ngModel)]="newMessage" id="chat-room-footer-ionic-input"></ion-input>
   <button secondary class="chat-room-footer-send-btn" *ngIf="newMessage != ''" (click)="sendMessage()">Send</button>
   </div>
 </ion-footer>
+<-->
 
+<ion-footer class="chat-room-footer">
+  <ion-toolbar white>
+    <ion-input type="text" [(ngModel)]="newMessage" style="background:white;"></ion-input>
+    <ion-buttons right>
+      <button class="chat-room-footer-button" [hidden]="newMessage == ''" (click)="sendMessage()">
+        Send
+      </button>
+      <!--button primary [hidden]="newMessage == ''">
+        <ion-icon name="md-send"></ion-icon>
+      </button-->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
