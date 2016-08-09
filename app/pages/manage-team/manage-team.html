@@ -6,14 +6,15 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let team of teams">
-      <ion-thumbnail item-left>
-        <img [src]="team.logo">
-      </ion-thumbnail>
-      <h2>{{team.name}}</h2>
-      <button clear item-right>quit</button>
-      <button clear item-right>default</button>
-    </ion-item>
+    <ion-item-sliding *ngFor="let team of teams | async | teamFb">
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img [src]="(team | async)?.logo ">
+        </ion-thumbnail>
+        <h2>{{ (team | async)?.name }}</h2>
+        <button clear item-right>default</button>
+      </ion-item>
+    </ion-item-sliding>
     <!--<ion-item>
       <ion-label primary>Name</ion-label>
       <ion-input type="text" placeholder="" [(ngModel)]="teamName" maxlength="32"></ion-input>
