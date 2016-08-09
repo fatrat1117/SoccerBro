@@ -8,25 +8,27 @@
   <ion-list>
     <ion-item-sliding *ngFor="let team of teams | async | teamFb">
       <ion-item>
-        <ion-thumbnail item-left>
+        <ion-avatar item-left>
           <img [src]="(team | async)?.logo ">
-        </ion-thumbnail>
+        </ion-avatar>
         <h2>{{ (team | async)?.name }}</h2>
-        <button clear item-right>default</button>
       </ion-item>
+      <ion-item-options side="left">
+        <button primary>
+        <ion-icon name="text"></ion-icon>
+        Text
+      </button>
+      <button secondary>
+        <ion-icon name="call"></ion-icon>
+        Call
+      </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+      <button primary>
+        <ion-icon name="mail"></ion-icon>
+        Email
+      </button>
+    </ion-item-options>
     </ion-item-sliding>
-    <!--<ion-item>
-      <ion-label primary>Name</ion-label>
-      <ion-input type="text" placeholder="" [(ngModel)]="teamName" maxlength="32"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Location</ion-label>
-      <ion-select [(ngModel)]="location">
-        <ion-option value="SG">Singapore</ion-option>
-      </ion-select>
-    </ion-item>
-    <button (click)="doCreateTeam()" [disabled]="!teamName.trim().length || busy" full>Create</button>
-    -->
   </ion-list>
-  <!--<button (click)="migrateOldData()" full>Migrate</button>-->
 </ion-content>
