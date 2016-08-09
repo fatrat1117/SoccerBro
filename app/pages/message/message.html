@@ -41,7 +41,7 @@
           {{m.opponent_name}}
           <ion-badge *ngIf="!m.isRead">new</ion-badge>
         </h2>
-        <p>{{m.location}}</p>
+        <p><ion-icon name="ios-pin-outline" class="pin-icon"></ion-icon>{{m.location}}</p>
         <ion-note item-right>{{getTime(m.time)}}</ion-note>
         <!-->
         <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">{{n.title}}</div>

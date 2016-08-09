@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
-import {CalendarPipe} from 'angular2-moment';
 import * as moment from 'moment';
 declare let firebase: any;
 
@@ -9,7 +8,7 @@ import {ChatRoomPage} from '../chat-room/chat-room';
 import {NotificationPage} from '../notification/notification';
 
 @Component({
-  templateUrl: 'build/pages/message/message.html'
+  templateUrl: 'build/pages/message/message.html',
 })
 export class MessagePage {
   message: string;
@@ -42,7 +41,6 @@ export class MessagePage {
         })
       });
     })
-    
   }
 
   enterChatRoom(){

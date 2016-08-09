@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {Content} from 'ionic-angular';
 import {NavController} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {CalendarPipe} from 'angular2-moment';
+//import {CalendarPipe} from 'angular2-moment';
 import { Subject } from 'rxjs/Subject';
 
 import * as moment from 'moment';
@@ -11,7 +11,7 @@ declare let firebase: any;
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [CalendarPipe],
+  //pipes: [CalendarPipe],
 })
 export class ChatRoomPage {
   @ViewChild(Content) content: Content;
