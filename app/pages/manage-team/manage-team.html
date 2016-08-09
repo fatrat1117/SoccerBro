@@ -12,23 +12,13 @@
           <img [src]="(team | async)?.logo ">
         </ion-avatar>
         <h2>{{ (team | async)?.name }}</h2>
+        <button clear item-right>default</button>
       </ion-item>
-      <ion-item-options side="left">
+      <ion-item-options side="right">
         <button primary>
-        <ion-icon name="text"></ion-icon>
-        Text
-      </button>
-      <button secondary>
-        <ion-icon name="call"></ion-icon>
-        Call
+        <ion-icon name="trash"></ion-icon>
       </button>
       </ion-item-options>
-      <ion-item-options side="right">
-      <button primary>
-        <ion-icon name="mail"></ion-icon>
-        Email
-      </button>
-    </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
