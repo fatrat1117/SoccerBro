@@ -66,6 +66,10 @@ export class AccountManager {
   }
 
   //player
+  afGetCurrentPlayer() {
+    return this.af.database.object(this.getCurrentPlayerRef());
+  }
+
   getPlayerRef(id) {
     return "/players/" + id;
   }
@@ -74,7 +78,7 @@ export class AccountManager {
     return this.getPlayerRef(this.currentUser.uid);
   }
 
-getAllTeamsOfPlayerRef(pId) {
+  getAllTeamsOfPlayerRef(pId) {
     return "/teamsOfPlayer/" + pId;
   }
 
@@ -140,8 +144,8 @@ getAllTeamsOfPlayerRef(pId) {
   }
 
   switchTeam(tId, success, error) {
-      let player = this.af.database.object(this.getCurrentPlayerRef());
-      player.update({currentTeamId: tId})
+    let player = this.afGetCurrentPlayer();
+    player.update({ currentTeamId: tId })
       .then(_ => success())
       .catch(err => error(err));;
   }

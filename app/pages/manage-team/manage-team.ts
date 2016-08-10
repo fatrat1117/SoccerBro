@@ -37,6 +37,11 @@ export class ManageTeamPage {
     return this.am.getTeamRef(tId);
     //console.log("team id", tId);
   }
+
+  onMakeDefault (tId) {
+
+  }
+  
   migrateOldData() {
     let players = this.af.database.list('/players');
     players.subscribe(ps => {

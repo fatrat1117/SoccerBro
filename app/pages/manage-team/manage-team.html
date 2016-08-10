@@ -12,7 +12,7 @@
           <img [src]="(team | async)?.logo ">
         </ion-avatar>
         <h2>{{ (team | async)?.name }}</h2>
-        <button clear item-right>default</button>
+        <button [disabled] = "!team" (click) = "onMakeDefault(team.$key)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
         <button primary>
