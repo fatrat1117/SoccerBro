@@ -8,32 +8,46 @@
   <ion-card>
     <ion-row>
       <!-- my team -->
-      <ion-col style="background:red;">
-        <ion-item>
-          <p style="background:red;">Ever Pioneer01234567</p>
-          <ion-thumbnail item-right>
-            <img src="img/test_team.jpg" >
+      <ion-col center>
+       <ion-item>
+          <ion-thumbnail>
+            <img class="team-logo-img" src="img/test_team.jpg">   
           </ion-thumbnail>
-        </ion-item>
+          <p text-center>Ever Pioneer</p>
+       </ion-item>
       </ion-col>
       <!-- time -->
-      <ion-col width-20 center text-center>
+      <ion-col center text-center>
+        <ion-item style="text-align:center">
+          <ion-icon name="md-rainy" secondary text-center><p>35&deg;C</p></ion-icon>
+        </ion-item>
         <p>7:30 pm</p>
         <p>2016-08-09</p>
       </ion-col>
       <!-- opponent team -->
-      <ion-col center style="background:red;">
-        <ion-item>
-          <p style="background:red;">Ever Pioneer01234567</p>
-          <ion-thumbnail item-left>
-            <img src="img/test_team.jpg" >
+      <ion-col center>
+       <ion-item>
+          <ion-thumbnail>
+            <img class="team-logo-img" src="img/test_team2.jpg">   
           </ion-thumbnail>
-        </ion-item>
+          <p text-center>STK Soccer</p>
+       </ion-item>
       </ion-col>
     </ion-row>
+
+    <ion-list no-lines>
+      <!-- address -->
+      <ion-item>
+        <ion-icon name="md-pin" primary item-left></ion-icon>
+        <h>Yio Chu Kang Stadium</h>
+        <p>210 Ang Mo Kio Avenue 9, Singapore 569777</p>
+        <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
+      </ion-item>
+
 
     <ion-card-content>
     <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
   </ion-card-content>
+    </ion-list>
   </ion-card>
 </ion-content>
