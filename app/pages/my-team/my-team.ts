@@ -6,6 +6,6 @@ import {NavController} from 'ionic-angular';
 })
 export class MyTeamPage {
   constructor(private navCtrl: NavController) {
-  
+
   }
 }

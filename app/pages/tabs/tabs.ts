@@ -5,6 +5,7 @@ import {HomePage} from '../home/home';
 import {StatsPage} from '../stats/stats';
 import {MessagePage} from '../message/message';
 import {MePage} from '../me/me';
+import {MyTeamPage} from '../my-team/my-team';
 import {AccountManager} from '../../providers/account-manager'
 
 @Component({
@@ -17,6 +18,7 @@ export class TabsPage implements OnInit {
   private tab2Root: any;
   private tab3Root: any;
   private tab4Root: any;
+  private tab5Root: any;
 
   constructor(private am: AccountManager, private nav: NavController, private af: AngularFire) {
     // this tells the tabs component which Pages
@@ -25,6 +27,7 @@ export class TabsPage implements OnInit {
     this.tab2Root = StatsPage;
     this.tab3Root = MessagePage;
     this.tab4Root = null;
+    this.tab5Root = MyTeamPage;
   }
 
   ngOnInit() {

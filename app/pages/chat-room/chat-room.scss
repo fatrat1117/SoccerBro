@@ -2,7 +2,6 @@
   background-color: #EBEBEB;
 }
 
-//override
 .chat-room-item ion-label{
   white-space: normal;
   margin: 2px 0px 2px 0 !important;
@@ -12,7 +11,7 @@
   padding-right: 2% !important;
   background-color: transparent;
 }
-.item-inner{
+.chat-room-item .item-inner{
   padding-right: 0 !important;
 }
 

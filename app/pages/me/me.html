@@ -4,40 +4,40 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="cards-bg social-cards">
+<ion-content class="cards-bg social-cards me-content-wrapper">
+  <div class="me-content-wrapper-inner">
+    <ion-card>
+      <ion-item class="me-self-info">
+        <ion-avatar class="me-avatar" item-middle>
+          <img [src]="(player | async)?.photoURL" class="me-avatar-img"/>
+        </ion-avatar>
+        <h2>{{ (player | async)?.displayName }}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
+      </ion-item>
 
-  <ion-card>
+      <ion-row>
+        <ion-col>
+          <button primary clear small>
+            <ion-icon name='thumbs-up'></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button primary clear small>
+            <ion-icon name='text'></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row>
 
-    <ion-item class="me-self-info">
-      <ion-avatar class="me-avatar" item-middle>
-        <img [src]="(player | async)?.photoURL" class="me-avatar-img"/>
-      </ion-avatar>
-      <h2>{{ (player | async)?.displayName }}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
-    </ion-item>
+    </ion-card>
 
-    <ion-row>
-      <ion-col>
-        <button primary clear small>
-          <ion-icon name='thumbs-up'></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button primary clear small>
-          <ion-icon name='text'></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
 
-  </ion-card>
-
-  <ion-list>
+    <ion-list>
       <ion-item>
         <div class="me-team-default">
           <img [src] = "(defaultTeam | async)?.logo" (click)="openNavTeamPage()">
@@ -48,7 +48,7 @@
         <div class="me-team-default me-team-switch">
           <ion-icon class="me-team-switch-icon" name="ios-swap-outline" (click)="goManageTeamPage()"></ion-icon>
           <div class="me-team-switch-info">
-          <p>更换球队</p>
+            <p>更换球队</p>
           </div>
         </div>
         <div class="me-team-default me-team-add">
@@ -58,9 +58,10 @@
           </div>
         </div>
       </ion-item>
-  </ion-list>
+    </ion-list>
 
-<button (click)="onLogout()" full>logout</button>
+    <button (click)="onLogout()" full>logout</button>
+  </div>
 </ion-content>
 <style>
   .social-cards ion-col {
