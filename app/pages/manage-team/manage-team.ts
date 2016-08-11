@@ -39,7 +39,7 @@ export class ManageTeamPage {
   }
 
   onMakeDefault (tId) {
-
+    console.log("team id", tId);
   }
   
   migrateOldData() {
