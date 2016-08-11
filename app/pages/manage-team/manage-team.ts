@@ -33,13 +33,18 @@ export class ManageTeamPage {
     this.teams = this.af.database.list(this.am.getAllTeamsOfPlayerRef(id));
   }
 
-  getTeamData(tId) {
-    return this.am.getTeamRef(tId);
-    //console.log("team id", tId);
-  }
+  onMakeDefault (team) {
+    this.busy = true;
+    let self = this;
+    var success = function (){
+        self.busy = false;
+    }
 
-  onMakeDefault (tId) {
-    console.log("team id", tId);
+    var error = function (err) {
+      alert(err);
+      self.busy = false;
+    }
+    this.am.switchTeam(team._ref.key, success, error);
   }
   
   migrateOldData() {
