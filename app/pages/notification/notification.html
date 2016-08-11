@@ -6,6 +6,7 @@
 
 <ion-content>
   <ion-card>
+    <!-- match info -->
     <ion-row>
       <!-- my team -->
       <ion-col center>
@@ -35,19 +36,44 @@
       </ion-col>
     </ion-row>
 
-    <ion-list no-lines>
-      <!-- address -->
-      <ion-item>
-        <ion-icon name="md-pin" primary item-left></ion-icon>
-        <h>Yio Chu Kang Stadium</h>
-        <p>210 Ang Mo Kio Avenue 9, Singapore 569777</p>
-        <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
-      </ion-item>
+    <!-- address -->
+    <ion-item>
+      <ion-icon name="md-shirt" item-left large [ngStyle]="getColorStyle()"></ion-icon>
+      <h>Yio Chu Kang Stadium</h>
+      <p>210 Ang Mo Kio Avenue 9, Singapore 569777</p>
+      <!--ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon-->
+    </ion-item>
 
-
+    <!-- notice -->
     <ion-card-content>
-    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-  </ion-card-content>
-    </ion-list>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+    </ion-card-content>
+
+    <!-- players -->
+    <ion-card-content>
+      <ion-row text-nowrap>
+        <ion-avatar>
+          <img class="center-img" src="img/test_avatar.jpg">   
+          <p>Li Haolifjdlafjl</p>
+        </ion-avatar>
+        
+      </ion-row>
+    </ion-card-content>
   </ion-card>
+
+
+  <ion-row>
+    <ion-col text-center>
+      <button round full secondary>
+        <ion-icon name="md-add"> </ion-icon>
+        Going
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button round full danger>
+        <ion-icon name="md-remove"> </ion-icon>
+        Can not go
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

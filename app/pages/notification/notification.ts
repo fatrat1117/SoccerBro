@@ -18,4 +18,11 @@ export class NotificationPage {
     //   isRead: true
     // });
   }
+
+  getColorStyle() {
+    let style = {
+      'color': 'yellow'
+    };
+    return style;
+  }
 }
