@@ -47,6 +47,10 @@ export class ManageTeamPage {
     this.am.switchTeam(team._ref.key, success, error);
   }
   
+  isDefault (team) {
+
+  }
+  
   migrateOldData() {
     let players = this.af.database.list('/players');
     players.subscribe(ps => {

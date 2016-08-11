@@ -11,7 +11,7 @@
         <ion-avatar item-left>
           <img [src]="(team | async)?.logo ">
         </ion-avatar>
-        <h2>{{ (team | async)?.name }}</h2>
+        <h2>{{ (team | async)?.name }}<span *ngif="isDefault(team)">{default}</span></h2>
         <button (click) = "onMakeDefault(team)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
