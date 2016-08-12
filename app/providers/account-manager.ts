@@ -80,9 +80,8 @@ export class AccountManager {
   }
 
   getFbUser() {
-    //console.log(firebase.auth());
     let currentUser = firebase.auth().currentUser;
-    console.log(currentUser);
+    //console.log(currentUser);
     if (currentUser) {
       let user = {
         uid: currentUser.uid,

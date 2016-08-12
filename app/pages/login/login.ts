@@ -1,9 +1,9 @@
 import {Modal, NavController, Page, ViewController} from 'ionic-angular';
 import {Component, OnInit, Inject} from '@angular/core';
 import {
-  FIREBASE_PROVIDERS, defaultFirebase,
-  AngularFire, firebaseAuthConfig, AuthProviders,
-  AuthMethods
+    FIREBASE_PROVIDERS, defaultFirebase,
+    AngularFire, firebaseAuthConfig, AuthProviders,
+    AuthMethods
 } from 'angularfire2';
 import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 
@@ -16,16 +16,16 @@ export class LoginPage {
 
     error: any
     cordovaOauth: CordovaOauth;
+    busy: boolean;
 
     constructor(public af: AngularFire,
         public viewCtrl: ViewController
-        ) { 
-            this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "463670290510920", appScope: ["email"]}));
-            //this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
-        }
-    /** 
-     * this will dismiss the modal page
-     */
+    ) {
+        this.busy = false;
+        this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "463670290510920", appScope: ["email"] }));
+        //this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
+    }
+
     dismiss() {
         this.viewCtrl.dismiss();
     }
@@ -54,6 +54,9 @@ export class LoginPage {
 
     registerUserWithFacebook(_event) {
         _event.preventDefault();
+        let self = this;
+
+        this.busy = true;
 
         this.cordovaOauth.login().then(success => {
             //console.log("Facebook success: " + JSON.stringify(success));
@@ -61,11 +64,11 @@ export class LoginPage {
             //console.log(creds);
 
             let providerConfig = {
-            provider: AuthProviders.Facebook,
-            method: AuthMethods.OAuthToken,
-            remember: 'default',
-            scope: ['email'],
-          };
+                provider: AuthProviders.Facebook,
+                method: AuthMethods.OAuthToken,
+                remember: 'default',
+                scope: ['email'],
+            };
 
             this.af.auth.login(creds, providerConfig).then((value) => {
                 console.log('firebase success');
@@ -73,11 +76,12 @@ export class LoginPage {
                 this.dismiss();
             }).catch((error) => {
                 this.error = error;
+                self.busy = false;
             });
         });
     }
 
-    registerUserWithWechat( _event) {
+    registerUserWithWechat(_event) {
 
     }
     /**

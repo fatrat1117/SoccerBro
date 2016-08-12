@@ -32,6 +32,8 @@ export class TabsPage implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit");
+    let self = this;
+    
     let success = function () {
       self.tab4Root = MePage;
     }
@@ -40,7 +42,6 @@ export class TabsPage implements OnInit {
       alert(err);
     }
 
-    let self = this;
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         console.log("logged in gopage", user);
