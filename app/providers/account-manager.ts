@@ -12,25 +12,17 @@ declare let firebase: any;
 @Injectable()
 export class AccountManager {
   currentUser: any;
-  teams: FirebaseListObservable<any>;
+  afTeams: FirebaseListObservable<any>;
   afCurrPlayer: FirebaseObjectObservable<any>;
   afCurrTeam: FirebaseObjectObservable<any>;
+  afTeamsOfCurrPlayer: FirebaseListObservable<any>;
   currPlayer: any;
   currTeam: any;
+  teamsOfCurrPlayer: any;
 
   constructor(public af: AngularFire) {
-    let self = this;
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //   if (user) {
-    //     self.currentUser = self.getFbUser();
-    //     console.log("User is signed in", self.currentUser);
-    //   } else {
-    //     console.log("logout");
-    //     self.currentUser = null;
-    //   }
-    // });
-
-    this.teams = this.af.database.list('/teams');
+    this.afTeams = this.af.database.list('/teams');
+    this.teamsOfCurrPlayer = [];
   }
 
   getCurrentPlayerSnapshot() {
@@ -39,6 +31,10 @@ export class AccountManager {
 
   getCurrentTeamSnapshot() {
     return this.currTeam;
+  }
+
+  getTeamsOfCurrentPlayerSnapshot() {
+    return this.teamsOfCurrPlayer;
   }
 
   initialize(user, success, error) {
@@ -54,6 +50,7 @@ export class AccountManager {
         success();
       }
       else{
+        //todo
           self.afCurrPlayer.update({
               photoURL: user.photoURL,
               displayName : user.displayName
@@ -69,6 +66,22 @@ export class AccountManager {
           })
         }
     })
+
+    //teams of current player 
+    this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
+    this.afTeamsOfCurrPlayer.subscribe(teamIds => {
+      console.log("team of current player change ids", teamIds);
+      self.teamsOfCurrPlayer = [];
+      for (let i = 0; i < teamIds.length; ++i) {
+        let tId = teamIds[i].$key;
+        let afTeam = self.afGetTeam(tId);
+        //console.log(tId, afTeam);
+        afTeam.subscribe(teamSnapshot => {
+          console.log("team snapshot changed", teamSnapshot);
+          self.teamsOfCurrPlayer.push(teamSnapshot);
+        })
+      }
+    })
   }
 
   uninitialize() {
@@ -77,6 +90,7 @@ export class AccountManager {
     this.currentUser = null;
     this.currTeam = null;
     this.currPlayer = null;
+    this.afTeamsOfCurrPlayer = null;
   }
 
   getFbUser() {
@@ -117,6 +131,10 @@ export class AccountManager {
   //player
   afGetCurrentPlayer() {
     return this.af.database.object(this.getCurrentPlayerRef());
+  }
+  
+  afGetTeamsOfPlayer(pId) {
+    return this.af.database.list(this.getAllTeamsOfPlayerRef(pId));
   }
 
   getPlayerRef(id) {
@@ -168,7 +186,7 @@ export class AccountManager {
           logo: 'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/teamDefault.png?alt=media&token=6d669a7b-8a91-4d1e-9bc9-6be456a7505c'
         };
 
-        const promise = this.teams.push(teamData);
+        const promise = this.afTeams.push(teamData);
         promise
           .then(newTeam => {
             console.log('create team success', newTeam);
