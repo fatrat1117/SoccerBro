@@ -3,7 +3,7 @@ import { Injectable} from '@angular/core';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
-  AuthMethods, FirebaseListObservable
+  AuthMethods, FirebaseListObservable,FirebaseObjectObservable
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login'
 
@@ -13,20 +13,70 @@ declare let firebase: any;
 export class AccountManager {
   currentUser: any;
   teams: FirebaseListObservable<any>;
+  afCurrPlayer: FirebaseObjectObservable<any>;
+  afCurrTeam: FirebaseObjectObservable<any>;
+  currPlayer: any;
+  currTeam: any;
 
   constructor(public af: AngularFire) {
     let self = this;
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        self.currentUser = self.getFbUser();
-        console.log("User is signed in", self.currentUser);
-      } else {
-        console.log("logout");
-        self.currentUser = null;
-      }
-    });
+    // firebase.auth().onAuthStateChanged(function (user) {
+    //   if (user) {
+    //     self.currentUser = self.getFbUser();
+    //     console.log("User is signed in", self.currentUser);
+    //   } else {
+    //     console.log("logout");
+    //     self.currentUser = null;
+    //   }
+    // });
 
     this.teams = this.af.database.list('/teams');
+  }
+
+  getCurrentPlayerSnapshot() {
+    return this.currPlayer;
+  }
+
+  getCurrentTeamSnapshot() {
+    return this.currTeam;
+  }
+
+  initialize(user, success, error) {
+    //if user is logged in first time, save default photo and name.
+    let self = this;
+    this.currentUser = this.getFbUser();
+    this.afCurrPlayer = this.afGetCurrentPlayer();
+    this.afCurrPlayer.subscribe(currPlayerData => {
+      console.log("current player changed", currPlayerData);
+      //player exists
+      if (currPlayerData.displayName) {
+        self.currPlayer = currPlayerData;
+        success();
+      }
+      else{
+          self.afCurrPlayer.update({
+              photoURL: user.photoURL,
+              displayName : user.displayName
+          }).catch(err => error(err));
+      }
+
+      //get current team
+      if (currPlayerData.currentTeamId) {
+          self.afCurrTeam = self.afGetTeam(currPlayerData.currentTeamId);
+          self.afCurrTeam.subscribe(currTeamData => {
+            console.log("current team changed", currTeamData);
+            self.currTeam = currTeamData;
+          })
+        }
+    })
+  }
+
+  uninitialize() {
+    this.afCurrPlayer = null;
+    this.afCurrTeam = null;
+    this.currentUser = null;
+    this.currTeam = null;
+    this.currPlayer = null;
   }
 
   getFbUser() {
@@ -86,6 +136,9 @@ export class AccountManager {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
   //Team
+  afGetTeam (tId) {
+    return this.af.database.object(this.getTeamRef(tId));
+  }
   getTeamRef(id) {
     return "/teams/" + id;
   }

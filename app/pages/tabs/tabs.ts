@@ -32,14 +32,25 @@ export class TabsPage implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit");
+    let success = function () {
+      self.tab4Root = MePage;
+    }
+
+    let error = function (err) {
+      alert(err);
+    }
+
     let self = this;
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        console.log("logged in gopage");
-        self.tab4Root = MePage;
+        console.log("logged in gopage", user);
+        self.am.initialize(user, success, error)
       } else {
+        
           self.tabRef.select(0);
           self.tab4Root = null;
+          self.am.uninitialize();
+          console.log("logout");
       }
     });
   }
