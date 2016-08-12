@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card >
     <!-- match info -->
     <ion-row>
       <!-- my team -->
@@ -20,7 +20,7 @@
       <!-- time -->
       <ion-col center text-center>
         <ion-item style="text-align:center">
-          <ion-icon name="md-rainy" secondary text-center><p>35&deg;C</p></ion-icon>
+          <ion-icon name="md-rainy" secondary><p>35&deg;C</p></ion-icon>
         </ion-item>
         <p>7:30 pm</p>
         <p>2016-08-09</p>
@@ -36,6 +36,7 @@
       </ion-col>
     </ion-row>
 
+  <ion-list>
     <!-- address -->
     <ion-item>
       <ion-icon name="md-shirt" item-left large [ngStyle]="getColorStyle()"></ion-icon>
@@ -45,11 +46,42 @@
     </ion-item>
 
     <!-- notice -->
-    <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-    </ion-card-content>
+    <ion-item text-wrap>
+      <p>
+      Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.
+      </p>
+    </ion-item>
 
     <!-- players -->
+    <ion-item text-wrap>
+      <div class="avatar-top"> 
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Li Hao</p>
+      </div>
+      <div class="avatar-top">
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Zeng Lei</p>
+      </div>
+      <div class="avatar-top">
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Li Jixiang</p>
+      </div>
+      <div class="avatar-top">
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Li HaoHaoHao</p>
+      </div>
+      <div class="avatar-top">
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Li HaoHaoHaaaaa</p>
+      </div>
+      <div class="avatar-top">
+        <img class="avatar-top" src="img/test_avatar.jpg">   
+        <p>Li HaoHaoHaaaaa</p>
+      </div>
+    </ion-item>
+  </ion-list>
+    
+    <!--
     <ion-card-content>
       <ion-row text-nowrap>
         <ion-avatar>
@@ -59,8 +91,10 @@
         
       </ion-row>
     </ion-card-content>
+    -->
   </ion-card>
-
+<!-- players -->
+  
 
   <ion-row>
     <ion-col text-center>
