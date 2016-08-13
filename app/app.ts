@@ -15,10 +15,6 @@ import {AccountManager} from './providers/account-manager';
       authDomain: "project-3416565325366537224.firebaseapp.com",
       databaseURL: "https://project-3416565325366537224.firebaseio.com",
       storageBucket: "project-3416565325366537224.appspot.com",
-      // apiKey: "AIzaSyA9L3ja5ZcViqTc5Tgz8tG6QvJGlYO-fa4",
-      // authDomain: "stk-soccer.firebaseapp.com",
-      // databaseURL: "https://stk-soccer.firebaseio.com",
-      // storageBucket: "stk-soccer.appspot.com",
     }),
     firebaseAuthConfig({}),
     AccountManager
