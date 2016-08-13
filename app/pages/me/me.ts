@@ -15,18 +15,12 @@ export class MePage {
   defaultTeam: any;
 
   constructor(private nav: NavController, private am: AccountManager) {
-    this.player = this.am.getCurrentPlayerSnapshot();
-    this.defaultTeam = this.am.getCurrentTeamSnapshot();
-    // let self = this;
-    // this.player = this.af.database.object(this.am.getCurrentPlayerRef());
-    // //let playerSnapshot = this.af.database.object(this.am.getCurrentPlayerRef(), { preserveSnapshot: true });
-    // this.player.subscribe(pSnapshot => {
-    //   //console.log(self.player);
-    //   console.log(pSnapshot.currentTeamId);
-    //   // let val = snapshot.val();
-    //   // console.log(val);
-    //   self.defaultTeam = self.af.database.object(self.am.getTeamRef(pSnapshot.currentTeamId));
-    // });
+    let self = this;
+    this.am.afGetCurrentPlayer().subscribe(_ => {
+      console.log("current player data changed, update me UI");
+      self.player = this.am.getCurrentPlayerSnapshot();
+      self.defaultTeam = this.am.getCurrentTeamSnapshot();
+    });
   }
 
   openNavTeamPage() {
