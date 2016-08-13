@@ -7,7 +7,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let team of teams">
-      <ion-item>
+      <ion-item (click) = "goTeamPage(team)">
         <ion-avatar item-left>
           <img [src]="team.logo"/>
         </ion-avatar>
