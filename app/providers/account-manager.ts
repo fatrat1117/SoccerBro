@@ -3,7 +3,7 @@ import { Injectable} from '@angular/core';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
-  AuthMethods, FirebaseListObservable,FirebaseObjectObservable
+  AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login'
 
@@ -16,16 +16,19 @@ export class AccountManager {
   afCurrPlayer: FirebaseObjectObservable<any>;
   afCurrTeam: FirebaseObjectObservable<any>;
   afTeamsOfCurrPlayer: FirebaseListObservable<any>;
+  afCurrentTeamId: FirebaseObjectObservable<any>;
   currPlayer: any;
   currTeam: any;
   teamsOfCurrPlayer: any;
+  subscriptions: any;
 
   constructor(public af: AngularFire) {
     this.afTeams = this.af.database.list('/teams');
     this.teamsOfCurrPlayer = [];
+    this.subscriptions = [];
   }
 
-//getter
+  //getter
   getCurrentPlayerSnapshot() {
     return this.currPlayer;
   }
@@ -43,35 +46,42 @@ export class AccountManager {
     let self = this;
     this.currentUser = this.getFbUser();
     this.afCurrPlayer = this.afGetCurrentPlayer();
-    this.afCurrPlayer.subscribe(currPlayerData => {
+    let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
       //player exists
       if (currPlayerData.displayName) {
         self.currPlayer = currPlayerData;
         success();
       }
-      else{
+      else {
         console.log("first time login");
         //todo
-          self.afCurrPlayer.update({
-              photoURL: user.photoURL,
-              displayName : user.displayName
-          }).catch(err => error(err));
+        self.afCurrPlayer.update({
+          photoURL: user.photoURL,
+          displayName: user.displayName
+        }).catch(err => error(err));
       }
 
       //get current team
       if (currPlayerData.currentTeamId) {
+        self.afCurrentTeamId = self.afGetCurrentTeamId();
+        let sub1 = self.afCurrentTeamId.subscribe(_ => {
           self.afCurrTeam = self.afGetTeam(currPlayerData.currentTeamId);
-          self.afCurrTeam.subscribe(currTeamData => {
+          let sub2 = self.afCurrTeam.subscribe(currTeamData => {
             console.log("current team changed", currTeamData);
             self.currTeam = currTeamData;
-          })
-        }
-    })
+          });
+          self.subscriptions.push(sub2);
+        });
+        self.subscriptions.push(sub1);
+      }
+    });
+    self.subscriptions.push(sub);
+
 
     //teams of current player 
     this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
-    this.afTeamsOfCurrPlayer.subscribe(teamIds => {
+    let sub3 = this.afTeamsOfCurrPlayer.subscribe(teamIds => {
       console.log("team of current player change ids", teamIds);
       self.teamsOfCurrPlayer = [];
       self.teamsOfCurrPlayer.length = teamIds.length;
@@ -79,22 +89,30 @@ export class AccountManager {
         let tId = teamIds[i].$key;
         let afTeam = self.afGetTeam(tId);
         //console.log(tId, afTeam);
-        afTeam.subscribe(teamSnapshot => {
+        let sub4 = afTeam.subscribe(teamSnapshot => {
           console.log("team snapshot changed", teamSnapshot);
           self.teamsOfCurrPlayer[i] = teamSnapshot;
           //console.log("teams snapshot changed", self.teamsOfCurrPlayer);
-        })
+        });
+        self.subscriptions.push(sub4);
       }
-    })
+    });
+    self.subscriptions.push(sub3);
   }
 
   uninitialize() {
+    //must unsubscribe
+    for (let i = 0; i < this.subscriptions.length; ++i) {
+      this.subscriptions[i].unsubscribe();
+    }
+    this.subscriptions = [];
     this.afCurrPlayer = null;
     this.afCurrTeam = null;
     this.currentUser = null;
     this.currTeam = null;
     this.currPlayer = null;
     this.afTeamsOfCurrPlayer = null;
+    this.afCurrentTeamId = null;
   }
 
   getFbUser() {
@@ -136,9 +154,13 @@ export class AccountManager {
   afGetCurrentPlayer() {
     return this.af.database.object(this.getCurrentPlayerRef());
   }
-  
+
   afGetTeamsOfPlayer(pId) {
     return this.af.database.list(this.getAllTeamsOfPlayerRef(pId));
+  }
+
+  afGetCurrentTeamId() {
+    return this.af.database.object(this.getCurrentPlayerRef() + '/' + 'currentTeamId');
   }
 
   getPlayerRef(id) {
@@ -157,7 +179,7 @@ export class AccountManager {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
   //Team
-  afGetTeam (tId) {
+  afGetTeam(tId) {
     return this.af.database.object(this.getTeamRef(tId));
   }
   getTeamRef(id) {

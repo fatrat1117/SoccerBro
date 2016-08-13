@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import {NavController, NavParams } from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager';
-
+import {MyTeamPage} from '../my-team/my-team';
 // @Pipe({ name: 'teamFb' })
 // export class GetTeamFb implements PipeTransform {
 //   constructor(private am: AccountManager, private af: AngularFire) {
@@ -26,7 +26,10 @@ export class ManageTeamPage {
   teams: any;
   busy: boolean;
 
-  constructor(private am: AccountManager, private af: AngularFire, private navParams: NavParams) {
+  constructor(private am: AccountManager, 
+  private af: AngularFire, 
+  private navParams: NavParams,
+  private nav : NavController) {
     let id = this.navParams.get('id');
     this.busy = false;
     this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
@@ -51,6 +54,12 @@ export class ManageTeamPage {
     return this.am.isDefaultTeam(team.$key);
   }
   
+  goTeamPage(team) {
+    this.nav.push(MyTeamPage, {
+      tId: team.$key,
+    });
+  }
+
   migrateOldData() {
     let players = this.af.database.list('/players');
     players.subscribe(ps => {

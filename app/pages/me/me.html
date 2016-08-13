@@ -40,7 +40,7 @@
     <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <img [src] = "defaultTeam ? defaultTeam.logo : 'img/test_team2.jpg' " (click)="openNavTeamPage()">
+          <img [src] = "defaultTeam ? defaultTeam.logo : 'img/noteam.jpg' " (click)="openNavTeamPage()">
           <div class="me-team-default-info">
             <h4>{{defaultTeam ? defaultTeam.name : 'no team'}}</h4>
           </div>
@@ -59,9 +59,8 @@
         </div>
       </ion-item>
     </ion-list>
-
-    <button (click)="onLogout()" block>logout</button>
   </div>
+  <button (click)="onLogout()" block>logout</button>
 </ion-content>
 <style>
   .social-cards ion-col {
