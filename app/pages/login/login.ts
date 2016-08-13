@@ -78,6 +78,9 @@ export class LoginPage {
                 this.error = error;
                 self.busy = false;
             });
+        }).catch((error) => {
+            //this.error = error;
+            self.busy = false;
         });
     }
 

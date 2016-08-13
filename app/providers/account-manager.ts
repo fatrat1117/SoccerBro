@@ -25,6 +25,7 @@ export class AccountManager {
     this.teamsOfCurrPlayer = [];
   }
 
+//getter
   getCurrentPlayerSnapshot() {
     return this.currPlayer;
   }
@@ -72,13 +73,15 @@ export class AccountManager {
     this.afTeamsOfCurrPlayer.subscribe(teamIds => {
       console.log("team of current player change ids", teamIds);
       self.teamsOfCurrPlayer = [];
+      self.teamsOfCurrPlayer.length = teamIds.length;
       for (let i = 0; i < teamIds.length; ++i) {
         let tId = teamIds[i].$key;
         let afTeam = self.afGetTeam(tId);
         //console.log(tId, afTeam);
         afTeam.subscribe(teamSnapshot => {
           console.log("team snapshot changed", teamSnapshot);
-          self.teamsOfCurrPlayer.push(teamSnapshot);
+          self.teamsOfCurrPlayer[i] = teamSnapshot;
+          //console.log("teams snapshot changed", self.teamsOfCurrPlayer);
         })
       }
     })
@@ -218,5 +221,9 @@ export class AccountManager {
     player.update({ currentTeamId: tId })
       .then(_ => success())
       .catch(err => error(err));;
+  }
+
+  isDefaultTeam(tId) {
+    return tId == this.currPlayer.currentTeamId;
   }
 }

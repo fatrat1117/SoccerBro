@@ -6,13 +6,13 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let team of teams | async | teamFb">
+    <ion-item-sliding *ngFor="let team of teams">
       <ion-item>
         <ion-avatar item-left>
-          <img [src]="(team | async)?.logo ">
+          <img [src]="team.logo"/>
         </ion-avatar>
-        <h2>{{ (team | async)?.name }}<span *ngif="isDefault(team)">{default}</span></h2>
-        <button (click) = "onMakeDefault(team)" clear item-right>default</button>
+        <h2>{{ team.name }}</h2>
+        <button [disabled] = "isDefault(team)" (click) = "onMakeDefault(team)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
         <button primary>
