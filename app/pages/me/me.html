@@ -40,9 +40,9 @@
     <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <img [src] = "defaultTeam.logo" (click)="openNavTeamPage()">
+          <img [src] = "defaultTeam ? defaultTeam.logo : 'img/test_team2.jpg' " (click)="openNavTeamPage()">
           <div class="me-team-default-info">
-            <h4>{{defaultTeam.name}}<p>tmp</p></h4>
+            <h4>{{defaultTeam ? defaultTeam.name : 'no team'}}</h4>
           </div>
         </div>
         <div class="me-team-default me-team-switch">

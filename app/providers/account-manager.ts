@@ -51,6 +51,7 @@ export class AccountManager {
         success();
       }
       else{
+        console.log("first time login");
         //todo
           self.afCurrPlayer.update({
               photoURL: user.photoURL,
