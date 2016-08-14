@@ -12,10 +12,10 @@
           <img [src]="team.logo"/>
         </ion-avatar>
         <h2>{{ team.name }}</h2>
-        <button [disabled] = "isDefault(team)" (click) = "onMakeDefault(team)" clear item-right>default</button>
+        <button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
-        <button primary>
+        <button [disabled] = "isDefault(team) || busy" (click) = "quit(team)" danger>
         <ion-icon name="trash"></ion-icon>
       </button>
       </ion-item-options>

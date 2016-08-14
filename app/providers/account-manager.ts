@@ -41,6 +41,16 @@ export class AccountManager {
     return this.teamsOfCurrPlayer;
   }
 
+  getTeamOfCurrentPlayerSnapshot(tId) {
+    for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
+      let teamSnapshot = this.teamsOfCurrPlayer[i];
+      if (teamSnapshot.$key === tId)
+        return teamSnapshot;
+    }
+
+    return null;
+  }
+
   initialize(user, success, error) {
     //if user is logged in first time, save default photo and name.
     let self = this;
@@ -163,6 +173,10 @@ export class AccountManager {
     return this.af.database.object(this.getCurrentPlayerRef() + '/' + 'currentTeamId');
   }
 
+  afGetTeamOfPlayer(pId, tId) {
+    return this.af.database.object(this.getTeamOfPlayerRef(pId, tId));
+  }
+
   getPlayerRef(id) {
     return "/players/" + id;
   }
@@ -175,18 +189,27 @@ export class AccountManager {
     return "/teamsOfPlayer/" + pId;
   }
 
-  getTeamsOfPlayerRef(pId, tId) {
+  getTeamOfPlayerRef(pId, tId) {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
   //Team
   afGetTeam(tId) {
     return this.af.database.object(this.getTeamRef(tId));
   }
+
+  afGetPlayerOfTeam(pId, tId) {
+    return this.af.database.object(this.getPlayerOfTeamRef(pId, tId));
+  }
+
+  afGetPlayersOfTeam(tId) {
+    return this.af.database.list("/playersOfTeam/" + tId);
+  }
+
   getTeamRef(id) {
     return "/teams/" + id;
   }
 
-  getPlayersOfTeamRef(pId, tId) {
+  getPlayerOfTeamRef(pId, tId) {
     return "/playersOfTeam/" + tId + '/' + pId;
   }
 
@@ -218,11 +241,11 @@ export class AccountManager {
             console.log('create team success', newTeam);
             let newTeamId = newTeam["key"];
             //update teams list of player
-            let teamsOfPlayer = this.af.database.object(this.getTeamsOfPlayerRef(this.currentUser.uid, newTeamId));
+            let teamsOfPlayer = this.afGetTeamOfPlayer(this.currentUser.uid, newTeamId);
             const promiseTP = teamsOfPlayer.set(true);
             promiseTP.then(_ => {
               //update players list of team
-              let playersOfTeam = this.af.database.object(this.getPlayersOfTeamRef(this.currentUser.uid, newTeamId));
+              let playersOfTeam = this.afGetPlayerOfTeam(this.currentUser.uid, newTeamId);
               const promisePT = playersOfTeam.set(true);
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
@@ -243,7 +266,40 @@ export class AccountManager {
     let player = this.afGetCurrentPlayer();
     player.update({ currentTeamId: tId })
       .then(_ => success())
-      .catch(err => error(err));;
+      .catch(err => error(err));
+  }
+
+  quitTeam(tId, success, error) {
+    let teamSnapshot = this.getTeamOfCurrentPlayerSnapshot(tId);
+    let self = this;
+    if (teamSnapshot.captain != this.currentUser.uid) {
+      let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+      tOfp.remove().then(_ => {
+        let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
+        pOft.remove().then(_ => {
+          success();
+        }).catch(err => error(err));
+      }).catch(err => error(err));
+    } else {
+      //if is captain. check player count
+      let psOft = self.afGetPlayersOfTeam(tId);
+      let sub = psOft.subscribe(playersSnapshot => {
+        sub.unsubscribe();
+        if (playersSnapshot.length > 1) {
+          error("captain can not quit");
+        } else {
+          let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+          tOfp.remove().then(_ => {
+            psOft.remove().then(_ => {
+              //delete team obj
+              self.afGetTeam(tId).remove().then(_ => {
+                success();
+              }).catch(err => error(err));
+            }).catch(err => error(err));
+          }).catch(err => error(err));
+        }
+      });
+    }
   }
 
   isDefaultTeam(tId) {

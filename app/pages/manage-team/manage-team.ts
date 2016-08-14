@@ -36,7 +36,9 @@ export class ManageTeamPage {
     //this.teams = this.af.database.list(this.am.getAllTeamsOfPlayerRef(id));
   }
 
-  onMakeDefault (team) {
+  makeDefault (team, e) {
+    e.stopPropagation();
+
     this.busy = true;
     let self = this;
     var success = function (){
@@ -50,6 +52,22 @@ export class ManageTeamPage {
     this.am.switchTeam(team.$key, success, error);
   }
   
+  quit(team) {
+    this.busy = true;
+    let self = this;
+
+    var success = function (){
+        self.busy = false;
+    }
+
+    var error = function (err) {
+      alert(err);
+      self.busy = false;
+    }
+
+    this.am.quitTeam(team.$key, success, error);
+  }
+
   isDefault (team) {
     return this.am.isDefaultTeam(team.$key);
   }
@@ -65,7 +83,7 @@ export class ManageTeamPage {
     players.subscribe(ps => {
       ps.forEach(p => {
         for (let tId in p.teams) {
-          let teamsOfPlayer = this.af.database.object(this.am.getTeamsOfPlayerRef(p.$key, tId));
+          let teamsOfPlayer = this.am.afGetTeamOfPlayer(p.$key, tId);
           teamsOfPlayer.set(true);
         }
       })
@@ -75,7 +93,7 @@ export class ManageTeamPage {
     teams.subscribe(ts => {
       ts.forEach(t => {
         for (let pId in t.players) {
-          let playersOfTeam = this.af.database.object(this.am.getPlayersOfTeamRef(pId, t.$key));
+          let playersOfTeam = this.am.afGetPlayerOfTeam(pId, t.$key);
           playersOfTeam.set(true);
         }
       })
