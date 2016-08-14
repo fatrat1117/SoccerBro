@@ -28,29 +28,6 @@ export class AccountManager {
     this.subscriptions = [];
   }
 
-  //getter
-  getCurrentPlayerSnapshot() {
-    return this.currPlayer;
-  }
-
-  getCurrentTeamSnapshot() {
-    return this.currTeam;
-  }
-
-  getTeamsOfCurrentPlayerSnapshot() {
-    return this.teamsOfCurrPlayer;
-  }
-
-  getTeamOfCurrentPlayerSnapshot(tId) {
-    for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
-      let teamSnapshot = this.teamsOfCurrPlayer[i];
-      if (teamSnapshot.$key === tId)
-        return teamSnapshot;
-    }
-
-    return null;
-  }
-
   initialize(user, success, error) {
     //if user is logged in first time, save default photo and name.
     let self = this;
@@ -304,5 +281,52 @@ export class AccountManager {
 
   isDefaultTeam(tId) {
     return tId == this.currPlayer.currentTeamId;
+  }
+
+  //snapshot
+  getCurrentPlayerSnapshot() {
+    return this.currPlayer;
+  }
+
+  getCurrentTeamSnapshot() {
+    return this.currTeam;
+  }
+
+  getTeamsOfCurrentPlayerSnapshot() {
+    return this.teamsOfCurrPlayer;
+  }
+
+  getTeamOfCurrentPlayerSnapshot(tId) {
+    for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
+      let teamSnapshot = this.teamsOfCurrPlayer[i];
+      if (teamSnapshot.$key === tId)
+        return teamSnapshot;
+    }
+
+    return null;
+  }
+
+  getTeamsOfPlayerSnapshot(pId, teamsSnapshot) {
+    //teams of current player 
+    let afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(pId);
+    let sub3 = afTeamsOfCurrPlayer.subscribe(teamIds => {
+      sub3.unsubscribe();
+      console.log("team of current player change ids", teamIds);
+      for (let i = 0; i < teamIds.length; ++i) {
+        let tId = teamIds[i].$key;
+        let ref = firebase.database().ref(this.getTeamRef(tId));
+        ref.once('value').then(teamSnapshot => {
+          let teamData = teamSnapshot.val();
+          teamData.$key = teamSnapshot.key;
+          teamsSnapshot.push(teamData);
+            // handle read data.
+          });
+        // let afTeam = this.afGetTeam(tId);
+        // let sub4 = afTeam.subscribe(teamSnapshot => {
+        
+        //   teamsSnapshot.push(teamSnapshot);
+        // });
+      }
+    });
   }
 }

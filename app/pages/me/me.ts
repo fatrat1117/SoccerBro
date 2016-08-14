@@ -18,10 +18,10 @@ export class MePage {
   constructor(private nav: NavController, private am: AccountManager) {
     let self = this;
     this.am.afGetCurrentPlayer().subscribe(_ => {
-      console.log("current player data changed, update me UI");
       self.player = this.am.getCurrentPlayerSnapshot();
+      console.log("current player data changed, update me UI");
       if (self.player.currentTeamId)
-        self.defaultTeam = this.am.afGetTeam(self.player.currentTeamId);
+        self.defaultTeam = self.am.afGetTeam(self.player.currentTeamId);
     });
   }
 

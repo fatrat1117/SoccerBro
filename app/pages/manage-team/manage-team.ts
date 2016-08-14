@@ -17,10 +17,17 @@ export class ManageTeamPage {
   private nav : NavController) {
     let pId = this.navParams.get('id');
     this.busy = false;
-    this.am.afGetTeamsOfPlayer(pId).subscribe(_=>{
-      console.log("team list changed, update manage team UI");
-      this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
-    });
+    this.teams = [];
+    let self = this;
+    // var success = teamsSnapshot => {
+    //     self.teams = teamsSnapshot;
+    // }
+
+    this.am.getTeamsOfPlayerSnapshot(pId, this.teams);
+    // this.am.afGetTeamsOfPlayer(pId).subscribe(_=>{
+    //   console.log("team list changed, update manage team UI");
+    //   this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
+    // });
   }
 
   makeDefault (team, e) {
@@ -44,6 +51,8 @@ export class ManageTeamPage {
     let self = this;
 
     var success = function (){
+      //delete team from UI
+      self.teams.splice(self.teams.indexOf(team), 1);
         self.busy = false;
     }
 
