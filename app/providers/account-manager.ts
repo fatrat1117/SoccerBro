@@ -19,12 +19,12 @@ export class AccountManager {
   afCurrentTeamId: FirebaseObjectObservable<any>;
   currPlayer: any;
   currTeam: any;
-  teamsOfCurrPlayer: any;
+  //teamsOfCurrPlayer: any;
   subscriptions: any;
 
   constructor(public af: AngularFire) {
     this.afTeams = this.af.database.list('/teams');
-    this.teamsOfCurrPlayer = [];
+    //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
   }
 
@@ -247,36 +247,40 @@ export class AccountManager {
   }
 
   quitTeam(tId, success, error) {
-    let teamSnapshot = this.getTeamOfCurrentPlayerSnapshot(tId);
+    //let teamSnapshot = this.getTeamOfCurrentPlayerSnapshot(tId);
     let self = this;
-    if (teamSnapshot.captain != this.currentUser.uid) {
-      let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
-      tOfp.remove().then(_ => {
-        let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
-        pOft.remove().then(_ => {
-          success();
+    let afTeam = this.afGetTeam(tId);
+    let subTeam = afTeam.subscribe(teamSnapshot => {
+      subTeam.unsubscribe();
+      if (teamSnapshot.captain != this.currentUser.uid) {
+        let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+        tOfp.remove().then(_ => {
+          let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
+          pOft.remove().then(_ => {
+            success();
+          }).catch(err => error(err));
         }).catch(err => error(err));
-      }).catch(err => error(err));
-    } else {
-      //if is captain. check player count
-      let psOft = self.afGetPlayersOfTeam(tId);
-      let sub = psOft.subscribe(playersSnapshot => {
-        sub.unsubscribe();
-        if (playersSnapshot.length > 1) {
-          error("captain can not quit");
-        } else {
-          let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
-          tOfp.remove().then(_ => {
-            psOft.remove().then(_ => {
-              //delete team obj
-              self.afGetTeam(tId).remove().then(_ => {
-                success();
+      } else {
+        //if is captain. check player count
+        let psOft = self.afGetPlayersOfTeam(tId);
+        let sub = psOft.subscribe(playersSnapshot => {
+          sub.unsubscribe();
+          if (playersSnapshot.length > 1) {
+            error("captain can not quit");
+          } else {
+            let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+            tOfp.remove().then(_ => {
+              psOft.remove().then(_ => {
+                //delete team obj
+                afTeam.remove().then(_ => {
+                  success();
+                }).catch(err => error(err));
               }).catch(err => error(err));
             }).catch(err => error(err));
-          }).catch(err => error(err));
-        }
-      });
-    }
+          }
+        });
+      }
+    })
   }
 
   isDefaultTeam(tId) {
@@ -292,19 +296,19 @@ export class AccountManager {
     return this.currTeam;
   }
 
-  getTeamsOfCurrentPlayerSnapshot() {
-    return this.teamsOfCurrPlayer;
-  }
+  // getTeamsOfCurrentPlayerSnapshot() {
+  //   return this.teamsOfCurrPlayer;
+  // }
 
-  getTeamOfCurrentPlayerSnapshot(tId) {
-    for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
-      let teamSnapshot = this.teamsOfCurrPlayer[i];
-      if (teamSnapshot.$key === tId)
-        return teamSnapshot;
-    }
+  // getTeamOfCurrentPlayerSnapshot(tId) {
+  //   for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
+  //     let teamSnapshot = this.teamsOfCurrPlayer[i];
+  //     if (teamSnapshot.$key === tId)
+  //       return teamSnapshot;
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   getTeamsOfPlayerSnapshot(pId, teamsSnapshot) {
     //teams of current player 
@@ -316,14 +320,15 @@ export class AccountManager {
         let tId = teamIds[i].$key;
         let ref = firebase.database().ref(this.getTeamRef(tId));
         ref.once('value').then(teamSnapshot => {
+          console.log("team snapshot changed", teamSnapshot.val());
           let teamData = teamSnapshot.val();
           teamData.$key = teamSnapshot.key;
           teamsSnapshot.push(teamData);
-            // handle read data.
-          });
+          // handle read data.
+        });
         // let afTeam = this.afGetTeam(tId);
         // let sub4 = afTeam.subscribe(teamSnapshot => {
-        
+
         //   teamsSnapshot.push(teamSnapshot);
         // });
       }
