@@ -4,6 +4,7 @@ import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, AuthMethods } from 'angularfire2';
 import {AccountManager} from './providers/account-manager';
+import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
@@ -17,7 +18,13 @@ import {AccountManager} from './providers/account-manager';
       storageBucket: "project-3416565325366537224.appspot.com",
     }),
     firebaseAuthConfig({}),
-    AccountManager
+    AccountManager,
+    // google maps
+    GOOGLE_MAPS_PROVIDERS,
+    provideLazyMapsAPILoaderConfig({
+        apiKey: 'AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8',
+        libraries: ['places']
+    })
   ]
 })
 export class MyApp {

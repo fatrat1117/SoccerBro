@@ -6,6 +6,7 @@ declare let firebase: any;
 
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {NotificationPage} from '../notification/notification';
+import {NewNotificationPage} from '../new-notification/new-notification';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
@@ -88,5 +89,9 @@ export class MessagePage {
         opponent_id: _opponent_id
       });
     });
+  }
+
+  enterNewNotification(){
+    this.navCtrl.push(NewNotificationPage);
   }
 }
