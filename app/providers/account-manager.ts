@@ -73,18 +73,18 @@ export class AccountManager {
       }
 
       //get current team
-      if (currPlayerData.currentTeamId) {
-        self.afCurrentTeamId = self.afGetCurrentTeamId();
-        let sub1 = self.afCurrentTeamId.subscribe(_ => {
-          self.afCurrTeam = self.afGetTeam(currPlayerData.currentTeamId);
-          let sub2 = self.afCurrTeam.subscribe(currTeamData => {
-            console.log("current team changed", currTeamData);
-            self.currTeam = currTeamData;
-          });
-          self.subscriptions.push(sub2);
-        });
-        self.subscriptions.push(sub1);
-      }
+      // if (currPlayerData.currentTeamId) {
+      //   self.afCurrentTeamId = self.afGetCurrentTeamId();
+      //   let sub1 = self.afCurrentTeamId.subscribe(_ => {
+      //     self.afCurrTeam = self.afGetTeam(currPlayerData.currentTeamId);
+      //     let sub2 = self.afCurrTeam.subscribe(currTeamData => {
+      //       console.log("current team changed", currTeamData);
+      //       self.currTeam = currTeamData;
+      //     });
+      //     self.subscriptions.push(sub2);
+      //   });
+      //   self.subscriptions.push(sub1);
+      // }
     });
     self.subscriptions.push(sub);
 

@@ -3,21 +3,6 @@ import {NavController, NavParams } from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager';
 import {MyTeamPage} from '../my-team/my-team';
-// @Pipe({ name: 'teamFb' })
-// export class GetTeamFb implements PipeTransform {
-//   constructor(private am: AccountManager, private af: AngularFire) {
-
-//   }
-//   transform(teams) {
-//     if (teams) {
-//       console.log("transform team to team fb", teams);
-//       for (let i = 0; i < teams.length; ++i) {
-//         teams[i] = this.af.database.object(this.am.getTeamRef(teams[i].$key));
-//       }
-//       return teams;
-//     }
-//   }
-// }
 
 @Component({
   templateUrl: 'build/pages/manage-team/manage-team.html'
@@ -30,10 +15,12 @@ export class ManageTeamPage {
   private af: AngularFire, 
   private navParams: NavParams,
   private nav : NavController) {
-    let id = this.navParams.get('id');
+    let pId = this.navParams.get('id');
     this.busy = false;
-    this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
-    //this.teams = this.af.database.list(this.am.getAllTeamsOfPlayerRef(id));
+    this.am.afGetTeamsOfPlayer(pId).subscribe(_=>{
+      console.log("team list changed, update manage team UI");
+      this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
+    });
   }
 
   makeDefault (team, e) {
