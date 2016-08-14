@@ -90,24 +90,24 @@ export class AccountManager {
 
 
     //teams of current player 
-    this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
-    let sub3 = this.afTeamsOfCurrPlayer.subscribe(teamIds => {
-      console.log("team of current player change ids", teamIds);
-      self.teamsOfCurrPlayer = [];
-      self.teamsOfCurrPlayer.length = teamIds.length;
-      for (let i = 0; i < teamIds.length; ++i) {
-        let tId = teamIds[i].$key;
-        let afTeam = self.afGetTeam(tId);
-        //console.log(tId, afTeam);
-        let sub4 = afTeam.subscribe(teamSnapshot => {
-          console.log("team snapshot changed", teamSnapshot);
-          self.teamsOfCurrPlayer[i] = teamSnapshot;
-          //console.log("teams snapshot changed", self.teamsOfCurrPlayer);
-        });
-        self.subscriptions.push(sub4);
-      }
-    });
-    self.subscriptions.push(sub3);
+    // this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
+    // let sub3 = this.afTeamsOfCurrPlayer.subscribe(teamIds => {
+    //   console.log("team of current player change ids", teamIds);
+    //   self.teamsOfCurrPlayer = [];
+    //   self.teamsOfCurrPlayer.length = teamIds.length;
+    //   for (let i = 0; i < teamIds.length; ++i) {
+    //     let tId = teamIds[i].$key;
+    //     let afTeam = self.afGetTeam(tId);
+    //     //console.log(tId, afTeam);
+    //     let sub4 = afTeam.subscribe(teamSnapshot => {
+    //       console.log("team snapshot changed", teamSnapshot);
+    //       self.teamsOfCurrPlayer[i] = teamSnapshot;
+    //       //console.log("teams snapshot changed", self.teamsOfCurrPlayer);
+    //     });
+    //     self.subscriptions.push(sub4);
+    //   }
+    // });
+    // self.subscriptions.push(sub3);
   }
 
   uninitialize() {
