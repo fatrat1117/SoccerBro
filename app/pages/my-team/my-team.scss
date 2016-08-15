@@ -49,12 +49,13 @@
 }
 
 
-.my-team-infobar-col{
+.my-team-infobar-col-border-right{
   border-right: solid 1px;
 }
 .my-team-infobar-item{
   display: table;
   margin: 0 auto;
+  text-align: center;
 }
 .my-team-infobar-icon{
   float: left;
@@ -70,4 +71,72 @@
 
 .my-team-infobar-label-num{
   margin: 0;
+}
+
+
+.my-team-admin-card-header{
+    padding: 1rem;
+    border-left: 0.3rem solid #69d877;
+}
+
+.my-team-admin-card-item{
+  text-align: center;
+}
+
+.my-team-admin-card-avatar-img{
+  margin: 0 auto;
+  max-width: 3.5rem;
+  max-height: 3.5rem;
+  border-radius: 3rem;
+}
+
+.my-team-admin-card-avatar-icon{
+  font-size: 3.4rem;
+}
+
+.my-team-admin-card-pane-occupation{
+  margin:0;
+}
+
+.my-team-admin-card-pane-name{
+  color: #888;
+}
+
+.my-team-description-header{
+  padding: 1rem;
+  border-left: 0.3rem solid #69d877;
+}
+
+.my-team-header-margin-top-2rem{
+  margin-top: 2rem;
+}
+
+.my-team-recent-games-title{
+  text-align: center;
+}
+
+.my-team-recent-games-center-vs{
+  text-align: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+
+  height: 10rem;
+}
+.my-tet-games-center-vs-status{
+
+  margin-right: 0px;
+}
+.my-team-recent-games-team-name{
+  white-space: normal;
+  font-size: 0.8rem;
+  text-align: center;
 }

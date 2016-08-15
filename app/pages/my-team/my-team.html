@@ -48,27 +48,135 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col class="my-team-infobar-col" width-25>
+      <ion-col class="my-team-infobar-col-border-right" width-25>
         <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
         </ion-icon><ion-label class="my-team-infobar-label">出场</ion-label>
         <ion-label class="my-team-infobar-label-num">305场</ion-label>
         </div>
-
+      </ion-col>
+      <ion-col class="my-team-infobar-col-border-right" width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">世界</ion-label>
+          <ion-label class="my-team-infobar-label-num">第454名</ion-label>
+        </div>
+      </ion-col>
+      <ion-col class="my-team-infobar-col-border-right" width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">新加坡</ion-label>
+          <ion-label class="my-team-infobar-label-num">第9名</ion-label>
+        </div>
       </ion-col>
       <ion-col width-25>
-        <span><ion-icon class="my-team-infobar-icon my-team-infobar-icon-world-rank" name='text'></ion-icon><p>世界</p></span>
-        <span><ion-label>454名</ion-label></span>
-      </ion-col>
-      <ion-col width-25>
-        <span><ion-icon class="my-team-infobar-icon my-team-infobar-icon-district-rank" name='text'></ion-icon><p>新加坡</p></span>
-        <span><ion-label>9名</ion-label></span>
-      </ion-col>
-      <ion-col width-25>
-        <span><ion-icon class="my-team-infobar-icon my-team-infobar-icon-team-member" name='text'></ion-icon><p>球员</p></span>
-        <span><ion-label>4人</ion-label></span>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">球员</ion-label>
+          <ion-label class="my-team-infobar-label-num">4人</ion-label>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">阵容</ion-label>
+        </div>
+      </ion-col>
+      <ion-col width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">照片</ion-label>
+        </div>
+      </ion-col>
+      <ion-col width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">视频</ion-label>
+        </div>
+      </ion-col>
+      <ion-col width-25>
+        <div class="my-team-infobar-item"><ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
+        </ion-icon><ion-label class="my-team-infobar-label">队员</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header class="my-team-admin-card-header">
+      管理人员
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33>
+            <div class="my-team-admin-card-item my-team-admin-card-item-1">
+              <img class="my-team-admin-card-avatar-img" src="img/test_avatar.jpg"/>
+              <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
+              <p class="my-team-admin-card-pane-name">王添翼</p>
+            </div>
+          </ion-col>
+          <ion-col width-33>
+            <div class="my-team-admin-card-item my-team-admin-card-item-2">
+              <ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>
+              <ion-label class="my-team-admin-card-pane-occupation">管理员</ion-label>
+              <p class="my-team-admin-card-pane-name">未设定</p>
+            </div>
+          </ion-col>
+          <ion-col width-33>
+            <div class="my-team-admin-card-item my-team-admin-card-item-3">
+              <ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>
+              <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
+              <p class="my-team-admin-card-pane-name">未设定</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="my-team-header-margin-top-2rem">
+    <ion-card-header class="my-team-description-header">
+      球队简介
+    </ion-card-header>
+    <ion-card-content>
+      <p class="my-team-description-p">巴塞罗那足球俱乐部（加泰罗尼亚语：Futbol Club Barcelona），昵称巴萨（Barça），是一家位于加泰罗尼亚巴塞罗那的足球俱乐部，于1899年[1]由一位瑞士企业家祖安·甘珀（加泰罗尼亚语：Joan Gamper）所创立，为加泰罗尼亚、西班牙、欧洲乃至于全球最成功和受欢迎的体育俱乐部之一。
+        主场诺坎普体育场可容纳接近十万名观众，是全欧洲最大及世界第三大的足球场。
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="my-team-header-margin-top-2rem">
+    <ion-card-header class="my-team-recent-games-header">
+      球队简介
+    </ion-card-header>
+
+    <ion-card-content>
+     <h5 class="my-team-recent-games-title">2016新加坡华人联赛 第12轮</h5>
+      <ion-grid>
+      <ion-row>
+        <ion-col width-33>
+          <div class="my-team-recent-games-team my-team-recent-games-team-home">
+            <img class="my-team-recent-games-team-avatar-img my-team-recent-games-team-home-avatar-img" src="img/test_team.jpg"/>
+            <ion-label class="my-team-recent-games-team-name my-team-recent-games-team-home-name">新加坡先驱联队</ion-label>
+          </div>
+        </ion-col>
+        <ion-col width-33>
+          <div class="my-team-recent-games-center-vs">
+            <span>
+            <ion-icon class="my-team-recent-games-center-vs-icon" ios="ios-trophy" md="md-trophy"></ion-icon>
+              </span>
+            <ion-label class="my-tet-games-center-vs-status">即将开赛</ion-label>
+          </div>
+        </ion-col>
+        <ion-col width-33>
+          <div class="my-team-recent-games-team my-team-recent-games-team-home">
+            <img class="my-team-recent-games-team-avatar-img my-team-recent-games-team-away-avatar-img" src="img/test_team2.jpg"/>
+            <ion-label class="my-team-recent-games-team-name my-team-recent-games-team-away-name">新加坡先驱联队</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 
