@@ -23,7 +23,8 @@ import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-go
     GOOGLE_MAPS_PROVIDERS,
     provideLazyMapsAPILoaderConfig({
         apiKey: 'AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8',
-        libraries: ['places']
+        libraries: ['places'],
+        region: "Singapore"
     })
   ]
 })

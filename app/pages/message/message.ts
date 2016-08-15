@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Modal} from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 import * as moment from 'moment';
 declare let firebase: any;
@@ -18,7 +18,7 @@ export class MessagePage {
   // firebase
   matchItems: FirebaseListObservable<any[]>;
   
-  constructor(private navCtrl: NavController, private af: AngularFire) {
+  constructor(private navCtrl: NavController ,private af: AngularFire) {
     this.message = "chats";
     this.matches = [];
     this.unReadCount = 0;
@@ -92,6 +92,8 @@ export class MessagePage {
   }
 
   enterNewNotification(){
-    this.navCtrl.push(NewNotificationPage);
+    let modal = Modal.create(NewNotificationPage);
+    this.navCtrl.present(modal);
+    //this.navCtrl.push(NewNotificationPage);
   }
 }

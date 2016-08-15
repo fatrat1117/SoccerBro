@@ -18,13 +18,13 @@ export class NewNotificationPage {
   }
 
   autocomplete() {
-    console.log("hit here");
-    
     this._loader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         let place = autocomplete.getPlace();
         console.log(place);
+        console.log(place.name);
+        console.log(place.formatted_address);
       });
     });
   }
