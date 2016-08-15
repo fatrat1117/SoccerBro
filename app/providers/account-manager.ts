@@ -1,5 +1,5 @@
-import {Modal, NavController, Page} from 'ionic-angular';
-import { Injectable} from '@angular/core';
+import {ModalController, NavController, Page} from 'ionic-angular';
+import {Injectable} from '@angular/core';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
@@ -121,16 +121,16 @@ export class AccountManager {
     return this.getFbUser();
   }
 
-  displayLoginModal(nav) {
-    let loginPage = Modal.create(LoginPage);
-    nav.present(loginPage);
+  displayLoginModal(modalController) {
+    let modal = modalController.create(LoginPage);
+    modal.present();
   }
 
-  checkLogin(nav) {
+  checkLogin(modalController) {
     let user = this.currentUser;
     console.log(user);
     if (!user) {
-      this.displayLoginModal(nav);
+      this.displayLoginModal(modalController);
     }
   }
 

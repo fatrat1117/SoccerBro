@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, Modal} from 'ionic-angular';
+import {NavController, NavParams, ModalController} from 'ionic-angular';
 import { FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager'
 import {MyTeamPage} from '../my-team/my-team';
@@ -15,7 +15,7 @@ export class MePage {
   player: any;
   //defaultTeam: any;
 
-  constructor(private nav: NavController, private am: AccountManager) {
+  constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager) {
     let self = this;
     this.am.afGetCurrentPlayer().subscribe(_ => {
       self.player = this.am.getCurrentPlayerSnapshot();
@@ -34,8 +34,8 @@ export class MePage {
   }
 
   showCreateTeamModel() {
-      let page = Modal.create(CreateTeamPage);
-      this.nav.present(page);
+    let modal = this.modalController.create(CreateTeamPage);
+    modal.present();
   }
 
   goManageTeamPage() {

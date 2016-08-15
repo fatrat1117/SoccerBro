@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController, Tabs} from 'ionic-angular';
+import {NavController, ModalController, Tabs} from 'ionic-angular';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import {HomePage} from '../home/home';
 import {StatsPage} from '../stats/stats';
@@ -20,7 +20,7 @@ export class TabsPage implements OnInit {
   private tab4Root: any;
   private tab5Root: any;
 
-  constructor(private am: AccountManager, private nav: NavController, private af: AngularFire) {
+  constructor(private am: AccountManager, private nav: NavController, private modalController: ModalController, private af: AngularFire) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HomePage;
@@ -58,7 +58,7 @@ export class TabsPage implements OnInit {
 
   checkLogin() {
     console.log("checkLogin");
-    this.am.checkLogin(this.nav);
+    this.am.checkLogin(this.modalController);
     //console.log("checkLogin finish");
   }
 }
