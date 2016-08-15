@@ -6,6 +6,7 @@ import {
   AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login'
+import { Camera } from 'ionic-native';
 
 declare let firebase: any;
 
@@ -287,6 +288,70 @@ export class AccountManager {
     return tId == this.currPlayer.currentTeamId;
   }
 
+  b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
+  changeTeamLogo(success, error) {
+    let self = this;
+    let options = {
+      quality: 75,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 256,
+      targetHeight: 256
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      let contentType = 'image/jpg';
+      let b64Data = imageData;
+
+      let blob = this.b64toBlob(b64Data, contentType, 256);
+
+      let metadata = {
+        contentType: 'image/jpeg',
+      };
+      let storageRef = firebase.storage().ref();
+      let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
+      uploadTask.on('state_changed', function (snapshot) {
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+      }, error, function () {
+        // Handle successful uploads on complete
+        var downloadURL = uploadTask.snapshot.downloadURL;
+        success(downloadURL);
+      });
+
+    }, (err) => {
+      error(err);
+      // Handle error
+    });
+  }
+  
   //snapshot
   getCurrentPlayerSnapshot() {
     return this.currPlayer;
