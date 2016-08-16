@@ -18,7 +18,7 @@ export class MessagePage {
   // firebase
   matchItems: FirebaseListObservable<any[]>;
   
-  constructor(private navCtrl: NavController, private  modalController: ModalController,private af: AngularFire) {
+  constructor(private navCtrl: NavController, private  modalController: ModalController, private af: AngularFire) {
     this.message = "chats";
     this.matches = [];
     this.unReadCount = 0;

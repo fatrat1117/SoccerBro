@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {ViewController} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 
 declare var google: any;
@@ -9,7 +9,7 @@ declare var google: any;
 })
 export class NewNotificationPage {
   address: string;
-  constructor(private navCtrl: NavController, private _loader: MapsAPILoader) {
+  constructor(private viewCtrl: ViewController, private _loader: MapsAPILoader) {
     this.address = '';
   }
 
@@ -17,6 +17,11 @@ export class NewNotificationPage {
     this.autocomplete();
   }
 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  // Google places
   autocomplete() {
     this._loader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});

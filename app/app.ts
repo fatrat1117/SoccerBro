@@ -41,4 +41,4 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     libraries: ['places'],
     region: "Singapore"
   })
-]);
+], {tabsHideOnSubPages:"true"});

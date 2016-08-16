@@ -5,5 +5,39 @@
 </ion-header>
 
 <ion-content padding>
-  <input id="autocompleteInput" />
+  <ion-list>
+    <ion-item>
+      <ion-label>Opponent</ion-label>
+      <ion-select>
+        <ion-searchbar></ion-searchbar>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="m">Male</ion-option>
+        <ion-option value="m">Male</ion-option>
+        <ion-option value="m">Male</ion-option>
+        <ion-option value="m">Male</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Opponent</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Start Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <input id="autocompleteInput" style="width:100%;border:none;" />
+    </ion-item>
+  </ion-list>
+  <button (click)="dismiss()" round block danger small>
+    <ion-icon name="md-close"></ion-icon>
+    Cancel
+  </button>
 </ion-content>
