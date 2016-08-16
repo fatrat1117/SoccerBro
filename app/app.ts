@@ -7,17 +7,7 @@ import {AccountManager} from './providers/account-manager';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>',
-  providers: [
-    AccountManager,
-    // google maps
-    GOOGLE_MAPS_PROVIDERS,
-    provideLazyMapsAPILoaderConfig({
-      apiKey: 'AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8',
-      libraries: ['places'],
-      region: "Singapore"
-    })
-  ]
+  template: '<ion-nav [root]="rootPage"></ion-nav>'
 })
 export class MyApp {
 
@@ -42,5 +32,13 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     databaseURL: "https://project-3416565325366537224.firebaseio.com",
     storageBucket: "project-3416565325366537224.appspot.com",
   }),
-  firebaseAuthConfig({})
+  firebaseAuthConfig({}),
+  AccountManager,
+  // google maps
+  GOOGLE_MAPS_PROVIDERS,
+  provideLazyMapsAPILoaderConfig({
+    apiKey: 'AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8',
+    libraries: ['places'],
+    region: "Singapore"
+  })
 ]);
