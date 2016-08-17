@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
-import {ViewController} from 'ionic-angular';
+import {ViewController, ModalController} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
+
+import {SearchTeamPage} from '../search-team/search-team';
 
 declare var google: any;
 
@@ -9,12 +11,20 @@ declare var google: any;
 })
 export class NewNotificationPage {
   address: string;
-  constructor(private viewCtrl: ViewController, private _loader: MapsAPILoader) {
+  constructor(private viewCtrl: ViewController, private modalCtrl: ModalController, private _loader: MapsAPILoader) {
     this.address = '';
   }
 
   ngOnInit() {
     this.autocomplete();
+  }
+
+  searchTeam() {
+    let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
+    searchTeamModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    searchTeamModal.present();
   }
 
   dismiss() {
