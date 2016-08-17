@@ -67,7 +67,7 @@ export class AccountManager {
     self.subscriptions.push(sub);
 
 
-    //teams of current player 
+    //teams of current player
     // this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
     // let sub3 = this.afTeamsOfCurrPlayer.subscribe(teamIds => {
     //   console.log("team of current player change ids", teamIds);
@@ -140,7 +140,7 @@ export class AccountManager {
 
   //player
   afGetCurrentPlayer() {
-    return this.af.database.object(this.getCurrentPlayerRef());
+      return this.af.database.object(this.getCurrentPlayerRef());
   }
 
   afGetTeamsOfPlayer(pId) {
@@ -160,7 +160,24 @@ export class AccountManager {
   }
 
   getCurrentPlayerRef() {
-    return this.getPlayerRef(this.currentUser.uid);
+    if(this.currentUser != null) {
+      return this.getPlayerRef(this.currentUser.uid);
+    }else{
+      //for testing
+      let user = {
+        uid: "4m8MsTy91qN9xZ9vjog09E9xpb22",
+        type: 'facebook'
+      }
+      let player = {
+        currentTeamId: "-KL1a8zTfCXDapavsN_L",
+        displayName: "Jixiang Li",
+        photoURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/1002881_372442569549278_128488338_n.jpg?oh=5af23ad80fd6dc78371a7e3cea019a35&oe=5809CA24",
+        pushId: "d6fa08ac-412b-4bee-81ab-c08c8d0ffe51",
+      }
+      this.currentUser = user;
+      this.currPlayer = player;
+      return this.getPlayerRef(this.currentUser.uid);
+    }
   }
 
   getAllTeamsOfPlayerRef(pId) {
@@ -351,7 +368,7 @@ export class AccountManager {
       // Handle error
     });
   }
-  
+
   //snapshot
   getCurrentPlayerSnapshot() {
     return this.currPlayer;
@@ -376,7 +393,7 @@ export class AccountManager {
   // }
 
   getTeamsOfPlayerSnapshot(pId, teamsSnapshot) {
-    //teams of current player 
+    //teams of current player
     let afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(pId);
     let sub3 = afTeamsOfCurrPlayer.subscribe(teamIds => {
       sub3.unsubscribe();
