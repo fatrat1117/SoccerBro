@@ -101,7 +101,7 @@
   </ion-grid>
 
   <ion-card>
-    <ion-card-header class="my-team-admin-card-header">
+    <ion-card-header class="my-team-header-decoration my-team-admin-card-header">
       管理人员
     </ion-card-header>
     <ion-card-content>
@@ -134,7 +134,7 @@
   </ion-card>
 
   <ion-card class="my-team-header-margin-top-2rem">
-    <ion-card-header class="my-team-description-header">
+    <ion-card-header class="my-team-header-decoration my-team-description-header">
       球队简介
     </ion-card-header>
     <ion-card-content>
@@ -145,8 +145,8 @@
   </ion-card>
 
   <ion-card class="my-team-header-margin-top-2rem">
-    <ion-card-header class="my-team-recent-games-header">
-      球队简介
+    <ion-card-header class="my-team-header-decoration my-team-recent-games-header">
+      近期比赛
     </ion-card-header>
 
     <ion-card-content>
@@ -160,11 +160,11 @@
           </div>
         </ion-col>
         <ion-col width-33>
-          <div class="my-team-recent-games-center-vs">
-            <span>
-            <ion-icon class="my-team-recent-games-center-vs-icon" ios="ios-trophy" md="md-trophy"></ion-icon>
-              </span>
-            <ion-label class="my-tet-games-center-vs-status">即将开赛</ion-label>
+          <div class="my-team-recent-games-center-vs my-team-recent-games-center-vs-icon">
+          <ion-icon class="my-team-recent-games-center-vs-icon" ios="ios-trophy" md="md-trophy"></ion-icon>
+          </div>
+          <div class="my-team-recent-games-center-vs my-team-recent-games-center-vs-word">
+            <ion-label class="my-team-games-center-vs-status">即将开赛</ion-label>
           </div>
         </ion-col>
         <ion-col width-33>
@@ -177,6 +177,11 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+
+  <div class="my-team-invite-teammate">
+    <button class="my-team-invite-teammate-btn"><ion-icon ios="ios-add" md="md-add"></ion-icon>邀请队友</button>
+  </div>
+
 </ion-content>
 
 
