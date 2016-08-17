@@ -6,9 +6,9 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
+    <ion-item (click)="searchTeam()">
       <ion-label stacked primary>Opponent</ion-label>
-      <ion-label text-center (click)="searchTeam()"></ion-label>
+      <ion-label text-center>&nbsp;</ion-label>
     </ion-item>
     <ion-item>
       <ion-label stacked primary>Start Date</ion-label>
@@ -18,12 +18,22 @@
       <ion-label stacked primary>Start Time</ion-label>
       <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
     </ion-item>
+    <ion-item>
+      <ion-label stacked primary margin-top>Jersey Color</ion-label>
+      <ion-label margin-bottom text-center style="background:red;padding:0px !important;"><ion-icon name="md-shirt" large></ion-icon></ion-label>
+    </ion-item>
     <ion-item stacked primary>
       <input id="autocompleteInput" style="width:100%;border:none;" />
     </ion-item>
   </ion-list>
-  <button (click)="dismiss()" round block danger small>
-    <ion-icon name="md-close"></ion-icon>
-    Cancel
-  </button>
+
+  <ion-row padding-horizontal> 
+    <ion-col text-center>
+      <button block secondary small>Post</button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()" >Cancel</button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
