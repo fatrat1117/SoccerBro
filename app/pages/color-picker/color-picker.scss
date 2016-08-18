@@ -1,0 +1,11 @@
+  .row-dots {
+    text-align: center;
+
+    .dot {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin: 5px auto;
+      position: relative;
+    }
+  }

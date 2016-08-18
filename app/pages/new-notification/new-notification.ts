@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {ViewController, ModalController} from 'ionic-angular';
+import {ViewController, ModalController, PopoverController} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 
 import {SearchTeamPage} from '../search-team/search-team';
+import {ColorPickerPage} from '../color-picker/color-picker';
 
 declare var google: any;
 
@@ -10,8 +11,12 @@ declare var google: any;
   templateUrl: 'build/pages/new-notification/new-notification.html',
 })
 export class NewNotificationPage {
+  jerseyColor: string;
   address: string;
-  constructor(private viewCtrl: ViewController, private modalCtrl: ModalController, private _loader: MapsAPILoader) {
+  constructor(private viewCtrl: ViewController, private modalCtrl: ModalController, 
+              private popoverController: PopoverController, private _loader: MapsAPILoader) {
+
+    this.jerseyColor = 'transparent';
     this.address = '';
   }
 
@@ -25,6 +30,15 @@ export class NewNotificationPage {
       console.log(data);
     });
     searchTeamModal.present();
+  }
+
+  pickColor() {
+    let popover = this.popoverController.create(ColorPickerPage);
+    popover.onDidDismiss(data => {
+      if (data != null)
+        this.jerseyColor = data.color;
+    });
+    popover.present();
   }
 
   dismiss() {

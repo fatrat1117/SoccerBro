@@ -1,0 +1,7 @@
+<ion-grid>
+  <ion-row no-padding class="row-dots" *ngFor="let row of colors">
+    <ion-col no-padding *ngFor="let color of row">
+      <button category="dot" (click)="selectedColor(color)" [ngStyle]="getColorStyle(color)"></button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

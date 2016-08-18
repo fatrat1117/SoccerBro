@@ -18,11 +18,11 @@
       <ion-label stacked primary>Start Time</ion-label>
       <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label stacked primary margin-top>Jersey Color</ion-label>
-      <ion-label margin-bottom text-center style="background:red;padding:0px !important;"><ion-icon name="md-shirt" large></ion-icon></ion-label>
+    <ion-item (click)="pickColor()">
+      <ion-label stacked primary>Jersey Color</ion-label>
+      <ion-label no-margin text-center style="font-size:40px;"><ion-icon name="md-shirt" [style.color]="jerseyColor" style="1px solid lightgray"></ion-icon></ion-label>
     </ion-item>
-    <ion-item stacked primary>
+    <ion-item>
       <input id="autocompleteInput" style="width:100%;border:none;" />
     </ion-item>
   </ion-list>
