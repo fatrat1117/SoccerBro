@@ -17,10 +17,15 @@ export class LoginPage {
     error: any
     cordovaOauth: CordovaOauth;
     busy: boolean;
+    _credentials: any;
 
     constructor(public af: AngularFire,
         public viewCtrl: ViewController
     ) {
+        this._credentials = {
+            email: '',
+            password: ''
+        };
         this.busy = false;
         this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "463670290510920", appScope: ["email"] }));
         //this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
@@ -38,10 +43,11 @@ export class LoginPage {
      * @param _credentials {Object} the email and password from the form
      * @param _event {Object} the event information from the form submit
      */
-    registerUser(_credentials, _event) {
+    registerUser(_event) {
         _event.preventDefault();
-
-
+        let self = this;
+        let _credentials = this._credentials;
+        console.log("create user", _credentials);
         this.af.auth.createUser(_credentials)
             .then((user) => {
                 console.log(`Create User Success:`, user);
@@ -49,7 +55,7 @@ export class LoginPage {
 
                 return this.login(_credentials, _event);
             })
-            .catch(e => console.error(`Create User Failure:`, e));
+            .catch(e => { self.error = e;});
     }
 
     registerUserWithFacebook(_event) {
@@ -57,7 +63,7 @@ export class LoginPage {
         let self = this;
 
         this.busy = true;
-
+        console.log(this.cordovaOauth);
         this.cordovaOauth.login().then(success => {
             //console.log("Facebook success: " + JSON.stringify(success));
             let creds = firebase.auth.FacebookAuthProvider.credential(success["access_token"]);

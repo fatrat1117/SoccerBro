@@ -1,29 +1,29 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Please log in</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Please log in</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="login-content" padding>
     <h1>User Login</h1>
-    <!--<ion-item>
-            <ion-label>Username</ion-label>
-            <ion-input type="text" ngControl="email"></ion-input>
-        </ion-item>
+    <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input type="text" [(ngModel)]="_credentials.email"></ion-input>
+    </ion-item>
 
-        <ion-item>
-            <ion-label>Password</ion-label>
-            <ion-input type="password" ngControl="password"></ion-input>
-        </ion-item>
+    <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="_credentials.password"></ion-input>
+    </ion-item>
 
-        <div padding>
-            <button block (click)="login(loginCreds.value, $event)">Login</button>
-            <button block (click)="registerUser(loginCreds.value, $event)">Create Account</button>
-         </div>        -->
+    <div padding>
+        <button block (click)="login(loginCreds, $event)">Login</button>
+        <button block (click)="registerUser($event)">Create Account</button>
+    </div>
+    <p>Or</p>
     <div class="login-connect" padding>
-        <button [disabled] = "busy" class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
-        <button class="login-connect-btn login-connect-btn-wc" block (click)="registerUserWithWechat($event)">Connect with Wechat</button>
-        <button [disabled] = "busy" (click) = "dismiss()" block>Cancel</button>
+        <button [disabled]="busy" class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
+        <button [disabled]="busy" (click)="dismiss()" block>Cancel</button>
     </div>
     <div padding>
         <p *ngIf="error" class="error">Error:&nbsp;{{error}}</p>
