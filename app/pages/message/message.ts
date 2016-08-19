@@ -91,9 +91,9 @@ export class MessagePage {
     });
   }
 
-  enterNewNotification(){
+  postNewMatch(){
     //this.navCtrl.push(NewNotificationPage);
-    let modal = this.modalController.create(NewNotificationPage);
+    let modal = this.modalController.create(NewMatchPage);
     modal.present();
   }
 }
