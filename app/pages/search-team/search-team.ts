@@ -34,6 +34,10 @@ export class SearchTeamPage {
     this.filteredTeams = this.totalTeams.slice();
   }
 
+  trackByName(team) {
+    return team.id;
+  }
+
   filterTeams(ev: any) {
     // Reset items back to all of the items
     this.resetFilter();
@@ -49,7 +53,7 @@ export class SearchTeamPage {
     }
   }
 
-  dismiss(teamName: string) {
-    this.viewCtrl.dismiss({name: teamName});
+  dismiss(team: any) {
+    this.viewCtrl.dismiss({team: team});
   }
 }

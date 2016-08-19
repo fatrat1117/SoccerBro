@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>New Match</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <!-- opponent -->
+    <ion-item (click)="searchTeam()">
+      <ion-label stacked primary>Opponent</ion-label>
+      <ion-label>
+        <ion-row center>
+          <ion-avatar style="margin-right:10px; margin-left:auto;">
+            <img [src]="opponent?.logo">
+          </ion-avatar>
+          <h2 style="margin-right:auto;">{{ opponent?.name }}</h2>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+    <!-- date -->
+    <ion-item>
+      <ion-label stacked primary>Start Date</ion-label>
+      <ion-datetime text-center displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+    <!-- time -->
+    <ion-item>
+      <ion-label stacked primary>Start Time</ion-label>
+      <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+    </ion-item>
+    <!-- color -->
+    <ion-item (click)="pickColor()">
+      <ion-label stacked primary>Jersey Color</ion-label>
+      <ion-label no-margin text-center style="font-size:200%;">
+        <ion-icon name="ios-shirt" [style.color]="jerseyColor" [hidden]="jerseyColor=='white'"></ion-icon>
+      </ion-label>
+      <ion-label no-margin text-center style="font-size:200%;">
+        <ion-icon name="ios-shirt-outline" [hidden]="jerseyColor!='white'" style="color:lightgrey;"></ion-icon>
+      </ion-label>
+    </ion-item>
+    <!-- location -->
+    <ion-item>
+      <ion-label stacked primary>Location</ion-label>
+      <ion-label>
+        <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;"/>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-row padding-horizontal>
+    <ion-col text-center>
+      <button block secondary small>Post</button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()">Cancel</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

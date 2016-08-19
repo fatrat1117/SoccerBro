@@ -8,9 +8,10 @@ import {ColorPickerPage} from '../color-picker/color-picker';
 declare var google: any;
 
 @Component({
-  templateUrl: 'build/pages/new-notification/new-notification.html',
+  templateUrl: 'build/pages/new-match/new-match.html',
 })
-export class NewNotificationPage {
+export class NewMatchPage {
+  opponent: any;
   jerseyColor: string;
   address: string;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController, 
@@ -27,7 +28,7 @@ export class NewNotificationPage {
   searchTeam() {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
-      console.log(data);
+      this.opponent = data.team;
     });
     searchTeamModal.present();
   }

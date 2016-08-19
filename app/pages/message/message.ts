@@ -6,7 +6,7 @@ declare let firebase: any;
 
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {NotificationPage} from '../notification/notification';
-import {NewNotificationPage} from '../new-notification/new-notification';
+import {NewMatchPage} from '../new-match/new-match';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
