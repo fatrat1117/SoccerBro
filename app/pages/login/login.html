@@ -17,6 +17,8 @@
     </ion-item>
 
     <div padding>
+        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="login(_credentials, $event)" block>Login</button>
+        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="registerUser($event)" block>Create Account</button>
     </div>
     <p>Or</p>
     <div class="login-connect" padding>
