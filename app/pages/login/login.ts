@@ -45,6 +45,8 @@ export class LoginPage {
      */
     registerUser(_event) {
         _event.preventDefault();
+        this.busy = true;
+
         let self = this;
         let _credentials = this._credentials;
         console.log("create user", _credentials);
@@ -55,7 +57,10 @@ export class LoginPage {
 
                 return this.login(_credentials, _event);
             })
-            .catch(e => { self.error = e;});
+            .catch(e => { 
+                self.error = e;
+                self.busy = false;
+            });
     }
 
     registerUserWithFacebook(_event) {
@@ -104,34 +109,32 @@ export class LoginPage {
      */
     login(credentials, _event) {
         _event.preventDefault();
-
         // if this was called from the register user,  the check if we 
         // need to create the user object or not
-        let addUser = credentials.created
-        credentials.created = null;
-
+        // let addUser = credentials.created
+        // credentials.created = null;
+        let self = this;
+        this.busy = true;
         // login usig the email/password auth provider
         this.af.auth.login(credentials, {
             provider: AuthProviders.Password,
             method: AuthMethods.Password
         }).then((authData) => {
-            console.log(authData)
-
-            if (addUser) {
-                const itemObservable = this.af.database.object('/users/' + authData.uid);
-                itemObservable.set({
-                    "provider": authData.auth.providerData[0].providerId,
-                    "avatar": authData.auth.photoURL || "MISSING",
-                    "displayName": authData.auth.providerData[0].displayName || authData.auth.email,
-                })
-            } else {
-                this.dismiss()
-            }
-        }).then((value) => {
-            this.dismiss()
+            //console.log(authData)
+            // if (addUser) {
+            //     const itemObservable = this.af.database.object('/users/' + authData.uid);
+            //     itemObservable.set({
+            //         "provider": authData.auth.providerData[0].providerId,
+            //         "avatar": authData.auth.photoURL || "MISSING",
+            //         "displayName": authData.auth.providerData[0].displayName || authData.auth.email,
+            //     })
+            // } else {
+            this.dismiss();
+            //}
         }).catch((error) => {
             this.error = error
-            console.log(error)
+            self.busy = false;
+            //console.log(error)
         });
     }
 }

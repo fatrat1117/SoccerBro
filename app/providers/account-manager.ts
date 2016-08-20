@@ -44,15 +44,9 @@ export class AccountManager {
       else {
         console.log("first time login");
         //todo
-        let photo = '/img/none.png';
-        let name = user.email;
-        if (user.photoURL)
-          photo = user.photoURL;
-        if (user.displayName)
-          name = user.displayName;
         self.afCurrPlayer.update({
-          photoURL: photo,
-          displayName: name
+          photoURL: user.photoURL || '/img/none.png',
+          displayName: user.displayName || user.email
         }).catch(err => error(err));
       }
 
@@ -71,8 +65,6 @@ export class AccountManager {
       // }
     });
     self.subscriptions.push(sub);
-
-
     //teams of current player
     // this.afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(user.uid);
     // let sub3 = this.afTeamsOfCurrPlayer.subscribe(teamIds => {

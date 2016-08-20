@@ -8,17 +8,15 @@
     <h1>User Login</h1>
     <ion-item>
         <ion-label>Email</ion-label>
-        <ion-input type="text" [(ngModel)]="_credentials.email"></ion-input>
+        <ion-input type="text" [(ngModel)]="_credentials.email" required></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="_credentials.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="_credentials.password" required></ion-input>
     </ion-item>
 
     <div padding>
-        <button block (click)="login(loginCreds, $event)">Login</button>
-        <button block (click)="registerUser($event)">Create Account</button>
     </div>
     <p>Or</p>
     <div class="login-connect" padding>
