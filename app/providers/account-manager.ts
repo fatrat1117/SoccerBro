@@ -44,9 +44,15 @@ export class AccountManager {
       else {
         console.log("first time login");
         //todo
+        let photo = '/img/none.png';
+        let name = user.email;
+        if (user.photoURL)
+          photo = user.photoURL;
+        if (user.displayName)
+          name = user.displayName;
         self.afCurrPlayer.update({
-          photoURL: user.photoURL,
-          displayName: user.displayName
+          photoURL: photo,
+          displayName: name
         }).catch(err => error(err));
       }
 
@@ -105,11 +111,11 @@ export class AccountManager {
 
   getFbUser() {
     let currentUser = firebase.auth().currentUser;
-    //console.log(currentUser);
+    //console.log("get fb user");
     if (currentUser) {
       let user = {
         uid: currentUser.uid,
-        type: 'facebook'
+        type: currentUser.providerId
       }
       return user;
     }
@@ -140,7 +146,7 @@ export class AccountManager {
 
   //player
   afGetCurrentPlayer() {
-      return this.af.database.object(this.getCurrentPlayerRef());
+    return this.af.database.object(this.getCurrentPlayerRef());
   }
 
   afGetTeamsOfPlayer(pId) {
@@ -160,9 +166,9 @@ export class AccountManager {
   }
 
   getCurrentPlayerRef() {
-    if(this.currentUser != null) {
+    if (this.currentUser != null) {
       return this.getPlayerRef(this.currentUser.uid);
-    }else{
+    } else {
       //for testing
       let user = {
         uid: "4m8MsTy91qN9xZ9vjog09E9xpb22",

@@ -7,7 +7,7 @@
 <ion-content class="login-content" padding>
     <h1>User Login</h1>
     <ion-item>
-        <ion-label>Username</ion-label>
+        <ion-label>Email</ion-label>
         <ion-input type="text" [(ngModel)]="_credentials.email"></ion-input>
     </ion-item>
 
@@ -26,6 +26,6 @@
         <button [disabled]="busy" (click)="dismiss()" block>Cancel</button>
     </div>
     <div padding>
-        <p *ngIf="error" class="error">Error:&nbsp;{{error}}</p>
+        <p *ngIf="error" class="error">{{error}}</p>
     </div>
 </ion-content>
