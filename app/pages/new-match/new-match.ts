@@ -80,7 +80,7 @@ export class NewMatchPage {
       time: time,
       color: this.jerseyColor,
       location_name: this.location.name,
-      location_adderss: this.location.address,
+      location_adderess: this.location.address,
       content: 'this is a test notification'
     }).then(item => {
       // add to self

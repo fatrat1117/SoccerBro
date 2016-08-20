@@ -12,9 +12,9 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" src="img/test_team.jpg">   
+            <img class="team-logo-img" [src]="(team1 | async)?.logo">
           </ion-thumbnail>
-          <p text-center>Ever Pioneer</p>
+          <p text-center>&nbsp;{{ (team1 | async)?.name }}</p>
        </ion-item>
       </ion-col>
       <!-- time -->
@@ -30,9 +30,9 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" src="img/test_team2.jpg">   
+            <img class="team-logo-img" [src]="(team2 | async)?.logo">
           </ion-thumbnail>
-          <p text-center>STK Soccer</p>
+          <p text-center>&nbsp;{{ (team2 | async)?.name }}</p>
        </ion-item>
       </ion-col>
     </ion-row>
@@ -40,9 +40,9 @@
     <ion-list>
       <!-- address -->
       <ion-item text-wrap>
-        <ion-icon name="ios-shirt" item-left large [ngStyle]="getColorStyle()"></ion-icon>
-        <h>Yio Chu Kang Stadium</h>
-        <p>210 Ang Mo Kio Avenue 9, Singapore 569777</p>
+        <ion-icon name="ios-shirt" item-left large style="color:transparent;" [style.color]="(matchInfo | async)?.color"></ion-icon>
+        <h>{{ (matchInfo | async)?.location_name }}</h>
+        <p>{{ (matchInfo | async)?.location_address }}</p>
         <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
       </ion-item>
 
