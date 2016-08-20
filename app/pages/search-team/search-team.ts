@@ -20,7 +20,8 @@ export class SearchTeamPage {
       subscription.unsubscribe();
       snapshots.forEach(snapshot => {
         let team: any = {};
-        team.id = snapshot.key;
+        
+        team.id = snapshot.$key;
         team.name = snapshot.name;
         team.logo = snapshot.logo;
         this.totalTeams.push(team);

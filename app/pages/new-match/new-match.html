@@ -21,12 +21,12 @@
     <!-- date -->
     <ion-item>
       <ion-label stacked primary>Start Date</ion-label>
-      <ion-datetime text-center displayFormat="YYYY-MM-DD"></ion-datetime>
+      <ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
     </ion-item>
     <!-- time -->
     <ion-item>
       <ion-label stacked primary>Start Time</ion-label>
-      <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+      <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
     </ion-item>
     <!-- color -->
     <ion-item (click)="pickColor()">
@@ -49,7 +49,7 @@
 
   <ion-row padding-horizontal>
     <ion-col text-center>
-      <button block secondary small>Post</button>
+      <button block secondary small (click)="postNewMessage()">Post</button>
     </ion-col>
     <ion-col text-center>
       <button block danger small (click)="dismiss()">Cancel</button>
