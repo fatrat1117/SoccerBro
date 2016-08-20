@@ -26,7 +26,9 @@ export class MePage {
   }
 
   openNavTeamPage() {
-    this.nav.push(MyTeamPage);
+    this.nav.push(MyTeamPage, {
+      id: this.am.currentUser.uid,
+    });
   }
 
   onLogout() {
