@@ -17,6 +17,6 @@ export class MyTeamPage {
     private navParams: NavParams) {
     // this.currentTeam = this.am.getCurrentTeamSnapshot();
     let tId = this.navParams.get('tId');
-    this.afTeam = this.am.afGetTeam(tId || this.am.getCurrentTeamSnapshot().currentTeamId);
+    this.afTeam = this.am.afGetTeam(tId || this.am.getCurrentPlayerSnapshot().currentTeamId);
   }
 }
