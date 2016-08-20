@@ -24,7 +24,7 @@ export class MessagePage {
     this.unReadCount = 0;
 
     // firebase
-    this.matchItems = af.database.list('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
+    this.matchItems = af.database.list('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
       query: { orderByChild: 'time'}
     });
 
