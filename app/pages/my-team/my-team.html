@@ -14,13 +14,13 @@
           <p>人气</p>
           <h6>66</h6>
         </div>
-        <img class="my-team-avatar-img" [src] = "currentTeam ? (currentTeam | async)?.logo : 'img/noteam.jpg' ">
+        <img class="my-team-avatar-img" [src] = "(afTeam | async)?.logo ">
         <div class="my-team-info-power">
           <p>能力</p>
           <h6>0</h6>
         </div>
       </ion-avatar>
-      <p>STK先驱联</p>
+      <p>{{(afTeam | async)?.name}}</p>
     </ion-item>
   </ion-card>
   </div>
