@@ -149,6 +149,11 @@ export class AccountManager {
     return this.af.database.object(this.getCurrentPlayerRef() + '/' + 'currentTeamId');
   }
 
+
+  afGetPlayerById(pId){
+    return this.af.database.object(this.getPlayerRef(pId));
+  }
+
   afGetTeamOfPlayer(pId, tId) {
     return this.af.database.object(this.getTeamOfPlayerRef(pId, tId));
   }
@@ -185,6 +190,7 @@ export class AccountManager {
   getTeamOfPlayerRef(pId, tId) {
     return "/teamsOfPlayer/" + pId + '/' + tId;
   }
+
   //Team
   afGetTeam(tId) {
     return this.af.database.object(this.getTeamRef(tId));

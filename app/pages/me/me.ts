@@ -27,7 +27,8 @@ export class MePage {
 
   openNavTeamPage() {
     this.nav.push(MyTeamPage, {
-      id: this.am.currentUser.uid,
+      //Hard code Team ID
+      tId: "-KL1a8zTfCXDapavsN_L",
     });
   }
 

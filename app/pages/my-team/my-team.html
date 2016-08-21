@@ -126,7 +126,7 @@
             <div class="my-team-admin-card-item my-team-admin-card-item-1">
               <img class="my-team-admin-card-avatar-img" src="img/test_avatar.jpg" />
               <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
-              <p class="my-team-admin-card-pane-name">王添翼</p>
+              <p class="my-team-admin-card-pane-name">{{(afTeamCaptain | async)?.displayName}}</p>
             </div>
           </ion-col>
           <ion-col width-33>
@@ -196,7 +196,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <button (click) = "editTeam()"> 
+      <button (click) = "editTeam()">
         <ion-icon name="create"></ion-icon>
         Edit
       </button>

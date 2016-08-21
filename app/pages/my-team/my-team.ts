@@ -10,8 +10,13 @@ import {EditTeamPage} from '../edit-team/edit-team';
 export class MyTeamPage {
 
   //currentUser:any;
-  afTeam: FirebaseObjectObservable<any>;
   tId: any;
+  team: any;
+  teamCaptain: any;
+
+  //af
+  afTeam: FirebaseObjectObservable<any>;
+  afTeamCaptain: FirebaseObjectObservable<any>;
 
   constructor(private nav: NavController,
     private modalController: ModalController,
@@ -20,6 +25,22 @@ export class MyTeamPage {
     // this.currentTeam = this.am.getCurrentTeamSnapshot();
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().currentTeamId;
     this.afTeam = this.am.afGetTeam(this.tId);
+
+    //getCaptainAFObject
+    this.afTeam.subscribe(snapshot => {
+         this.team = snapshot;
+         var captainId= snapshot.captain;
+          console.log(this.tId);
+          console.log(snapshot);
+         this.afTeamCaptain = this.am.afGetPlayerById(captainId);
+         console.log( this.afTeamCaptain);
+
+          this.afTeamCaptain.subscribe(playerSnapshot => {
+              this.teamCaptain = playerSnapshot;
+              console.log(this.teamCaptain.displayName);
+          });
+    });
+    // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
   }
 
   editTeam() {
