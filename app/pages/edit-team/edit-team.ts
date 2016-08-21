@@ -9,6 +9,9 @@ export class EditTeamPage {
   busy: boolean;
   tId: any;
   afTeam: any;
+  team: any;
+  logoData: any;
+  logoUrl: any;
 
   constructor(private am: AccountManager,
     private navParams: NavParams,
@@ -16,6 +19,30 @@ export class EditTeamPage {
     this.tId = this.navParams.get('tId');
     this.busy = false;
     this.afTeam = this.am.afGetTeam(this.tId);
-    //console.log(this.tId, this.afTeam)
+    this.team = {
+      logo: '',
+      name: '',
+      description: ''
+    };
+  }
+
+  changeLogo() {
+    let self = this;
+    self.busy = true;
+
+    let success = data => {
+      self.logoData = data;
+      self.busy = false;
+      self.logoUrl = "data:image/jpeg;base64," + data;
+    }
+    let error = err => {
+      alert(err);
+      self.busy = false;
+    }
+    this.am.selectImgGetData(success, error);
+  }
+
+  save() {
+    console.log(this.team);
   }
 }

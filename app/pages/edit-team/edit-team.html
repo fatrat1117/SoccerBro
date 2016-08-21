@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Edit Team</ion-title>
     <ion-buttons end>
-      <button>
+      <button (click) = "save()">
         Save
       </button>
     </ion-buttons>
@@ -12,15 +12,24 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <img [src]="(afTeam | async)?.logo"/>
+      <h2>Logo</h2>
+      <ion-thumbnail item-right>
+        <img [src]="logoUrl || (afTeam | async)?.logo" (click)="changeLogo()"/>
+      </ion-thumbnail>
     </ion-item>
     <ion-item>
       <ion-label floating>name</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" maxlength="32"
+      [ngModel]="(afTeam | async)?.name"
+      (ngModelChange)="team.name=$event">
+      </ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>description</ion-label>
-      <ion-textarea type="text"></ion-textarea>
+      <ion-textarea type="text" maxlength="128"
+      [ngModel]="(afTeam | async)?.description"
+      (ngModelChange)="team.description=$event">
+      </ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>

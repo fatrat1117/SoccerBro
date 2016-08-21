@@ -327,6 +327,25 @@ export class AccountManager {
     return blob;
   }
 
+  selectImgGetData(success, error) {
+    let self = this;
+    let options = {
+      quality: 75,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 256,
+      targetHeight: 256
+    };
+
+    Camera.getPicture(options).then(imageData => {
+      success(imageData);
+    }, (err) => {
+      error(err);
+    });
+  }
+
   changeTeamLogo(success, error) {
     let self = this;
     let options = {
