@@ -6,19 +6,19 @@
 
 <ion-content class="login-content" padding>
     <h1>User Login</h1>
-    <ion-item>
-        <ion-label>Email</ion-label>
-        <ion-input type="text" [(ngModel)]="_credentials.email" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="_credentials.password" required></ion-input>
-    </ion-item>
+    <ion-list>
+        <ion-item>
+            <ion-input type="text" placeholder="Email" [(ngModel)]="_credentials.email" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="password" placeholder="Password" [(ngModel)]="_credentials.password" required></ion-input>
+        </ion-item>
+    </ion-list>
 
     <div padding>
-        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="login(_credentials, $event)" block>Login</button>
-        <button type="submit"  (click)="registerUser($event)" block>Create Account</button>
+        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="login(_credentials, $event)"
+            block>Login</button>
+        <button type="submit" (click)="registerUser($event)" block>Create Account</button>
     </div>
     <p>Or</p>
     <div class="login-connect" padding>

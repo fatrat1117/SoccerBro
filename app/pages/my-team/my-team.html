@@ -191,25 +191,19 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
-  <!--<div class="my-team-invite-teammate">
-    <button class="my-team-invite-teammate-btn"><ion-icon ios="ios-add" md="md-add"></ion-icon>邀请队友</button>
-  </div>-->
-
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-    <ion-buttons start>
-      <button royal>
-        <ion-icon name="search"></ion-icon>
+  <ion-toolbar>
+    <ion-buttons>
+      <button (click) = "editTeam()"> 
+        <ion-icon name="create"></ion-icon>
+        Edit
       </button>
-    </ion-buttons>
-    <ion-title>edit</ion-title>
-    <ion-buttons end>
-      <button royal>
+      <button>
         <ion-icon name="person-add"></ion-icon>
+        Invite Player
       </button>
     </ion-buttons>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-footer>

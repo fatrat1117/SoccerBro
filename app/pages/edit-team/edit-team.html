@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Team</ion-title>
+    <ion-buttons end>
+      <button>
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <img [src]="(afTeam | async)?.logo"/>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>description</ion-label>
+      <ion-textarea type="text"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>
