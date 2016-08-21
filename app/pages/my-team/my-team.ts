@@ -13,6 +13,7 @@ export class MyTeamPage {
   tId: any;
   team: any;
   teamCaptain: any;
+  teamAvatar:any;
 
   //af
   afTeam: FirebaseObjectObservable<any>;
@@ -26,21 +27,24 @@ export class MyTeamPage {
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().currentTeamId;
     this.afTeam = this.am.afGetTeam(this.tId);
 
+    var teamLogoURL = "";
     //getCaptainAFObject
     this.afTeam.subscribe(snapshot => {
-         this.team = snapshot;
-         var captainId= snapshot.captain;
-          console.log(this.tId);
-          console.log(snapshot);
-         this.afTeamCaptain = this.am.afGetPlayerById(captainId);
-         console.log( this.afTeamCaptain);
-
+          this.team = snapshot;
+          var captainId= snapshot.captain;
+          teamLogoURL = snapshot.logo;
+          console.log(teamLogoURL);
+          this.afTeamCaptain = this.am.afGetPlayerById(captainId);
           this.afTeamCaptain.subscribe(playerSnapshot => {
-              this.teamCaptain = playerSnapshot;
-              console.log(this.teamCaptain.displayName);
+            this.teamCaptain = playerSnapshot;
           });
     });
     // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
+    console.log("123");
+    console.log(this.afTeam);
+    console.log("456");
+    var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
+    console.log(teamAvatarImg.width);
   }
 
   editTeam() {
@@ -49,5 +53,11 @@ export class MyTeamPage {
         tId: this.tId
       }
     );
+  }
+
+  getTeamAvatar(src){
+    var image = new Image();
+    image.src = src
+    return image;
   }
 }

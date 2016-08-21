@@ -9,7 +9,13 @@
 .my-team-ion-content > scroll-content{
   padding: 0;
 }
+.my-team-info-panel-center{
 
+}
+
+.my-team-info-panel-bottom{
+
+}
 .my-team-info{
   position:relative;
   text-align: center;
@@ -18,34 +24,58 @@
   padding-left: 0;
 }
 
-.my-team-avatar{
-  position:relative;
-  text-align: center;
+.my-team-info .item-inner{
+  padding-right: 0;
+}
+
+.my-team-info ion-label{
+  margin-right:0;
 }
 
 .my-team-avatar{
   position:relative;
+  width: 100%;
   text-align: center;
+  display: flex;
+  justify-content:center;
+
+  background-color: gainsboro;
+  border: 1px solid gainsboro;
+  border-radius: 25px;
+
+
 }
+
 
 .my-team-avatar-img{
   margin: 0 auto;
-  max-width: 5rem;
-  max-height: 5rem;
+  max-width: 7rem;
+  max-height: 7rem;
   border-radius: 3rem;
+
 }
 
 .my-team-info-popular{
+  flex-grow: 1;
+  text-align: right;
+  margin-right: 8rem;
+}
+
+.my-team-info-avatar{
+  flex-grow: 0;
   position: absolute;
-  left: 20%;
-  top: 2rem;
+  top: 50%;
+  left: 50%;
+  width: 7rem;
+  height: 7rem;
+  margin-top: -6rem;
+  margin-left: -3.5rem;
 }
 
 .my-team-info-power{
-
-  position: absolute;
-  right: 20%;
-  top:2rem;
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 8rem;
 }
 
 
