@@ -101,6 +101,49 @@ export class AccountManager {
     this.afCurrentTeamId = null;
   }
 
+  //firebase reference
+  getRefBasic_Player(pId) {
+    return "/players/" + pId + "/basic-info";
+  }
+
+  getCurrentPlayerRef() {
+    //if (this.currentUser != null) {
+    return this.getRefBasic_Player(this.currentUser.uid);
+    // } else {
+    //   //for testing
+    //   let user = {
+    //     uid: "4m8MsTy91qN9xZ9vjog09E9xpb22",
+    //     type: 'facebook'
+    //   }
+    //   let player = {
+    //     currentTeamId: "-KL1a8zTfCXDapavsN_L",
+    //     displayName: "Jixiang Li",
+    //     photoURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/1002881_372442569549278_128488338_n.jpg?oh=5af23ad80fd6dc78371a7e3cea019a35&oe=5809CA24",
+    //     pushId: "d6fa08ac-412b-4bee-81ab-c08c8d0ffe51",
+    //   }
+    //   this.currentUser = user;
+    //   this.currPlayer = player;
+    //   return this.getPlayerBasicRef(this.currentUser.uid);
+    // }
+  }
+
+  getRefTeams_Player(pId) {
+    return "/players/" + pId + "/teams";
+  }
+
+  getRefTeam_Player(pId, tId) {
+    return this.getRefTeams_Player(pId) + '/' + tId;
+  }
+
+  getRefBasic_Team(tId) {
+    return "/teams/" + tId + "/basic-info";
+  }
+
+  getRefPlayer_Team(pId, tId) {
+    return "/teams/" + tId + '/players/' + pId;
+  }
+
+  //user
   getFbUser() {
     let currentUser = firebase.auth().currentUser;
     //console.log("get fb user");
@@ -142,7 +185,7 @@ export class AccountManager {
   }
 
   afGetTeamsOfPlayer(pId) {
-    return this.af.database.list(this.getAllTeamsOfPlayerRef(pId));
+    return this.af.database.list(this.getRefTeams_Player(pId));
   }
 
   afGetCurrentTeamId() {
@@ -150,66 +193,25 @@ export class AccountManager {
   }
 
 
-  afGetPlayerById(pId){
-    return this.af.database.object(this.getPlayerRef(pId));
+  afGetPlayerById(pId) {
+    return this.af.database.object(this.getRefBasic_Player(pId));
   }
 
   afGetTeamOfPlayer(pId, tId) {
-    return this.af.database.object(this.getTeamOfPlayerRef(pId, tId));
-  }
-
-  getPlayerRef(id) {
-    return "/players/" + id;
-  }
-
-  getCurrentPlayerRef() {
-    if (this.currentUser != null) {
-      return this.getPlayerRef(this.currentUser.uid);
-    } else {
-      //for testing
-      let user = {
-        uid: "4m8MsTy91qN9xZ9vjog09E9xpb22",
-        type: 'facebook'
-      }
-      let player = {
-        currentTeamId: "-KL1a8zTfCXDapavsN_L",
-        displayName: "Jixiang Li",
-        photoURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/1002881_372442569549278_128488338_n.jpg?oh=5af23ad80fd6dc78371a7e3cea019a35&oe=5809CA24",
-        pushId: "d6fa08ac-412b-4bee-81ab-c08c8d0ffe51",
-      }
-      this.currentUser = user;
-      this.currPlayer = player;
-      return this.getPlayerRef(this.currentUser.uid);
-    }
-  }
-
-  getAllTeamsOfPlayerRef(pId) {
-    return "/teamsOfPlayer/" + pId;
-  }
-
-  getTeamOfPlayerRef(pId, tId) {
-    return "/teamsOfPlayer/" + pId + '/' + tId;
+    return this.af.database.object(this.getRefTeam_Player(pId, tId));
   }
 
   //Team
   afGetTeam(tId) {
-    return this.af.database.object(this.getTeamRef(tId));
+    return this.af.database.object(this.getRefBasic_Team(tId));
   }
 
   afGetPlayerOfTeam(pId, tId) {
-    return this.af.database.object(this.getPlayerOfTeamRef(pId, tId));
+    return this.af.database.object(this.getRefPlayer_Team(pId, tId));
   }
 
   afGetPlayersOfTeam(tId) {
     return this.af.database.list("/playersOfTeam/" + tId);
-  }
-
-  getTeamRef(id) {
-    return "/teams/" + id;
-  }
-
-  getPlayerOfTeamRef(pId, tId) {
-    return "/playersOfTeam/" + tId + '/' + pId;
   }
 
   createTeam(teamObj, success, error) {
@@ -423,7 +425,7 @@ export class AccountManager {
       console.log("team of current player change ids", teamIds);
       for (let i = 0; i < teamIds.length; ++i) {
         let tId = teamIds[i].$key;
-        let ref = firebase.database().ref(this.getTeamRef(tId));
+        let ref = firebase.database().ref(this.getRefBasic_Team(tId));
         ref.once('value').then(teamSnapshot => {
           console.log("team snapshot changed", teamSnapshot.val());
           let teamData = teamSnapshot.val();
