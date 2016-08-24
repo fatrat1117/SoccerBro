@@ -1,12 +1,13 @@
 import {ModalController, NavController, Page} from 'ionic-angular';
 import {Injectable} from '@angular/core';
+import { Camera } from 'ionic-native';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
   AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
-import {LoginPage} from '../pages/login/login'
-import { Camera } from 'ionic-native';
+import {LoginPage} from '../pages/login/login';
+import {FirebaseManager} from './firebase-manager';
 
 declare let firebase: any;
 
@@ -23,7 +24,8 @@ export class AccountManager {
   //teamsOfCurrPlayer: any;
   subscriptions: any;
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire,
+    private fm: FirebaseManager) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -48,6 +50,8 @@ export class AccountManager {
           photoURL: user.photoURL || '/img/none.png',
           displayName: user.displayName || user.email
         }).catch(err => error(err));
+        //update player public
+        self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
       }
 
       //get current team
@@ -215,8 +219,9 @@ export class AccountManager {
   }
 
   createTeam(teamObj, success, error) {
+    let self = this;
     console.log("createTeam", teamObj);
-    const queryObservable = this.af.database.list('/teams', {
+    const queryObservable = this.af.database.list('/public/teams', {
       query: {
         orderByChild: 'name',
         equalTo: teamObj.name
@@ -229,11 +234,14 @@ export class AccountManager {
       subscription.unsubscribe();
       if (0 === queriedItems.length) {
         let teamData = {
-          name: teamObj.name,
-          location: teamObj.location,
-          founder: this.currentUser.uid,
-          captain: this.currentUser.uid,
-          logo: 'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/teamDefault.png?alt=media&token=6d669a7b-8a91-4d1e-9bc9-6be456a7505c'
+          basic_info:
+          {
+            name: teamObj.name,
+            location: teamObj.location,
+            founder: this.currentUser.uid,
+            captain: this.currentUser.uid,
+            logo: '/img/none.png'
+          }
         };
 
         const promise = this.afTeams.push(teamData);
@@ -250,9 +258,15 @@ export class AccountManager {
               const promisePT = playersOfTeam.set(true);
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
-                  let player = this.af.database.object(this.getCurrentPlayerRef());
+                  let player = self.fm.getPlayerBasic(self.currentUser.uid);
                   player.update({ currentTeamId: newTeamId });
                 }
+                //update public
+                self.fm.getTeamPublic(newTeamId).update(
+                  {
+                    name: teamObj.name,
+                    popularity: 1
+                  });
                 success();
               }).catch(err => error(err));
             }).catch(err => error(err));
