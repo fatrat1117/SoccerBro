@@ -47,7 +47,7 @@ export class AccountManager {
         console.log("first time login");
         //todo
         self.afCurrPlayer.update({
-          photoURL: user.photoURL || '/img/none.png',
+          photoURL: user.photoURL || 'img/none.png',
           displayName: user.displayName || user.email
         }).catch(err => error(err));
         //update player public
@@ -185,7 +185,7 @@ export class AccountManager {
 
   //player
   afGetCurrentPlayer() {
-    return this.af.database.object(this.getCurrentPlayerRef());
+    return this.fm.getPlayerBasic(this.currentUser.uid);
   }
 
   afGetTeamsOfPlayer(pId) {
@@ -207,7 +207,7 @@ export class AccountManager {
 
   //Team
   afGetTeam(tId) {
-    return this.af.database.object(this.getRefBasic_Team(tId));
+    return this.fm.getTeamBasic(tId);
   }
 
   afGetPlayerOfTeam(pId, tId) {
@@ -234,13 +234,13 @@ export class AccountManager {
       subscription.unsubscribe();
       if (0 === queriedItems.length) {
         let teamData = {
-          basic_info:
+          "basic-info":
           {
             name: teamObj.name,
             location: teamObj.location,
             founder: this.currentUser.uid,
             captain: this.currentUser.uid,
-            logo: '/img/none.png'
+            logo: 'img/none.png'
           }
         };
 

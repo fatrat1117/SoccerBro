@@ -11,7 +11,7 @@ import {ManageTeamPage} from '../manage-team/manage-team';
 })
 export class MePage {
   //player: FirebaseObjectObservable<any>;
-  defaultTeam: FirebaseObjectObservable<any>;
+  defaultTeam: any;
   player: any;
   //defaultTeam: any;
 
@@ -19,7 +19,6 @@ export class MePage {
     let self = this;
     this.am.afGetCurrentPlayer().subscribe(_ => {
       self.player = this.am.getCurrentPlayerSnapshot();
-      console.log("current player data changed, update me UI");
       if (self.player.currentTeamId)
         self.defaultTeam = self.am.afGetTeam(self.player.currentTeamId);
     });
