@@ -19,6 +19,7 @@ export class MePage {
     let self = this;
     this.am.afGetCurrentPlayer().subscribe(_ => {
       self.player = this.am.getCurrentPlayerSnapshot();
+      //console.log("current player data changed, update me UI", self.player);
       if (self.player.currentTeamId)
         self.defaultTeam = self.am.afGetTeam(self.player.currentTeamId);
     });
