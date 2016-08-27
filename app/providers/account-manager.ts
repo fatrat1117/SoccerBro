@@ -441,11 +441,12 @@ export class AccountManager {
         let tId = teamIds[i].$key;
         let ref = firebase.database().ref(this.getRefBasic_Team(tId));
         ref.once('value').then(teamSnapshot => {
-          console.log("team snapshot changed", teamSnapshot.val());
           let teamData = teamSnapshot.val();
-          teamData.$key = teamSnapshot.key;
-          teamsSnapshot.push(teamData);
-          // handle read data.
+          if (teamData) { 
+            teamData.$key = tId;
+            teamsSnapshot.push(teamData);
+            console.log("team snapshot changed", teamData);
+          }
         });
         // let afTeam = this.afGetTeam(tId);
         // let sub4 = afTeam.subscribe(teamSnapshot => {
