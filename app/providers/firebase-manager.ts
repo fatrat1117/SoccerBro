@@ -37,6 +37,10 @@ getPlayerPublic(playerId: string) {
   /***** Team *****/
 
   /** Get basic team info by team id */
+  getTeam (teamId: string) {
+    return this.af.database.object(`/teams/${teamId}`);
+  }
+
   getTeamBasic(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/basic-info`);
   }

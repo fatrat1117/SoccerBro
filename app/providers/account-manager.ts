@@ -323,10 +323,27 @@ export class AccountManager {
     })
   }
 
+  updateTeam(teamObj, success, error) {
+    console.log('update team', teamObj);
+    
+    let updateObj = {};
+    if (teamObj.logo)
+      updateObj["logo"] = teamObj.logo;
+    if (teamObj.name) {
+      updateObj["name"] = teamObj.name.trim();
+      //update public
+      this.fm.getTeamPublic(teamObj.tId).update({name: teamObj.name});
+    }
+    this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_=>success()).catch(err => error(err));
+    if (teamObj.description)
+      this.fm.getTeamDetail(teamObj.tId).update({description: teamObj.description.trim()});
+  }
+
   isDefaultTeam(tId) {
     return tId == this.currPlayer.currentTeamId;
   }
 
+//utilities
   b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
@@ -370,7 +387,7 @@ export class AccountManager {
     });
   }
 
-  changeTeamLogo(success, error) {
+  updateImgGetUrl(imageData, success, error) {
     let self = this;
     let options = {
       quality: 75,
@@ -382,31 +399,26 @@ export class AccountManager {
       targetHeight: 256
     };
 
-    Camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      let contentType = 'image/jpg';
-      let b64Data = imageData;
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64:
+    let contentType = 'image/jpg';
+    let b64Data = imageData;
 
-      let blob = this.b64toBlob(b64Data, contentType, 256);
+    let blob = this.b64toBlob(b64Data, contentType, 256);
 
-      let metadata = {
-        contentType: 'image/jpeg',
-      };
-      let storageRef = firebase.storage().ref();
-      let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
-      uploadTask.on('state_changed', function (snapshot) {
-        // Observe state change events such as progress, pause, and resume
-        // See below for more detail
-      }, error, function () {
-        // Handle successful uploads on complete
-        var downloadURL = uploadTask.snapshot.downloadURL;
-        success(downloadURL);
-      });
-
-    }, (err) => {
-      error(err);
-      // Handle error
+    let metadata = {
+      contentType: 'image/jpeg',
+    };
+    let storageRef = firebase.storage().ref();
+    let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
+    uploadTask.on('state_changed', function (snapshot) {
+      // Observe state change events such as progress, pause, and resume
+      // See below for more detail
+    }, error, function () {
+      // Handle successful uploads on complete
+      var downloadURL = uploadTask.snapshot.downloadURL;
+      console.log('upload image done', downloadURL);
+      success(downloadURL);
     });
   }
 
@@ -430,7 +442,7 @@ export class AccountManager {
         let ref = firebase.database().ref(this.getRefBasic_Team(tId));
         ref.once('value').then(teamSnapshot => {
           let teamData = teamSnapshot.val();
-          if (teamData) { 
+          if (teamData) {
             teamData.$key = tId;
             teamsSnapshot.push(teamData);
             console.log("team snapshot changed", teamData);
