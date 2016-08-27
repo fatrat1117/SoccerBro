@@ -1,0 +1,94 @@
+{
+  "players" : {
+    "PLAYER_ID" : {
+      "basic-info" : {
+        "name" : "PLAYER_NAME",
+        "photo" : "PHOTO_URL",
+        "teamId" : "TEAM_ID"
+      },
+      "detail-info" : {
+        "foot" : "LEFT/RIGHT",
+        "height" : "HEIGHT (cm)",
+        "position" : "FAVORITE POSITION",
+        "slogan" : "SLOGAN_OF_PLAYER",
+        "weight" : "WEIGHT (kg)"
+      },
+      "match-notifications" : {
+        "MATCH_ID" : {
+          "isRead" : "TRUE/FALSE",
+          "locationName" : "MATCH_LOCATION_NAME",
+          "opponentId" : "OPPONENT_ID",
+          "time" : "MATCH_TIME (unix timestamp)"
+        }
+      },
+      "teams" : {
+        "TEAM_ID" : true
+      }
+    }
+  },
+  "public" : {
+    "matches" : {
+      "MATCH_ID" : {
+        "awayGoals" : "AWAY_TEAM_GOALS",
+        "awayId" : "AWAY_TEAM_ID",
+        "homeGoals" : "HOME_TEAM_GOALS",
+        "homeId" : "HOMT_TEAM_ID",
+        "time" : "MATCH_TIME (unix timestamp)"
+      }
+    },
+    "players" : {
+      "PLAYER_ID" : {
+        "name" : "PLAYER_NAME",
+        "popularity" : "POPULARITY"
+      }
+    },
+    "teams" : {
+      "TEAM_ID" : {
+        "isFull" : "TRUE/FALSE",
+        "name" : "TEAM_NAME",
+        "popularity" : "POPULARITY"
+      }
+    }
+  },
+  "teams" : {
+    "TEAM_ID" : {
+      "basic-info" : {
+        "logo" : "TEAM_LOGO_URL",
+        "name" : "TEAM_NAME"
+      },
+      "chatroom" : {
+        "MESSAGE_ID" : {
+          "content" : "MESSAGE",
+          "creatorId" : "PLAYER_ID",
+          "timestamp" : "POST TIME (unix timestamp, use server time not local)"
+        }
+      },
+      "detail-info" : {
+        "captain" : "PLAYER_ID",
+        "description" : "TEAM_DESCRIPTION",
+        "founder" : "PLAYER_ID",
+        "manager" : "PLAYER_ID"
+      },
+      "matches" : {
+        "MATCH_ID" : {
+          "color" : "JERSEY_COLOR",
+          "creatorId" : "PLAYER_ID",
+          "locationAddress" : "LOCATION IN DETAIL",
+          "locationName" : "LOCATION_NAME",
+          "opponentId" : "TEAM_ID",
+          "players" : {
+            "PLAYER_ID" : true
+          },
+          "time" : "MATCH_TIME (unix timestamp)",
+          "timestamp" : "TIME_OF_CREATION (unix timestamp, use server time not local)"
+        }
+      },
+      "members" : {
+        "PLAYER_ID" : {
+          "goals" : "TOTAL_GOALS",
+          "number" : "JERSEY_NUMBER"
+        }
+      }
+    }
+  }
+}
