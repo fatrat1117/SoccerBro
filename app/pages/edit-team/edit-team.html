@@ -2,7 +2,8 @@
   <ion-navbar>
     <ion-title>Edit Team</ion-title>
     <ion-buttons end>
-      <button (click) = "save()">
+      <button [disabled] = "!(team.logo.length || team.name.trim().length || team.description.trim().length)" 
+      (click) = "save()">
         Save
       </button>
     </ion-buttons>
@@ -27,7 +28,7 @@
     <ion-item>
       <ion-label floating>description</ion-label>
       <ion-textarea type="text" maxlength="128"
-      [ngModel]="(afTeam | async)?.description"
+      [ngModel]="(afTeamDetails | async)?.description"
       (ngModelChange)="team.description=$event">
       </ion-textarea>
     </ion-item>

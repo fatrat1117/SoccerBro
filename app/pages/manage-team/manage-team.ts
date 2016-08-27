@@ -19,10 +19,6 @@ export class ManageTeamPage {
     this.busy = false;
     this.teams = [];
     let self = this;
-    // var success = teamsSnapshot => {
-    //     self.teams = teamsSnapshot;
-    // }
-
     this.am.getTeamsOfPlayerSnapshot(pId, this.teams);
     // this.am.afGetTeamsOfPlayer(pId).subscribe(_=>{
     //   console.log("team list changed, update manage team UI");

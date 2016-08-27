@@ -1,12 +1,13 @@
 import {ModalController, NavController, Page} from 'ionic-angular';
 import {Injectable} from '@angular/core';
+import { Camera } from 'ionic-native';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
   AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
-import {LoginPage} from '../pages/login/login'
-import { Camera } from 'ionic-native';
+import {LoginPage} from '../pages/login/login';
+import {FirebaseManager} from './firebase-manager';
 
 declare let firebase: any;
 
@@ -23,7 +24,8 @@ export class AccountManager {
   //teamsOfCurrPlayer: any;
   subscriptions: any;
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire,
+    private fm: FirebaseManager) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -45,9 +47,11 @@ export class AccountManager {
         console.log("first time login");
         //todo
         self.afCurrPlayer.update({
-          photoURL: user.photoURL || '/img/none.png',
+          photoURL: user.photoURL || 'img/none.png',
           displayName: user.displayName || user.email
         }).catch(err => error(err));
+        //update player public
+        self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
       }
 
       //get current team
@@ -181,7 +185,7 @@ export class AccountManager {
 
   //player
   afGetCurrentPlayer() {
-    return this.af.database.object(this.getCurrentPlayerRef());
+    return this.fm.getPlayerBasic(this.currentUser.uid);
   }
 
   afGetTeamsOfPlayer(pId) {
@@ -203,7 +207,7 @@ export class AccountManager {
 
   //Team
   afGetTeam(tId) {
-    return this.af.database.object(this.getRefBasic_Team(tId));
+    return this.fm.getTeamBasic(tId);
   }
 
   afGetPlayerOfTeam(pId, tId) {
@@ -215,8 +219,9 @@ export class AccountManager {
   }
 
   createTeam(teamObj, success, error) {
+    let self = this;
     console.log("createTeam", teamObj);
-    const queryObservable = this.af.database.list('/teams', {
+    const queryObservable = this.af.database.list('/public/teams', {
       query: {
         orderByChild: 'name',
         equalTo: teamObj.name
@@ -229,11 +234,14 @@ export class AccountManager {
       subscription.unsubscribe();
       if (0 === queriedItems.length) {
         let teamData = {
-          name: teamObj.name,
-          location: teamObj.location,
-          founder: this.currentUser.uid,
-          captain: this.currentUser.uid,
-          logo: 'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/teamDefault.png?alt=media&token=6d669a7b-8a91-4d1e-9bc9-6be456a7505c'
+          "basic-info":
+          {
+            name: teamObj.name,
+            location: teamObj.location,
+            founder: this.currentUser.uid,
+            captain: this.currentUser.uid,
+            logo: 'img/none.png'
+          }
         };
 
         const promise = this.afTeams.push(teamData);
@@ -250,9 +258,15 @@ export class AccountManager {
               const promisePT = playersOfTeam.set(true);
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
-                  let player = this.af.database.object(this.getCurrentPlayerRef());
+                  let player = self.fm.getPlayerBasic(self.currentUser.uid);
                   player.update({ currentTeamId: newTeamId });
                 }
+                //update public
+                self.fm.getTeamPublic(newTeamId).update(
+                  {
+                    name: teamObj.name,
+                    popularity: 1
+                  });
                 success();
               }).catch(err => error(err));
             }).catch(err => error(err));
@@ -295,6 +309,8 @@ export class AccountManager {
             let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
             tOfp.remove().then(_ => {
               psOft.remove().then(_ => {
+                //remove  public
+                self.fm.getTeamPublic(tId).remove();
                 //delete team obj
                 afTeam.remove().then(_ => {
                   success();
@@ -307,10 +323,27 @@ export class AccountManager {
     })
   }
 
+  updateTeam(teamObj, success, error) {
+    console.log('update team', teamObj);
+    
+    let updateObj = {};
+    if (teamObj.logo)
+      updateObj["logo"] = teamObj.logo;
+    if (teamObj.name) {
+      updateObj["name"] = teamObj.name.trim();
+      //update public
+      this.fm.getTeamPublic(teamObj.tId).update({name: teamObj.name});
+    }
+    this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_=>success()).catch(err => error(err));
+    if (teamObj.description)
+      this.fm.getTeamDetail(teamObj.tId).update({description: teamObj.description.trim()});
+  }
+
   isDefaultTeam(tId) {
     return tId == this.currPlayer.currentTeamId;
   }
 
+//utilities
   b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
@@ -354,7 +387,7 @@ export class AccountManager {
     });
   }
 
-  changeTeamLogo(success, error) {
+  updateImgGetUrl(imageData, success, error) {
     let self = this;
     let options = {
       quality: 75,
@@ -366,31 +399,26 @@ export class AccountManager {
       targetHeight: 256
     };
 
-    Camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      let contentType = 'image/jpg';
-      let b64Data = imageData;
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64:
+    let contentType = 'image/jpg';
+    let b64Data = imageData;
 
-      let blob = this.b64toBlob(b64Data, contentType, 256);
+    let blob = this.b64toBlob(b64Data, contentType, 256);
 
-      let metadata = {
-        contentType: 'image/jpeg',
-      };
-      let storageRef = firebase.storage().ref();
-      let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
-      uploadTask.on('state_changed', function (snapshot) {
-        // Observe state change events such as progress, pause, and resume
-        // See below for more detail
-      }, error, function () {
-        // Handle successful uploads on complete
-        var downloadURL = uploadTask.snapshot.downloadURL;
-        success(downloadURL);
-      });
-
-    }, (err) => {
-      error(err);
-      // Handle error
+    let metadata = {
+      contentType: 'image/jpeg',
+    };
+    let storageRef = firebase.storage().ref();
+    let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
+    uploadTask.on('state_changed', function (snapshot) {
+      // Observe state change events such as progress, pause, and resume
+      // See below for more detail
+    }, error, function () {
+      // Handle successful uploads on complete
+      var downloadURL = uploadTask.snapshot.downloadURL;
+      console.log('upload image done', downloadURL);
+      success(downloadURL);
     });
   }
 
@@ -403,20 +431,6 @@ export class AccountManager {
     return this.currTeam;
   }
 
-  // getTeamsOfCurrentPlayerSnapshot() {
-  //   return this.teamsOfCurrPlayer;
-  // }
-
-  // getTeamOfCurrentPlayerSnapshot(tId) {
-  //   for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
-  //     let teamSnapshot = this.teamsOfCurrPlayer[i];
-  //     if (teamSnapshot.$key === tId)
-  //       return teamSnapshot;
-  //   }
-
-  //   return null;
-  // }
-
   getTeamsOfPlayerSnapshot(pId, teamsSnapshot) {
     //teams of current player
     let afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(pId);
@@ -427,17 +441,13 @@ export class AccountManager {
         let tId = teamIds[i].$key;
         let ref = firebase.database().ref(this.getRefBasic_Team(tId));
         ref.once('value').then(teamSnapshot => {
-          console.log("team snapshot changed", teamSnapshot.val());
           let teamData = teamSnapshot.val();
-          teamData.$key = teamSnapshot.key;
-          teamsSnapshot.push(teamData);
-          // handle read data.
+          if (teamData) {
+            teamData.$key = tId;
+            teamsSnapshot.push(teamData);
+            console.log("team snapshot changed", teamData);
+          }
         });
-        // let afTeam = this.afGetTeam(tId);
-        // let sub4 = afTeam.subscribe(teamSnapshot => {
-
-        //   teamsSnapshot.push(teamSnapshot);
-        // });
       }
     });
   }

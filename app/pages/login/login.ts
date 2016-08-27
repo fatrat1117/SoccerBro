@@ -15,9 +15,13 @@ declare let firebase: any;
 export class LoginPage {
 
     error: any
-    cordovaOauth: CordovaOauth;
     busy: boolean;
     _credentials: any;
+    private facebookProvider: Facebook = new Facebook({
+        clientId: "463670290510920",
+        appScope: ["email"]
+    })
+    private cordovaOauth: CordovaOauth = new CordovaOauth();
 
     constructor(public af: AngularFire,
         public viewCtrl: ViewController
@@ -27,7 +31,7 @@ export class LoginPage {
             password: ''
         };
         this.busy = false;
-        this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "463670290510920", appScope: ["email"] }));
+        //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "463670290510920", appScope: ["email"] }));
         //this.cordovaOauth = new CordovaOauth(new Facebook({clientId: "502807016597247", appScope: ["email"]}));
     }
 
@@ -57,7 +61,7 @@ export class LoginPage {
 
                 return this.login(_credentials, _event);
             })
-            .catch(e => { 
+            .catch(e => {
                 self.error = e;
                 self.busy = false;
             });
@@ -69,7 +73,7 @@ export class LoginPage {
 
         this.busy = true;
         console.log(this.cordovaOauth);
-        this.cordovaOauth.login().then(success => {
+        this.cordovaOauth.logInVia(this.facebookProvider).then(success => {
             //console.log("Facebook success: " + JSON.stringify(success));
             let creds = firebase.auth.FacebookAuthProvider.credential(success["access_token"]);
             //console.log(creds);

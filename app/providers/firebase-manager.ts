@@ -22,6 +22,10 @@ export class FirebaseManager {
     return this.af.database.object(`/players/${playerId}/detail-info`);
   }
 
+getPlayerPublic(playerId: string) {
+    return this.af.database.object(`public/players/${playerId}`);
+  }
+
   /** Get all notifications of current player */
   getSelfMatchNotifications() {
     return this.af.database.list(`/players/{PLAYER_ID}/match-notifications`, {
@@ -33,6 +37,10 @@ export class FirebaseManager {
   /***** Team *****/
 
   /** Get basic team info by team id */
+  getTeam (teamId: string) {
+    return this.af.database.object(`/teams/${teamId}`);
+  }
+
   getTeamBasic(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/basic-info`);
   }
@@ -40,6 +48,10 @@ export class FirebaseManager {
   /** Get detail team info by team id */
   getTeamDetail(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
+  }
+
+  getTeamPublic(teamId: string) {
+    return this.af.database.object(`public/teams/${teamId}`);
   }
 
   /** Get all chat room messages of current team */
