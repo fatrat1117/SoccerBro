@@ -309,6 +309,8 @@ export class AccountManager {
             let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
             tOfp.remove().then(_ => {
               psOft.remove().then(_ => {
+                //remove  public
+                self.fm.getTeamPublic(tId).remove();
                 //delete team obj
                 afTeam.remove().then(_ => {
                   success();
@@ -417,20 +419,6 @@ export class AccountManager {
     return this.currTeam;
   }
 
-  // getTeamsOfCurrentPlayerSnapshot() {
-  //   return this.teamsOfCurrPlayer;
-  // }
-
-  // getTeamOfCurrentPlayerSnapshot(tId) {
-  //   for (let i = 0; i < this.teamsOfCurrPlayer.length; ++i) {
-  //     let teamSnapshot = this.teamsOfCurrPlayer[i];
-  //     if (teamSnapshot.$key === tId)
-  //       return teamSnapshot;
-  //   }
-
-  //   return null;
-  // }
-
   getTeamsOfPlayerSnapshot(pId, teamsSnapshot) {
     //teams of current player
     let afTeamsOfCurrPlayer = this.afGetTeamsOfPlayer(pId);
@@ -448,11 +436,6 @@ export class AccountManager {
             console.log("team snapshot changed", teamData);
           }
         });
-        // let afTeam = this.afGetTeam(tId);
-        // let sub4 = afTeam.subscribe(teamSnapshot => {
-
-        //   teamsSnapshot.push(teamSnapshot);
-        // });
       }
     });
   }
