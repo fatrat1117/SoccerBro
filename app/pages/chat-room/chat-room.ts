@@ -1,46 +1,52 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Pipe, PipeTransform} from '@angular/core';
 import {Content} from 'ionic-angular';
-import {NavController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 //import {CalendarPipe} from 'angular2-moment';
 import { Subject } from 'rxjs/Subject';
 
 import * as moment from 'moment';
-
 declare let firebase: any;
+
+import {FirebaseManager} from '../../providers/firebase-manager';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+
+@Pipe({
+  name: "isInRange"
+})
+
+export class IsInRange implements PipeTransform {
+   transform(time: number) {
+     return true;
+   }
+}
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  //pipes: [CalendarPipe],
+  pipes: [PlayerBasicPipe, IsInRange]
 })
+
 export class ChatRoomPage {
   @ViewChild(Content) content: Content;
+  teamId: string;
   // firebase
   items: FirebaseListObservable<any[]>;
-  saveItems: FirebaseListObservable<any[]>;
+  snapshots: any[];
   sizeSubject: Subject<any>;
   currentSize: number;
-  tempTime: number;
-  today: number;
-  daysAgo: number;
   // new
   newMessage: string;
 
-  constructor(private navCtrl: NavController, private af: AngularFire) {
+  constructor(private navCtrl: NavController, private af: AngularFire, private fm: FirebaseManager, params: NavParams) {
+    this.teamId = params.get("teamId");
+    
     this.currentSize = 10;
-    this.tempTime = 0;
-    this.today = moment().unix() * 1000;
-    this.daysAgo = -1;
     this.newMessage = '';
     this.sizeSubject = new Subject();
-    this.saveItems = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ');
-    this.items = af.database.list('/chatrooms/-KL1QXqFWsC1Jbb-HXsJ', {
-      query: {
-        limitToLast: this.sizeSubject
-      }
-    });
+    this.items = fm.getSelfChatMessages(this.teamId, this.sizeSubject);
     
-    this.items.subscribe(() => {
+    this.items.subscribe(snapshots => {
+      this.snapshots = snapshots;
       this.content.scrollToBottom();
     });
     
@@ -58,26 +64,37 @@ export class ChatRoomPage {
     return _item.key
   }
 
-  showTime(_item) {
-    var current = _item.created_at;
-    var isShow = current - this.tempTime > 300000; // 5 mins
-    this.tempTime = current;
-    return isShow;
+  getPlayer(id: string) {
+    return this.fm.getPlayerBasic(id)
   }
 
-  getTime(_item) {
-    var newTime: string;
-    var current = _item.created_at;
-    var count = moment(this.today).diff(moment(current), 'days');
+  showTime(index) {
+    if (index == 0)
+      return true;
     
-    if (count != this.daysAgo) {
+    return (this.snapshots[index].createdAt - this.snapshots[index-1].createdAt > 300000);
+  }
+
+  getTime(index) {
+    var isTheSameDay: boolean;
+    var current = this.snapshots[index].createdAt;
+    if (index == 0)
+      isTheSameDay = false;
+    else if (moment().diff(moment(this.snapshots[index-1].createdAt), 'days') < 1)
+      isTheSameDay = true;
+    else
+      isTheSameDay = false;
+
+    var newTime: string;
+    //if (count != this.daysAgo) {
+    if (!isTheSameDay) {
       newTime = moment(current).calendar(null, {
         sameDay: '[Today] HH:mm',
         lastDay: '[Yesterday] HH:mm',
         lastWeek: 'ddd HH:mm',
         sameElse: 'M/DD/YY HH:mm'
       });
-      this.daysAgo = count;
+      //this.daysAgo = count;
     }
     else {
       newTime = moment(current).format('HH:mm');
@@ -87,14 +104,7 @@ export class ChatRoomPage {
   }
 
   sendMessage() {
-    this.saveItems.push({
-      content: this.newMessage,
-      created_at: firebase.database.ServerValue.TIMESTAMP,
-      created_by: 'Lei Zeng',
-      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      creator_img: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c137.42.527.527/s50x50/564861_2507790311879_276618826_n.jpg?oh=00e78ee4def9be67f27037883729c6fb&oe=580B5051',
-    });
-    
+    this.fm.addSelfChatMessage(this.teamId, this.newMessage);
     this.newMessage = '';
   }
 

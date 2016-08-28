@@ -33,7 +33,7 @@ export class MessagePage {
         let t: any = {};
         let subs = fm.getTeamBasic(snapshot.$key).subscribe(s => {
           subs.unsubscribe()
-          t.id = s.key;
+          t.id = snapshot.$key;
           t.name = s.name;
           t.logo = s.logo;
         })
@@ -68,7 +68,7 @@ export class MessagePage {
   }
 
   enterChatRoom(id) {
-    this.navCtrl.push(ChatRoomPage);
+    this.navCtrl.push(ChatRoomPage, {teamId: id});
   }
 
   showNotification(_key) {

@@ -61,10 +61,6 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
   }
 
-  getSelfChatMessages(teamId: string) {
-    return this.af.database.list(`/teams/${teamId}/chatroom`);
-  }
-  
   getPlayers(teamId: string) {
     return this.af.database.list(`/teams/${teamId}/members`);
   }
@@ -73,21 +69,19 @@ export class FirebaseManager {
     this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
   }
 
-  addSelfChatMessage(teamId: string, message: string) {
-    /*
-    this.saveItems.push({
-      content: this.newMessage,
-      created_at: firebase.database.ServerValue.TIMESTAMP,
-      created_by: 'Lei Zeng',
-      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      creator_img: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c137.42.527.527/s50x50/564861_2507790311879_276618826_n.jpg?oh=00e78ee4def9be67f27037883729c6fb&oe=580B5051',
+  getSelfChatMessages(teamId: string, subject: any) {
+    return this.af.database.list(`/teams/${teamId}/chatroom`, {
+      query: {
+        limitToLast: subject
+      }
     });
-    */
+  }
 
+  addSelfChatMessage(teamId: string, message: string) {
     this.af.database.list(`/teams/${teamId}/chatroom`).push({
       content: message,
-      createAt: firebase.database.ServerValue.TIMESTAMP,
-      createBy: this.selfId
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      createdBy: this.selfId
     });
   }
 
