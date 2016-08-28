@@ -26,10 +26,12 @@ export class MePage {
   }
 
   openNavTeamPage() {
-    this.nav.push(MyTeamPage, {
-      //Hard code Team ID
-      tId: "-KL1a8zTfCXDapavsN_L",
-    });
+    if (this.player && this.player.teamId) {
+      this.nav.push(MyTeamPage, {
+        //Hard code Team ID
+        tId: this.player.teamId,
+      });
+    }
   }
 
   onLogout() {
