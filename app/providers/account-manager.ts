@@ -137,7 +137,7 @@ export class AccountManager {
   }
 
   getRefPlayer_Team(pId, tId) {
-    return "/teams/" + tId + '/players/' + pId;
+    return "/teams/" + tId + '/members/' + pId;
   }
 
   //user
