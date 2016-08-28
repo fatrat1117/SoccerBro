@@ -15,6 +15,8 @@ export class MyTeamPage {
   team: any;
   teamCaptain: any;
   teamAvatar:any;
+  teamPlayers:any;
+  teamPlayersNumber:any;
 
 
 
@@ -24,6 +26,7 @@ export class MyTeamPage {
 
   afTeamDetail:FirebaseObjectObservable<any>;
   afTeamPublic:FirebaseObjectObservable<any>;
+  afTeamPlayers:FirebaseListObservable<any>;
 
 
   constructor(private nav: NavController,
@@ -61,6 +64,18 @@ export class MyTeamPage {
       sub.unsubscribe();
       this.afTeamPublic.update({popularity: snapshot.popularity + 1});
     });
+
+    var number;
+    this.afTeamPlayers = this.fm.getPlayers(this.tId);
+    let subPlayer = this.afTeamPlayers.subscribe(snapshot => {
+        console.log(this.tId);
+        this.teamPlayersNumber = snapshot.length;
+        this.teamPlayers = snapshot;
+    });
+
+    //console.log(this.teamPlayersNumber);
+
+
 
   }
 
