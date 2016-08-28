@@ -1,9 +1,9 @@
 <ion-content padding>
   <ion-searchbar (ionInput)="filterTeams($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let team of filteredTeams; trackBy:trackById" (click)="dismiss(team)">
+  <ion-list [virtualScroll]="filteredTeams">
+    <ion-item *virtualItem="let team" (click)="dismiss(team)">
       <ion-avatar item-left>
-        <img [src] = "team.logo">
+        <ion-img [src] = "team.logo"></ion-img>
       </ion-avatar>
       {{ team.name }}
     </ion-item>
