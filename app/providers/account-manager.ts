@@ -38,20 +38,22 @@ export class AccountManager {
     this.afCurrPlayer = this.afGetCurrentPlayer();
     let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
-      //player exists
-      if (currPlayerData.displayName) {
-        self.currPlayer = currPlayerData;
-        success();
-      }
-      else {
-        console.log("first time login");
-        //todo
-        self.afCurrPlayer.update({
-          photoURL: user.photoURL || 'img/none.png',
-          displayName: user.displayName || user.email
-        }).catch(err => error(err));
-        //update player public
-        self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
+      if (currPlayerData) {
+        //player exists
+        if (currPlayerData.displayName) {
+          self.currPlayer = currPlayerData;
+          success();
+        }
+        else {
+          console.log("first time login");
+          //todo
+          self.afCurrPlayer.update({
+            photoURL: user.photoURL || 'img/none.png',
+            displayName: user.displayName || user.email
+          }).catch(err => error(err));
+          //update player public
+          self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
+        }
       }
     });
     self.subscriptions.push(sub);
@@ -311,25 +313,25 @@ export class AccountManager {
 
   updateTeam(teamObj, success, error) {
     console.log('update team', teamObj);
-    
+
     let updateObj = {};
     if (teamObj.logo)
       updateObj["logo"] = teamObj.logo;
     if (teamObj.name) {
       updateObj["name"] = teamObj.name.trim();
       //update public
-      this.fm.getTeamPublic(teamObj.tId).update({name: teamObj.name});
+      this.fm.getTeamPublic(teamObj.tId).update({ name: teamObj.name });
     }
-    this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_=>success()).catch(err => error(err));
+    this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_ => success()).catch(err => error(err));
     if (teamObj.description)
-      this.fm.getTeamDetail(teamObj.tId).update({description: teamObj.description.trim()});
+      this.fm.getTeamDetail(teamObj.tId).update({ description: teamObj.description.trim() });
   }
 
   isDefaultTeam(tId) {
     return tId == this.currPlayer.teamId;
   }
 
-//utilities
+  //utilities
   b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
