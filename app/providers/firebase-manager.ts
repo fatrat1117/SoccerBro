@@ -80,7 +80,14 @@ export class FirebaseManager {
     });
   }
 
-
+  /** delete team */
+  deleteTeam(tId, success, error) {
+    this.getTeam(tId).remove().then(_ => {
+      this.getTeamPublic(tId).remove().then(_ => {
+        success();
+      }).catch(err => error(err));
+    }).catch(err => error(err));
+  }
 
 
 
