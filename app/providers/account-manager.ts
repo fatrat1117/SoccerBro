@@ -41,6 +41,8 @@ export class AccountManager {
       //player exists
       if (currPlayerData.displayName) {
         self.currPlayer = currPlayerData;
+        self.fm.selfTeamId = currPlayerData.teamId;
+        self.fm.selfId = user.uid;
         success();
       }
       else {
@@ -89,6 +91,8 @@ export class AccountManager {
     this.currPlayer = null;
     this.afTeamsOfCurrPlayer = null;
     this.afCurrentTeamId = null;
+    this.fm.selfTeamId = "";
+    this.fm.selfId = "";
   }
 
   //firebase reference

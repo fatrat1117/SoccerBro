@@ -5,6 +5,9 @@ declare let firebase: any;
 
 @Injectable()
 export class FirebaseManager {
+  selfId : string;
+  selfTeamId: string;
+
   constructor(private af: AngularFire) {
   }
 
@@ -22,7 +25,7 @@ export class FirebaseManager {
     return this.af.database.object(`/players/${playerId}/detail-info`);
   }
 
-getPlayerPublic(playerId: string) {
+  getPlayerPublic(playerId: string) {
     return this.af.database.object(`public/players/${playerId}`);
   }
 
@@ -50,9 +53,16 @@ getPlayerPublic(playerId: string) {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
   }
 
+  /** Get a list all teams */
   getTeamPublic(teamId: string) {
     return this.af.database.object(`public/teams/${teamId}`);
   }
+
+  /** Get a list of current player's' teams */
+  getSelfTeams() {
+    return this.af.database.list(`/players/{PLAYER_ID}/teams`)
+  }
+
 
   /** Get all chat room messages of current team */
   getSelfChatMessages() {
@@ -96,13 +106,26 @@ getPlayerPublic(playerId: string) {
 
 
 
+  /********** All Update Operations ***********/
+
+  /***** Player *****/
+  updateDefaultTeam(teamId: string) {
+    this.af.database.object(`/players/{PLAYER_ID}`).set({ teamId: teamId });
+  }
+
+
+
+
+
   /********** All Set Operations ***********/
 
   /***** Player *****/
 
   /** Set current player's current team */
   setSelfCurrentTeam(teamId: string) {
-    this.af.database.object(`/players/{PLAYER_ID}`).set({ teamId: teamId });
+    this.af.database.object(`/players/${this.selfId}/teams/${this.selfTeamId}`).update('false');
+    this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).update('true');
+    this.af.database.object(`/players/${this.selfId}/basic-info/teamId`).update(teamId);
   }
 
 

@@ -16,7 +16,17 @@
 <ion-content>
   <div [ngSwitch]="message">
     <ion-list *ngSwitchCase="'chats'">
-      <ion-list-header>Team</ion-list-header>
+      <ion-list-header>Teams</ion-list-header>
+      <ion-item *ngFor="let t of teams" (click)="enterChatRoom(t.$key)">
+        <ion-avatar item-left>
+          <img src="{{t.logo}}">
+        </ion-avatar>
+        <h2>
+          {{t.name}}
+        </h2>
+      </ion-item>
+
+      <!-->
       <ion-item (click)="enterChatRoom()">
         <ion-icon name="ionic" item-left></ion-icon>
         STK Soccer
@@ -27,6 +37,7 @@
         EP Sport
         <ion-badge item-right secondary>7</ion-badge>
       </ion-item>
+      <-->
     </ion-list>
 
     <ion-list *ngSwitchCase="'notifications'">

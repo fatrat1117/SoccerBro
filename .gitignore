@@ -9,7 +9,4 @@ plugins/
 .DS_Store
 Thumbs.db
 bin/
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
+.vscode

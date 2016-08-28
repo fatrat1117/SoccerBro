@@ -4,6 +4,7 @@ import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'ang
 import * as moment from 'moment';
 declare let firebase: any;
 
+import {FirebaseManager} from '../../providers/firebase-manager';
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {NotificationPage} from '../notification/notification';
 import {NewMatchPage} from '../new-match/new-match';
@@ -13,16 +14,31 @@ import {NewMatchPage} from '../new-match/new-match';
 })
 export class MessagePage {
   message: string;
+  teams: any[];
   matches: any[];
   unReadCount: number;
   // firebase
   matchItems: FirebaseListObservable<any[]>;
   
-  constructor(private navCtrl: NavController, private  modalController: ModalController, private af: AngularFire) {
+  constructor(private navCtrl: NavController, private  modalController: ModalController, private fm : FirebaseManager, private af: AngularFire) {
     this.message = "chats";
+    this.teams = [];
     this.matches = [];
     this.unReadCount = 0;
 
+    // get self teams
+    let teamsSubs = fm.getSelfTeams().subscribe(ts => {
+      teamsSubs.unsubscribe();
+      ts.forEach(t => {
+        let tb = fm.getTeamBasic(t.key).take(1)
+        if (t.val() == true)
+          this.teams.unshift(tb)
+        else
+          this.teams.push(tb)
+      });
+    });
+
+/*
     // firebase
     this.matchItems = af.database.list('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
       query: { orderByChild: 'time'}
@@ -42,6 +58,7 @@ export class MessagePage {
         })
       });
     })
+    */
   }
 
   enterChatRoom(){
