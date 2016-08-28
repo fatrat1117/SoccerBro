@@ -267,7 +267,7 @@ export class AccountManager {
 
   switchTeam(tId, success, error) {
     let player = this.afGetCurrentPlayer();
-    player.update({ currentTeamId: tId })
+    player.update({ teamId: tId })
       .then(_ => success())
       .catch(err => error(err));
   }
