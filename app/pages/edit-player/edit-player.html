@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Edit Player</ion-title>
     <ion-buttons end>
-      <button [disabled] = "busy || !(team.logo.length || team.name.trim().length || team.description.trim().length)" 
+      <button [disabled] = "busy || !(player.photo.length || player.name.trim().length || player.description.trim().length)" 
       (click) = "save()">
         Save
       </button>
@@ -13,23 +13,23 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <h2>Logo</h2>
+      <h2>photo</h2>
       <ion-thumbnail item-right>
-        <img [src]="logoUrl || (afTeam | async)?.logo" (click)="changeLogo()"/>
+        <img [src]="logoUrl || (afPlayerBasic | async)?.photoUrl" (click)="changephoto()"/>
       </ion-thumbnail>
     </ion-item>
     <ion-item>
       <ion-label floating>name</ion-label>
       <ion-input type="text" maxlength="32"
-      [ngModel]="(afTeam | async)?.name"
-      (ngModelChange)="team.name=$event">
+      [ngModel]="(afPlayerBasic | async)?.name"
+      (ngModelChange)="player.name=$event">
       </ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>description</ion-label>
       <ion-textarea type="text" maxlength="128"
       [ngModel]="(afTeamDetails | async)?.description"
-      (ngModelChange)="team.description=$event">
+      (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>
   </ion-list>
