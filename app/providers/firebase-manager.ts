@@ -21,7 +21,7 @@ export class FirebaseManager {
   }
 
   getSelfMatchNotifications() {
-    return this.af.database.list(`/players/{PLAYER_ID}/match-notifications`, {
+    return this.af.database.list(`/players/${this.selfId}/match-notifications`, {
       query: { orderByChild: 'time' }
     });
   }
@@ -35,7 +35,7 @@ export class FirebaseManager {
   }
 
   updateDefaultTeam(teamId: string) {
-    this.af.database.object(`/players/{PLAYER_ID}`).set({ teamId: teamId });
+    this.af.database.object(`/players/${this.selfId}`).set({ teamId: teamId });
   }
 
   setSelfCurrentTeam(teamId: string) {
@@ -61,24 +61,24 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
   }
 
-  getSelfChatMessages() {
-    return this.af.database.list(`/teams/{TEAM_ID}/chatroom`);
+  getSelfChatMessages(teamId: string) {
+    return this.af.database.list(`/teams/${teamId}/chatroom`);
   }
   
   getSelfPlayers() {
-    return this.af.database.list(`/teams/{TEAM_ID}/members`);
+    return this.af.database.list(`/teams/${this.selfTeamId}/members`);
   }
 
   addSelfMatch(match: any) {
-    this.af.database.list(`/teams/{TEAM_ID}/matches`).push(match);
+    this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
   }
 
   addSelfChatMessage(message: any) {
-    this.af.database.list(`/teams/{TEAM_ID}/chatroom`).push(message);
+    this.af.database.list(`/teams/${this.selfTeamId}/chatroom`).push(message);
   }
 
   addSelfMember(playerId: string, memberInfo: any) {
-    this.af.database.object(`/teams/{TEAM_ID}/members/${playerId}}`).set(memberInfo);
+    this.af.database.object(`/teams/${this.selfTeamId}/members/${playerId}}`).set(memberInfo);
   }
 
   deleteTeam(tId, success, error) {
