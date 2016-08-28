@@ -11,7 +11,7 @@ export class ManageTeamPage {
   teams: any;
   busy: boolean;
 
-  constructor(private am: AccountManager, private fm: FirebaseManager, 
+  constructor(private am: AccountManager,
   private af: AngularFire, 
   private navParams: NavParams,
   private nav : NavController) {

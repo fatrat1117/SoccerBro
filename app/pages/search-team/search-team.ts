@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {FirebaseManager} from '../../providers/firebase-manager'
 
 
 @Component({
@@ -9,25 +10,43 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 export class SearchTeamPage {
   totalTeams: any[];
   filteredTeams: any[];
-  constructor(private viewCtrl: ViewController, private af: AngularFire) {
+  constructor(private viewCtrl: ViewController, private af: AngularFire, private fm: FirebaseManager) {
     this.totalTeams = [];
 
     // firebase
-    let teamItems = af.database.list('/teams', {
-      query: { orderByChild: 'name' }
-    });
-    let subscription = teamItems.subscribe(snapshots => {
+    let subscription = this.fm.getPublicTeams().subscribe(snapshots => {
       subscription.unsubscribe();
       snapshots.forEach(snapshot => {
         let team: any = {};
-        
-        team.id = snapshot.$key;
-        team.name = snapshot.name;
-        team.logo = snapshot.logo;
+        let subs = this.fm.getTeamBasic(snapshot.$key).subscribe(s => {
+          team.id = s.$key;
+          team.name = s.name;
+          team.logo = s.logo;
+        });
         this.totalTeams.push(team);
       });
       this.resetFilter();
     });
+
+
+    /*
+        // firebase
+        let teamItems = af.database.list('/teams', {
+          query: { orderByChild: 'name' }
+        });
+        let subscription = teamItems.subscribe(snapshots => {
+          subscription.unsubscribe();
+          snapshots.forEach(snapshot => {
+            let team: any = {};
+            
+            team.id = snapshot.$key;
+            team.name = snapshot.name;
+            team.logo = snapshot.logo;
+            this.totalTeams.push(team);
+          });
+          this.resetFilter();
+        });
+    */
 
   }
 
@@ -55,6 +74,6 @@ export class SearchTeamPage {
   }
 
   dismiss(team: any) {
-    this.viewCtrl.dismiss({team: team});
+    this.viewCtrl.dismiss({ team: team });
   }
 }

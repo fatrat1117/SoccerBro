@@ -48,14 +48,13 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/basic-info`);
   }
 
+  getTeamPublic(teamId: string) {
+    return this.af.database.object(`public/teams/${teamId}`);
+  }
+
   /** Get detail team info by team id */
   getTeamDetail(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
-  }
-
-  /** Get a list all teams */
-  getTeamPublic(teamId: string) {
-    return this.af.database.object(`public/teams/${teamId}`);
   }
 
   /** Get a list of current player's' teams */
@@ -72,6 +71,13 @@ export class FirebaseManager {
   /** Get all players of current team */
   getSelfPlayers() {
     return this.af.database.list(`/teams/{TEAM_ID}/members`);
+  }
+
+  /** Get a list all teams */
+  getPublicTeams() {
+    return this.af.database.list(`/public/teams/`, {
+      query: { orderByChild: 'name' }
+    });
   }
 
 
