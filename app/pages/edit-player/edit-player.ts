@@ -6,7 +6,7 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 @Component({
   templateUrl: 'build/pages/edit-player/edit-player.html'
 })
-export class EditTeamPage {
+export class EditPlayerPage {
   busy: boolean;
   tId: any;
   afTeam: any;

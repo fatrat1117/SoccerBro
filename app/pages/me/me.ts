@@ -5,6 +5,7 @@ import {AccountManager} from '../../providers/account-manager'
 import {MyTeamPage} from '../my-team/my-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {ManageTeamPage} from '../manage-team/manage-team';
+import {EditPlayerPage} from '../edit-player/edit-player';
 
 @Component({
   templateUrl: 'build/pages/me/me.html'
@@ -46,6 +47,12 @@ export class MePage {
   goManageTeamPage() {
     this.nav.push(ManageTeamPage, {
       id: this.am.currentUser.uid,
+    });
+  }
+
+  goEditPlayerPage() {
+    this.nav.push(EditPlayerPage, {
+      pId: this.am.currentUser.uid,
     });
   }
 }

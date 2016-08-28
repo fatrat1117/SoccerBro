@@ -7,7 +7,7 @@
 <ion-content class="cards-bg social-cards me-content-wrapper">
   <div class="me-content-wrapper-inner">
     <ion-card>
-      <ion-item class="me-self-info">
+      <ion-item class="me-self-info" (click) = "goEditPlayerPage()">
         <ion-avatar class="me-avatar" item-middle>
           <img [src]="player.photoURL" class="me-avatar-img"/>
         </ion-avatar>
