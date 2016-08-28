@@ -50,8 +50,9 @@ export class EditTeamPage {
   saveTeam(teamObj) {
     let self = this;
     let success = _ => {
-      self.team.logo = self.team.name = self.team.description = '';
-      self.busy = false;
+      self.nav.pop();
+      //self.team.logo = self.team.name = self.team.description = '';
+      //self.busy = false;
     }
     let error = err => {
       alert(err);
