@@ -53,20 +53,6 @@ export class AccountManager {
         //update player public
         self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
       }
-
-      //get current team
-      // if (currPlayerData.currentTeamId) {
-      //   self.afCurrentTeamId = self.afGetCurrentTeamId();
-      //   let sub1 = self.afCurrentTeamId.subscribe(_ => {
-      //     self.afCurrTeam = self.afGetTeam(currPlayerData.currentTeamId);
-      //     let sub2 = self.afCurrTeam.subscribe(currTeamData => {
-      //       console.log("current team changed", currTeamData);
-      //       self.currTeam = currTeamData;
-      //     });
-      //     self.subscriptions.push(sub2);
-      //   });
-      //   self.subscriptions.push(sub1);
-      // }
     });
     self.subscriptions.push(sub);
     //teams of current player
@@ -193,7 +179,7 @@ export class AccountManager {
   }
 
   afGetCurrentTeamId() {
-    return this.af.database.object(this.getCurrentPlayerRef() + '/' + 'currentTeamId');
+    return this.af.database.object(this.getCurrentPlayerRef() + '/' + 'teamId');
   }
 
 
@@ -259,7 +245,7 @@ export class AccountManager {
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
                   let player = self.fm.getPlayerBasic(self.currentUser.uid);
-                  player.update({ currentTeamId: newTeamId });
+                  player.update({ teamId: newTeamId });
                 }
                 //update public
                 self.fm.getTeamPublic(newTeamId).update(
@@ -340,7 +326,7 @@ export class AccountManager {
   }
 
   isDefaultTeam(tId) {
-    return tId == this.currPlayer.currentTeamId;
+    return tId == this.currPlayer.teamId;
   }
 
 //utilities
@@ -410,7 +396,7 @@ export class AccountManager {
       contentType: 'image/jpeg',
     };
     let storageRef = firebase.storage().ref();
-    let uploadTask = storageRef.child('images/' + self.currPlayer.currentTeamId + '.jpg').put(blob, metadata);;
+    let uploadTask = storageRef.child('images/' + self.currPlayer.teamId + '.jpg').put(blob, metadata);;
     uploadTask.on('state_changed', function (snapshot) {
       // Observe state change events such as progress, pause, and resume
       // See below for more detail

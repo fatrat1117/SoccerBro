@@ -27,7 +27,7 @@ func GetNewPlayers(data map[string]interface{}) (map[string]player, error) {
 
 		// basic
 		b := playerBasic{}
-		if val, ok := m["currentTeamId"]; ok {
+		if val, ok := m["teamId"]; ok {
 			b.TeamId = val.(string)
 		}
 		if val, ok := m["displayName"]; ok {

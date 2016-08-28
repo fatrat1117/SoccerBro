@@ -24,7 +24,7 @@ export class MyTeamPage {
     private am: AccountManager,
     private navParams: NavParams) {
     // this.currentTeam = this.am.getCurrentTeamSnapshot();
-    this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().currentTeamId;
+    this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().teamId;
     this.afTeam = this.am.afGetTeam(this.tId);
 
     var teamLogoURL = "";
