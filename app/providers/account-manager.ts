@@ -302,12 +302,7 @@ export class AccountManager {
             let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
             tOfp.remove().then(_ => {
               psOft.remove().then(_ => {
-                //remove  public
-                self.fm.getTeamPublic(tId).remove();
-                //delete team obj
-                afTeam.remove().then(_ => {
-                  success();
-                }).catch(err => error(err));
+                self.fm.deleteTeam(tId, success, error);
               }).catch(err => error(err));
             }).catch(err => error(err));
           }

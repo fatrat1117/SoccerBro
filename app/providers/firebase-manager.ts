@@ -74,7 +74,13 @@ export class FirebaseManager {
     return this.af.database.list(`/teams/{TEAM_ID}/members`);
   }
 
-
+  deleteTeam(tId, success, error) {
+    this.getTeam(tId).remove().then(_ => {
+      this.getTeamPublic(tId).remove().then(_ => {
+        success();
+      }).catch(err => error(err));
+    }).catch(err => error(err));
+  }
 
 
 
