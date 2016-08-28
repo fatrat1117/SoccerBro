@@ -38,7 +38,7 @@ export class AccountManager {
     this.afCurrPlayer = this.afGetCurrentPlayer();
     let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
-      
+
       if (currPlayerData) {
         //player exists
         if (currPlayerData.displayName) {
@@ -231,9 +231,11 @@ export class AccountManager {
           {
             name: teamObj.name,
             location: teamObj.location,
-            founder: this.currentUser.uid,
             captain: this.currentUser.uid,
             logo: 'img/none.png'
+          },
+          "detail-info": {
+            founder: this.currentUser.uid
           }
         };
 
