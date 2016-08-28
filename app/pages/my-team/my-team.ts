@@ -23,6 +23,7 @@ export class MyTeamPage {
   afTeamCaptain: FirebaseObjectObservable<any>;
 
   afTeamDetail:FirebaseObjectObservable<any>;
+  afTeamPublic:FirebaseObjectObservable<any>;
 
 
   constructor(private nav: NavController,
@@ -54,6 +55,12 @@ export class MyTeamPage {
     console.log(teamAvatarImg.width);
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
+    this.afTeamPublic = this.fm.getTeamPublic(this.tId);
+
+    let sub = this.afTeamPublic.subscribe(snapshot => {
+      sub.unsubscribe();
+      this.afTeamPublic.update({popularity: snapshot.popularity + 1});
+    });
 
   }
 
