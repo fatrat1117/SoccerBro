@@ -7,6 +7,7 @@ declare let firebase: any;
 
 import {SearchTeamPage} from '../search-team/search-team';
 import {ColorPickerPage} from '../color-picker/color-picker';
+import {FirebaseManager} from '../../providers/firebase-manager'
 
 declare var google: any;
 
@@ -22,7 +23,7 @@ export class NewMatchPage {
   matchTime: Date;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
     private popoverController: PopoverController, private _loader: MapsAPILoader,
-    private af: AngularFire) {
+    private af: AngularFire, private fm: FirebaseManager) {
 
     this.jerseyColor = 'transparent';
     this.location = {};
@@ -38,6 +39,8 @@ export class NewMatchPage {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
       this.opponent = data.team;
+      console.log(this.opponent);
+      
     });
     searchTeamModal.present();
   }
@@ -68,10 +71,21 @@ export class NewMatchPage {
   }
 
   // post
-  postNewMessage() {
+  postNewMatch() {
     let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
-    
+    this.fm.addSelfMatch({
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
+      team_id: '-KLBMI-QFYiaW5nSqOjR',
+      opponent_id: this.opponent.id,
+      time: time,
+      color: this.jerseyColor,
+      location_name: this.location.name,
+      location_adderess: this.location.address,
+      content: 'this is a test notification'
+    });
 
+/*
     this.af.database.list('/matches').push({
       timestamp: firebase.database.ServerValue.TIMESTAMP,
       creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
@@ -89,6 +103,7 @@ export class NewMatchPage {
       // add to opponent
       this.addNotification(item["key"], this.opponent.id, '-KLBMI-QFYiaW5nSqOjR', time);
     });
+    */
   }
 
   addNotification(_key: string, _teamId: string, _opponentId: string, _time: number) {

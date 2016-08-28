@@ -19,60 +19,66 @@ export class MessagePage {
   unReadCount: number;
   // firebase
   matchItems: FirebaseListObservable<any[]>;
-  
-  constructor(private navCtrl: NavController, private  modalController: ModalController, private fm : FirebaseManager, private af: AngularFire) {
+
+  constructor(private navCtrl: NavController, private modalController: ModalController, private fm: FirebaseManager, private af: AngularFire) {
     this.message = "chats";
     this.teams = [];
     this.matches = [];
     this.unReadCount = 0;
 
     // get self teams
-    let teamsSubs = fm.getSelfTeams().subscribe(ts => {
-      teamsSubs.unsubscribe();
-      ts.forEach(t => {
-        let tb = fm.getTeamBasic(t.key).take(1)
-        if (t.val() == true)
-          this.teams.unshift(tb)
-        else
-          this.teams.push(tb)
-      });
-    });
-
-/*
-    // firebase
-    this.matchItems = af.database.list('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
-      query: { orderByChild: 'time'}
-    });
-
-    this.matchItems.subscribe(snapshots => {
-      this.matches = [];
-      this.unReadCount = 0;
+    let subscription = fm.getSelfTeams().subscribe(snapshots => {
+      subscription.unsubscribe();
       snapshots.forEach(snapshot => {
-        af.database.object(`/teams/${snapshot.opponent_id}`).subscribe(
-          t => {
-            snapshot.opponent_name = t.name;
-            snapshot.opponent_logo = t.logo;
-            this.matches.push(snapshot);
-            if (!snapshot.isRead)
-              this.unReadCount++;
+        let t: any = {};
+        let subs = fm.getTeamBasic(snapshot.$key).subscribe(s => {
+          subs.unsubscribe()
+          t.id = s.key;
+          t.name = s.name;
+          t.logo = s.logo;
         })
+        if (snapshot.$value)
+          this.teams.unshift(t)
+        else
+          this.teams.push(t)
       });
-    })
-    */
+    });
+
+    /*
+        // firebase
+        this.matchItems = af.database.list('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
+          query: { orderByChild: 'time'}
+        });
+    
+        this.matchItems.subscribe(snapshots => {
+          this.matches = [];
+          this.unReadCount = 0;
+          snapshots.forEach(snapshot => {
+            af.database.object(`/teams/${snapshot.opponent_id}`).subscribe(
+              t => {
+                snapshot.opponent_name = t.name;
+                snapshot.opponent_logo = t.logo;
+                this.matches.push(snapshot);
+                if (!snapshot.isRead)
+                  this.unReadCount++;
+            })
+          });
+        })
+        */
   }
 
-  enterChatRoom(){
+  enterChatRoom(id) {
     this.navCtrl.push(ChatRoomPage);
   }
 
-  showNotification(_key){
+  showNotification(_key) {
     this.navCtrl.push(NotificationPage, {
       match_id: _key
     });
   }
 
   trackByKey(_item) {
-      return _item.key
+    return _item.key
   }
 
   getTime(_timestamp) {
@@ -96,9 +102,9 @@ export class MessagePage {
       team_id: '-KLBMI-QFYiaW5nSqOjR',
       opponent_id: _opponent_id,
       creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      content: 'this is a test notification'  
+      content: 'this is a test notification'
     }).then(item => {
-      
+
       this.af.database.object('/matchlist/VP0ilOBwY1YM9QTzyYeq23B82pR2/' + item["key"]).set({
         isRead: false,
         time: _time,
@@ -108,7 +114,7 @@ export class MessagePage {
     });
   }
 
-  postNewMatch(){
+  postNewMatch() {
     //this.navCtrl.push(NewNotificationPage);
     let modal = this.modalController.create(NewMatchPage);
     modal.present();

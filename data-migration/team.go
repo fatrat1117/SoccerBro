@@ -7,15 +7,14 @@ type team struct {
 }
 
 type teamBasic struct {
-	Logo string `json:"logo"`
-	Name string `json:"name"`
+	Logo    string `json:"logo"`
+	Name    string `json:"name"`
+	Captain string `json:"captain"`
 }
 
 type teamDetail struct {
-	Captain     string `json:"captain"`
 	Description string `json:"description,omitempty"`
 	Founder     string `json:"founder"`
-	Manager     string `json:"manager,omitempty"`
 }
 
 type member struct {
@@ -36,12 +35,12 @@ func GetNewTeams(data map[string]interface{}) (map[string]team, error) {
 		if val, ok := t["logo"]; ok {
 			b.Logo = val.(string)
 		}
+		if val, ok := t["captain"]; ok {
+			b.Captain = val.(string)
+		}
 
 		// detail
 		d := teamDetail{}
-		if val, ok := t["captain"]; ok {
-			d.Captain = val.(string)
-		}
 		if val, ok := t["founder"]; ok {
 			d.Founder = val.(string)
 		}

@@ -10,7 +10,7 @@ import (
 func main() {
 	newData := make(map[string]interface{})
 	// parsing old json file
-	oldFile, err := ioutil.ReadFile("./old.json")
+	oldFile, err := ioutil.ReadFile("./bin/old.json")
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 		os.Exit(1)
@@ -39,7 +39,7 @@ func main() {
 }
 
 func exportNewData(data map[string]interface{}) {
-	f, err := os.Create("newData.json")
+	f, err := os.Create("./bin/newData.json")
 	check(err)
 	defer f.Close()
 	jsonData, err := json.Marshal(data)

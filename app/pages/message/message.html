@@ -3,7 +3,6 @@
     <ion-segment [(ngModel)]="message">
       <ion-segment-button value="chats">
         Chats
-        <ion-badge secondary>10</ion-badge>
       </ion-segment-button>
       <ion-segment-button value="notifications">
         Notifications
@@ -17,7 +16,7 @@
   <div [ngSwitch]="message">
     <ion-list *ngSwitchCase="'chats'">
       <ion-list-header>Teams</ion-list-header>
-      <ion-item *ngFor="let t of teams" (click)="enterChatRoom(t.$key)">
+      <ion-item *ngFor="let t of teams" (click)="enterChatRoom(t.id)">
         <ion-avatar item-left>
           <img src="{{t.logo}}">
         </ion-avatar>
