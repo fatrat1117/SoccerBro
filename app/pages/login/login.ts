@@ -141,4 +141,10 @@ export class LoginPage {
             //console.log(error)
         });
     }
+
+    ResetPassword() {
+        firebase.auth().sendPasswordResetEmail(this._credentials.email).then(_ => {
+            alert("check your email to reset password");
+        }).catch(err => alert(err));
+    }
 }
