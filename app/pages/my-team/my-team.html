@@ -161,7 +161,7 @@
       球队简介
     </ion-card-header>
     <ion-card-content>
-      <p class="my-team-description-p">先驱联队华人足球俱乐部创建于2013，由球队的第一任队长小宇跟球队荣誉队长阿华建立。期初名为汉骧足球队，后于辽宁足球队合并，因大部分队员住在Pioneer MRT附近，更名为先驱联队。
+      <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
       </p>
     </ion-card-content>
   </ion-card>
