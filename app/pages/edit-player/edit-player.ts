@@ -10,7 +10,7 @@ export class EditPlayerPage {
  busy: boolean;
   pId: any;
    afPlayerBasic: any;
-   afPlayerDetails: any;
+   afPlayerDetail: any;
    player: any;
    logoData: any;
    logoUrl: any;
@@ -22,7 +22,7 @@ export class EditPlayerPage {
      this.pId = this.navParams.get('pId');
      this.busy = false;
      this.afPlayerBasic = this.fm.getPlayerBasic(this.pId);
-     this.afPlayerDetails = this.fm.getTeamDetail(this.pId);
+     this.afPlayerDetail = this.fm.getPlayerDetail(this.pId);
     this.player = {
       pId: this.pId, 
       photo: '',
@@ -52,7 +52,7 @@ export class EditPlayerPage {
   }
 
   savePlayer(obj) {
-    console.log(obj);
+    //console.log(obj);
     
      let self = this;
     let success = _ => {
@@ -64,7 +64,7 @@ export class EditPlayerPage {
       alert(err);
        self.busy = false;
     }
-    this.am.updateTeam(obj, success, error);
+    this.fm.updatePlayer(obj, success, error);
   }
 
   save() {

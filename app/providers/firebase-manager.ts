@@ -5,7 +5,7 @@ declare let firebase: any;
 
 @Injectable()
 export class FirebaseManager {
-  selfId : string;
+  selfId: string;
   selfTeamId: string;
 
   constructor(private af: AngularFire) {
@@ -18,6 +18,32 @@ export class FirebaseManager {
 
   getPlayerDetail(playerId: string) {
     return this.af.database.object(`/players/${playerId}/detail-info`);
+  }
+
+  updatePlayer(p, success, error) {
+    let basic = {};
+    if (p.photo)
+      basic['photoURL'] = p.photo;
+    if (p.name)
+      basic['displayName'] = p.name.trim();
+
+    let detail = {};
+    if (p.foot)
+      detail['foot'] = p.foot;
+    if (p.height)
+      detail['height'] = p.height;
+    if (p.position)
+      detail['position'] = p.position;
+    if (p.weight)
+      detail['weight'] = p.weight;
+    if (p.description)
+      detail['description'] = p.description.trim();
+
+    console.log('updatePlayer', p, basic, detail);
+    this.getPlayerBasic(p.pId).update(basic).then(_=>success()).catch(err => error(err));
+    //concurrent update, return success when basic update is done. 
+    //trade off: update performance exchange update integrity
+    this.getPlayerDetail(p.pId).update(detail);
   }
 
   getSelfMatchNotifications() {
@@ -49,7 +75,7 @@ export class FirebaseManager {
 
 
   /********** All Teams Operations ***********/
-  getTeam (teamId: string) {
+  getTeam(teamId: string) {
     return this.af.database.object(`/teams/${teamId}`);
   }
 
@@ -98,7 +124,7 @@ export class FirebaseManager {
   }
 
 
- 
+
 
 
   /********** All Public Operations ***********/

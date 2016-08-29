@@ -5,7 +5,11 @@
       <button [disabled]="busy || 
       !(player.photo.length || 
       player.name.trim().length || 
-      player.description.trim().length)" (click)="save()">
+      player.description.trim().length ||
+      player.weight.length ||
+      player.height.length ||
+      player.foot.length ||
+      player.position.length)" (click)="save()">
         Save
       </button>
     </ion-buttons>
@@ -17,7 +21,7 @@
     <ion-item>
       <h2>photo</h2>
       <ion-thumbnail item-right>
-        <img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changephoto()" />
+        <ion-img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changephoto()"></ion-img>
       </ion-thumbnail>
     </ion-item>
     <ion-item>
@@ -27,17 +31,17 @@
     </ion-item>
     <ion-item>
       <ion-label floating>height (cm)</ion-label>
-      <ion-input type="number" [ngModel]="(afPlayerDetails | async)?.height" (ngModelChange)="player.height=$event">
+      <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.height" (ngModelChange)="player.height=$event">
       </ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>weight (kg)</ion-label>
-      <ion-input type="number" [ngModel]="(afPlayerDetails | async)?.weight" (ngModelChange)="player.weight=$event">
+      <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.weight" (ngModelChange)="player.weight=$event">
       </ion-input>
     </ion-item>
     <ion-item>
       <ion-label>position</ion-label>
-      <ion-select [ngModel]="(afPlayerDetails | async)?.position" (ngModelChange)="player.position=$event">
+      <ion-select [ngModel]="(afPlayerDetail | async)?.position" (ngModelChange)="player.position=$event">
         <ion-option value="gk" selected>GK</ion-option>
         <ion-option value="cb">CB</ion-option>
         <ion-option value="sb">SB</ion-option>
@@ -49,14 +53,14 @@
     </ion-item>
     <ion-item>
       <ion-label>foot</ion-label>
-      <ion-select [ngModel]="(afPlayerDetails | async)?.foot" (ngModelChange)="player.foot=$event">
+      <ion-select [ngModel]="(afPlayerDetail | async)?.foot" (ngModelChange)="player.foot=$event">
         <ion-option value="right" selected>Right Foot</ion-option>
         <ion-option value="left">Left Foot</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label floating>description</ion-label>
-      <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetails | async)?.description" (ngModelChange)="player.description=$event">
+      <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetail | async)?.description" (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>
   </ion-list>
