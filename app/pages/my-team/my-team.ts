@@ -4,6 +4,7 @@ import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'ang
 import {AccountManager} from "../../providers/account-manager";
 import {EditTeamPage} from '../edit-team/edit-team';
 import {FirebaseManager} from "../../providers/firebase-manager";
+import {ManagePlayerPage} from '../manage-player/manage-player';
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html'
@@ -94,5 +95,6 @@ export class MyTeamPage {
   }
 
   goManagePlayerPage() {
+    this.nav.push(ManagePlayerPage, {tId: this.tId});
   }
 }
