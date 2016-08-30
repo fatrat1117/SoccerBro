@@ -9,9 +9,9 @@
     <ion-item-sliding *virtualItem="let player">
       <ion-item (click) = "goPlayerPage(player)">
         <ion-avatar item-left>
-          <img [src]="(player.$key | playerBasicPipe | async)?.photoURL"/>
+          <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>
-        <h2>{{ (player.$key | playerBasicPipe | async)?.displayName }}</h2>
+        <h2>{{ (player.$key | playerBasicPipe | async)?.displayName }}<span> (captain)</span></h2>
         <!--<button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right></button>-->
       </ion-item>
       <!--<ion-item-options side="right">

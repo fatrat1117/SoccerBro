@@ -9,7 +9,7 @@
     <ion-card>
       <ion-item class="me-self-info" (click) = "goEditPlayerPage()">
         <ion-avatar class="me-avatar" item-middle>
-          <img [src]="player.photoURL" class="me-avatar-img"/>
+          <ion-img [src]="player.photoURL" class="me-avatar-img"></ion-img>
         </ion-avatar>
         <h2>{{player.displayName}}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
       </ion-item>
@@ -40,7 +40,7 @@
     <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()">
+          <ion-img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()"></ion-img>
           <div class="me-team-default-info">
             <h4>{{defaultTeam ? (defaultTeam | async)?.name : 'no team'}}</h4>
           </div>

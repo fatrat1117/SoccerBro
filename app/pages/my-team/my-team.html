@@ -22,12 +22,12 @@
           </div>
         </ion-avatar>
         <div class="my-team-info-avatar">
-          <img class="my-team-avatar-img" [src]="(afTeam | async)?.logo ">
+          <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
         </div>
         </div>
 
         <div class="my-team-info-panel-bottom">
-        <p>{{(afTeam | async)?.name}}</p>
+            <p>{{(afTeam | async)?.name}}</p>
         </div>
       </ion-item>
     </ion-card>
