@@ -92,4 +92,7 @@ export class MyTeamPage {
     image.src = src
     return image;
   }
+
+  goManagePlayerPage() {
+  }
 }

@@ -5,20 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item-sliding *ngFor="let team of teams">
-      <ion-item (click) = "goTeamPage(team)">
+  <ion-list [virtualScroll]="players | async">
+    <ion-item-sliding *virtualItem="let player">
+      <ion-item (click) = "goPlayerPage(player)">
         <ion-avatar item-left>
-          <img [src]="team.logo"/>
+          <img [src]="(player.$key | playerBasicPipe | async)?.photoURL"/>
         </ion-avatar>
-        <h2>{{ team.name }}</h2>
-        <button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right>default</button>
+        <h2>{{ (player.$key | playerBasicPipe | async)?.displayName }}</h2>
+        <!--<button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right></button>-->
       </ion-item>
-      <ion-item-options side="right">
+      <!--<ion-item-options side="right">
         <button [disabled] = "isDefault(team) || busy" (click) = "quit(team)" danger>
         <ion-icon name="trash"></ion-icon>
       </button>
-      </ion-item-options>
+      </ion-item-options>-->
     </ion-item-sliding>
   </ion-list>
 </ion-content>

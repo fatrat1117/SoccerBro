@@ -3,20 +3,26 @@ import {NavController, NavParams } from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager';
 import {MyTeamPage} from '../my-team/my-team';
+import {FirebaseManager} from "../../providers/firebase-manager";
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
-  templateUrl: 'build/pages/manage-player/manage-player.html'
+  templateUrl: 'build/pages/manage-player/manage-player.html',
+  pipes: [PlayerBasicPipe]
 })
-export class ManageTeamPage {
-  teams: any;
+export class ManagePlayerPage {
+  players: any;
   busy: boolean;
+  tId: any;
 
   constructor(private am: AccountManager,
   private af: AngularFire, 
   private navParams: NavParams,
-  private nav : NavController) {
-    let tId = this.navParams.get('tId');
-    // this.busy = false;
+  private nav : NavController,
+  private fm: FirebaseManager) {
+    this.tId = this.navParams.get('tId');
+    this.players = this.fm.getPlayers(this.tId);
+    this.busy = false;
     // this.teams = [];
     // let self = this;
     // this.am.getTeamsOfPlayerSnapshot(pId, this.teams);
