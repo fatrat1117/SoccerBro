@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Players</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let team of teams">
+      <ion-item (click) = "goTeamPage(team)">
+        <ion-avatar item-left>
+          <img [src]="team.logo"/>
+        </ion-avatar>
+        <h2>{{ team.name }}</h2>
+        <button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right>default</button>
+      </ion-item>
+      <ion-item-options side="right">
+        <button [disabled] = "isDefault(team) || busy" (click) = "quit(team)" danger>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
