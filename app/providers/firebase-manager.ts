@@ -92,6 +92,7 @@ export class FirebaseManager {
   }
 
   addSelfMatch(match: any) {
+    match.createdAt = firebase.database.ServerValue.TIMESTAMP;
     this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
   }
 

@@ -74,14 +74,14 @@ export class NewMatchPage {
   postNewMatch() {
     let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
     this.fm.addSelfMatch({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      team_id: '-KLBMI-QFYiaW5nSqOjR',
-      opponent_id: this.opponent.id,
+      //timestamp: firebase.database.ServerValue.TIMESTAMP,
+      creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
+      teamId: '-KLBMI-QFYiaW5nSqOjR',
+      opponentId: this.opponent.id,
       time: time,
       color: this.jerseyColor,
-      location_name: this.location.name,
-      location_adderess: this.location.address,
+      locationName: this.location.name,
+      locationAdderess: this.location.address,
       content: 'this is a test notification'
     });
 

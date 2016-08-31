@@ -19,7 +19,7 @@ export class SearchTeamPage {
       snapshots.forEach(snapshot => {
         let team: any = {};
         let subs = this.fm.getTeamBasic(snapshot.$key).subscribe(s => {
-          team.id = s.$key;
+          team.id = snapshot.$key;
           team.name = s.name;
           team.logo = s.logo;
         });
