@@ -7,8 +7,8 @@ type player struct {
 }
 
 type playerBasic struct {
-	Name   string `json:"name"`
-	Photo  string `json:"photo,omitempty"`
+	Name   string `json:"displayName"`
+	Photo  string `json:"photoURL,omitempty"`
 	TeamId string `json:"teamId,omitempty"`
 }
 

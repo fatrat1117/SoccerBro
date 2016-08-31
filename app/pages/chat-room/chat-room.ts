@@ -68,6 +68,10 @@ export class ChatRoomPage {
     return this.fm.getPlayerBasic(id)
   }
 
+  isSelf(id: string) {
+    return id == this.fm.selfId;
+  }
+
   showTime(index) {
     if (index == 0)
       return true;
@@ -80,7 +84,7 @@ export class ChatRoomPage {
     var current = this.snapshots[index].createdAt;
     if (index == 0)
       isTheSameDay = false;
-    else if (moment().diff(moment(this.snapshots[index-1].createdAt), 'days') < 1)
+    else if (moment(current).diff(moment(this.snapshots[index-1].createdAt), 'days') < 1)
       isTheSameDay = true;
     else
       isTheSameDay = false;
