@@ -40,7 +40,7 @@
     <ion-list>
       <ion-item>
         <div class="me-team-default">
-          <ion-img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()"></ion-img>
+          <img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()"/>
           <div class="me-team-default-info">
             <h4>{{defaultTeam ? (defaultTeam | async)?.name : 'no team'}}</h4>
           </div>
