@@ -5,16 +5,16 @@
 </ion-header>
 
 <ion-content class="cards-bg social-cards me-content-wrapper">
-  <div class="me-content-wrapper-inner">
-    <ion-card>
-      <ion-item class="me-self-info" (click) = "goEditPlayerPage()">
+  <ion-list>
+    <!--<ion-card>-->
+      <ion-item class="me-self-info" (click) = "goEditPlayerPage()" detail-push>
         <ion-avatar class="me-avatar" item-middle>
           <ion-img [src]="player.photoURL" class="me-avatar-img"></ion-img>
         </ion-avatar>
-        <h2>{{player.displayName}}<ion-icon class="me-personal-info-modify" name="ios-arrow-forward-outline"></ion-icon></h2>
+        <h2>{{player.displayName}}</h2>
       </ion-item>
 
-      <ion-row>
+      <!--<ion-row>
         <ion-col>
           <button primary clear small>
             <ion-icon name='thumbs-up'></ion-icon>
@@ -32,12 +32,12 @@
             11h ago
           </ion-note>
         </ion-col>
-      </ion-row>
+      </ion-row>-->
 
-    </ion-card>
+    <!--</ion-card>-->
 
 
-    <ion-list>
+    
       <ion-item>
         <div class="me-team-default">
           <img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()"/>
@@ -58,9 +58,11 @@
           </div>
         </div>
       </ion-item>
+      <ion-item detail-push>
+        my page
+      </ion-item>
+      <button (click)="onLogout()" block>logout</button>
     </ion-list>
-  </div>
-  <button (click)="onLogout()" block>logout</button>
 </ion-content>
 <style>
   .social-cards ion-col {
