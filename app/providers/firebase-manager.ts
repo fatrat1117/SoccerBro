@@ -40,7 +40,7 @@ export class FirebaseManager {
       detail['description'] = p.description.trim();
 
     console.log('updatePlayer', p, basic, detail);
-    this.getPlayerBasic(p.pId).update(basic).then(_=>success()).catch(err => error(err));
+    this.getPlayerBasic(p.pId).update(basic).then(_ => success()).catch(err => error(err));
     //concurrent update, return success when basic update is done. 
     //trade off: update performance exchange update integrity
     this.getPlayerDetail(p.pId).update(detail);
@@ -56,10 +56,6 @@ export class FirebaseManager {
     return this.af.database.list(`/players/${this.selfId}/teams`)
   }
 
-  addMatchNotification(playerId: string, matchID: string, notification: any) {
-    this.af.database.object(`/players/${playerId}/match-notifications/${matchID}`).set(notification);
-  }
-
   updateDefaultTeam(teamId: string) {
     this.af.database.object(`/players/${this.selfId}`).set({ teamId: teamId });
   }
@@ -70,6 +66,13 @@ export class FirebaseManager {
     this.af.database.object(`/players/${this.selfId}/basic-info/teamId`).update(teamId);
   }
 
+  addMatchNotification(playerId: string, matchID: string, notification: any) {
+    this.af.database.object(`/players/${playerId}/match-notifications/${matchID}`).set(notification);
+  }
+
+  getMatchNotifications() {
+    return this.af.database.object(`/players/${this.selfId}/match-notifications`);
+  }
 
 
 
@@ -91,17 +94,16 @@ export class FirebaseManager {
     return this.af.database.list(`/teams/${teamId}/members`);
   }
 
-  addSelfMatch(match: any) {
-    match.createdAt = firebase.database.ServerValue.TIMESTAMP;
-    this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
-  }
-
   getSelfChatMessages(teamId: string, subject: any) {
     return this.af.database.list(`/teams/${teamId}/chatroom`, {
       query: {
         limitToLast: subject
       }
     });
+  }
+
+  getMatchInfo(teamId: string, matchId: string) {
+    return this.af.database.object(`/teams/${teamId}/matches/${matchId}`);
   }
 
   addSelfChatMessage(teamId: string, message: string) {
@@ -123,6 +125,30 @@ export class FirebaseManager {
       }).catch(err => error(err));
     }).catch(err => error(err));
   }
+
+  addSelfMatch(match: any) {
+    match.createdAt = firebase.database.ServerValue.TIMESTAMP;
+    const promise = this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
+    promise.then(newMatch => {
+      let id = newMatch["key"];
+
+      // add to team members
+      let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
+        subscription.unsubscribe();
+        snapshots.forEach(snapshot => {
+          this.addMatchNotification(snapshot.$key, id, {
+            isRead: false
+            /*
+            locationName: match.locationName,
+            opponentId: match.opponentId,
+            time: match.time
+            */
+          });
+        });
+      });
+    });
+  }
+
 
 
 

@@ -8,14 +8,17 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {NotificationPage} from '../notification/notification';
 import {NewMatchPage} from '../new-match/new-match';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {MatchInfoPipe} from '../../pipes/match-info.pipe';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
+  pipes: [TeamBasicPipe, MatchInfoPipe]
 })
 export class MessagePage {
   message: string;
-  teams: any[];
-  matches: any[];
+  teams: any;
+  matches: any;
   unReadCount: number;
   // firebase
   matchItems: FirebaseListObservable<any[]>;
@@ -26,45 +29,9 @@ export class MessagePage {
     this.matches = [];
     this.unReadCount = 0;
 
-    // get self teams
-    let subscription = fm.getSelfTeams().subscribe(snapshots => {
-      subscription.unsubscribe();
-      snapshots.forEach(snapshot => {
-        let t: any = {};
-        let subs = fm.getTeamBasic(snapshot.$key).subscribe(s => {
-          subs.unsubscribe()
-          t.id = snapshot.$key;
-          t.name = s.name;
-          t.logo = s.logo;
-        })
-        if (snapshot.$value)
-          this.teams.unshift(t)
-        else
-          this.teams.push(t)
-      });
-    });
+    this.teams = fm.getSelfTeams();
+    this.matches = fm.getSelfMatchNotifications();
 
-    /*
-        // firebase
-        this.matchItems = af.database.list('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2', {
-          query: { orderByChild: 'time'}
-        });
-    
-        this.matchItems.subscribe(snapshots => {
-          this.matches = [];
-          this.unReadCount = 0;
-          snapshots.forEach(snapshot => {
-            af.database.object(`/teams/${snapshot.opponent_id}`).subscribe(
-              t => {
-                snapshot.opponent_name = t.name;
-                snapshot.opponent_logo = t.logo;
-                this.matches.push(snapshot);
-                if (!snapshot.isRead)
-                  this.unReadCount++;
-            })
-          });
-        })
-        */
   }
 
   enterChatRoom(id) {

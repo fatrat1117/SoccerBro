@@ -12,8 +12,6 @@
 
   <ion-list no-lines>
     <div *ngFor="let item of items | async; let i = index; trackBy:trackByKey">
-      <!--*ngIf="showTime(item)"-->
-      <!-- *ngIf="item.createdAt | isInRange: tempTime" -->
       <ion-item *ngIf="showTime(i)" class="chat-room-item" style="text-align:center">
         <label class="chat-room-time-label">{{ getTime(i) }}</label>
       </ion-item>

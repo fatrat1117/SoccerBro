@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController, ModalController, PopoverController} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
-import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 import * as moment from 'moment';
-declare let firebase: any;
 
 import {SearchTeamPage} from '../search-team/search-team';
 import {ColorPickerPage} from '../color-picker/color-picker';
@@ -23,7 +21,7 @@ export class NewMatchPage {
   matchTime: Date;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
     private popoverController: PopoverController, private _loader: MapsAPILoader,
-    private af: AngularFire, private fm: FirebaseManager) {
+    private fm: FirebaseManager) {
 
     this.jerseyColor = 'transparent';
     this.location = {};
@@ -106,6 +104,9 @@ export class NewMatchPage {
     */
   }
 
+  addNotification
+
+/*
   addNotification(_key: string, _teamId: string, _opponentId: string, _time: number) {
     let subscriptions = this.af.database.list('/playersOfTeam/' + _teamId).subscribe(players => {
       subscriptions.unsubscribe();
@@ -119,5 +120,5 @@ export class NewMatchPage {
       });
     })
   }
-
+*/
 }

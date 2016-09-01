@@ -1,4 +1,4 @@
-import {Component, ViewChild, Pipe, PipeTransform} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Content} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
@@ -11,19 +11,9 @@ declare let firebase: any;
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
-@Pipe({
-  name: "isInRange"
-})
-
-export class IsInRange implements PipeTransform {
-   transform(time: number) {
-     return true;
-   }
-}
-
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [PlayerBasicPipe, IsInRange]
+  pipes: [PlayerBasicPipe]
 })
 
 export class ChatRoomPage {
