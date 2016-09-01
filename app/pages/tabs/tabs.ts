@@ -25,7 +25,7 @@ export class TabsPage implements OnInit {
     // should be each tab's root Page
     this.tab1Root = HomePage;
     this.tab2Root = StatsPage;
-    this.tab3Root = MessagePage;
+    this.tab3Root = null;
     this.tab4Root = null;
     this.tab5Root = MyTeamPage;
   }
@@ -36,6 +36,7 @@ export class TabsPage implements OnInit {
     
     let success = function () {
       self.tab4Root = MePage;
+      self.tab3Root = MessagePage;
     }
 
     let error = function (err) {
@@ -47,8 +48,8 @@ export class TabsPage implements OnInit {
         console.log("logged in gopage", user);
         self.am.initialize(user, success, error)
       } else {
-        
           self.tabRef.select(0);
+          self.tab3Root = null;
           self.tab4Root = null;
           self.am.uninitialize();
           console.log("logout");
