@@ -4,53 +4,53 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="my-team-ion-content">
+<ion-content padding>
   <div class="my-team-ion-card">
     <ion-card>
       <ion-item class="my-team-info">
         <div class="my-team-info-panel-center">
-        <ion-avatar class="my-team-avatar" item-middle>
-          <!--<ion-icon name="heart"></ion-icon>-->
-          <div class="my-team-info-popular">
-            <p>人气</p>
-            <h6>{{(afTeamPublic | async)?.popularity }}</h6>
-          </div>
+          <ion-avatar class="my-team-avatar" item-middle>
+            <!--<ion-icon name="heart"></ion-icon>-->
+            <div class="my-team-info-popular">
+              <p>人气</p>
+              <h6>{{(afTeamPublic | async)?.popularity }}</h6>
+            </div>
 
-          <div class="my-team-info-power">
-            <p>战力</p>
-            <h6>{{(afTeam | async)?.combat_point }}</h6>
+            <div class="my-team-info-power">
+              <p>战力</p>
+              <h6>{{(afTeam | async)?.combat_point }}</h6>
+            </div>
+          </ion-avatar>
+          <div class="my-team-info-avatar">
+            <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
           </div>
-        </ion-avatar>
-        <div class="my-team-info-avatar">
-          <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
-        </div>
         </div>
 
         <div class="my-team-info-panel-bottom">
-            <p>{{(afTeam | async)?.name}}</p>
+          <p>{{(afTeam | async)?.name}}</p>
         </div>
       </ion-item>
     </ion-card>
   </div>
 
   <!--<ion-row>-->
-    <!--<ion-col>-->
-      <!--<button primary clear small>-->
-        <!--<ion-icon name='thumbs-up'></ion-icon>-->
-        <!--<div>12 Likes</div>-->
-      <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col>-->
-      <!--<button primary clear small>-->
-        <!--<ion-icon name='text'></ion-icon>-->
-        <!--<div>4 Comments</div>-->
-      <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col center text-center>-->
-      <!--<ion-note>-->
-        <!--11h ago-->
-      <!--</ion-note>-->
-    <!--</ion-col>-->
+  <!--<ion-col>-->
+  <!--<button primary clear small>-->
+  <!--<ion-icon name='thumbs-up'></ion-icon>-->
+  <!--<div>12 Likes</div>-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--<ion-col>-->
+  <!--<button primary clear small>-->
+  <!--<ion-icon name='text'></ion-icon>-->
+  <!--<div>4 Comments</div>-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--<ion-col center text-center>-->
+  <!--<ion-note>-->
+  <!--11h ago-->
+  <!--</ion-note>-->
+  <!--</ion-col>-->
   <!--</ion-row>-->
 
   <ion-grid>
@@ -64,22 +64,22 @@
         </div>
       </ion-col>
       <!--<ion-col class="my-team-infobar-col-border-right" width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">世界</ion-label>-->
-          <!--<ion-label class="my-team-infobar-label-num">第454名</ion-label>-->
-        <!--</div>-->
+      <!--<div class="my-team-infobar-item">-->
+      <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+      <!--</ion-icon>-->
+      <!--<ion-label class="my-team-infobar-label">世界</ion-label>-->
+      <!--<ion-label class="my-team-infobar-label-num">第454名</ion-label>-->
+      <!--</div>-->
       <!--</ion-col>-->
       <!--<ion-col class="my-team-infobar-col-border-right" width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">新加坡</ion-label>-->
-          <!--<ion-label class="my-team-infobar-label-num">第9名</ion-label>-->
-        <!--</div>-->
+      <!--<div class="my-team-infobar-item">-->
+      <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+      <!--</ion-icon>-->
+      <!--<ion-label class="my-team-infobar-label">新加坡</ion-label>-->
+      <!--<ion-label class="my-team-infobar-label-num">第9名</ion-label>-->
+      <!--</div>-->
       <!--</ion-col>-->
-      <ion-col width-25 (click) = "goManagePlayerPage()">
+      <ion-col width-25 (click)="goManagePlayerPage()">
         <div class="my-team-infobar-item">
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
@@ -91,36 +91,36 @@
   </ion-grid>
 
   <!--<ion-grid>-->
-    <!--<ion-row>-->
-      <!--<ion-col width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">阵容</ion-label>-->
-        <!--</div>-->
-      <!--</ion-col>-->
-      <!--<ion-col width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">照片</ion-label>-->
-        <!--</div>-->
-      <!--</ion-col>-->
-      <!--<ion-col width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">视频</ion-label>-->
-        <!--</div>-->
-      <!--</ion-col>-->
-      <!--<ion-col width-25>-->
-        <!--<div class="my-team-infobar-item">-->
-          <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-          <!--</ion-icon>-->
-          <!--<ion-label class="my-team-infobar-label">队员</ion-label>-->
-        <!--</div>-->
-      <!--</ion-col>-->
-    <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col width-25>-->
+  <!--<div class="my-team-infobar-item">-->
+  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+  <!--</ion-icon>-->
+  <!--<ion-label class="my-team-infobar-label">阵容</ion-label>-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--<ion-col width-25>-->
+  <!--<div class="my-team-infobar-item">-->
+  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+  <!--</ion-icon>-->
+  <!--<ion-label class="my-team-infobar-label">照片</ion-label>-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--<ion-col width-25>-->
+  <!--<div class="my-team-infobar-item">-->
+  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+  <!--</ion-icon>-->
+  <!--<ion-label class="my-team-infobar-label">视频</ion-label>-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--<ion-col width-25>-->
+  <!--<div class="my-team-infobar-item">-->
+  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
+  <!--</ion-icon>-->
+  <!--<ion-label class="my-team-infobar-label">队员</ion-label>-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
   <!--</ion-grid>-->
 
   <ion-card>
@@ -138,18 +138,18 @@
             </div>
           </ion-col>
           <!--<ion-col width-33>-->
-            <!--<div class="my-team-admin-card-item my-team-admin-card-item-2">-->
-              <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
-              <!--<ion-label class="my-team-admin-card-pane-occupation">管理员</ion-label>-->
-              <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
-            <!--</div>-->
+          <!--<div class="my-team-admin-card-item my-team-admin-card-item-2">-->
+          <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
+          <!--<ion-label class="my-team-admin-card-pane-occupation">管理员</ion-label>-->
+          <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
+          <!--</div>-->
           <!--</ion-col>-->
           <!--<ion-col width-33>-->
-            <!--<div class="my-team-admin-card-item my-team-admin-card-item-3">-->
-              <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
-              <!--<ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>-->
-              <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
-            <!--</div>-->
+          <!--<div class="my-team-admin-card-item my-team-admin-card-item-3">-->
+          <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
+          <!--<ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>-->
+          <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
+          <!--</div>-->
           <!--</ion-col>-->
         </ion-row>
       </ion-grid>
@@ -204,7 +204,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <button (click) = "editTeam()" style="width: 40%">
+      <button (click)="editTeam()" style="width: 40%">
         <ion-icon name="create"></ion-icon>
         Edit
       </button>

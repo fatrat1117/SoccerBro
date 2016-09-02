@@ -74,8 +74,13 @@ export class FirebaseManager {
     return this.af.database.object(`/players/${this.selfId}/match-notifications`);
   }
 
-
-
+  //common
+  increasePopularity(afPublic) {
+    let sub = afPublic.subscribe(snapshot => {
+      sub.unsubscribe();
+      afPublic.update({ popularity: snapshot.popularity + 1 });
+    });
+  }
 
   /********** All Teams Operations ***********/
   getTeam(teamId: string) {

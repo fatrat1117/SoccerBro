@@ -5,37 +5,34 @@
 </ion-header>
 
 <ion-content padding>
-  <!--<div class="my-team-ion-card">
-    <ion-card>
-      <ion-item class="my-team-info">
-        <div class="my-team-info-panel-center">
+  <ion-card>
+    <ion-item class="my-team-info">
+      <div class="my-team-info-panel-center">
         <ion-avatar class="my-team-avatar" item-middle>
           <div class="my-team-info-popular">
             <p>人气</p>
-            <h6>{{(afTeamPublic | async)?.popularity }}</h6>
+            <h6>{{(afPublic | async)?.popularity }}</h6>
           </div>
 
           <div class="my-team-info-power">
             <p>战力</p>
-            <h6>{{(afTeam | async)?.combat_point }}</h6>
+            <h6></h6>
           </div>
         </ion-avatar>
         <div class="my-team-info-avatar">
-          <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
+          <ion-img class="my-team-avatar-img" [src]="(afBasic | async)?.photoURL"></ion-img>
         </div>
-        </div>
+      </div>
 
-        <div class="my-team-info-panel-bottom">
-            <p>{{(afTeam | async)?.name}}</p>
-        </div>
-      </ion-item>
-    </ion-card>
-  </div>
-
+      <div class="my-team-info-panel-bottom">
+        <p>{{(afBasic | async)?.name}}</p>
+      </div>
+    </ion-item>
+  </ion-card>
 
   <ion-grid>
     <ion-row>
-      <ion-col class="my-team-infobar-col-border-right" width-25>
+      <ion-col class="my-team-infobar-col-border-right" width-50>
         <div class="my-team-infobar-item">
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
@@ -43,43 +40,24 @@
           <ion-label class="my-team-infobar-label-num">305</ion-label>
         </div>
       </ion-col>
-      <ion-col width-25 (click) = "goManagePlayerPage()">
+      <ion-col width-50>
         <div class="my-team-infobar-item">
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
-          <ion-label class="my-team-infobar-label">球员</ion-label>
-          <ion-label class="my-team-infobar-label-num">{{teamPlayersNumber}}</ion-label>
+          <ion-label class="my-team-infobar-label">position</ion-label>
+          <ion-label class="my-team-infobar-label-num">{{(afDetail | async)?.position}}</ion-label>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-card>
-    <ion-card-header class="my-team-header-decoration my-team-admin-card-header">
-      管理人员
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-33>
-            <div class="my-team-admin-card-item my-team-admin-card-item-1">
-              <img class="my-team-admin-card-avatar-img" src="img/test_avatar.jpg" />
-              <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
-              <p class="my-team-admin-card-pane-name">{{(afTeamCaptain | async)?.displayName}}</p>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
   <ion-card class="my-team-header-margin-top-2rem">
     <ion-card-header class="my-team-header-decoration my-team-description-header">
-      球队简介
+      description
     </ion-card-header>
     <ion-card-content>
-      <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
+      <p class="my-team-description-p">{{(afDetail | async)?.description}}
       </p>
     </ion-card-content>
-  </ion-card>-->
+  </ion-card>
 </ion-content>
