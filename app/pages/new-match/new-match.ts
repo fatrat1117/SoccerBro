@@ -79,7 +79,7 @@ export class NewMatchPage {
       time: time,
       color: this.jerseyColor,
       locationName: this.location.name,
-      locationAdderess: this.location.address,
+      locationAddress: this.location.address,
       content: 'this is a test notification'
     });
 

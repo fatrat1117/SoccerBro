@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Notification</ion-title>
+    <ion-title>Match Detail</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,9 +12,9 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" [src]="(team1 | async)?.logo">
+            <img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
           </ion-thumbnail>
-          <p text-center>&nbsp;{{ (team1 | async)?.name }}</p>
+          <p text-center>&nbsp;{{ (teamId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
       </ion-col>
       <!-- time -->
@@ -22,17 +22,17 @@
         <!--ion-item style="text-align:center">
           <ion-icon name="md-rainy" secondary><p>35&deg;C</p></ion-icon>
         </ion-item-->
-        <p>7:30 pm</p>
-        <p>Tuesday</p>
-        <p>8/09</p>
+        <p>{{ getTime((teamId | matchInfoPipe: matchId | async)?.time) }}</p>
+        <p>{{ getDay((teamId | matchInfoPipe: matchId | async)?.time) }}</p>
+        <p>{{ getDate((teamId | matchInfoPipe: matchId | async)?.time) }}</p>
       </ion-col>
       <!-- opponent team -->
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" [src]="(team2 | async)?.logo">
+            <img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
           </ion-thumbnail>
-          <p text-center>&nbsp;{{ (team2 | async)?.name }}</p>
+          <p text-center>&nbsp;{{ (opponentId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
       </ion-col>
     </ion-row>
@@ -40,9 +40,9 @@
     <ion-list>
       <!-- address -->
       <ion-item text-wrap>
-        <ion-icon name="ios-shirt" item-left large style="color:transparent;" [style.color]="(matchInfo | async)?.color"></ion-icon>
-        <h>{{ (matchInfo | async)?.location_name }}</h>
-        <p>{{ (matchInfo | async)?.location_address }}</p>
+        <ion-icon name="ios-shirt" item-left large style="color:transparent;" [style.color]="(teamId | matchInfoPipe: matchId | async)?.color"></ion-icon>
+        <h>{{ (teamId | matchInfoPipe: matchId | async)?.locationName }}</h>
+        <p>{{ (teamId | matchInfoPipe: matchId | async)?.locationAddress }}</p>
         <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
       </ion-item>
 
