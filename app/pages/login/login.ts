@@ -143,8 +143,14 @@ export class LoginPage {
     }
 
     ResetPassword() {
+        let self = this;
+        this.busy = true;
         firebase.auth().sendPasswordResetEmail(this._credentials.email).then(_ => {
             alert("check your email to reset password");
-        }).catch(err => alert(err));
+            self.busy = false;
+        }).catch(err => {
+            alert(err);
+            self.busy = false;
+        });
     }
 }
