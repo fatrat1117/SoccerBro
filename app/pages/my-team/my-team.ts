@@ -60,12 +60,7 @@ export class MyTeamPage {
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
     this.afTeamPublic = this.fm.getTeamPublic(this.tId);
-
-    let sub = this.afTeamPublic.subscribe(snapshot => {
-      sub.unsubscribe();
-      this.afTeamPublic.update({popularity: snapshot.popularity + 1});
-    });
-
+    this.fm.increasePopularity(this.afTeamPublic);
     var number;
     this.afTeamPlayers = this.fm.getPlayers(this.tId);
     let subPlayer = this.afTeamPlayers.subscribe(snapshot => {

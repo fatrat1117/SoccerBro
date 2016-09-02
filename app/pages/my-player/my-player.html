@@ -30,11 +30,9 @@
     </ion-item>
   </ion-card>
 
-
-  <!--
   <ion-grid>
     <ion-row>
-      <ion-col class="my-team-infobar-col-border-right" width-25>
+      <ion-col class="my-team-infobar-col-border-right" width-50>
         <div class="my-team-infobar-item">
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
@@ -42,43 +40,24 @@
           <ion-label class="my-team-infobar-label-num">305</ion-label>
         </div>
       </ion-col>
-      <ion-col width-25 (click) = "goManagePlayerPage()">
+      <ion-col width-50>
         <div class="my-team-infobar-item">
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
-          <ion-label class="my-team-infobar-label">球员</ion-label>
-          <ion-label class="my-team-infobar-label-num">{{teamPlayersNumber}}</ion-label>
+          <ion-label class="my-team-infobar-label">position</ion-label>
+          <ion-label class="my-team-infobar-label-num">{{(afDetail | async)?.position}}</ion-label>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-card>
-    <ion-card-header class="my-team-header-decoration my-team-admin-card-header">
-      管理人员
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-33>
-            <div class="my-team-admin-card-item my-team-admin-card-item-1">
-              <img class="my-team-admin-card-avatar-img" src="img/test_avatar.jpg" />
-              <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
-              <p class="my-team-admin-card-pane-name">{{(afTeamCaptain | async)?.displayName}}</p>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
   <ion-card class="my-team-header-margin-top-2rem">
     <ion-card-header class="my-team-header-decoration my-team-description-header">
-      球队简介
+      description
     </ion-card-header>
     <ion-card-content>
-      <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
+      <p class="my-team-description-p">{{(afDetail | async)?.description}}
       </p>
     </ion-card-content>
-  </ion-card>-->
+  </ion-card>
 </ion-content>

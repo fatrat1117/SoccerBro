@@ -23,47 +23,7 @@ export class MyPlayerPage {
     this.afBasic = this.fm.getPlayerBasic(this.pId);
     this.afDetail = this.fm.getPlayerDetail(this.pId);
     this.afPublic = this.fm.getPlayerPublic(this.pId);
-    // this.afTeam = this.am.afGetTeam(this.tId);
-
-    // var teamLogoURL = "";
-    // //getCaptainAFObject
-    // this.afTeam.subscribe(snapshot => {
-    //       this.team = snapshot;
-    //       var captainId= snapshot.captain;
-    //       teamLogoURL = snapshot.logo;
-    //       console.log(teamLogoURL);
-    //       this.afTeamCaptain = this.am.afGetPlayerById(captainId);
-    //       this.afTeamCaptain.subscribe(playerSnapshot => {
-    //         this.teamCaptain = playerSnapshot;
-    //       });
-    // });
-    // // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
-    // console.log("123");
-    // console.log(this.afTeam);
-    // console.log("456");
-    // var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
-    // console.log(teamAvatarImg.width);
-
-    // this.afTeamDetail = this.fm.getTeamDetail(this.tId);
-    // this.afTeamPublic = this.fm.getTeamPublic(this.tId);
-
-    // let sub = this.afTeamPublic.subscribe(snapshot => {
-    //   sub.unsubscribe();
-    //   this.afTeamPublic.update({popularity: snapshot.popularity + 1});
-    // });
-
-    // var number;
-    // this.afTeamPlayers = this.fm.getPlayers(this.tId);
-    // let subPlayer = this.afTeamPlayers.subscribe(snapshot => {
-    //     console.log(this.tId);
-    //     this.teamPlayersNumber = snapshot.length;
-    //     this.teamPlayers = snapshot;
-    // });
-
-    //console.log(this.teamPlayersNumber);
-
-
-
+    this.fm.increasePopularity(this.afPublic);
   }
 
   // editTeam() {
