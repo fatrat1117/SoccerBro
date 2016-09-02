@@ -5,34 +5,33 @@
 </ion-header>
 
 <ion-content padding>
-  <!--<div class="my-team-ion-card">
-    <ion-card>
-      <ion-item class="my-team-info">
-        <div class="my-team-info-panel-center">
+  <ion-card>
+    <ion-item class="my-team-info">
+      <div class="my-team-info-panel-center">
         <ion-avatar class="my-team-avatar" item-middle>
           <div class="my-team-info-popular">
             <p>人气</p>
-            <h6>{{(afTeamPublic | async)?.popularity }}</h6>
+            <h6>{{(afPublic | async)?.popularity }}</h6>
           </div>
 
           <div class="my-team-info-power">
             <p>战力</p>
-            <h6>{{(afTeam | async)?.combat_point }}</h6>
+            <h6></h6>
           </div>
         </ion-avatar>
         <div class="my-team-info-avatar">
-          <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
+          <ion-img class="my-team-avatar-img" [src]="(afBasic | async)?.photoURL"></ion-img>
         </div>
-        </div>
+      </div>
 
-        <div class="my-team-info-panel-bottom">
-            <p>{{(afTeam | async)?.name}}</p>
-        </div>
-      </ion-item>
-    </ion-card>
-  </div>
+      <div class="my-team-info-panel-bottom">
+        <p>{{(afBasic | async)?.name}}</p>
+      </div>
+    </ion-item>
+  </ion-card>
 
 
+  <!--
   <ion-grid>
     <ion-row>
       <ion-col class="my-team-infobar-col-border-right" width-25>
