@@ -50,10 +50,10 @@ export class MessagePage {
 
   getTime(_timestamp) {
     return moment(_timestamp).calendar(null, {
-      sameDay: '[Today] HH:mm',
-      nextDay: '[Tomorrow] HH:mm',
-      nextWeek: 'ddd HH:mm',
-      sameElse: 'MM/DD HH:mm'
+      sameDay: '[Today] h:mm A',
+      nextDay: '[Tomorrow] h:mm A',
+      nextWeek: 'dddd h:mm A',
+      sameElse: 'MM/DD h:mm A'
     });
   }
 
