@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="cards-bg social-cards me-content-wrapper">
+<ion-content padding>
   <ion-list>
     <!--<ion-card>-->
       <ion-item class="me-self-info" (click) = "goEditPlayerPage()" detail-push>
@@ -58,14 +58,9 @@
           </div>
         </div>
       </ion-item>
-      <ion-item detail-push>
+      <ion-item (click) = "goPlayerPage()" detail-push>
         my page
       </ion-item>
       <button (click)="onLogout()" block>logout</button>
     </ion-list>
 </ion-content>
-<style>
-  .social-cards ion-col {
-    padding: 0;
-  }
-</style>
