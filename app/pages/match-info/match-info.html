@@ -43,7 +43,9 @@
         <ion-icon name="ios-shirt" item-left large style="color:transparent;" [style.color]="(teamId | matchInfoPipe: matchId | async)?.color"></ion-icon>
         <h>{{ (teamId | matchInfoPipe: matchId | async)?.locationName }}</h>
         <p>{{ (teamId | matchInfoPipe: matchId | async)?.locationAddress }}</p>
+        <!-->
         <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
+        <-->
       </ion-item>
 
       <!-- notice -->
@@ -53,6 +55,11 @@
 
       <!-- players -->
       <ion-item text-wrap>
+        <div *ngFor="let player of matchPlayers | async" class="avatar-top">
+          <img class="avatar-top" [src]="(player.$key | playerBasicPipe | async)?.photoURL">
+          <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
+        </div>
+
         <div class="avatar-top"> 
           <img class="avatar-top" src="img/test_avatar.jpg">   
           <p>Li Hao</p>
@@ -84,13 +91,13 @@
   <!-- buttons -->
   <ion-row padding-horizontal> 
     <ion-col text-center>
-      <button block secondary small>
+      <button block secondary small (click)="joinMatch()">
         <ion-icon name="md-checkmark"></ion-icon>
         Going
       </button>
     </ion-col>
     <ion-col text-center>
-      <button block danger small>
+      <button block danger small (click)="leaveMatch()">
         <ion-icon name="md-close"></ion-icon>
         Not going
       </button>

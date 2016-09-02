@@ -149,6 +149,17 @@ export class FirebaseManager {
     });
   }
 
+  getMatchPlayers(teamId: string, matchId: string) {
+    return this.af.database.list(`/teams/${teamId}/matches/${matchId}/players`);
+  }
+
+  joinMatch(teamId: string, matchId: string) {
+    this.af.database.object(`/teams/${teamId}/matches/${matchId}/players/${this.selfId}`).set(true);
+  }
+
+  leaveMatch(teamId: string, matchId: string) {
+    this.af.database.object(`/teams/${teamId}/matches/${matchId}/players/${this.selfId}`).remove();
+  }
 
 
 
