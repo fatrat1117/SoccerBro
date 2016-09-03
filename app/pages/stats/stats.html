@@ -18,24 +18,34 @@
         <ion-thumbnail item-left>
           <img src="img/test_team.jpg">
         </ion-thumbnail>
+        <h2 text-center>Ever Pioneer</h2>
+        <!--ion-row center>
         <h2>Ever Pioneer</h2>
+        <p class="popularity-text">Popularity: <span>1000</span></p>
+        </ion-row-->
         <ion-row>
           <ion-col>
-            <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
-            <p text-center>1</p>
+            <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
+            <p text-center><span secondary>1000</span></p>
           </ion-col>
           <ion-col>
             <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Played</label></p>
             <p text-center>11</p>
           </ion-col>
           <ion-col>
-            <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Point</label></p>
-            <p text-center><label>38</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Player</label></p>
+            <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
             <p text-center><label>20</label></p>
           </ion-col>
+          <!-->
+          <ion-col>
+            <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
+            <p text-center>1</p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Points</label></p>
+            <p text-center><label>38</label></p>
+          </ion-col>
+          <-->
         </ion-row>
       </ion-item>
       <button (click)="enterStandings()">test standings</button>
