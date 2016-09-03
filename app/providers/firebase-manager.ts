@@ -71,7 +71,13 @@ export class FirebaseManager {
   }
 
   getMatchNotifications() {
-    return this.af.database.object(`/players/${this.selfId}/match-notifications`);
+    return this.af.database.list(`/players/${this.selfId}/match-notifications`);
+  }
+
+  changeNotificationStatus(matchId: string, isRead: boolean) {
+    this.af.database.object(`/players/${this.selfId}/match-notifications/${matchId}`).update({
+      isRead: isRead
+    });
   }
 
   //common

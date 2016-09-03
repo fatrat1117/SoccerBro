@@ -16,19 +16,29 @@ export class MatchInfoPage {
   teamId: string;
   opponentId: string;
   matchId: string;
-  matchPlayers: any;
   isGoing: boolean;
+  matchPlayers: any;
   constructor(private navCtrl: NavController, private navParams: NavParams, private fm: FirebaseManager) {
      this.teamId = navParams.get("teamId");
      this.opponentId = navParams.get("opponentId");
      this.matchId = navParams.get("matchId");
-     this.matchPlayers = fm.getMatchPlayers(this.teamId, this.matchId);
      this.isGoing = false;
-    /*
-    af.database.object('/match-notifications/VP0ilOBwY1YM9QTzyYeq23B82pR2/' + id).update({
-      isRead: true
-    });
-    */
+     this.matchPlayers = [];
+     this.fm.changeNotificationStatus(this.matchId, true);
+
+     //this.matchPlayers = fm.getMatchPlayers(this.teamId, this.matchId);
+     fm.getMatchPlayers(this.teamId, this.matchId).subscribe(snapshots => {
+     this.isGoing = false;
+       this.matchPlayers = [];
+       snapshots.forEach(snapshot => {
+         if (snapshot.$key == fm.selfId) {
+          this.matchPlayers.unshift(snapshot);
+          this.isGoing = true;
+         }
+        else
+          this.matchPlayers.push(snapshot);
+       })
+     });
   }
 
   getTime(time: number) {
@@ -49,5 +59,9 @@ export class MatchInfoPage {
 
   leaveMatch() {
     this.fm.leaveMatch(this.teamId, this.matchId);
+  }
+
+  trackByKey(player: any) {
+    return player.$key
   }
 }

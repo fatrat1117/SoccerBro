@@ -55,35 +55,10 @@
 
       <!-- players -->
       <ion-item text-wrap>
-        <div *ngFor="let player of matchPlayers | async" class="avatar-top">
+        <div *ngFor="let player of matchPlayers; trackBy:trackByKey" class="avatar-top">
           <img class="avatar-top" [src]="(player.$key | playerBasicPipe | async)?.photoURL">
           <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
-        </div>
-
-        <div class="avatar-top"> 
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Li Hao</p>
-        </div>
-        <div class="avatar-top">
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Zeng Lei</p>
-        </div>
-        <div class="avatar-top">
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Li Jixiang</p>
-        </div>
-        <div class="avatar-top">
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Li HaoHaoHao</p>
-        </div>
-        <div class="avatar-top">
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Li Haaaaa</p>
-        </div>
-        <div class="avatar-top">
-          <img class="avatar-top" src="img/test_avatar.jpg">   
-          <p>Li aaa</p>
-        </div>
+       </div>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -91,13 +66,13 @@
   <!-- buttons -->
   <ion-row padding-horizontal> 
     <ion-col text-center>
-      <button block secondary small (click)="joinMatch()">
+      <button block secondary small [disabled]="isGoing" (click)="joinMatch()">
         <ion-icon name="md-checkmark"></ion-icon>
         Going
       </button>
     </ion-col>
     <ion-col text-center>
-      <button block danger small (click)="leaveMatch()">
+      <button block danger small [disabled]="!isGoing" (click)="leaveMatch()">
         <ion-icon name="md-close"></ion-icon>
         Not going
       </button>
