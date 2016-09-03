@@ -81,10 +81,12 @@ export class FirebaseManager {
   }
 
   //common
-  increasePopularity(afPublic) {
+  increasePopularity(afPublic, success = null) {
     let sub = afPublic.subscribe(snapshot => {
       sub.unsubscribe();
       afPublic.update({ popularity: snapshot.popularity + 1 });
+      if (success)
+        success(snapshot);
     });
   }
 
