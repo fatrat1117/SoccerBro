@@ -57,9 +57,10 @@
     </ion-card-header>
   <ion-card-content>
   <base-chart class="chart"
-             [datasets]="radarChartData"
+             [data]="radarChartData"
              [labels]="radarChartLabels"
-             [chartType]="radarChartType">
+             [chartType]="radarChartType"
+             [options]="radarOptions">
   </base-chart>
   </ion-card-content>
 </ion-card>

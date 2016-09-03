@@ -22,9 +22,10 @@ export class MyPlayerPage {
   public radarChartLabels:string[] = ['Ability', 'Awards', 'MVP', 'Popularity', 'Followers', 'Matches'];
 
   public radarChartData:any = [
-    {data: [20, 20, 20, 20, 20, 20]},
+    [20, 20, 20, 20, 20, 20],
   ];
   public radarChartType:string = 'radar';
+  public radarOptions = { legend: { display: false }};
 
   constructor(private nav: NavController,
     private am: AccountManager,
@@ -36,8 +37,9 @@ export class MyPlayerPage {
     this.afPublic = this.fm.getPlayerPublic(this.pId);
     let self = this;
     let success = snapshot => {
-      console.log(self.radarChartData);
-      self.radarChartData[0].data[3] = snapshot.popularity;
+      //console.log(self.radarChartData);
+      self.radarChartData = [[snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity]];
+      //self.radarChartData[0][3] = snapshot.popularity;
     }
 
     this.fm.increasePopularity(this.afPublic, success);
