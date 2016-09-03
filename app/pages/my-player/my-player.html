@@ -51,6 +51,15 @@
     </ion-row>
   </ion-grid>
 
+  <base-chart class="chart"
+             [datasets]="radarChartData"
+             [labels]="radarChartLabels"
+             [chartType]="radarChartType"
+             (chartHover)="chartHovered($event)"
+             (chartClick)="chartClicked($event)">
+  </base-chart>
+
+  
   <ion-card class="my-team-header-margin-top-2rem">
     <ion-card-header class="my-team-header-decoration my-team-description-header">
       description
