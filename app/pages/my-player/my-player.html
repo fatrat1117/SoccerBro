@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-card>
     <ion-item class="my-team-info">
       <div class="my-team-info-panel-center">
@@ -37,7 +37,7 @@
           <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
           </ion-icon>
           <ion-label class="my-team-infobar-label">出场</ion-label>
-          <ion-label class="my-team-infobar-label-num">305</ion-label>
+          <ion-label class="my-team-infobar-label-num">0</ion-label>
         </div>
       </ion-col>
       <ion-col width-50>
@@ -57,11 +57,10 @@
     </ion-card-header>
   <ion-card-content>
   <base-chart class="chart"
-             [datasets]="radarChartData"
+             [data]="radarChartData"
              [labels]="radarChartLabels"
              [chartType]="radarChartType"
-             (chartHover)="chartHovered($event)"
-             (chartClick)="chartClicked($event)">
+             [options]="radarOptions">
   </base-chart>
   </ion-card-content>
 </ion-card>

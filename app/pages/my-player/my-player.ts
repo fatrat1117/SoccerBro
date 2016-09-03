@@ -19,13 +19,13 @@ export class MyPlayerPage {
   afDetail: any;
   afPublic: any;
   // Radar
-  public radarChartLabels:string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  public radarChartLabels:string[] = ['Ability', 'Awards', 'MVP', 'Popularity', 'Followers', 'Matches'];
 
   public radarChartData:any = [
-    {data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B'}
+    [20, 20, 20, 20, 20, 20],
   ];
   public radarChartType:string = 'radar';
+  public radarOptions = { legend: { display: false }};
 
   constructor(private nav: NavController,
     private am: AccountManager,
@@ -35,17 +35,24 @@ export class MyPlayerPage {
     this.afBasic = this.fm.getPlayerBasic(this.pId);
     this.afDetail = this.fm.getPlayerDetail(this.pId);
     this.afPublic = this.fm.getPlayerPublic(this.pId);
-    this.fm.increasePopularity(this.afPublic);
+    let self = this;
+    let success = snapshot => {
+      //console.log(self.radarChartData);
+      self.radarChartData = [[snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity]];
+      //self.radarChartData[0][3] = snapshot.popularity;
+    }
+
+    this.fm.increasePopularity(this.afPublic, success);
   }
 
   // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
+  // public chartClicked(e:any):void {
+  //   console.log(e);
+  // }
 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
+  // public chartHovered(e:any):void {
+  //   console.log(e);
+  // }
   
   // editTeam() {
   //   this.nav.push(EditTeamPage,
