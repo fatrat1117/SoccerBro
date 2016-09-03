@@ -6,6 +6,7 @@ import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders,
 import {AccountManager} from './providers/account-manager';
 import {FirebaseManager} from './providers/firebase-manager';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
+import '../node_modules/chart.js/dist/Chart.bundle.min.js';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
