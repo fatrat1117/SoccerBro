@@ -46,6 +46,12 @@ export class FirebaseManager {
     this.getPlayerDetail(p.pId).update(detail);
   }
 
+  getPublicPlayers(subject) {
+    return this.af.database.list(`/public/players/`, {
+      query: { orderByChild: subject }
+    });
+  }
+
   getSelfMatchNotifications() {
     return this.af.database.list(`/players/${this.selfId}/match-notifications`, {
       query: { orderByChild: 'time' }

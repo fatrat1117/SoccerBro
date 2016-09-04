@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <div [ngSwitch]="stats">
+  <div [ngSwitch]="stats" style="height:100%">
     <ion-list *ngSwitchCase="'team'">
       <ion-item>
         <ion-thumbnail item-left>
@@ -51,10 +51,10 @@
       <button (click)="enterStandings()">test standings</button>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'player'">
-      <ion-item>
+    <ion-list *ngSwitchCase="'player'" [virtualScroll]="afPlayers | async">
+      <ion-item *virtualItem="let p">
         <ion-avatar item-left>
-          <img src="img/test_avatar.jpg">
+          <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>
         <ion-row center>
           <ion-col>
