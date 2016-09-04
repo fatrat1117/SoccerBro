@@ -3,7 +3,8 @@
     <ion-title>Edit Player</ion-title>
     <ion-buttons end>
       <button [disabled]="busy || 
-      !(player.photo.length || 
+      !(logoData ||
+      player.photo.length || 
       player.name.trim().length || 
       player.description.trim().length ||
       player.weight.length ||
@@ -21,7 +22,7 @@
     <ion-item>
       <h2>photo</h2>
       <ion-thumbnail item-right>
-        <ion-img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changephoto()"></ion-img>
+        <ion-img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changePhoto()"></ion-img>
       </ion-thumbnail>
     </ion-item>
     <ion-item>

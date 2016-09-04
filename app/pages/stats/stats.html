@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')" >
-  <div [ngSwitch]="stats">
+  <div [ngSwitch]="stats" style="height:100%">
     <ion-list *ngSwitchCase="'teams'">
       <ion-item>
         <ion-thumbnail item-left>
@@ -51,22 +51,22 @@
       <button (click)="enterStandings()">test standings</button>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'players'">
-      <ion-item>
+    <ion-list *ngSwitchCase="'players'" [virtualScroll]="afPlayers | async">
+      <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
         <ion-avatar item-left>
-          <img src="img/test_avatar.jpg">
+          <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>
         <ion-row center>
           <ion-col>
-            <h2>Li Hao</h2>
+            <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
           </ion-col>
           <ion-col text-center>
-            <p><span primary>DMF</span></p>
+            <p><span primary>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
           </ion-col>
           <ion-col text-center>
             <p text-center>
               <label>
-                <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>1000</span>
+                <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>{{p.popularity}}</span>
               </label>
             </p>
           </ion-col>
