@@ -9,6 +9,7 @@ import {MatchInfoPage} from '../match-info/match-info';
 import {NewMatchPage} from '../new-match/new-match';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {MatchInfoPipe} from '../../pipes/match-info.pipe';
+import {AccountManager} from '../../providers/account-manager';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
@@ -20,7 +21,10 @@ export class MessagePage {
   matches: any;
   // firebase
 
-  constructor(private navCtrl: NavController, private modalController: ModalController, private fm: FirebaseManager) {
+  constructor(private navCtrl: NavController, 
+  private modalController: ModalController, 
+  private fm: FirebaseManager,
+  private am: AccountManager) {
     this.message = "chats";
     this.teams = [];
     this.matches = [];
@@ -58,5 +62,19 @@ export class MessagePage {
   postNewMatch() {
     let modal = this.modalController.create(NewMatchPage);
     modal.present();
+  }
+
+  test() {
+    // push notification
+    let message = {
+        'en': "A new match is waiting for you to join!",
+        'zh-Hans': "一场新球赛等待你的加入！" 
+    };
+    
+    let pushIds = [];
+    let success = result => {};
+    let error = err => {};
+    pushIds.push('05baf54c-3a0c-47d6-ac59-2fcbf25aa6aa');
+    this.am.PostNotification(message, pushIds, success, error);
   }
 }

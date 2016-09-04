@@ -427,4 +427,24 @@ export class AccountManager {
       }
     });
   }
+
+  //push
+  PostNotification(messageObj, pushIds, success, error) {
+    let notificationObj = {
+      contents: messageObj,
+      include_player_ids: pushIds
+    };
+
+    window["plugins"].OneSignal.postNotification(notificationObj,
+      successResponse => {
+          console.log("Notification Post Success:", successResponse);
+          success(successResponse);
+      },
+      failedResponse => {
+          console.log("Notification Post Failed: ", failedResponse);
+          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+          error(failedResponse);
+      }
+    );
+  }
 }
