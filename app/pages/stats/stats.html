@@ -53,10 +53,24 @@
 
     <ion-list *ngSwitchCase="'player'">
       <ion-item>
-        Player 1
-      </ion-item>
-      <ion-item>
-        Player 2
+        <ion-avatar item-left>
+          <img src="img/test_avatar.jpg">
+        </ion-avatar>
+        <ion-row center>
+          <ion-col>
+            <h2>Li Hao</h2>
+          </ion-col>
+          <ion-col text-center>
+            <p><span primary>DMF</span></p>
+          </ion-col>
+          <ion-col text-center>
+            <p text-center>
+              <label>
+                <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>1000</span>
+              </label>
+            </p>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
   </div>
