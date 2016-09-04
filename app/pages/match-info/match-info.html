@@ -12,7 +12,8 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
+            <ion-img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
+            </ion-img>
           </ion-thumbnail>
           <p text-center>&nbsp;{{ (teamId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
@@ -30,7 +31,8 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
+            <ion-img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
+            </ion-img>
           </ion-thumbnail>
           <p text-center>&nbsp;{{ (opponentId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
@@ -50,17 +52,29 @@
 
       <!-- notice -->
       <ion-item text-wrap>
-        Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.
+        {{ (teamId | matchInfoPipe: matchId | async)?.notice }}
       </ion-item>
 
       <!-- players -->
       <ion-item text-wrap>
         <div *ngFor="let player of matchPlayers; trackBy:trackByKey" class="avatar-top">
-          <img class="avatar-top" [src]="(player.$key | playerBasicPipe | async)?.photoURL">
+          <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL">
+          </ion-img>
           <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
        </div>
       </ion-item>
     </ion-list>
+    <!-->
+    <ion-row>
+      <ion-item *ngFor="let player of matchPlayers">
+          <ion-avatar>
+            <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL">
+            </ion-img>
+          </ion-avatar>
+          <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
+        </ion-item>
+    </ion-row>
+    <-->
   </ion-card>
   
   <!-- buttons -->

@@ -9,11 +9,12 @@ import {MatchInfoPage} from '../match-info/match-info';
 import {NewMatchPage} from '../new-match/new-match';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {MatchInfoPipe} from '../../pipes/match-info.pipe';
+import {MatchFilterPipe} from '../../pipes/match-filter.pipe';
 import {AccountManager} from '../../providers/account-manager';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
-  pipes: [TeamBasicPipe, MatchInfoPipe]
+  pipes: [TeamBasicPipe, MatchInfoPipe, MatchFilterPipe]
 })
 export class MessagePage {
   message: string;
@@ -28,6 +29,8 @@ export class MessagePage {
     this.message = "chats";
     this.teams = [];
     this.matches = [];
+    console.log(moment({hour: 5}));
+    console.log(moment().valueOf());
 
     this.teams = fm.getSelfTeams();
     this.matches = fm.getSelfMatchNotifications();
@@ -54,7 +57,7 @@ export class MessagePage {
     return moment(_timestamp).calendar(null, {
       sameDay: '[Today] h:mm A',
       nextDay: '[Tomorrow] h:mm A',
-      nextWeek: 'dddd h:mm A',
+      nextWeek: 'ddd h:mm A',
       sameElse: 'MM/DD h:mm A'
     });
   }

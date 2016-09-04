@@ -37,8 +37,6 @@ export class NewMatchPage {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
       this.opponent = data.team;
-      console.log(this.opponent);
-      
     });
     searchTeamModal.present();
   }
@@ -73,8 +71,8 @@ export class NewMatchPage {
     let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
     this.fm.addSelfMatch({
       //timestamp: firebase.database.ServerValue.TIMESTAMP,
-      creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      teamId: '-KLBMI-QFYiaW5nSqOjR',
+      //creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
+      //teamId: '-KLBMI-QFYiaW5nSqOjR',
       opponentId: this.opponent.id,
       time: time,
       color: this.jerseyColor,

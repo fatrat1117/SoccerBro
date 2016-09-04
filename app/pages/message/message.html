@@ -18,7 +18,8 @@
       <ion-list-header>Teams</ion-list-header>
       <ion-item *ngFor="let team of teams | async" (click)="enterChatRoom(team.$key)">
         <ion-avatar item-left>
-          <img [src]="(team.$key | teamBasicPipe | async)?.logo">
+          <ion-img [src]="(team.$key | teamBasicPipe | async)?.logo">
+          </ion-img>
         </ion-avatar>
         <h2>
           {{ (team.$key | teamBasicPipe | async)?.name }}
@@ -43,9 +44,10 @@
       <ion-list-header>
         Upcoming Matches
       </ion-list-header>
-      <ion-item *ngFor="let match of matches | async" (click)="showNotification(match.teamId, match.opponentId, match.$key)">
+      <ion-item *ngFor="let match of matches | async | matchFilterPipe" (click)="showNotification(match.teamId, match.opponentId, match.$key)">
         <ion-avatar item-left>
-          <img [src]="(match.opponentId | teamBasicPipe | async)?.logo">
+          <ion-img [src]="(match.opponentId | teamBasicPipe | async)?.logo">
+          </ion-img>
         </ion-avatar>
         <h2>
           {{ (match.opponentId | teamBasicPipe | async)?.name }}
@@ -54,7 +56,9 @@
         <p><ion-icon name="ios-pin-outline" class="pin-icon"></ion-icon>
         {{ (match.teamId | matchInfoPipe: match.$key | async)?.locationName }}
         </p>
-        <ion-note item-right>{{getTime((match.teamId | matchInfoPipe:match.$key | async)?.time)}}</ion-note>
+        <ion-note item-right>
+          {{getTime((match.teamId | matchInfoPipe:match.$key | async)?.time)}}
+        </ion-note>
         <!-->
         <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">{{n.title}}</div>
         <ion-note item-right>{{getTime(n.timestamp)}}</ion-note>
