@@ -7,17 +7,42 @@
 <ion-content padding>
   <ion-list>
     <!-- opponent -->
+    <!-->
+    <ion-item (click)="searchTeam()" text-center>
+      <ion-avatar item-left>
+        <img [src]="opponent?.logo || 'img/none.png'">
+      </ion-avatar>
+      <h2>{{ opponent?.name || "Select your opponent" }}</h2>
+    </ion-item>
     <ion-item (click)="searchTeam()">
       <ion-label stacked primary>Opponent</ion-label>
       <ion-label>
         <ion-row center>
           <ion-avatar style="margin-right:10px; margin-left:auto;">
-            <img [src]="opponent?.logo">
+            <img [src]="opponent?.logo || 'img/none.png'">
           </ion-avatar>
           <h2 style="margin-right:auto;">{{ opponent?.name }}</h2>
         </ion-row>
       </ion-label>
     </ion-item>
+    <-->
+
+    <!-- opponent -->
+    <ion-item (click)="searchTeam()">
+      <ion-label stacked primary>Opponent</ion-label>
+      <ion-label text-center>
+        <h2 style="margin-right:auto;">&nbsp;{{ opponent?.name }}</h2>
+      </ion-label>
+    </ion-item>
+
+    <!-- location -->
+    <ion-item>
+      <ion-label stacked primary>Location</ion-label>
+      <ion-label>
+        <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
+      </ion-label>
+    </ion-item>
+    
     <!-- date -->
     <ion-item>
       <ion-label stacked primary>Start Date</ion-label>
@@ -31,19 +56,18 @@
     <!-- color -->
     <ion-item (click)="pickColor()">
       <ion-label stacked primary>Jersey Color</ion-label>
-      <ion-label no-margin text-center style="font-size:200%;">
-        <ion-icon name="ios-shirt" [style.color]="jerseyColor" [hidden]="jerseyColor=='white'"></ion-icon>
+      <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor!='white'">
+        <ion-icon name="ios-shirt" [style.color]="jerseyColor"></ion-icon>
       </ion-label>
-      <ion-label no-margin text-center style="font-size:200%;">
-        <ion-icon name="ios-shirt-outline" [hidden]="jerseyColor!='white'" style="color:lightgrey;"></ion-icon>
+      <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor=='white'">
+        <ion-icon name="ios-shirt-outline" style="color:lightgrey;"></ion-icon>
       </ion-label>
     </ion-item>
-    <!-- location -->
+    <!-- notice -->
     <ion-item>
-      <ion-label stacked primary>Location</ion-label>
-      <ion-label>
-        <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;"/>
-      </ion-label>
+      <ion-label stacked primary>Notice</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="notice">
+      </ion-input>
     </ion-item>
   </ion-list>
 

@@ -65,7 +65,7 @@
 
   <ion-footer class="chat-room-footer">
     <ion-toolbar white>
-      <ion-input type="text" [(ngModel)]="newMessage" style="background:white;"></ion-input>
+      <ion-input type="text" [(ngModel)]="newMessage" style="background:white;" clearInput></ion-input>
       <ion-buttons right>
         <button class="chat-room-footer-button" [hidden]="newMessage == ''" (click)="sendMessage()">
         Send
