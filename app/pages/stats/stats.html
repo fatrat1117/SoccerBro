@@ -58,15 +58,15 @@
         </ion-avatar>
         <ion-row center>
           <ion-col>
-            <h2>Li Hao</h2>
+            <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
           </ion-col>
           <ion-col text-center>
-            <p><span primary>DMF</span></p>
+            <p><span primary>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
           </ion-col>
           <ion-col text-center>
             <p text-center>
               <label>
-                <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>1000</span>
+                <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>{{p.popularity}}</span>
               </label>
             </p>
           </ion-col>
