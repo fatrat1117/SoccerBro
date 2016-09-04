@@ -31,7 +31,7 @@ export class MePage {
     if (this.player && this.player.teamId) {
       this.nav.push(MyTeamPage, {
         //Hard code Team ID
-        tId: this.player.teamId,
+        tId: this.defaultTeam.$key,
       });
     }
   }
@@ -50,6 +50,7 @@ export class MePage {
       id: this.am.currentUser.uid,
     });
   }
+
 
   goEditPlayerPage() {
     this.nav.push(EditPlayerPage, {
