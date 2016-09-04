@@ -92,4 +92,8 @@ export class MyTeamPage {
   goManagePlayerPage() {
     this.nav.push(ManagePlayerPage, {tId: this.tId});
   }
+
+  invitePlayer(){
+
+  }
 }
