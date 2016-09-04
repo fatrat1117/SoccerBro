@@ -7,10 +7,14 @@ import{StandingsPage}from '../standings/standings';
   templateUrl: 'build/pages/stats/stats.html'
 })
 export class StatsPage {
-  stats: string = "team";
+  stats: string = "teams";
   constructor(private navCtrl: NavController) {
   }
   enterStandings(){
     this.navCtrl.push(StandingsPage);
+  }
+
+  swipeTo(name: string) {
+    this.stats = name;
   }
 }

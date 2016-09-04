@@ -1,19 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-segment [(ngModel)]="stats">
-      <ion-segment-button value="team">
+      <ion-segment-button value="teams">
         Teams
       </ion-segment-button>
-      <ion-segment-button value="player">
+      <ion-segment-button value="players">
         Players
       </ion-segment-button>
     </ion-segment>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')" >
   <div [ngSwitch]="stats">
-    <ion-list *ngSwitchCase="'team'">
+    <ion-list *ngSwitchCase="'teams'">
       <ion-item>
         <ion-thumbnail item-left>
           <img src="img/test_team.jpg">
@@ -51,7 +51,7 @@
       <button (click)="enterStandings()">test standings</button>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'player'">
+    <ion-list *ngSwitchCase="'players'">
       <ion-item>
         <ion-avatar item-left>
           <img src="img/test_avatar.jpg">

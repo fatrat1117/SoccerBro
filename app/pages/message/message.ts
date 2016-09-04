@@ -80,4 +80,16 @@ export class MessagePage {
     pushIds.push('05baf54c-3a0c-47d6-ac59-2fcbf25aa6aa');
     this.am.PostNotification(message, pushIds, success, error);
   }
+
+  swipeTo(name: string) {
+    this.message = name;
+  }
+
+  swipeRight() {
+    this.message = "chats";
+  }
+
+  swipeLeft() {
+    this.message = "notifications";
+  }
 }
