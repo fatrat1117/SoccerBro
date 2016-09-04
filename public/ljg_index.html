@@ -1,39 +1,53 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Facebook Login Form</title>
-  <link rel="stylesheet" href="css/jointeam.css">
-  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <title>STK Soccer</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="cache-control" content="max-age=0"/>
+  <meta http-equiv="cache-control" content="no-cache"/>
+  <meta http-equiv="expires" content="0"/>
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+  <meta http-equiv="pragma" content="no-cache"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="viewport" content="width=768px, user-scalable=yes, minimum-scale=0.1"/>
+  <meta name="HandheldFriendly" content="true"/>
+  <meta name="MobileOptimized" content="768"/>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/knockout-3.4.0.js"></script>
+  <script src="js/ljg_main.js"></script>
+
+  <style>
+    body {
+      font-size: 20px;
+      color: rgb(51, 51, 51);
+      background-color: rgb(225, 227, 226);
+      font-weight: 100;
+      font-family: ciscosanstt_thinregular, 微软雅黑, 宋体, Arial, Helvetica, sans-serif;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #body_container {
+      width: 768px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      min-height: 1000px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.7);
+    }
+  </style>
 </head>
+
 <body>
-<form action="index.html" class="login">
-  <h1>Facebook</h1>
-  <input type="email" name="email" class="login-input" placeholder="Email Address" autofocus>
-  <input type="password" name="password" class="login-input" placeholder="Password">
-  <input type="submit" value="Login" class="login-submit">
-  <p class="login-help"><a href="index.html">Forgot password?</a></p>
-</form>
-
-<section class="about">
-  <p class="about-links">
-    <a href="http://www.cssflow.com/snippets/facebook-login-form" target="_parent">View Article</a>
-    <a href="http://www.cssflow.com/snippets/facebook-login-form.zip" target="_parent">Download</a>
-  </p>
-  <p class="about-author">
-    &copy; 2013 <a href="http://thibaut.me" target="_blank">Thibaut Courouble</a> -
-    <a href="http://www.cssflow.com/mit-license" target="_blank">MIT License</a><br>
-    Original PSD by <a href="http://dribbble.com/shots/808325-Facebook-Login-Freebie" target="_blank">Alex Montague</a>
-  </p>
-</section>
+<div class="jointeam_index_main_div">
+  <div class="jointeam_index_facebook_login">
+      <div class="jointeam_index_facebook_login_link"></div>
+      <a href="#" target="_blank">
+        <input type="image" src="fb_login_btn.png" alt="Login with Facebook" width="60%" onclick="onFbLogin()" />
+      </a>
+    </p>
+  </div>
+</div>
 </body>
-
-<script src="js/firebase.js"></script>
-<script src="js/knockout-3.4.0.js"></script>
-<script src="js/main.js"></script>
-
 </html>
