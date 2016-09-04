@@ -19,14 +19,14 @@ export class NewMatchPage {
   minDate: string;
   matchDate: Date;
   matchTime: Date;
+  notice: string;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
     private popoverController: PopoverController, private _loader: MapsAPILoader,
     private fm: FirebaseManager) {
 
     this.jerseyColor = 'transparent';
     this.location = {};
-    this.minDate = moment().format("YYYY-MM-DD");;
-
+    this.minDate = moment().format("YYYY-MM-DD");
   }
 
   ngOnInit() {
@@ -37,8 +37,6 @@ export class NewMatchPage {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
       this.opponent = data.team;
-      console.log(this.opponent);
-      
     });
     searchTeamModal.present();
   }
@@ -73,52 +71,15 @@ export class NewMatchPage {
     let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
     this.fm.addSelfMatch({
       //timestamp: firebase.database.ServerValue.TIMESTAMP,
-      creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      teamId: '-KLBMI-QFYiaW5nSqOjR',
+      //creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
+      //teamId: '-KLBMI-QFYiaW5nSqOjR',
       opponentId: this.opponent.id,
       time: time,
       color: this.jerseyColor,
       locationName: this.location.name,
       locationAddress: this.location.address,
-      content: 'this is a test notification'
+      notice: this.notice
     });
-
-/*
-    this.af.database.list('/matches').push({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      creator_id: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
-      team_id: '-KLBMI-QFYiaW5nSqOjR',
-      opponent_id: this.opponent.id,
-      time: time,
-      color: this.jerseyColor,
-      location_name: this.location.name,
-      location_adderess: this.location.address,
-      content: 'this is a test notification'
-    }).then(item => {
-      // add to self
-      this.addNotification(item["key"], '-KLBMI-QFYiaW5nSqOjR', this.opponent.id, time);
-
-      // add to opponent
-      this.addNotification(item["key"], this.opponent.id, '-KLBMI-QFYiaW5nSqOjR', time);
-    });
-    */
+    this.dismiss();
   }
-
-  addNotification
-
-/*
-  addNotification(_key: string, _teamId: string, _opponentId: string, _time: number) {
-    let subscriptions = this.af.database.list('/playersOfTeam/' + _teamId).subscribe(players => {
-      subscriptions.unsubscribe();
-      players.forEach(p => {
-        this.af.database.object('/match-notifications/' + p.$key + '/' + _key).set({
-          isRead: false,
-          time: _time,
-          location_name: this.location.name,
-          opponent_id: this.opponent.id
-        });
-      });
-    })
-  }
-*/
 }

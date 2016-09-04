@@ -46,6 +46,12 @@ export class FirebaseManager {
     this.getPlayerDetail(p.pId).update(detail);
   }
 
+  getPublicPlayers(subject) {
+    return this.af.database.list(`/public/players/`, {
+      query: { orderByChild: subject }
+    });
+  }
+
   getSelfMatchNotifications() {
     return this.af.database.list(`/players/${this.selfId}/match-notifications`, {
       query: { orderByChild: 'time' }
@@ -68,10 +74,6 @@ export class FirebaseManager {
 
   addMatchNotification(playerId: string, matchID: string, notification: any) {
     this.af.database.object(`/players/${playerId}/match-notifications/${matchID}`).set(notification);
-  }
-
-  getMatchNotifications() {
-    return this.af.database.list(`/players/${this.selfId}/match-notifications`);
   }
 
   changeNotificationStatus(matchId: string, isRead: boolean) {
@@ -140,22 +142,20 @@ export class FirebaseManager {
   }
 
   addSelfMatch(match: any) {
+    match.creator = this.selfId;
     match.createdAt = firebase.database.ServerValue.TIMESTAMP;
     const promise = this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
     promise.then(newMatch => {
       let id = newMatch["key"];
-
       // add to team members
       let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
         subscription.unsubscribe();
         snapshots.forEach(snapshot => {
           this.addMatchNotification(snapshot.$key, id, {
-            isRead: false
-            /*
-            locationName: match.locationName,
+            isRead: false,
+            teamId: this.selfTeamId,
             opponentId: match.opponentId,
             time: match.time
-            */
           });
         });
       });

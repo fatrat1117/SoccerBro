@@ -32,6 +32,8 @@ export class MyPlayerPage {
     private navParams: NavParams,
     private fm: FirebaseManager) {
     this.pId = this.navParams.get('pId');
+    console.log('open player page', this.pId);
+
     this.afBasic = this.fm.getPlayerBasic(this.pId);
     this.afDetail = this.fm.getPlayerDetail(this.pId);
     this.afPublic = this.fm.getPlayerPublic(this.pId);
