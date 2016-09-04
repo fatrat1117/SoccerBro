@@ -52,7 +52,8 @@
     "ionic-plugin-keyboard@~2.2.1",
     "cordova-plugin-facebook4@~1.7.1",
     "cordova-plugin-inappbrowser",
-    "cordova-plugin-camera"
+    "cordova-plugin-camera",
+    "onesignal-cordova-plugin"
   ],
   "cordovaPlatforms": [],
   "version": "1.0.0",

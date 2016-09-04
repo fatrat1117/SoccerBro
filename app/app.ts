@@ -22,8 +22,21 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      this.registerForPushNotifications();
     });
   }
+
+  registerForPushNotifications () {
+        let notificationOpenedCallback = jsonData => {
+            console.log('didReceiveRemoteNotificationCallBack:', jsonData);
+        };
+
+        window["plugins"].OneSignal.init("f6268d9c-3503-4696-8e4e-a6cf2c028fc6",
+                                       { googleProjectNumber: "63493717987" },
+                                       notificationOpenedCallback);
+        window["plugins"].OneSignal.enableInAppAlertNotification(false);
+        window["plugins"].OneSignal.enableNotificationsWhenActive(true);
+    }
 }
 
 ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
