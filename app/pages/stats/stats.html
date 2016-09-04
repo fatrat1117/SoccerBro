@@ -52,7 +52,7 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'player'" [virtualScroll]="afPlayers | async">
-      <ion-item *virtualItem="let p">
+      <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
         <ion-avatar item-left>
           <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>

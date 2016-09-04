@@ -4,6 +4,7 @@ import{StandingsPage}from '../standings/standings';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {Subject} from 'rxjs/Subject';
 import {PlayerBasicPipe, playerDetailPipe} from '../../pipes/player-basic.pipe';
+import {MyPlayerPage} from '../my-player/my-player';
 
 @Component({
   templateUrl: 'build/pages/stats/stats.html',
@@ -13,18 +14,16 @@ export class StatsPage {
   stats: string = "team";
   afPlayers: any;
 
-  constructor(private navCtrl: NavController,
+  constructor(private nav: NavController,
   private fm: FirebaseManager) {
-    //const subject = new Subject();
     this.afPlayers = fm.getPublicPlayers('popularity');
-    
-    //console.log(this.afPlayers);
-    
-    //subject.next('popularity');
-    //this.afPlayers.subscribe(data => console.log(data));
+  }
+
+  goPlayerPage(id) {
+    this.nav.push(MyPlayerPage, {pId: id});
   }
 
   enterStandings(){
-    this.navCtrl.push(StandingsPage);
+    this.nav.push(StandingsPage);
   }
 }
