@@ -7,17 +7,46 @@ window.onload = function() {
 
   console.log("program start");
   initApp();
+  firebaseRedirect();
+
+};
+
+var _teamId;
+var auth;
+var _appModel = {
+  teamName: ko.observable(''),
+  logo: ko.observable('')
+}
+
+
+function firebaseRedirect(){
 
   firebase.auth().getRedirectResult().then(function(result) {
     if (result.credential) {
+      console.log("redirect");
+      console.log("got credential");
+      _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // ...
+      // The signed-in user info.
+      var user = result.user;
+      var pId = result.user.uid;
+      var teamRef = getTeamRef(_teamId);
+      var newPostKey = teamRef.push().key;
+
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      var updates = {};
+      console.log(newPostKey);
+      updates['/members/' + newPostKey] = {'goals':0,'number':10};
+
+
+      return teamRef.update(updates);
+
+    }else{
+      console.log("show");
     }
-    // The signed-in user info.
-    var user = result.user;
-    console.log(result);
-    console.log(user);
+
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -27,10 +56,8 @@ window.onload = function() {
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
-
-
   });
-};
+}
 
 function $_GET(param) {
   var vars = {};
@@ -48,12 +75,6 @@ function $_GET(param) {
 }
 
 
-var _teamId;
-var auth;
-var _appModel = {
-  teamName: ko.observable(''),
-  logo: ko.observable('')
-}
 
 function initApp(){
 
@@ -88,7 +109,7 @@ function onFbLogin() {
   }
 
   function getTeamPlayersRef(tId, pId) {
-    return firebase.database().ref("teams/" + tId + "/players/" + pId);
+    return firebase.database().ref("teams/" + tId + "/members/" + pId);
   }
 
   function getPlayerRef (id) {
