@@ -4,63 +4,57 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <!--<ion-card>-->
-      <ion-item class="me-self-info" (click) = "goEditPlayerPage()" detail-push>
-        <ion-avatar class="me-avatar" item-middle>
-          <ion-img [src]="player.photoURL" class="me-avatar-img"></ion-img>
-        </ion-avatar>
-        <h2>{{player.displayName}}</h2>
-      </ion-item>
+<ion-content light>
+  <ion-item-group>
+    <!-- Me -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-item (click)="goEditPlayerPage()" style="border-width:0px;">
+      <ion-avatar item-left>
+        <ion-img [src]="player.photoURL"></ion-img>
+      </ion-avatar>
+      <h2>{{player.displayName}}</h2>
+    </ion-item>
 
-      <!--<ion-row>
-        <ion-col>
-          <button primary clear small>
-            <ion-icon name='thumbs-up'></ion-icon>
-            <div>12 Likes</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button primary clear small>
-            <ion-icon name='text'></ion-icon>
-            <div>4 Comments</div>
-          </button>
-        </ion-col>
-        <ion-col center text-center>
-          <ion-note>
-            11h ago
-          </ion-note>
-        </ion-col>
-      </ion-row>-->
-
-    <!--</ion-card>-->
-
-
-    
-      <ion-item>
-        <div class="me-team-default">
-          <img [src] = "defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()"/>
-          <div class="me-team-default-info">
-            <h4>{{defaultTeam ? (defaultTeam | async)?.name : 'no team'}}</h4>
-          </div>
+    <!-- show pages -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-item (click)="openNavTeamPage()" >
+      <ion-icon name="md-shirt" item-left primary></ion-icon>
+      My Team
+    </ion-item>
+    <ion-item (click)="goPlayerPage()">
+      <ion-icon name="md-aperture" item-left secondary></ion-icon>
+      Homepage
+    </ion-item>
+    <ion-item-divider light></ion-item-divider>
+    <ion-item (click)="onLogout()">
+      <ion-icon name="md-exit" item-left danger></ion-icon>
+      Logout
+    </ion-item>
+    <!-->
+    <ion-item>
+      <div class="me-team-default">
+        <img [src]="defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()" />
+        <div class="me-team-default-info">
+          <h4>{{defaultTeam ? (defaultTeam | async)?.name : 'no team'}}</h4>
         </div>
-        <div class="me-team-default me-team-switch">
-          <ion-icon class="me-team-switch-icon" name="ios-swap-outline" (click)="goManageTeamPage()"></ion-icon>
-          <div class="me-team-switch-info">
-            <p>更换球队</p>
-          </div>
+      </div>
+      <div class="me-team-default me-team-switch">
+        <ion-icon class="me-team-switch-icon" name="ios-swap-outline" (click)="goManageTeamPage()"></ion-icon>
+        <div class="me-team-switch-info">
+          <p>更换球队</p>
         </div>
-        <div class="me-team-default me-team-add">
-          <ion-icon class="me-team-add-icon" name="ios-add-outline" (click)="showCreateTeamModel()"></ion-icon>
-          <div class="me-team-default-info">
-            <p>添加球队</p>
-          </div>
+      </div>
+      <div class="me-team-default me-team-add">
+        <ion-icon class="me-team-add-icon" name="ios-add-outline" (click)="showCreateTeamModel()"></ion-icon>
+        <div class="me-team-default-info">
+          <p>添加球队</p>
         </div>
-      </ion-item>
-      <ion-item (click) = "goPlayerPage()" detail-push>
-        my page
-      </ion-item>
-      <button (click)="onLogout()" block>logout</button>
-    </ion-list>
+      </div>
+    </ion-item>
+    <ion-item (click)="goPlayerPage()" detail-push>
+      my page
+    </ion-item>
+    <button (click)="onLogout()" block>logout</button>
+    <-->
+  </ion-item-group>
 </ion-content>
