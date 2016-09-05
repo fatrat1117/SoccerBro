@@ -31,3 +31,11 @@
 
 // 积分榜
 //@import "../pages/standings/standings.scss";
+
+ion-content {
+    background-color: #f4f4f4;
+}
+
+ion-img img {
+  min-height: initial;
+}
