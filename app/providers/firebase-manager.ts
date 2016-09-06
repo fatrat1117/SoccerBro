@@ -46,9 +46,10 @@ export class FirebaseManager {
     this.getPlayerDetail(p.pId).update(detail);
   }
 
-  getPublicPlayers(subject) {
+  getPublicPlayers(subject, limit) {
     return this.af.database.list(`/public/players/`, {
-      query: { orderByChild: subject }
+      query: { orderByChild: subject,
+        limitToLast: limit }
     });
   }
 
