@@ -86,10 +86,15 @@ export class FirebaseManager {
   //common
   increasePopularity(afPublic, success = null) {
     let sub = afPublic.subscribe(snapshot => {
-      sub.unsubscribe();
-      afPublic.update({ popularity: snapshot.popularity + 1 });
-      if (success)
-        success(snapshot);
+      setTimeout(() => {
+        //console.log(sub);
+        //use timeout to prevent deadloop and ensure sub is initialized
+        sub.unsubscribe();
+        afPublic.update({ popularity: snapshot.popularity + 1 });
+        if (success)
+          success(snapshot);
+      },
+        250);
     });
   }
 

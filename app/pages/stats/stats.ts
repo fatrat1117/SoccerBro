@@ -13,7 +13,7 @@ import {MyPlayerPage} from '../my-player/my-player';
 export class StatsPage {
   stats: string = "teams";
   afPlayers: any;
-  maxPlayer = 10;
+  maxPlayer = 100;
 
   constructor(private nav: NavController, private fm: FirebaseManager) {
     this.afPlayers = fm.getPublicPlayers('popularity', this.maxPlayer);
