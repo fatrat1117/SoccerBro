@@ -31,9 +31,13 @@ export class StatsPage {
     this.stats = name;
   }
 
-  doInfinite(e) {
+  doInfinite(infiniteScroll) {
     console.log('more data available');
-    this.maxPlayer += 10;
-    this.afPlayers = this.fm.getPublicPlayers('popularity', this.maxPlayer);
+    setTimeout(() => {
+      this.maxPlayer += 10;
+      this.afPlayers = this.fm.getPublicPlayers('popularity', this.maxPlayer);
+      infiniteScroll.complete();
+      infiniteScroll.complete();
+    }, 500);
   }
 }

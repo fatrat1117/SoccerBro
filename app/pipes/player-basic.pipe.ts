@@ -38,6 +38,7 @@ export class reversePipe implements PipeTransform {
   transform(arr) {
     if (arr)
       {
+        console.log('list arr len', arr.length);
         return arr.reverse(); 
       }
   }
