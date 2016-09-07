@@ -29,3 +29,16 @@ export class playerDetailPipe implements PipeTransform {
     return this.fm.getPlayerDetail(id);
   }
 }
+
+@Pipe({
+  name: 'reversePipe'
+})
+
+export class reversePipe implements PipeTransform {
+  transform(arr) {
+    if (arr)
+      {
+        return arr.reverse(); 
+      }
+  }
+}
