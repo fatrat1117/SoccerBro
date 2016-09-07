@@ -13,7 +13,7 @@ import {MyPlayerPage} from '../my-player/my-player';
 export class StatsPage {
   stats: string = "teams";
   afPlayers: any;
-  maxPlayer = 100;
+  maxPlayer = 20;
 
   constructor(private nav: NavController, private fm: FirebaseManager) {
     this.afPlayers = fm.getPublicPlayers('popularity', this.maxPlayer);
@@ -29,5 +29,11 @@ export class StatsPage {
 
   swipeTo(name: string) {
     this.stats = name;
+  }
+
+  doInfinite(e) {
+    console.log('more data available');
+    this.maxPlayer += 10;
+    this.afPlayers = this.fm.getPublicPlayers('popularity', this.maxPlayer);
   }
 }
