@@ -28,20 +28,31 @@ function firebaseRedirect(){
       _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
-      // ...
-      // The signed-in user info.
+
       var user = result.user;
       var pId = result.user.uid;
+      console.log(user);
+
+
+      var playerData = {};
+      playerData['basic-info'] = {'displayName': user.displayName, 'photoURL': user.photoURL , 'teamId':_teamId};
+      playerData['teams'] = {_teamId:true};
+      //Add userInfo into teams table
+      //Add userInfo into players table
       var teamRef = getTeamRef(_teamId);
-      var newPostKey = teamRef.push().key;
-
-      // Write the new post's data simultaneously in the posts list and the user's post list.
       var updates = {};
-      console.log(newPostKey);
-      updates['/members/' + newPostKey] = {'goals':0,'number':10};
+      updates['/members/' + pId] = {'goals':0,'number':11};
+      teamRef.update(updates);
+      console.log(pId);
 
-
-      return teamRef.update(updates);
+      try {
+        updates = {};
+        updates[pId] = playerData;
+        firebase.database().ref("players/").update(updates);
+        console.log(pId);
+      }catch(e){
+        alert(e);
+      }
 
     }else{
       console.log("show");
@@ -118,3 +129,10 @@ function onFbLogin() {
 
 
 
+
+//backup
+
+// teamRef.set({
+//   'basic-info':{'captain':'OqliCkGF8aeMeGOIBQNr5vJBHKU2','logo':'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/images%2F-KL1a8zTfCXDapavsN_L.jpg?alt=media&token=57a99f56-8f61-4888-84d4-551ca9171ae1','name':'Jixiang test'},
+//   'detail-info':{'founder': 'OqliCkGF8aeMeGOIBQNr5vJBHKU2'},
+//   'members':{'OqliCkGF8aeMeGOIBQNr5vJBHKU2':{'goals':0,'number':10}}});
