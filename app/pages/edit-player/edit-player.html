@@ -20,28 +20,28 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <h2>photo</h2>
+      <h2>Profile Photo</h2>
       <ion-thumbnail item-right>
         <ion-img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changePhoto()"></ion-img>
       </ion-thumbnail>
     </ion-item>
     <ion-item>
-      <ion-label floating>name</ion-label>
+      <ion-label floating>Name</ion-label>
       <ion-input type="text" maxlength="32" [ngModel]="(afPlayerBasic | async)?.displayName" (ngModelChange)="player.name=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>height (cm)</ion-label>
+      <ion-label floating>Height (CM)</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.height" (ngModelChange)="player.height=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>weight (kg)</ion-label>
+      <ion-label floating>Weight (KG)</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.weight" (ngModelChange)="player.weight=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>position</ion-label>
+      <ion-label>Position</ion-label>
       <ion-select [ngModel]="(afPlayerDetail | async)?.position" (ngModelChange)="player.position=$event">
         <ion-option value="gk" selected>GK</ion-option>
         <ion-option value="cb">CB</ion-option>
@@ -53,14 +53,14 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>foot</ion-label>
+      <ion-label>Foot</ion-label>
       <ion-select [ngModel]="(afPlayerDetail | async)?.foot" (ngModelChange)="player.foot=$event">
         <ion-option value="right" selected>Right Foot</ion-option>
         <ion-option value="left">Left Foot</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label floating>description</ion-label>
+      <ion-label floating>Description</ion-label>
       <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetail | async)?.description" (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>

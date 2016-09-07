@@ -5,66 +5,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-item class="my-team-info">
-      <div class="my-team-info-panel-center">
-        <ion-avatar class="my-team-avatar" item-middle>
-          <div class="my-team-info-popular">
-            <p>人气</p>
-            <h6>{{(afPublic | async)?.popularity }}</h6>
-          </div>
-
-          <div class="my-team-info-power">
-            <p>战力</p>
-            <h6></h6>
-          </div>
-        </ion-avatar>
-        <div class="my-team-info-avatar">
-          <ion-img class="my-team-avatar-img" [src]="(afBasic | async)?.photoURL"></ion-img>
+  <ion-card padding>
+    <ion-thumbnail class="player-avatar-bar">
+      <div class="bar">
+        <div class="left" text-center>
+          <p class="title">Popularity</p>
+          <p danger>100</p>
+        </div>
+        <div class="right">
+          <p class="title">Played</p>
+          <p secondary>10</p>
         </div>
       </div>
-
-      <div class="my-team-info-panel-bottom">
-        <p>{{(afBasic | async)?.name}}</p>
-      </div>
-    </ion-item>
+      <img class="avatar" [src]="(afBasic | async)?.photoURL">
+    </ion-thumbnail>
+    <h2 class="bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
+    <h3 text-center><span class="bold-text" primary>DMF</span> @Current team name</h3>
   </ion-card>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col class="my-team-infobar-col-border-right" width-50>
-        <div class="my-team-infobar-item">
-          <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
-          </ion-icon>
-          <ion-label class="my-team-infobar-label">出场</ion-label>
-          <ion-label class="my-team-infobar-label-num">0</ion-label>
-        </div>
-      </ion-col>
-      <ion-col width-50>
-        <div class="my-team-infobar-item">
-          <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
-          </ion-icon>
-          <ion-label class="my-team-infobar-label">position</ion-label>
-          <ion-label class="my-team-infobar-label-num">{{(afDetail | async)?.position}}</ion-label>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-<ion-card>
-  <ion-card-header class="my-team-header-decoration my-team-description-header">
+  <ion-card>
+    <ion-card-header class="my-team-header-decoration my-team-description-header">
       ability
     </ion-card-header>
-  <ion-card-content>
-  <base-chart class="chart"
-             [data]="radarChartData"
-             [labels]="radarChartLabels"
-             [chartType]="radarChartType"
-             [options]="radarOptions">
-  </base-chart>
-  </ion-card-content>
-</ion-card>
-  
+    <ion-card-content>
+      <base-chart class="chart" [data]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType" [options]="radarOptions">
+      </base-chart>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card class="my-team-header-margin-top-2rem">
     <ion-card-header class="my-team-header-decoration my-team-description-header">
       description
