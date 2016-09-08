@@ -57,7 +57,7 @@ export class ReverseAndCountPlayerPipe implements PipeTransform {
     if (arr)
       {
         this.fm.totalPlayers = arr.length;
-        //console.log('list arr len', arr.length);
+        console.log('reverse player count', arr.length);
         return arr.reverse(); 
       }
   }

@@ -30,6 +30,7 @@ export class ReverseAndCountTeamPipe implements PipeTransform {
     if (arr)
       {
         this.fm.totalTeams = arr.length;
+        console.log('reverse team count', arr.length);
         return arr.reverse(); 
       }
   }

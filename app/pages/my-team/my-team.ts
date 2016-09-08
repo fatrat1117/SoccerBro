@@ -52,11 +52,11 @@ export class MyTeamPage {
           });
     });
     // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
-    console.log("123");
-    console.log(this.afTeam);
-    console.log("456");
-    var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
-    console.log(teamAvatarImg.width);
+    // console.log("123");
+    // console.log(this.afTeam);
+    // console.log("456");
+    // var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
+    // console.log(teamAvatarImg.width);
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
     this.afTeamPublic = this.fm.getTeamPublic(this.tId);
