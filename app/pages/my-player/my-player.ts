@@ -6,11 +6,12 @@ import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'ang
 import {AccountManager} from "../../providers/account-manager";
 import {FirebaseManager} from "../../providers/firebase-manager";
 import {ManagePlayerPage} from '../manage-player/manage-player';
-
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/my-player/my-player.html',
-  directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
+  pipes: [TeamBasicPipe]
 })
 export class MyPlayerPage {
   pId: any;

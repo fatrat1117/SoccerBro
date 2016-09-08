@@ -20,7 +20,7 @@ export class PlayerBasicPipe implements PipeTransform {
   name: 'playerDetailPipe'
 })
 
-export class playerDetailPipe implements PipeTransform {
+export class PlayerDetailPipe implements PipeTransform {
   constructor(private fm: FirebaseManager) {
 
   }
@@ -34,7 +34,7 @@ export class playerDetailPipe implements PipeTransform {
   name: 'reversePipe'
 })
 
-export class reversePipe implements PipeTransform {
+export class ReversePipe implements PipeTransform {
   transform(arr) {
     if (arr)
       {

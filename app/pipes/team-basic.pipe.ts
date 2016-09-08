@@ -12,6 +12,7 @@ export class TeamBasicPipe implements PipeTransform {
   }
 
   transform(id: string) {
+    //console.log('team basic pipe', id);
     return this.fm.getTeamBasic(id);
   }
 }

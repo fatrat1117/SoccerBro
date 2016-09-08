@@ -3,12 +3,12 @@ import {NavController} from 'ionic-angular';
 import{StandingsPage}from '../standings/standings';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {Subject} from 'rxjs/Subject';
-import {PlayerBasicPipe, playerDetailPipe, reversePipe} from '../../pipes/player-basic.pipe';
+import {PlayerBasicPipe, PlayerDetailPipe, ReversePipe} from '../../pipes/player-basic.pipe';
 import {MyPlayerPage} from '../my-player/my-player';
 
 @Component({
   templateUrl: 'build/pages/stats/stats.html',
-  pipes: [PlayerBasicPipe, playerDetailPipe, reversePipe]
+  pipes: [PlayerBasicPipe, PlayerDetailPipe, ReversePipe]
 })
 export class StatsPage {
   stats: string = "teams";
