@@ -10,6 +10,7 @@ type teamBasic struct {
 	Logo    string `json:"logo"`
 	Name    string `json:"name"`
 	Captain string `json:"captain"`
+	Total   int    `json:"total"`
 }
 
 type teamDetail struct {
@@ -53,6 +54,8 @@ func GetNewTeams(data map[string]interface{}) (map[string]team, error) {
 				m[km] = member{Goals: 0}
 			}
 		}
+
+		b.Total = len(m)
 
 		// team
 		newT := team{Basic: b, Detail: d, Members: m}

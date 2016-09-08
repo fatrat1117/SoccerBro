@@ -180,6 +180,12 @@ export class FirebaseManager {
     this.af.database.object(`/teams/${teamId}/matches/${matchId}/players/${this.selfId}`).remove();
   }
 
+  updateTeamTotal(teamId: string) {
+    this.af.database.list(`/teams/${teamId}/members`).subscribe(snapshots => {
+      this.af.database.object(`/teams/${teamId}/basic-info`).update({ total: snapshots.length });
+    })
+  }
+
 
 
 
