@@ -7,6 +7,8 @@ declare let firebase: any;
 export class FirebaseManager {
   selfId: string;
   selfTeamId: string;
+    totalPlayers = 0;
+    totalTeams = 0;
 
   constructor(private af: AngularFire) {
   }
@@ -44,13 +46,6 @@ export class FirebaseManager {
     //concurrent update, return success when basic update is done. 
     //trade off: update performance exchange update integrity
     this.getPlayerDetail(p.pId).update(detail);
-  }
-
-  getPublicPlayers(subject, limit) {
-    return this.af.database.list(`/public/players/`, {
-      query: { orderByChild: subject,
-        limitToLast: limit }
-    });
   }
 
   getSelfMatchNotifications() {
@@ -199,9 +194,24 @@ export class FirebaseManager {
     return this.af.database.object(`public/teams/${teamId}`);
   }
 
+  queryPublicPlayers(subject, limit) {
+    return this.af.database.list(`/public/players/`, {
+      query: { orderByChild: subject,
+        limitToLast: limit }
+    });
+  }
+
   getPublicTeams() {
     return this.af.database.list(`/public/teams/`, {
       query: { orderByChild: 'name' }
     });
   }
+
+    queryPublicTeams(subject, limit) {
+    return this.af.database.list(`/public/teams/`, {
+      query: { orderByChild: subject,
+        limitToLast: limit }
+    });
+  }
+
 }

@@ -27,7 +27,7 @@ export class MyTeamPage {
 
   afTeamDetail:FirebaseObjectObservable<any>;
   afTeamPublic:FirebaseObjectObservable<any>;
-  afTeamPlayers:FirebaseListObservable<any>;
+  //afTeamPlayers:FirebaseListObservable<any>;
 
 
   constructor(private nav: NavController,
@@ -52,18 +52,18 @@ export class MyTeamPage {
           });
     });
     // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
-    console.log("123");
-    console.log(this.afTeam);
-    console.log("456");
-    var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
-    console.log(teamAvatarImg.width);
+    // console.log("123");
+    // console.log(this.afTeam);
+    // console.log("456");
+    // var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
+    // console.log(teamAvatarImg.width);
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
     this.afTeamPublic = this.fm.getTeamPublic(this.tId);
     this.fm.increasePopularity(this.afTeamPublic);
     var number;
-    this.afTeamPlayers = this.fm.getPlayers(this.tId);
-    let subPlayer = this.afTeamPlayers.subscribe(snapshot => {
+    let afTeamPlayers = this.fm.getPlayers(this.tId);
+    let subPlayer = afTeamPlayers.subscribe(snapshot => {
         console.log(this.tId);
         this.teamPlayersNumber = snapshot.length;
         this.teamPlayers = snapshot;

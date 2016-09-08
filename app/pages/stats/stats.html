@@ -11,74 +11,72 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')" >
+<ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')">
   <div [ngSwitch]="stats" style="height:100%">
-    <ion-list *ngSwitchCase="'teams'">
-      <ion-item>
-        <ion-thumbnail item-left>
-          <img src="img/test_team.jpg">
-        </ion-thumbnail>
-        <h2 text-center>Ever Pioneer</h2>
-        <!--ion-row center>
-        <h2>Ever Pioneer</h2>
-        <p class="popularity-text">Popularity: <span>1000</span></p>
-        </ion-row-->
-        <ion-row>
-          <ion-col>
-            <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
-            <p text-center><span secondary>1000</span></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Played</label></p>
-            <p text-center>11</p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
-            <p text-center><label>20</label></p>
-          </ion-col>
-          <!-->
-          <ion-col>
-            <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
-            <p text-center>1</p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Points</label></p>
-            <p text-center><label>38</label></p>
-          </ion-col>
-          <-->
-        </ion-row>
-      </ion-item>
-      <button (click)="enterStandings()">test standings</button>
-    </ion-list>
+    <div *ngSwitchCase="'teams'" style="height:100%">
+      <ion-list [virtualScroll]="afTeams | async | reverseAndCountTeamPipe">
+        <ion-item *virtualItem="let t" (click)="goTeamPage(t.$key)">
+          <ion-thumbnail item-left>
+            <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
+          </ion-thumbnail>
+          <h1 text-left>{{(t.$key | teamBasicPipe | async)?.name}}</h1>
+          <ion-row>
+            <ion-col>
+              <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Played</label></p>
+              <p text-center>0</p>
+            </ion-col>
+            <ion-col>
+              <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
+              <p text-center><label>20</label></p>
+            </ion-col>
+            <ion-col>
+              <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
+              <p text-center><span secondary>{{t.popularity}}</span></p>
+            </ion-col>
+            <!-->
+            <ion-col>
+              <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
+              <p text-center>1</p>
+            </ion-col>
+            <ion-col>
+              <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Points</label></p>
+              <p text-center><label>38</label></p>
+            </ion-col>
+            <-->
+          </ion-row>
+        </ion-item>
+        <!--<button (click)="enterStandings()">test standings</button>-->
+      </ion-list>
+    </div>
 
-    <ion-list *ngSwitchCase="'players'" [virtualScroll]="afPlayers | async | reversePipe">
-      <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
-        <ion-avatar item-left>
-          <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
-        </ion-avatar>
-        <ion-row center>
-          <ion-col>
-            <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
-          </ion-col>
-          <ion-col text-center>
-            <p><span primary>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
-          </ion-col>
-          <ion-col text-center>
-            <p text-center>
-              <label>
+    <div *ngSwitchCase="'players'" style="height:100%">
+      <ion-list [virtualScroll]="afPlayers | async | reverseAndCountPlayerPipe">
+        <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
+          <ion-avatar item-left>
+            <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
+          </ion-avatar>
+          <ion-row center>
+            <ion-col>
+              <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
+            </ion-col>
+            <ion-col text-center>
+              <p><span primary>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
+            </ion-col>
+            <ion-col text-center>
+              <p text-center>
+                <label>
                 <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>{{p.popularity}}</span>
               </label>
-            </p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </ion-list>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
   </div>
 </ion-content>

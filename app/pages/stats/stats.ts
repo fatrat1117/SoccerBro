@@ -1,29 +1,39 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import{StandingsPage}from '../standings/standings';
+import {StandingsPage}from '../standings/standings';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {Subject} from 'rxjs/Subject';
-import {PlayerBasicPipe, playerDetailPipe, reversePipe} from '../../pipes/player-basic.pipe';
+import {PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe} from '../../pipes/player-basic.pipe';
+import {TeamBasicPipe, ReverseAndCountTeamPipe} from '../../pipes/team-basic.pipe';
 import {MyPlayerPage} from '../my-player/my-player';
+import {MyTeamPage} from '../my-team/my-team';
 
 @Component({
   templateUrl: 'build/pages/stats/stats.html',
-  pipes: [PlayerBasicPipe, playerDetailPipe, reversePipe]
+  pipes: [PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe, ReverseAndCountTeamPipe, TeamBasicPipe]
 })
 export class StatsPage {
   stats: string = "teams";
   afPlayers: any;
+  afTeams: any;
   maxPlayer = 20;
+  maxTeam = 20;
+
 
   constructor(private nav: NavController, private fm: FirebaseManager) {
-    this.afPlayers = fm.getPublicPlayers('popularity', this.maxPlayer);
+    this.afPlayers = fm.queryPublicPlayers('popularity', this.maxPlayer);
+    this.afTeams = fm.queryPublicTeams('popularity', this.maxTeam);
   }
 
   goPlayerPage(id) {
-    this.nav.push(MyPlayerPage, {pId: id});
+    this.nav.push(MyPlayerPage, { pId: id });
   }
 
-  enterStandings(){
+  goTeamPage(id) {
+    this.nav.push(MyTeamPage, { tId: id });
+  }
+
+  enterStandings() {
     this.nav.push(StandingsPage);
   }
 
@@ -34,10 +44,19 @@ export class StatsPage {
   doInfinite(infiniteScroll) {
     console.log('more data available');
     setTimeout(() => {
-      this.maxPlayer += 10;
-      this.afPlayers = this.fm.getPublicPlayers('popularity', this.maxPlayer);
-      infiniteScroll.complete();
+      console.log('updateScroll', this.maxPlayer, this.fm.totalPlayers);
+      let enable = this.maxPlayer <= this.fm.totalPlayers;
+      if (enable) {
+        this.afPlayers = this.fm.queryPublicPlayers('popularity', this.maxPlayer + 10);
+        this.updateScroll();
+      }
+      infiniteScroll.enable(enable);
       infiniteScroll.complete();
     }, 500);
+  }
+
+  updateScroll() {
+    this.maxPlayer += 10;
+    //return this.maxPlayer <= this.fm.totalPlayers;
   }
 }

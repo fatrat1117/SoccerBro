@@ -12,6 +12,26 @@ export class TeamBasicPipe implements PipeTransform {
   }
 
   transform(id: string) {
+    //console.log('team basic pipe', id);
     return this.fm.getTeamBasic(id);
+  }
+}
+
+@Pipe({
+  name: 'reverseAndCountTeamPipe'
+})
+
+export class ReverseAndCountTeamPipe implements PipeTransform {
+  constructor(private fm: FirebaseManager) {
+
+  }
+
+  transform(arr) {
+    if (arr)
+      {
+        this.fm.totalTeams = arr.length;
+        console.log('reverse team count', arr.length);
+        return arr.reverse(); 
+      }
   }
 }

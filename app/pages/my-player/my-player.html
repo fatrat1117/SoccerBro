@@ -10,17 +10,17 @@
       <div class="bar">
         <div class="left" text-center>
           <p class="title">Popularity</p>
-          <p danger>100</p>
+          <p danger>{{(afPublic | async)?.popularity}}</p>
         </div>
         <div class="right">
           <p class="title">Played</p>
-          <p secondary>10</p>
+          <p secondary>0</p>
         </div>
       </div>
       <img class="avatar" [src]="(afBasic | async)?.photoURL">
     </ion-thumbnail>
     <h2 class="bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
-    <h3 text-center><span class="bold-text" primary>DMF</span> @Current team name</h3>
+    <h3 text-center><span class="bold-text" primary>{{(afDetail | async)?.position}}</span> @{{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
   </ion-card>
 
   <ion-card>
