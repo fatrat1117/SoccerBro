@@ -18,7 +18,6 @@ export class AccountManager {
   afCurrPlayer: FirebaseObjectObservable<any>;
   afCurrTeam: FirebaseObjectObservable<any>;
   afTeamsOfCurrPlayer: FirebaseListObservable<any>;
-  afCurrentTeamId: FirebaseObjectObservable<any>;
   currPlayer: any;
   currTeam: any;
   //teamsOfCurrPlayer: any;
@@ -79,7 +78,6 @@ export class AccountManager {
     this.currTeam = null;
     this.currPlayer = null;
     this.afTeamsOfCurrPlayer = null;
-    this.afCurrentTeamId = null;
     this.fm.selfTeamId = "";
     this.fm.selfId = "";
   }

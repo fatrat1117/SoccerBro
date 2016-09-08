@@ -7,7 +7,8 @@ declare let firebase: any;
 export class FirebaseManager {
   selfId: string;
   selfTeamId: string;
-
+    totalPlayers = 0;
+    
   constructor(private af: AngularFire) {
   }
 

@@ -38,7 +38,26 @@ export class ReversePipe implements PipeTransform {
   transform(arr) {
     if (arr)
       {
-        console.log('list arr len', arr.length);
+        //console.log('list arr len', arr.length);
+        return arr.reverse(); 
+      }
+  }
+}
+
+@Pipe({
+  name: 'reverseAndRecordPlayerLengthPipe'
+})
+
+export class ReverseAndRecordPlayerLengthPipe implements PipeTransform {
+  constructor(private fm: FirebaseManager) {
+
+  }
+
+  transform(arr) {
+    if (arr)
+      {
+        this.fm.totalPlayers = arr.length;
+        //console.log('list arr len', arr.length);
         return arr.reverse(); 
       }
   }

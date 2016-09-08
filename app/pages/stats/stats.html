@@ -51,7 +51,7 @@
       <button (click)="enterStandings()">test standings</button>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'players'" [virtualScroll]="afPlayers | async | reversePipe">
+    <ion-list *ngSwitchCase="'players'" [virtualScroll]="afPlayers | async | reverseAndRecordPlayerLengthPipe">
       <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
         <ion-avatar item-left>
           <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
