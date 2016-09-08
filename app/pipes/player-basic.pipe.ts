@@ -45,10 +45,10 @@ export class ReversePipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'reverseAndRecordPlayerLengthPipe'
+  name: 'reverseAndCountPlayerPipe'
 })
 
-export class ReverseAndRecordPlayerLengthPipe implements PipeTransform {
+export class ReverseAndCountPlayerPipe implements PipeTransform {
   constructor(private fm: FirebaseManager) {
 
   }
