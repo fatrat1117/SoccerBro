@@ -8,7 +8,7 @@
   <ion-item-group>
     <!-- Me -->
     <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="goEditPlayerPage()" style="border-width:0px;">
+    <ion-item (click)="goEditPlayerPage()" style="border-width:0px;" detail-push>
       <ion-avatar item-left>
         <ion-img [src]="player.photoURL"></ion-img>
       </ion-avatar>
@@ -17,11 +17,11 @@
 
     <!-- show pages -->
     <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="goPlayerPage()">
+    <ion-item (click)="goPlayerPage()" detail-push>
       <ion-icon name="md-aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
-    <ion-item (click)="openNavTeamPage()" >
+    <ion-item (click)="openNavTeamPage()" detail-push>
       <ion-icon name="md-shirt" item-left primary></ion-icon>
       My Team
     </ion-item>
