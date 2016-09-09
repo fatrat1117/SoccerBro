@@ -12,26 +12,31 @@ import {MyPlayerPage} from '../my-player/my-player';
   templateUrl: 'build/pages/me/me.html'
 })
 export class MePage {
-  //player: FirebaseObjectObservable<any>;
   defaultTeam: any;
   player: any;
   //defaultTeam: any;
+  afPlayer: any;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager) {
     let self = this;
-    this.am.afGetCurrentPlayer().subscribe(_ => {
-      self.player = this.am.getCurrentPlayerSnapshot();
-      //console.log("current player data changed, update me UI", self.player);
-      if (self.player.teamId)
-        self.defaultTeam = self.am.afGetTeam(self.player.teamId);
+    this.afPlayer = am.afGetCurrentPlayer();
+    this.afPlayer.subscribe(snapshot => {
+      self.player = snapshot;
+      //console.log("current player data changed, update me UI", _);
+      //if (self.player.teamId)
+      //self.defaultTeam = self.am.afGetTeam(self.player.teamId);
     });
   }
 
-  openNavTeamPage() {
+  goTeamPage() {
+    console.log(this.player);
+    
     if (this.player && this.player.teamId) {
+      console.log(this.player.teamId);
+      
       this.nav.push(MyTeamPage, {
         //Hard code Team ID
-        tId: this.defaultTeam.$key,
+        tId: this.player.teamId,
       });
     }
   }
