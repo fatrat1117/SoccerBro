@@ -21,9 +21,13 @@
       <ion-icon name="md-aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
-    <ion-item (click)="goTeamPage()" detail-push>
+    <ion-item (click)="goTeamPage()" *ngIf="showMyTeam" detail-push>
       <ion-icon name="md-shirt" item-left primary></ion-icon>
       My Team
+    </ion-item>
+    <ion-item (click)="showCreateTeamModel()" *ngIf="showCreateTeam">
+      <ion-icon name="md-shirt" item-left primary></ion-icon>
+      Create Team
     </ion-item>
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="onLogout()">

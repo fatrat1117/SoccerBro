@@ -16,24 +16,30 @@ export class MePage {
   player: any;
   //defaultTeam: any;
   afPlayer: any;
+  showMyTeam = false;
+  showCreateTeam = false;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager) {
     let self = this;
     this.afPlayer = am.afGetCurrentPlayer();
     this.afPlayer.subscribe(snapshot => {
       self.player = snapshot;
-      //console.log("current player data changed, update me UI", _);
-      //if (self.player.teamId)
+      //console.log("current player data changed, update me UI", snapshot);
+      if (self.player.teamId) {
+        self.showMyTeam = true;
+        self.showCreateTeam = false;
+      } else {
+        self.showMyTeam = false;
+        self.showCreateTeam = true;
+      }
       //self.defaultTeam = self.am.afGetTeam(self.player.teamId);
     });
   }
 
   goTeamPage() {
-    console.log(this.player);
-    
+    //console.log(this.player);
     if (this.player && this.player.teamId) {
-      console.log(this.player.teamId);
-      
+      //console.log(this.player.teamId);
       this.nav.push(MyTeamPage, {
         //Hard code Team ID
         tId: this.player.teamId,
