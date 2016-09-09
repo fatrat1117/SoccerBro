@@ -41,22 +41,29 @@ export class StatsPage {
     this.stats = name;
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('more data available');
+  morePlayer(infiniteScroll) {
     setTimeout(() => {
-      console.log('updateScroll', this.maxPlayer, this.fm.totalPlayers);
+      console.log('more player available', this.maxPlayer, this.fm.totalPlayers);
       let enable = this.maxPlayer <= this.fm.totalPlayers;
       if (enable) {
         this.afPlayers = this.fm.queryPublicPlayers('popularity', this.maxPlayer + 10);
-        this.updateScroll();
+        this.maxPlayer += 10;
       }
       infiniteScroll.enable(enable);
       infiniteScroll.complete();
     }, 500);
   }
 
-  updateScroll() {
-    this.maxPlayer += 10;
-    //return this.maxPlayer <= this.fm.totalPlayers;
+moreTeam(infiniteScroll) {
+    setTimeout(() => {
+      console.log('more team available', this.maxTeam, this.fm.totalTeams);
+      let enable = this.maxTeam <= this.fm.totalTeams;
+      if (enable) {
+        this.afTeams = this.fm.queryPublicTeams('popularity', this.maxTeam + 10);
+        this.maxTeam += 10;
+      }
+      infiniteScroll.enable(enable);
+      infiniteScroll.complete();
+    }, 500);
   }
 }

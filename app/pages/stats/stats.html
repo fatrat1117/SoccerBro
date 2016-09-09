@@ -27,7 +27,7 @@
             </ion-col>
             <ion-col>
               <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
-              <p text-center><label>20</label></p>
+              <p text-center><label>{{(t.$key | teamBasicPipe | async)?.total}}</label></p>
             </ion-col>
             <ion-col>
               <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
@@ -47,6 +47,11 @@
         </ion-item>
         <!--<button (click)="enterStandings()">test standings</button>-->
       </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="moreTeam($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </div>
 
     <div *ngSwitchCase="'players'" style="height:100%">
@@ -73,8 +78,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      <ion-infinite-scroll (ionInfinite)="morePlayer($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </div>
