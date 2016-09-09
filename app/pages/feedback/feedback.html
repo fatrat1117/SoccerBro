@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Feedback</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-textarea type="text" rows="6" maxlength="200" [(ngModel)]="feedbackContent">
+     </ion-textarea>
+    </ion-item>
+  </ion-list>
+  <button (click)="submit()" block>Submit</button>
+</ion-content>
