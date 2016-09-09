@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>My player</ion-title>
+    <ion-title>Player Info</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,12 +20,12 @@
       <img class="avatar" [src]="(afBasic | async)?.photoURL">
     </ion-thumbnail>
     <h2 class="bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
-    <h3 text-center><span class="bold-text" primary>{{(afDetail | async)?.position}}</span> @{{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
+    <h3 text-center><span class="player-bold-text" primary>{{(afDetail | async)?.position}}</span> <ion-icon name="ios-at-outline" dark></ion-icon> {{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
   </ion-card>
 
   <ion-card>
-    <ion-card-header class="my-team-header-decoration my-team-description-header">
-      ability
+    <ion-card-header class="player-header-decoration">
+      Ability
     </ion-card-header>
     <ion-card-content>
       <base-chart class="chart" [data]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType" [options]="radarOptions">
@@ -34,8 +34,8 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header class="my-team-header-decoration my-team-description-header">
-      description
+    <ion-card-header class="player-header-decoration">
+      Description
     </ion-card-header>
     <ion-card-content>
       <p class="my-team-description-p">{{(afDetail | async)?.description}}

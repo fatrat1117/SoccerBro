@@ -1,217 +1,84 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>My Team</ion-title>
+    <ion-title>Team Info</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div class="my-team-ion-card">
-    <ion-card>
-      <ion-item class="my-team-info">
-        <div class="my-team-info-panel-center">
-          <ion-avatar class="my-team-avatar" item-middle>
-            <!--<ion-icon name="heart"></ion-icon>-->
-            <div class="my-team-info-popular">
-              <p>人气</p>
-              <h6>{{(afTeamPublic | async)?.popularity }}</h6>
-            </div>
-
-            <div class="my-team-info-power">
-              <p>战力</p>
-              <h6>{{(afTeam | async)?.combat_point }}</h6>
-            </div>
-          </ion-avatar>
-          <div class="my-team-info-avatar">
-            <ion-img class="my-team-avatar-img" [src]="(afTeam | async)?.logo"></ion-img>
-          </div>
+  <ion-card padding>
+    <ion-thumbnail class="player-avatar-bar">
+      <div class="bar">
+        <div class="left" text-center>
+          <p class="title">Popularity</p>
+          <p danger>{{(afTeamPublic | async)?.popularity }}</p>
         </div>
-
-        <div class="my-team-info-panel-bottom">
-          <p>{{(afTeam | async)?.name}}</p>
+        <div class="right">
+          <p class="title">Matches</p>
+          <p secondary>{{(afTeam | async)?.combat_point }}</p>
         </div>
-      </ion-item>
-    </ion-card>
-  </div>
-
-  <!--<ion-row>-->
-  <!--<ion-col>-->
-  <!--<button primary clear small>-->
-  <!--<ion-icon name='thumbs-up'></ion-icon>-->
-  <!--<div>12 Likes</div>-->
-  <!--</button>-->
-  <!--</ion-col>-->
-  <!--<ion-col>-->
-  <!--<button primary clear small>-->
-  <!--<ion-icon name='text'></ion-icon>-->
-  <!--<div>4 Comments</div>-->
-  <!--</button>-->
-  <!--</ion-col>-->
-  <!--<ion-col center text-center>-->
-  <!--<ion-note>-->
-  <!--11h ago-->
-  <!--</ion-note>-->
-  <!--</ion-col>-->
-  <!--</ion-row>-->
-
-  <ion-grid>
-    <ion-row>
-      <ion-col class="my-team-infobar-col-border-right" width-25>
-        <div class="my-team-infobar-item">
-          <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
-          </ion-icon>
-          <ion-label class="my-team-infobar-label">出场</ion-label>
-          <ion-label class="my-team-infobar-label-num">305</ion-label>
-        </div>
-      </ion-col>
-      <!--<ion-col class="my-team-infobar-col-border-right" width-25>-->
-      <!--<div class="my-team-infobar-item">-->
-      <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-      <!--</ion-icon>-->
-      <!--<ion-label class="my-team-infobar-label">世界</ion-label>-->
-      <!--<ion-label class="my-team-infobar-label-num">第454名</ion-label>-->
-      <!--</div>-->
-      <!--</ion-col>-->
-      <!--<ion-col class="my-team-infobar-col-border-right" width-25>-->
-      <!--<div class="my-team-infobar-item">-->
-      <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-      <!--</ion-icon>-->
-      <!--<ion-label class="my-team-infobar-label">新加坡</ion-label>-->
-      <!--<ion-label class="my-team-infobar-label-num">第9名</ion-label>-->
-      <!--</div>-->
-      <!--</ion-col>-->
-      <ion-col width-25 (click)="goManagePlayerPage()">
-        <div class="my-team-infobar-item">
-          <ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>
-          </ion-icon>
-          <ion-label class="my-team-infobar-label">球员</ion-label>
-          <ion-label class="my-team-infobar-label-num">{{teamPlayersNumber}}</ion-label>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!--<ion-grid>-->
-  <!--<ion-row>-->
-  <!--<ion-col width-25>-->
-  <!--<div class="my-team-infobar-item">-->
-  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-  <!--</ion-icon>-->
-  <!--<ion-label class="my-team-infobar-label">阵容</ion-label>-->
-  <!--</div>-->
-  <!--</ion-col>-->
-  <!--<ion-col width-25>-->
-  <!--<div class="my-team-infobar-item">-->
-  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-  <!--</ion-icon>-->
-  <!--<ion-label class="my-team-infobar-label">照片</ion-label>-->
-  <!--</div>-->
-  <!--</ion-col>-->
-  <!--<ion-col width-25>-->
-  <!--<div class="my-team-infobar-item">-->
-  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-  <!--</ion-icon>-->
-  <!--<ion-label class="my-team-infobar-label">视频</ion-label>-->
-  <!--</div>-->
-  <!--</ion-col>-->
-  <!--<ion-col width-25>-->
-  <!--<div class="my-team-infobar-item">-->
-  <!--<ion-icon class="my-team-infobar-icon my-team-infobar-icon-appear" name='text'>-->
-  <!--</ion-icon>-->
-  <!--<ion-label class="my-team-infobar-label">队员</ion-label>-->
-  <!--</div>-->
-  <!--</ion-col>-->
-  <!--</ion-row>-->
-  <!--</ion-grid>-->
-
-  <ion-card>
-    <ion-card-header class="my-team-header-decoration my-team-admin-card-header">
-      管理人员
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-33>
-            <div class="my-team-admin-card-item my-team-admin-card-item-1">
-              <img class="my-team-admin-card-avatar-img" src="img/test_avatar.jpg" />
-              <ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>
-              <p class="my-team-admin-card-pane-name">{{(afTeamCaptain | async)?.displayName}}</p>
-            </div>
-          </ion-col>
-          <!--<ion-col width-33>-->
-          <!--<div class="my-team-admin-card-item my-team-admin-card-item-2">-->
-          <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
-          <!--<ion-label class="my-team-admin-card-pane-occupation">管理员</ion-label>-->
-          <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
-          <!--</div>-->
-          <!--</ion-col>-->
-          <!--<ion-col width-33>-->
-          <!--<div class="my-team-admin-card-item my-team-admin-card-item-3">-->
-          <!--<ion-icon class="my-team-admin-card-avatar-icon" ios="ios-person" md="md-person"></ion-icon>-->
-          <!--<ion-label class="my-team-admin-card-pane-occupation">队长</ion-label>-->
-          <!--<p class="my-team-admin-card-pane-name">未设定</p>-->
-          <!--</div>-->
-          <!--</ion-col>-->
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
+      </div>
+      <img class="avatar" [src]="(afTeam | async)?.logo">
+    </ion-thumbnail>
+    <h2 class="bold-text" text-center>{{(afTeam | async)?.name}}</h2>
+    <h3 text-center><span class="player-bold-text" primary>Captain: &nbsp;</span>{{(afTeamCaptain | async)?.displayName}}</h3>
   </ion-card>
 
   <ion-card class="my-team-header-margin-top-2rem">
     <ion-card-header class="my-team-header-decoration my-team-description-header">
-      球队简介
+      About
     </ion-card-header>
     <ion-card-content>
       <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
       </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris est lacus, varius at sem sed, dapibus dignissim lectus. Pellentesque ut massa eget mauris lacinia sollicitudin at at orci. Integer convallis sapien orci, vitae fringilla velit interdum non.
+        Nullam tincidunt mauris augue, eget accumsan odio euismod eu. Ut posuere mi turpis, quis volutpat ex tristique eget. Curabitur quis condimentum purus. Mauris vel ipsum ac ex condimentum semper. Sed vestibulum elit ac viverra consectetur. Vestibulum
+        dignissim mauris nec lorem tincidunt efficitur. Curabitur in est vel augue dictum convallis in ut purus. Phasellus id diam venenatis quam ultricies rhoncus. Praesent quis erat ut justo facilisis ultricies sed eget dui. Integer efficitur ligula
+        nec volutpat mattis. Maecenas pretium, quam sed dapibus tempus, lacus nibh molestie lacus, et blandit neque leo id urna. Donec sit amet erat orci. Integer fringilla semper augue, in tincidunt nunc accumsan sit amet. Sed blandit malesuada erat,
+        quis volutpat ante accumsan in. Ut eget nibh vel leo interdum euismod vitae vitae dui. Ut venenatis elit ligula, in lacinia mi tempor sed. Sed lacus mauris, tempor ut eros ultrices, volutpat consequat nulla. Integer eget leo venenatis, fringilla
+        quam ac, gravida dolor. In quis metus elit. Fusce et cursus nunc, tincidunt vestibulum enim. Nulla sodales ligula enim. Sed mi purus, scelerisque sit amet metus tempor, dapibus gravida nulla. Phasellus vel metus nec magna feugiat viverra. Cras
+        consectetur quam at imperdiet accumsan. Sed hendrerit leo ipsum, vel suscipit nibh semper eget. Duis vitae massa ac tortor efficitur imperdiet. Sed nibh dui, mollis efficitur ex at, ornare ultrices enim. Integer viverra leo ut est congue, nec
+        molestie dolor interdum. Nullam id suscipit leo. Aenean tempus ut lectus in rhoncus. Aliquam ut aliquam sapien, sit amet fermentum nibh. In ultrices est diam, quis iaculis turpis aliquet vitae. Nullam mattis est consequat maximus aliquam. In tristique
+        venenatis dui id pellentesque. Pellentesque nisl leo, rutrum et pharetra ut, accumsan ac metus. Nullam ornare, nisl condimentum imperdiet mollis, ante felis gravida tortor, ut ornare metus ipsum eu magna. Sed lacus orci, tincidunt porttitor laoreet
+        vel, bibendum ac diam. Donec imperdiet ac lectus vitae blandit. Fusce metus eros, tristique non malesuada et, lacinia aliquam nulla. Aenean cursus erat vel suscipit posuere. Vivamus augue libero, sodales a lectus ac, ultrices lobortis nunc. Sed
+        massa sem, iaculis sit amet congue ut, commodo eu orci. Maecenas ex dui, dictum non tempus ac, facilisis aliquam mi. Morbi at volutpat nisi, sit amet mattis ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac augue odio. Etiam
+        et diam at nibh interdum fermentum ac ut ante.
+      </p>
+
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="my-team-header-margin-top-2rem">
-    <ion-card-header class="my-team-header-decoration my-team-recent-games-header">
-      近期比赛
-    </ion-card-header>
+  <button danger fab fab-bottom fab-right class="floating-button" (click)="showMenu()">
+    <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
+  </button>
+  <div [hidden]="!isOpen" class="menu-buttons">
+    <button primary fab fab-bottom fab-right class="swap">
+      <ion-icon name="md-swap"></ion-icon>
+    </button>
+    <button secondary fab fab-bottom fab-right class="add">
+      <ion-icon name="md-add"></ion-icon>
+    </button>
+    <button bright fab fab-bottom fab-right class="edit">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+  </div>
 
-    <ion-card-content>
-      <h5 class="my-team-recent-games-title">2016新加坡华人联赛 第12轮</h5>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-33>
-            <div class="my-team-recent-games-team my-team-recent-games-team-home">
-              <img class="my-team-recent-games-team-avatar-img my-team-recent-games-team-home-avatar-img" src="img/test_team.jpg" />
-              <ion-label class="my-team-recent-games-team-name my-team-recent-games-team-home-name">新加坡先驱联队</ion-label>
-            </div>
-          </ion-col>
-          <ion-col width-33>
-            <div class="my-team-recent-games-center-vs my-team-recent-games-center-vs-icon">
-              <ion-icon class="my-team-recent-games-center-vs-icon" ios="ios-trophy" md="md-trophy"></ion-icon>
-            </div>
-            <div class="my-team-recent-games-center-vs my-team-recent-games-center-vs-word">
-              <ion-label class="my-team-games-center-vs-status">即将开赛</ion-label>
-            </div>
-          </ion-col>
-          <ion-col width-33>
-            <div class="my-team-recent-games-team my-team-recent-games-team-home">
-              <img class="my-team-recent-games-team-avatar-img my-team-recent-games-team-away-avatar-img" src="img/test_team2.jpg" />
-              <ion-label class="my-team-recent-games-team-name my-team-recent-games-team-away-name">新加坡先驱联队</ion-label>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+
 </ion-content>
 
+<!-->
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <button (click)="editTeam()" style="width: 40%">
+      <button (click)="editTeam()">
         <ion-icon name="create"></ion-icon>
         Edit
       </button>
-      <button style="width: 40%">
+      <button>
         <ion-icon (click)="invitePlayer()" name="person-add"></ion-icon>
         Invite Player
       </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+<-->

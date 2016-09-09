@@ -17,8 +17,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
+<ion-content>
+  <ion-item-group>
+    <!-- Basic -->
+    <ion-item-divider light></ion-item-divider>
     <ion-item>
       <h2>Profile Photo</h2>
       <ion-thumbnail item-right>
@@ -30,6 +32,9 @@
       <ion-input type="text" maxlength="32" [ngModel]="(afPlayerBasic | async)?.displayName" (ngModelChange)="player.name=$event">
       </ion-input>
     </ion-item>
+
+    <!-- Detail -->
+    <ion-item-divider light></ion-item-divider>
     <ion-item>
       <ion-label floating>Height (CM)</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.height" (ngModelChange)="player.height=$event">
@@ -64,5 +69,5 @@
       <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetail | async)?.description" (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>
-  </ion-list>
+  </ion-item-group>
 </ion-content>

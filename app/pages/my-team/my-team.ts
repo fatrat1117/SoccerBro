@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, ModalController, NavParams} from 'ionic-angular';
+import {NavController, ModalController, NavParams, Button} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from "../../providers/account-manager";
 import {EditTeamPage} from '../edit-team/edit-team';
 import {FirebaseManager} from "../../providers/firebase-manager";
 import {ManagePlayerPage} from '../manage-player/manage-player';
+
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html'
@@ -29,6 +30,8 @@ export class MyTeamPage {
   afTeamPublic:FirebaseObjectObservable<any>;
   //afTeamPlayers:FirebaseListObservable<any>;
 
+  // floating menu
+  isOpen: boolean;
 
   constructor(private nav: NavController,
     private modalController: ModalController,
@@ -70,6 +73,7 @@ export class MyTeamPage {
     });
 
     //console.log(this.teamPlayersNumber);
+    this.isOpen = false;
   }
 
   editTeam() {
@@ -92,5 +96,9 @@ export class MyTeamPage {
 
   invitePlayer(){
 
+  }
+
+  showMenu() {
+    this.isOpen = !this.isOpen;
   }
 }
