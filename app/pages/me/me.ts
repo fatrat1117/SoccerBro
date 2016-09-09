@@ -7,6 +7,7 @@ import {CreateTeamPage} from '../create-team/create-team';
 import {ManageTeamPage} from '../manage-team/manage-team';
 import {EditPlayerPage} from '../edit-player/edit-player';
 import {MyPlayerPage} from '../my-player/my-player';
+import {FeedbackPage} from '../feedback/feedback';
 
 @Component({
   templateUrl: 'build/pages/me/me.html'
@@ -62,7 +63,6 @@ export class MePage {
     });
   }
 
-
   goEditPlayerPage() {
     this.nav.push(EditPlayerPage, {
       pId: this.am.currentUser.uid,
@@ -73,5 +73,9 @@ export class MePage {
     this.nav.push(MyPlayerPage, {
       pId: this.am.currentUser.uid,
     });
+  }
+
+  goFeedbackPage() {
+    this.nav.push(FeedbackPage);
   }
 }

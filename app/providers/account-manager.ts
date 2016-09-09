@@ -1,4 +1,4 @@
-import {ModalController, NavController, Page} from 'ionic-angular';
+import {ModalController, NavController, Page, ToastController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import { Camera } from 'ionic-native';
 import {
@@ -24,7 +24,8 @@ export class AccountManager {
   subscriptions: any;
 
   constructor(public af: AngularFire,
-    private fm: FirebaseManager) {
+    private fm: FirebaseManager,
+    private toastCtrl: ToastController) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -431,7 +432,7 @@ export class AccountManager {
   }
 
   //push
-  PostNotification(messageObj, pushIds, success, error) {
+  postNotification(messageObj, pushIds, success, error) {
     let notificationObj = {
       contents: messageObj,
       include_player_ids: pushIds
@@ -448,5 +449,10 @@ export class AccountManager {
           error(failedResponse);
       }
     );
+  }
+
+  //misc
+  showToast(msg) {
+    
   }
 }
