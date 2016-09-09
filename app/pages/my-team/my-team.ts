@@ -70,9 +70,6 @@ export class MyTeamPage {
     });
 
     //console.log(this.teamPlayersNumber);
-
-
-
   }
 
   editTeam() {

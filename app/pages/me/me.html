@@ -30,6 +30,11 @@
       Create Team
     </ion-item>
     <ion-item-divider light></ion-item-divider>
+    <ion-item (click)="goFeedbackPage()" detail-push>
+      <ion-icon name="help" item-left primary></ion-icon>
+      Feedback
+    </ion-item>
+    <ion-item-divider light></ion-item-divider>
     <ion-item (click)="onLogout()">
       <ion-icon name="md-exit" item-left danger></ion-icon>
       Logout
