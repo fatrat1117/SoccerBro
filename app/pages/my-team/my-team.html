@@ -30,35 +30,20 @@
     <ion-card-content>
       <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
       </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris est lacus, varius at sem sed, dapibus dignissim lectus. Pellentesque ut massa eget mauris lacinia sollicitudin at at orci. Integer convallis sapien orci, vitae fringilla velit interdum non.
-        Nullam tincidunt mauris augue, eget accumsan odio euismod eu. Ut posuere mi turpis, quis volutpat ex tristique eget. Curabitur quis condimentum purus. Mauris vel ipsum ac ex condimentum semper. Sed vestibulum elit ac viverra consectetur. Vestibulum
-        dignissim mauris nec lorem tincidunt efficitur. Curabitur in est vel augue dictum convallis in ut purus. Phasellus id diam venenatis quam ultricies rhoncus. Praesent quis erat ut justo facilisis ultricies sed eget dui. Integer efficitur ligula
-        nec volutpat mattis. Maecenas pretium, quam sed dapibus tempus, lacus nibh molestie lacus, et blandit neque leo id urna. Donec sit amet erat orci. Integer fringilla semper augue, in tincidunt nunc accumsan sit amet. Sed blandit malesuada erat,
-        quis volutpat ante accumsan in. Ut eget nibh vel leo interdum euismod vitae vitae dui. Ut venenatis elit ligula, in lacinia mi tempor sed. Sed lacus mauris, tempor ut eros ultrices, volutpat consequat nulla. Integer eget leo venenatis, fringilla
-        quam ac, gravida dolor. In quis metus elit. Fusce et cursus nunc, tincidunt vestibulum enim. Nulla sodales ligula enim. Sed mi purus, scelerisque sit amet metus tempor, dapibus gravida nulla. Phasellus vel metus nec magna feugiat viverra. Cras
-        consectetur quam at imperdiet accumsan. Sed hendrerit leo ipsum, vel suscipit nibh semper eget. Duis vitae massa ac tortor efficitur imperdiet. Sed nibh dui, mollis efficitur ex at, ornare ultrices enim. Integer viverra leo ut est congue, nec
-        molestie dolor interdum. Nullam id suscipit leo. Aenean tempus ut lectus in rhoncus. Aliquam ut aliquam sapien, sit amet fermentum nibh. In ultrices est diam, quis iaculis turpis aliquet vitae. Nullam mattis est consequat maximus aliquam. In tristique
-        venenatis dui id pellentesque. Pellentesque nisl leo, rutrum et pharetra ut, accumsan ac metus. Nullam ornare, nisl condimentum imperdiet mollis, ante felis gravida tortor, ut ornare metus ipsum eu magna. Sed lacus orci, tincidunt porttitor laoreet
-        vel, bibendum ac diam. Donec imperdiet ac lectus vitae blandit. Fusce metus eros, tristique non malesuada et, lacinia aliquam nulla. Aenean cursus erat vel suscipit posuere. Vivamus augue libero, sodales a lectus ac, ultrices lobortis nunc. Sed
-        massa sem, iaculis sit amet congue ut, commodo eu orci. Maecenas ex dui, dictum non tempus ac, facilisis aliquam mi. Morbi at volutpat nisi, sit amet mattis ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac augue odio. Etiam
-        et diam at nibh interdum fermentum ac ut ante.
-      </p>
-
     </ion-card-content>
   </ion-card>
 
-  <button danger fab fab-bottom fab-right class="floating-button" (click)="showMenu()">
+  <button fab fab-bottom fab-right class="floating-button disable-hover" (click)="showMenu()">
     <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
   </button>
   <div [hidden]="!isOpen" class="menu-buttons">
-    <button primary fab fab-bottom fab-right class="swap">
+    <button fab fab-bottom fab-right class="swap disable-hover" (click)="manageTeam()">
       <ion-icon name="md-swap"></ion-icon>
     </button>
-    <button secondary fab fab-bottom fab-right class="add">
+    <button fab fab-bottom fab-right class="add disable-hover" (click)="addNewTeam()">
       <ion-icon name="md-add"></ion-icon>
     </button>
-    <button bright fab fab-bottom fab-right class="edit">
+    <button fab fab-bottom fab-right class="edit disable-hover" (click)="editTeam()">
       <ion-icon name="md-create"></ion-icon>
     </button>
   </div>
