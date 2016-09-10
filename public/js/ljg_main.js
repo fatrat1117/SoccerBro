@@ -41,13 +41,14 @@ function firebaseRedirect(){
       //Add userInfo into players table
       var teamRef = getTeamRef(_teamId);
       var updates = {};
-      updates['/members/' + pId] = {'goals':0,'number':11};
+      updates['/players/' + pId] = {'goals':0,'number':11};
       teamRef.update(updates);
       console.log(pId);
 
       try {
         updates = {};
         updates[pId] = playerData;
+        // don't use set(updates) here
         firebase.database().ref("players/").update(updates);
         console.log(pId);
       }catch(e){

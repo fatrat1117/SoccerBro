@@ -1,0 +1,19 @@
+.jointeam_index_facebook_login{
+  margin-top: 5rem;
+}
+
+.jointeam_index_facebook_login > .login_link{
+  width: 60%;
+  margin: 0 auto;
+}
+
+
+
+.jointeam_index_email_login{
+  margin-top: 3rem;
+}
+
+.jointeam_index_email_login > .login_link{
+  width:60%;
+  margin: 0 auto;
+}

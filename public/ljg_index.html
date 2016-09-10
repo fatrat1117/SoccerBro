@@ -13,6 +13,13 @@
   <meta name="HandheldFriendly" content="true"/>
   <meta name="MobileOptimized" content="768"/>
 
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
+  <link rel="stylesheet" type="text/css" href="css/ljg_main.css">
+
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/firebase.js"></script>
   <script src="js/knockout-3.4.0.js"></script>
   <script src="js/ljg_main.js"></script>
@@ -42,12 +49,28 @@
 <body>
 <div class="jointeam_index_main_div">
   <div class="jointeam_index_facebook_login">
-      <div class="jointeam_index_facebook_login_link"></div>
-      <a href="#" target="_blank">
-        <input type="image" src="fb_login_btn.png" alt="Login with Facebook" width="60%" onclick="onFbLogin()" />
-      </a>
-    </p>
+      <div class="login_link">
+        <a class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
+          <span class="fa fa-facebook"></span>Sign in with Facebook
+        </a>
+      </div>
   </div>
+
+
+
+  <div class="jointeam_index_email_login">
+    <div class="login_link">
+      <a class="btn btn-block btn-social btn-google" onclick="">
+        <span class="fa fa-google"></span> Sign in with Email
+      </a>
+    </div>
+
+
+
+  </div>
+
+
+
 </div>
 </body>
 </html>
