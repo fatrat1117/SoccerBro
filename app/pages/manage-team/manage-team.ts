@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController} from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager';
 import {MyTeamPage} from '../my-team/my-team';
+import {CreateTeamPage} from '../create-team/create-team';
 
 @Component({
   templateUrl: 'build/pages/manage-team/manage-team.html'
@@ -14,7 +15,8 @@ export class ManageTeamPage {
   constructor(private am: AccountManager,
   private af: AngularFire, 
   private navParams: NavParams,
-  private nav : NavController) {
+  private nav : NavController,
+  private modalController: ModalController) {
     let pId = this.navParams.get('id');
     this.busy = false;
     this.teams = [];
@@ -70,25 +72,30 @@ export class ManageTeamPage {
     });
   }
 
-  migrateOldData() {
-    let players = this.af.database.list('/players');
-    players.subscribe(ps => {
-      ps.forEach(p => {
-        for (let tId in p.teams) {
-          let teamsOfPlayer = this.am.afGetTeamOfPlayer(p.$key, tId);
-          teamsOfPlayer.set(true);
-        }
-      })
-    })
-
-    let teams = this.af.database.list('/teams');
-    teams.subscribe(ts => {
-      ts.forEach(t => {
-        for (let pId in t.players) {
-          let playersOfTeam = this.am.afGetPlayerOfTeam(pId, t.$key);
-          playersOfTeam.set(true);
-        }
-      })
-    })
+  showCreateTeamModel() {
+    let modal = this.modalController.create(CreateTeamPage);
+    modal.present();
   }
+
+  // migrateOldData() {
+  //   let players = this.af.database.list('/players');
+  //   players.subscribe(ps => {
+  //     ps.forEach(p => {
+  //       for (let tId in p.teams) {
+  //         let teamsOfPlayer = this.am.afGetTeamOfPlayer(p.$key, tId);
+  //         teamsOfPlayer.set(true);
+  //       }
+  //     })
+  //   })
+
+  //   let teams = this.af.database.list('/teams');
+  //   teams.subscribe(ts => {
+  //     ts.forEach(t => {
+  //       for (let pId in t.players) {
+  //         let playersOfTeam = this.am.afGetPlayerOfTeam(pId, t.$key);
+  //         playersOfTeam.set(true);
+  //       }
+  //     })
+  //   })
+  // }
 }
