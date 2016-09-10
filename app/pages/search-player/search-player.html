@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Members</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="filterPlayers($event)"></ion-searchbar>
+  <ion-list [virtualScroll]="filteredPlayers">
+    <ion-item *virtualItem="let player" (click)="showPlayerPage(player.id)">
+      <ion-avatar item-left>
+        <ion-img [src] = "player.photoURL"></ion-img>
+      </ion-avatar>
+      {{ player.displayName }}
+    </ion-item>
+  </ion-list>
+</ion-content>

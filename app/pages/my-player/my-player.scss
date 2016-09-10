@@ -19,12 +19,6 @@
       text-align: center;
       margin-right: 20px;
     }
-    .title {
-      color: #666362;
-      font-weight: bold;
-      margin-top: 5px;
-      margin-bottom: 0px;
-    }
   }
   .avatar {
     position: relative;
@@ -34,10 +28,21 @@
   }
 }
 
+.player-title-text {
+  color: #666362;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
 .player-bold-text {
   font-weight: bold;
 }
 
-.player-header-decoration{
+.player-header-decoration {
   border-left: 0.3rem solid #69d877;
+}
+
+.player-detail-border {
+  border-left: 0.1rem solid #69d877;
 }

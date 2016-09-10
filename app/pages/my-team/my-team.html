@@ -9,18 +9,35 @@
     <ion-thumbnail class="player-avatar-bar">
       <div class="bar">
         <div class="left" text-center>
-          <p class="title">Popularity</p>
+          <p class="player-title-text">Popularity</p>
           <p danger>{{(afTeamPublic | async)?.popularity }}</p>
         </div>
         <div class="right">
-          <p class="title">Matches</p>
+          <p class="player-title-text">Matches</p>
           <p secondary>{{(afTeam | async)?.totalMatches }}</p>
         </div>
       </div>
       <img class="avatar" [src]="(afTeam | async)?.logo">
     </ion-thumbnail>
     <h2 class="player-bold-text" text-center>{{(afTeam | async)?.name}}</h2>
+    <!-->
     <h3 text-center><span class="player-bold-text" primary>Captain: &nbsp;</span>{{(afTeamCaptain | async)?.displayName}}</h3>
+    <-->
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header class="player-header-decoration">
+      Captain
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-avatar item-left>
+          <ion-img [src]="(afTeamCaptain | async)?.photoURL"></ion-img>
+        </ion-avatar>
+        <h2>{{(afTeamCaptain | async)?.displayName}}</h2>
+        <button clear item-right (click)="searchPlayers()">View All Members</button>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
 
   <ion-card>
@@ -43,7 +60,7 @@
     </button>
   </div>
 
-<!-- Floating menu>
+  <!-- Floating menu>
   <button fab fab-bottom fab-right class="floating-button disable-hover" (click)="showMenu()">
     <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
   </button>

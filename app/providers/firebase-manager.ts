@@ -93,6 +93,10 @@ export class FirebaseManager {
     });
   }
 
+
+
+
+
   /********** All Teams Operations ***********/
   getTeam(teamId: string) {
     return this.af.database.object(`/teams/${teamId}`);
@@ -187,6 +191,10 @@ export class FirebaseManager {
     this.af.database.list(`/teams/${teamId}/matches`).subscribe(snapshots => {
       this.af.database.object(`/teams/${teamId}/basic-info`).update({ totalMatches: snapshots.length });
     })
+  }
+
+  getTeamMembers(teamId: string) {
+    return this.af.database.list(`/teams/${teamId}/members`);
   }
 
 

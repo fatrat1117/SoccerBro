@@ -8,6 +8,7 @@ import {EditPlayerPage} from '../edit-player/edit-player';
 import {ManageTeamPage} from '../manage-team/manage-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {EditTeamPage} from '../edit-team/edit-team';
+import {SearchPlayerPage} from '../search-player/search-player';
 
 
 @Component({
@@ -104,6 +105,10 @@ export class MyTeamPage {
         tId: this.tId
       }
     );
+  }
+
+  searchPlayers() {
+    this.nav.push(SearchPlayerPage, { teamId: this.tId });
   }
 
   /*

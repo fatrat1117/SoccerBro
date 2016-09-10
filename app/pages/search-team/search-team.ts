@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {FirebaseManager} from '../../providers/firebase-manager'
+import {FirebaseManager} from '../../providers/firebase-manager';
 
 
 @Component({
@@ -10,7 +9,7 @@ import {FirebaseManager} from '../../providers/firebase-manager'
 export class SearchTeamPage {
   totalTeams: any[];
   filteredTeams: any[];
-  constructor(private viewCtrl: ViewController, private af: AngularFire, private fm: FirebaseManager) {
+  constructor(private viewCtrl: ViewController, private fm: FirebaseManager) {
     this.totalTeams = [];
 
     // firebase
