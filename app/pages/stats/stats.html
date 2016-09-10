@@ -15,19 +15,19 @@
   <div [ngSwitch]="stats" style="height:100%">
     <div *ngSwitchCase="'teams'" style="height:100%">
       <ion-list [virtualScroll]="afTeams | async | reverseAndCountTeamPipe">
-        <ion-item *virtualItem="let t" (click)="goTeamPage(t.$key)">
+        <ion-item *virtualItem="let t" (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
           <ion-thumbnail item-left>
             <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
           </ion-thumbnail>
-          <h1 text-left>{{(t.$key | teamBasicPipe | async)?.name}}</h1>
+          <h2 text-center>{{(t.$key | teamBasicPipe | async)?.name}}</h2>
           <ion-row>
             <ion-col>
-              <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Played</label></p>
-              <p text-center>0</p>
+              <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Matches</label></p>
+              <p text-center>{{(t.$key | teamBasicPipe | async)?.totalMatches}}</p>
             </ion-col>
             <ion-col>
               <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
-              <p text-center><label>{{(t.$key | teamBasicPipe | async)?.total}}</label></p>
+              <p text-center><label>{{(t.$key | teamBasicPipe | async)?.totalPlayers}}</label></p>
             </ion-col>
             <ion-col>
               <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
@@ -56,7 +56,7 @@
 
     <div *ngSwitchCase="'players'" style="height:100%">
       <ion-list [virtualScroll]="afPlayers | async | reverseAndCountPlayerPipe">
-        <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)">
+        <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
           <ion-avatar item-left>
             <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>
@@ -65,7 +65,7 @@
               <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
             </ion-col>
             <ion-col text-center>
-              <p><span primary>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
+              <p><span primary text-uppercase>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
             </ion-col>
             <ion-col text-center>
               <p text-center>

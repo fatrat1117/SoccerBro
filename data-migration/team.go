@@ -7,10 +7,11 @@ type team struct {
 }
 
 type teamBasic struct {
-	Logo    string `json:"logo"`
-	Name    string `json:"name"`
-	Captain string `json:"captain"`
-	Total   int    `json:"total"`
+	Logo         string `json:"logo"`
+	Name         string `json:"name"`
+	Captain      string `json:"captain"`
+	TotalPlayers int    `json:"totalPlayers"`
+	TotalMatches int    `json:"totalMatches"`
 }
 
 type teamDetail struct {
@@ -55,7 +56,8 @@ func GetNewTeams(data map[string]interface{}) (map[string]team, error) {
 			}
 		}
 
-		b.Total = len(m)
+		b.TotalPlayers = len(m)
+		b.TotalMatches = 0
 
 		// team
 		newT := team{Basic: b, Detail: d, Members: m}

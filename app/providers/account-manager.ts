@@ -248,7 +248,7 @@ export class AccountManager {
                     popularity: 1
                   });
                   //update total
-                self.fm.updateTeamTotal(newTeamId);
+                self.fm.updateTotalPlayers(newTeamId);
                 success();
               }).catch(err => error(err));
             }).catch(err => error(err));
@@ -283,7 +283,7 @@ export class AccountManager {
             let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
             pOft.remove().then(_ => {
               //update total
-              self.fm.updateTeamTotal(tId);
+              self.fm.updateTotalPlayers(tId);
               success();
             }).catch(err => error(err));
           }).catch(err => error(err));

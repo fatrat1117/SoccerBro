@@ -7,8 +7,8 @@ declare let firebase: any;
 export class FirebaseManager {
   selfId: string;
   selfTeamId: string;
-    totalPlayers = 0;
-    totalTeams = 0;
+  totalPlayers = 0;
+  totalTeams = 0;
 
   constructor(private af: AngularFire) {
   }
@@ -161,6 +161,8 @@ export class FirebaseManager {
         });
       });
     });
+    // update totalMatches
+    this.updateTotalMatches(this.selfTeamId);
   }
 
   getMatchPlayers(teamId: string, matchId: string) {
@@ -175,9 +177,15 @@ export class FirebaseManager {
     this.af.database.object(`/teams/${teamId}/matches/${matchId}/players/${this.selfId}`).remove();
   }
 
-  updateTeamTotal(teamId: string) {
+  updateTotalPlayers(teamId: string) {
     this.af.database.list(`/teams/${teamId}/members`).subscribe(snapshots => {
-      this.af.database.object(`/teams/${teamId}/basic-info`).update({ total: snapshots.length });
+      this.af.database.object(`/teams/${teamId}/basic-info`).update({ totalPlayers: snapshots.length });
+    })
+  }
+
+  updateTotalMatches(teamId: string) {
+    this.af.database.list(`/teams/${teamId}/matches`).subscribe(snapshots => {
+      this.af.database.object(`/teams/${teamId}/basic-info`).update({ totalMatches: snapshots.length });
     })
   }
 
@@ -196,8 +204,10 @@ export class FirebaseManager {
 
   queryPublicPlayers(subject, limit) {
     return this.af.database.list(`/public/players/`, {
-      query: { orderByChild: subject,
-        limitToLast: limit }
+      query: {
+        orderByChild: subject,
+        limitToLast: limit
+      }
     });
   }
 
@@ -207,11 +217,25 @@ export class FirebaseManager {
     });
   }
 
-    queryPublicTeams(subject, limit) {
+  queryPublicTeams(subject, limit) {
     return this.af.database.list(`/public/teams/`, {
-      query: { orderByChild: subject,
-        limitToLast: limit }
+      query: {
+        orderByChild: subject,
+        limitToLast: limit
+      }
     });
   }
 
+
+
+
+
+  /********** All Misc Operations ***********/
+  sendFeedback(content: string) {
+    this.af.database.list(`/misc/feedbacks`).push({
+      content: content,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      createdBy: this.selfId
+    });
+  }
 }
