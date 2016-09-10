@@ -111,7 +111,7 @@ export class FirebaseManager {
   }
 
   getPlayers(teamId: string) {
-    return this.af.database.list(`/teams/${teamId}/members`);
+    return this.af.database.list(`/teams/${teamId}/players`);
   }
 
   getSelfChatMessages(teamId: string, subject: any) {
@@ -135,7 +135,7 @@ export class FirebaseManager {
   }
 
   addSelfMember(playerId: string, memberInfo: any) {
-    this.af.database.object(`/teams/${this.selfTeamId}/members/${playerId}}`).set(memberInfo);
+    this.af.database.object(`/teams/${this.selfTeamId}/players/${playerId}}`).set(memberInfo);
   }
 
   deleteTeam(tId, success, error) {
@@ -152,7 +152,7 @@ export class FirebaseManager {
     const promise = this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
     promise.then(newMatch => {
       let id = newMatch["key"];
-      // add to team members
+      // add to team players
       let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
         subscription.unsubscribe();
         snapshots.forEach(snapshot => {
@@ -182,7 +182,7 @@ export class FirebaseManager {
   }
 
   updateTotalPlayers(teamId: string) {
-    this.af.database.list(`/teams/${teamId}/members`).subscribe(snapshots => {
+    this.af.database.list(`/teams/${teamId}/players`).subscribe(snapshots => {
       this.af.database.object(`/teams/${teamId}/basic-info`).update({ totalPlayers: snapshots.length });
     })
   }
@@ -193,8 +193,8 @@ export class FirebaseManager {
     })
   }
 
-  getTeamMembers(teamId: string) {
-    return this.af.database.list(`/teams/${teamId}/members`);
+  getTeamPlayers(teamId: string) {
+    return this.af.database.list(`/teams/${teamId}/players`);
   }
 
 

@@ -3,7 +3,7 @@ package main
 type team struct {
 	Basic   teamBasic         `json:"basic-info"`
 	Detail  teamDetail        `json:"detail-info"`
-	Members map[string]member `json:"members"`
+	Members map[string]member `json:"players"`
 }
 
 type teamBasic struct {

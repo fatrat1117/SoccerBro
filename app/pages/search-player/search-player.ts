@@ -16,8 +16,7 @@ export class SearchPlayerPage {
     this.totalPlayers = [];
 
     // firebase
-    let subscription = this.fm.getTeamMembers(this.teamId).subscribe(snapshots => {
-      console.log("snapshots: " + snapshots);
+    let subscription = this.fm.getTeamPlayers(this.teamId).subscribe(snapshots => {
       
       subscription.unsubscribe();
       snapshots.forEach(snapshot => {
