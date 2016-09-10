@@ -59,7 +59,7 @@ export class MePage {
 
   goManageTeamPage() {
     this.nav.push(ManageTeamPage, {
-      id: this.am.currentUser.uid,
+      pId: this.am.currentUser.uid,
     });
   }
 

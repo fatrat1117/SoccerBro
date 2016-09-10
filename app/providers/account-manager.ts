@@ -261,6 +261,8 @@ export class AccountManager {
 
   switchTeam(tId, success, error) {
     let player = this.afGetCurrentPlayer();
+    console.log('switchTeam to', tId);
+    
     player.update({ teamId: tId })
       .then(_ => success())
       .catch(err => error(err));
@@ -268,37 +270,41 @@ export class AccountManager {
 
   quitTeam(tId, success, error) {
     //let teamSnapshot = this.getTeamOfCurrentPlayerSnapshot(tId);
+
     let self = this;
-    let afTeam = this.afGetTeam(tId);
+    let afTeam = this.fm.getTeamBasic(tId);
     let subTeam = afTeam.subscribe(teamSnapshot => {
-      subTeam.unsubscribe();
-      if (teamSnapshot.captain != this.currentUser.uid) {
-        let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
-        tOfp.remove().then(_ => {
-          let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
-          pOft.remove().then(_ => {
-            //update total
-            self.fm.updateTeamTotal(tId);
-            success();
-          }).catch(err => error(err));
-        }).catch(err => error(err));
-      } else {
-        //if is captain. check player count
-        let psOft = self.afGetPlayersOfTeam(tId);
-        let sub = psOft.subscribe(playersSnapshot => {
-          sub.unsubscribe();
-          if (playersSnapshot.length > 1) {
-            error("captain can not quit");
-          } else {
-            let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
-            tOfp.remove().then(_ => {
-              psOft.remove().then(_ => {
-                self.fm.deleteTeam(tId, success, error);
-              }).catch(err => error(err));
+      setTimeout(() => {
+        subTeam.unsubscribe();
+         console.log('quit team', teamSnapshot);
+        if (teamSnapshot.captain != this.currentUser.uid) {
+          let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+          tOfp.remove().then(_ => {
+            let pOft = self.afGetPlayerOfTeam(self.currentUser.uid, tId);
+            pOft.remove().then(_ => {
+              //update total
+              self.fm.updateTeamTotal(tId);
+              success();
             }).catch(err => error(err));
-          }
-        });
-      }
+          }).catch(err => error(err));
+        } else {
+          //if is captain. check player count
+          let psOft = self.afGetPlayersOfTeam(tId);
+          let sub = psOft.subscribe(playersSnapshot => {
+            sub.unsubscribe();
+            if (playersSnapshot.length > 1) {
+              error("captain can not quit");
+            } else {
+              let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
+              tOfp.remove().then(_ => {
+                psOft.remove().then(_ => {
+                  self.fm.deleteTeam(tId, success, error);
+                }).catch(err => error(err));
+              }).catch(err => error(err));
+            }
+          });
+        }
+      }, 500);
     })
   }
 

@@ -11,16 +11,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let team of teams">
-      <ion-item (click) = "goTeamPage(team)">
+    <ion-item-sliding *ngFor="let t of afTeams | async">
+      <ion-item (click) = "goTeamPage(t)">
         <ion-avatar item-left>
-          <img [src]="team.logo"/>
+          <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
         </ion-avatar>
-        <h2>{{ team.name }}</h2>
-        <button [disabled] = "isDefault(team) || busy" (click) = "makeDefault(team, $event)" clear item-right>default</button>
+        <h2>{{ (t.$key | teamBasicPipe | async)?.name }}</h2>
+        <button [disabled] = "isDefault(t) || busy" (click) = "makeDefault(t, $event)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
-        <button [disabled] = "isDefault(team) || busy" (click) = "quit(team)" danger>
+        <button [disabled] = "isDefault(t) || busy" (click) = "quit(t)" danger>
         <ion-icon name="trash"></ion-icon>
       </button>
       </ion-item-options>

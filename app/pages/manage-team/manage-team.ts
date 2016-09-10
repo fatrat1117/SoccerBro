@@ -2,26 +2,32 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ModalController} from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager';
+import {FirebaseManager} from '../../providers/firebase-manager';
 import {MyTeamPage} from '../my-team/my-team';
 import {CreateTeamPage} from '../create-team/create-team';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
-  templateUrl: 'build/pages/manage-team/manage-team.html'
+  templateUrl: 'build/pages/manage-team/manage-team.html',
+  pipes: [TeamBasicPipe]
 })
 export class ManageTeamPage {
   teams: any;
   busy: boolean;
+  afTeams: any;
 
   constructor(private am: AccountManager,
   private af: AngularFire, 
   private navParams: NavParams,
   private nav : NavController,
-  private modalController: ModalController) {
-    let pId = this.navParams.get('id');
+  private modalController: ModalController,
+  private fm: FirebaseManager) {
+    let pId = this.navParams.get('pId');
     this.busy = false;
-    this.teams = [];
-    let self = this;
-    this.am.getTeamsOfPlayerSnapshot(pId, this.teams);
+    this.afTeams = fm.getSelfTeams();
+    //this.teams = [];
+    //let self = this;
+    //this.am.getTeamsOfPlayerSnapshot(pId, this.teams);
     // this.am.afGetTeamsOfPlayer(pId).subscribe(_=>{
     //   console.log("team list changed, update manage team UI");
     //   this.teams =  this.am.getTeamsOfCurrentPlayerSnapshot();
@@ -50,8 +56,8 @@ export class ManageTeamPage {
 
     var success = function (){
       //delete team from UI
-      self.teams.splice(self.teams.indexOf(team), 1);
-        self.busy = false;
+      //self.teams.splice(self.teams.indexOf(team), 1);
+      self.busy = false;
     }
 
     var error = function (err) {
