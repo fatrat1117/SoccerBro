@@ -79,26 +79,7 @@ export class MyTeamPage {
     this.isOpen = false;
   }
 
-  manageTeam() {
-    this.nav.push(ManageTeamPage, {
-      id: this.am.currentUser.uid,
-    });
-  }
-
-  addNewTeam() {
-    let modal = this.modalController.create(CreateTeamPage);
-    modal.present();
-  }
-
-  editTeam() {
-    console.log("edit");
-    
-    this.nav.push(EditTeamPage,
-      {
-        tId: this.tId
-      }
-    );
-  }
+  
 
 
 
@@ -117,7 +98,29 @@ export class MyTeamPage {
 
   }
 
+  editTeam() {
+    this.nav.push(EditTeamPage,
+      {
+        tId: this.tId
+      }
+    );
+  }
+
+  /*
   showMenu() {
     this.isOpen = !this.isOpen;
   }
+
+  manageTeam() {
+    this.nav.push(ManageTeamPage, {
+      id: this.am.currentUser.uid,
+    });
+  }
+
+  addNewTeam() {
+    let modal = this.modalController.create(CreateTeamPage);
+    modal.present();
+  }
+  */
+  
 }

@@ -15,8 +15,10 @@
       <h2>{{(afPlayer | async)?.displayName}}</h2>
     </ion-item>
     <ion-item (click)="goManageTeamPage()" detail-push>
-      <ion-icon name="shirt" item-left secondary></ion-icon>
-      Manage Teams
+      <ion-avatar item-left>
+        <ion-img [src]="(defaultTeam | async)?.logo"></ion-img>
+      </ion-avatar>
+      <h2>{{(defaultTeam | async)?.name}}</h2>
     </ion-item>
 
     <!-- show pages -->

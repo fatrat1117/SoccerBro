@@ -8,6 +8,7 @@ import {ManageTeamPage} from '../manage-team/manage-team';
 import {EditPlayerPage} from '../edit-player/edit-player';
 import {MyPlayerPage} from '../my-player/my-player';
 import {FeedbackPage} from '../feedback/feedback';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/me/me.html'
@@ -33,7 +34,7 @@ export class MePage {
         self.showMyTeam = false;
         self.showCreateTeam = true;
       }
-      //self.defaultTeam = self.am.afGetTeam(self.player.teamId);
+      self.defaultTeam = self.am.afGetTeam(self.player.teamId);
     });
   }
 

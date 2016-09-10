@@ -23,16 +23,27 @@
     <h3 text-center><span class="player-bold-text" primary>Captain: &nbsp;</span>{{(afTeamCaptain | async)?.displayName}}</h3>
   </ion-card>
 
-  <ion-card class="my-team-header-margin-top-2rem">
-    <ion-card-header class="my-team-header-decoration my-team-description-header">
+  <ion-card>
+    <ion-card-header class="player-header-decoration">
       About
     </ion-card-header>
     <ion-card-content>
-      <p class="my-team-description-p">{{(afTeamDetail | async)?.description}}
+      <p>
+        {{(afTeamDetail | async)?.description}}
       </p>
     </ion-card-content>
   </ion-card>
 
+  <div class="fab-buttons">
+    <button secondary fab fab-bottom fab-left (click)="editTeam()">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+    <button primary fab fab-bottom fab-right (click)="invitePlayer()">
+      <ion-icon name="md-person-add"></ion-icon>
+    </button>
+  </div>
+
+<!-- Floating menu>
   <button fab fab-bottom fab-right class="floating-button disable-hover" (click)="showMenu()">
     <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
   </button>
@@ -47,6 +58,7 @@
       <ion-icon name="md-create"></ion-icon>
     </button>
   </div>
+<-->
 
 
 </ion-content>
