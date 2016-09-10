@@ -35,7 +35,7 @@
           <ion-img [src]="(afTeamCaptain | async)?.photoURL"></ion-img>
         </ion-avatar>
         <h2>{{(afTeamCaptain | async)?.displayName}}</h2>
-        <button clear item-right (click)="searchPlayers()">View All Members</button>
+        <button clear item-right (click)="searchPlayers()">View All&nbsp;<span secondary>{{(afTeam | async)?.totalPlayers }}</span>&nbsp;Members</button>
       </ion-item>
     </ion-card-content>
   </ion-card>
