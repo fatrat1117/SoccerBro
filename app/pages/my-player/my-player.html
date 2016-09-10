@@ -19,7 +19,7 @@
       </div>
       <img class="avatar" [src]="(afBasic | async)?.photoURL">
     </ion-thumbnail>
-    <h2 class="bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
+    <h2 class="player-bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
     <h3 text-center><span class="player-bold-text" primary>{{(afDetail | async)?.position}}</span> <ion-icon name="ios-at-outline" dark></ion-icon> {{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
   </ion-card>
 

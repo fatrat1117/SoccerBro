@@ -28,19 +28,18 @@
       Homepage
     </ion-item>
     <ion-item (click)="goTeamPage()" *ngIf="showMyTeam" detail-push>
-      <ion-icon name="md-shirt" item-left primary></ion-icon>
+      <ion-icon name="md-people" item-left primary></ion-icon>
       My Team
     </ion-item>
     <ion-item (click)="showCreateTeamModel()" *ngIf="showCreateTeam">
-      <ion-icon name="md-shirt" item-left primary></ion-icon>
+      <ion-icon name="md-people" item-left primary></ion-icon>
       Create Team
     </ion-item>
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="goFeedbackPage()" detail-push>
-      <ion-icon name="help" item-left primary></ion-icon>
+      <ion-icon name="help" item-left bright></ion-icon>
       Feedback
     </ion-item>
-    <ion-item-divider light></ion-item-divider>
     <ion-item (click)="onLogout()">
       <ion-icon name="md-exit" item-left danger></ion-icon>
       Logout
