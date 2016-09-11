@@ -54,24 +54,28 @@
             </div>
             <div class="modal-body">
 
-              <div class="container">
+              <div class="container" onclick="refreshForm()">
                 <div class="card"></div>
 
                 <div class="card">
                   <h1 class="title">Login</h1>
-                  <form>
+                  <div id="jointeam_email_input_error_alert" style="display: none;" class="alert" onclick="this.style.display='none';">
+                    <span class="closebtn" >&times;</span>
+                  </div>
+
+                  <form name="jointeam_email_login_form"  onsubmit="return onEmailLogin()" method="post">
                     <div class="input-container">
-                      <input type="text" id="Username" required="required"/>
+                      <input type="text" id="Username" name="jointeam_email_input" required="required"/>
                       <label for="Username">Email</label>
                       <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                      <input type="password" id="Password" required="required"/>
+                      <input type="password" id="Password" name="jointeam_password_input" required="required"/>
                       <label for="Password">Password</label>
                       <div class="bar"></div>
                     </div>
                     <div class="button-container">
-                      <button onclick="onEmailLogin()"><span>Go</span></button>
+                      <button type="submit" value="Submit"><span>Go</span></button>
                     </div>
                     <div class="footer"><a href="#">Forgot your password?</a></div>
                   </form>

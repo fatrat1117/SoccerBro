@@ -108,10 +108,56 @@ function onFbLogin() {
 }
 
 function onEmailLogin(){
+  var email = document.forms["jointeam_email_login_form"]["jointeam_email_input"].value;
+  var password = document.forms["jointeam_email_login_form"]["jointeam_password_input"].value;
 
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result){
+
+      console.log(result);
+      alert(email+"!, SoccerBro 欢迎你！");
+      window.location.href = "success.html";
+
+    },function(error){
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      if (errorMessage != ""  && errorMessage != null){
+        //some error
+        console.log(errorCode);
+        console.log(email);
+        console.log(password);
+
+        var email_input = document.getElementsByName("jointeam_email_input");
+        var password_input = document.getElementsByName("jointeam_password_input");
+
+        empty_error_message();
+        $('#jointeam_email_input_error_alert').append(errorMessage);
+        $('#jointeam_email_input_error_alert').css("display","block");
+
+
+      }else {
+        //do something login things
+
+
+      }
+    });
+  return false;
 }
 
 
+
+//some event
+
+function empty_error_message(){
+  $('#jointeam_email_input_error_alert').empty();
+  $('#jointeam_email_input_error_alert').css("display","none");
+
+}
+
+function refreshForm(){
+  empty_error_message();
+}
 
 //some firebase apis
 function onDefaultTeamChanged() {

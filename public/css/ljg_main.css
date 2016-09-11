@@ -43,7 +43,9 @@
 }
 
 
+.input-container .alert{
 
+}
 
 
 
@@ -391,6 +393,10 @@
   /* Button */
 }
 .card.alt .toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   position: relative;
   background: #ed2553;
   width: 140px;
