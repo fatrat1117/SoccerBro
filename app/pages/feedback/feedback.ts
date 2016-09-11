@@ -16,6 +16,7 @@ export class FeedbackPage {
   }
 
   submit() {
+    this.fm.sendFeedback(this.feedbackContent.trim());
     this.am.showToast('Thanks for your feedback!');
     this.nav.pop();
   }
