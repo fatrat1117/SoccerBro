@@ -19,74 +19,6 @@ var _appModel = {
 }
 
 
-function firebaseRedirect(){
-
-  firebase.auth().getRedirectResult().then(function(result) {
-    if (result.credential) {
-      console.log("redirect");
-      console.log("got credential");
-      _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-
-      var user = result.user;
-      var pId = result.user.uid;
-      console.log(user);
-
-
-      var playerData = {};
-      playerData['basic-info'] = {'displayName': user.displayName, 'photoURL': user.photoURL , 'teamId':_teamId};
-      playerData['teams'] = {_teamId:true};
-      //Add userInfo into teams table
-      //Add userInfo into players table
-      var teamRef = getTeamRef(_teamId);
-      var updates = {};
-      updates['/players/' + pId] = {'goals':0,'number':11};
-      teamRef.update(updates);
-      console.log(pId);
-
-      try {
-        updates = {};
-        updates[pId] = playerData;
-        // don't use set(updates) here
-        firebase.database().ref("players/").update(updates);
-        console.log(pId);
-      }catch(e){
-        alert(e);
-      }
-
-    }else{
-      console.log("show");
-    }
-
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
-}
-
-function $_GET(param) {
-  var vars = {};
-  window.location.href.replace(location.hash, '').replace(
-    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-    function (m, key, value) { // callback
-      vars[key] = value !== undefined ? value : '';
-    }
-  );
-
-  if (param) {
-    return vars[param] ? vars[param] : null;
-  }
-  return vars;
-}
-
-
 
 function initApp(){
 
@@ -111,19 +43,48 @@ function onEmailLogin(){
   var email = document.forms["jointeam_email_login_form"]["jointeam_email_input"].value;
   var password = document.forms["jointeam_email_login_form"]["jointeam_password_input"].value;
 
-
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result){
 
-      console.log(result);
-      alert(email+"!, SoccerBro 欢迎你！");
-      window.location.href = "success.html";
+      firebase.auth().signInWithEmailAndPassword(email,password).then(function(credential){
+
+        console.log(credential);
+        var userId = credential.uid;
+        if (userId) {
+
+          var playerData = {};
+          var updates = {};
+          playerData['basic-info'] = {'displayName': result.email};
+          try {
+            updates = {};
+            updates[userId] = playerData;
+            // don't use set(updates) here
+            firebase.database().ref("players/"+userId).update(updates).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+              throw errorMessage;
+            });
+            console.log(userId,updates,playerData);
+
+            alert(email+"!, SoccerBro 欢迎你！");
+            //window.location.href = "success.html";
+          }catch(e){
+            alert(e);
+          }
+
+        }
+      },function (error) {
+        var errorMessage = error.message;
+        alert(errorMessage);
+      });
+
 
     },function(error){
       var errorCode = error.code;
       var errorMessage = error.message;
 
-      if (errorMessage != ""  && errorMessage != null){
-        //some error
+
         console.log(errorCode);
         console.log(email);
         console.log(password);
@@ -135,15 +96,87 @@ function onEmailLogin(){
         $('#jointeam_email_input_error_alert').append(errorMessage);
         $('#jointeam_email_input_error_alert').css("display","block");
 
-
-      }else {
-        //do something login things
-
-
-      }
     });
   return false;
 }
+
+
+
+
+function firebaseRedirect(){
+
+  firebase.auth().getRedirectResult().then(function(result) {
+    if (result.credential) {
+      console.log("redirect");
+      console.log("got credential");
+      _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      var token = result.credential.accessToken;
+      var user = result.user;
+      var pId = result.user.uid;
+      console.log(user);
+
+      var playerData = {};
+      //var playerPublicData = {};
+      playerData['basic-info'] = {'displayName': user.displayName, 'photoURL': user.photoURL , 'teamId':_teamId};
+      //playerPublicData = {'name':user.displayName, 'popularity':0}
+      playerData['teams'] = {_teamId:true};
+      //Add userInfo into teams table
+      //Add userInfo into players table
+      var teamRef = getTeamRef(_teamId);
+      var updates = {};
+      updates['/players/' + pId] = {'goals':0,'number':11};
+      teamRef.update(updates);
+      console.log(pId);
+
+      //Add new user into players table and public table
+      try {
+        var playersUpdates = {};
+        //var publicUpdates = {};
+        playersUpdates[pId] = playerData;
+        //publicUpdates[pId] = playerPublicData;
+        // don't use set(updates) here
+        firebase.database().ref("players/").update(playersUpdates);
+        //firebase.database().ref("public/players/").update(publicUpdates);
+        console.log(pId);
+      }catch(e){
+        alert(e);
+      }
+
+    }else{
+      console.log("show");
+    }
+
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+}
+
+
+
+
+function $_GET(param) {
+  var vars = {};
+  window.location.href.replace(location.hash, '').replace(
+    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+    function (m, key, value) { // callback
+      vars[key] = value !== undefined ? value : '';
+    }
+  );
+
+  if (param) {
+    return vars[param] ? vars[param] : null;
+  }
+  return vars;
+}
+
 
 
 
