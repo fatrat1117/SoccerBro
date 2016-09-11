@@ -68,7 +68,7 @@ function onEmailLogin(){
             console.log(userId,updates,playerData);
 
             alert(email+"!, SoccerBro 欢迎你！");
-            //window.location.href = "success.html";
+            window.location.href = "success.html";
           }catch(e){
             alert(e);
           }
@@ -105,6 +105,9 @@ function onEmailLogin(){
 
 function firebaseRedirect(){
 
+  if (window.location.href.indexOf('#') != -1){
+    close();
+  }
   firebase.auth().getRedirectResult().then(function(result) {
     if (result.credential) {
       console.log("redirect");
@@ -139,9 +142,12 @@ function firebaseRedirect(){
         firebase.database().ref("players/").update(playersUpdates);
         //firebase.database().ref("public/players/").update(publicUpdates);
         console.log(pId);
+        alert(user.displayName+"!, SoccerBro 欢迎你！");
+        window.location.href = "success.html";
       }catch(e){
         alert(e);
       }
+
 
     }else{
       console.log("show");
