@@ -4,9 +4,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-searchbar (ionInput)="filterPlayers($event)"></ion-searchbar>
-  <ion-list [virtualScroll]="filteredPlayers">
+  <ion-list [virtualScroll]="filteredPlayers" style="left: 3%">
     <ion-item *virtualItem="let player" (click)="showPlayerPage(player.id)">
       <ion-avatar item-left>
         <ion-img [src] = "player.photoURL"></ion-img>
