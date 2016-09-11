@@ -26,7 +26,7 @@ export class MePage {
     this.afPlayer = am.afGetCurrentPlayer();
     this.afPlayer.subscribe(snapshot => {
       self.player = snapshot;
-      //console.log("current player data changed, update me UI", snapshot);
+      console.log("current player data changed, update me UI", snapshot);
       if (self.player.teamId) {
         self.showMyTeam = true;
         self.showCreateTeam = false;
