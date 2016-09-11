@@ -24,53 +24,145 @@
   <script src="js/knockout-3.4.0.js"></script>
   <script src="js/ljg_main.js"></script>
 
-  <style>
-    body {
-      font-size: 20px;
-      color: rgb(51, 51, 51);
-      background-color: rgb(225, 227, 226);
-      font-weight: 100;
-      font-family: ciscosanstt_thinregular, 微软雅黑, 宋体, Arial, Helvetica, sans-serif;
-      margin: 0px;
-      padding: 0px;
-    }
-
-    #body_container {
-      width: 768px;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: white;
-      min-height: 1000px;
-      box-shadow: 0px 0px 15px rgba(0,0,0,0.7);
-    }
-  </style>
 </head>
 
 <body>
 <div class="jointeam_index_main_div">
+
   <div class="jointeam_index_facebook_login">
-      <div class="login_link">
-        <a class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
-          <span class="fa fa-facebook"></span>Sign in with Facebook
-        </a>
-      </div>
+    <div class="login_link">
+      <a class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
+        <span class="fa fa-facebook"></span>Sign in with Facebook
+      </a>
+    </div>
   </div>
 
 
 
   <div class="jointeam_index_email_login">
     <div class="login_link">
-      <a class="btn btn-block btn-social btn-google" onclick="">
+      <a class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">
         <span class="fa fa-google"></span> Sign in with Email
       </a>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">User Register</h4>
+            </div>
+            <div class="modal-body">
+
+              <div class="container">
+                <div class="card"></div>
+
+                <div class="card">
+                  <h1 class="title">Login</h1>
+                  <form>
+                    <div class="input-container">
+                      <input type="text" id="Username" required="required"/>
+                      <label for="Username">Email</label>
+                      <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                      <input type="password" id="Password" required="required"/>
+                      <label for="Password">Password</label>
+                      <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                      <button onclick="onEmailLogin()"><span>Go</span></button>
+                    </div>
+                    <div class="footer"><a href="#">Forgot your password?</a></div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="line_sperator"><b></b><span>先用上面的功能测试</span><b></b></div>
+
+  <div class="pen-title">
+    <h1>用户注册 - beta</h1><span><i class='fa fa-code'></i> by <a href='#'>SoccerBro</a></span>
+  </div>
+  <div class="container">
+    <div class="card"></div>
+
+    <div class="card">
+      <h1 class="title">Login</h1>
+      <form>
+        <div class="input-container">
+          <input type="text" id="Username" required="required"/>
+          <label for="Username">Username</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="Password" required="required"/>
+          <label for="Password">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button><span>Go</span></button>
+        </div>
+        <div class="footer"><a href="#">Forgot your password?</a></div>
+      </form>
     </div>
 
+    <div class="card alt">
+      <div class="toggle"></div>
+      <h1 class="title">Register
+        <div class="close"></div>
+      </h1>
+      <form>
+        <div class="input-container">
+          <input type="text" id="Username" required="required"/>
+          <label for="Username">Username</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="Password" required="required"/>
+          <label for="Password">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="Repeat Password" required="required"/>
+          <label for="Repeat Password">Repeat Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button><span>Next</span></button>
+        </div>
+      </form>
+      <script>
+        $('.toggle').on('click', function () {
+          $('.container').stop().addClass('active');
+        });
 
-
+        $('.close').on('click', function () {
+          $('.container').stop().removeClass('active');
+        });
+      </script>
+    </div>
   </div>
 
 
 
 </div>
+
+
+
+
+
 </body>
 </html>

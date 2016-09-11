@@ -24,8 +24,6 @@ export class MyTeamPage {
   teamPlayers: any;
   teamPlayersNumber: any;
 
-
-
   //af
   afTeam: FirebaseObjectObservable<any>;
   afTeamCaptain: FirebaseObjectObservable<any>;
@@ -58,32 +56,21 @@ export class MyTeamPage {
         this.teamCaptain = playerSnapshot;
       });
     });
-    // this.afTeamCaptain = this.am.afGetTeamCaptain(this.afTeam.)
-    // console.log("123");
-    // console.log(this.afTeam);
-    // console.log("456");
-    // var teamAvatarImg = this.getTeamAvatar(this.teamAvatar);
-    // console.log(teamAvatarImg.width);
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
     this.afTeamPublic = this.fm.getTeamPublic(this.tId);
     this.fm.increasePopularity(this.afTeamPublic);
-    var number;
-    let afTeamPlayers = this.fm.getPlayers(this.tId);
-    let subPlayer = afTeamPlayers.subscribe(snapshot => {
-      console.log(this.tId);
-      this.teamPlayersNumber = snapshot.length;
-      this.teamPlayers = snapshot;
-    });
+    // var number;
+    // let afTeamPlayers = this.fm.getPlayers(this.tId);
+    // let subPlayer = afTeamPlayers.subscribe(snapshot => {
+    //   console.log(this.tId);
+    //   this.teamPlayersNumber = snapshot.length;
+    //   this.teamPlayers = snapshot;
+    // });
 
     //console.log(this.teamPlayersNumber);
     this.isOpen = false;
   }
-
-  
-
-
-
 
   getTeamAvatar(src) {
     var image = new Image();
@@ -111,21 +98,8 @@ export class MyTeamPage {
     this.nav.push(SearchPlayerPage, { teamId: this.tId });
   }
 
-  /*
-  showMenu() {
-    this.isOpen = !this.isOpen;
+  isCaptain() {
+    return true;
+    //return new Promise<string>((resolve, reject) => { console.log(resolve); resolve('false') });;
   }
-
-  manageTeam() {
-    this.nav.push(ManageTeamPage, {
-      id: this.am.currentUser.uid,
-    });
-  }
-
-  addNewTeam() {
-    let modal = this.modalController.create(CreateTeamPage);
-    modal.present();
-  }
-  */
-  
 }

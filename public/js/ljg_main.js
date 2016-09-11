@@ -102,32 +102,37 @@ function initApp(){
 
 function onFbLogin() {
 
-
   var provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithRedirect(provider);
 
 }
 
-  function onDefaultTeamChanged() {
-    window.location = "https://stk-soccer.firebaseapp.com/";
-  }
+function onEmailLogin(){
 
-  function getTeamRef(id) {
-    return firebase.database().ref("teams/" + id);
-  }
+}
 
-  function getPlayerTeamsRef(pId, tId) {
-    return firebase.database().ref("players/" + pId + "/teams/" + tId);
-  }
 
-  function getTeamPlayersRef(tId, pId) {
-    return firebase.database().ref("teams/" + tId + "/members/" + pId);
-  }
 
-  function getPlayerRef (id) {
-    return firebase.database().ref("players/" + id);
-  }
+//some firebase apis
+function onDefaultTeamChanged() {
+  window.location = "https://stk-soccer.firebaseapp.com/";
+}
 
+function getTeamRef(id) {
+  return firebase.database().ref("teams/" + id);
+}
+
+function getPlayerTeamsRef(pId, tId) {
+  return firebase.database().ref("players/" + pId + "/teams/" + tId);
+}
+
+function getTeamPlayersRef(tId, pId) {
+  return firebase.database().ref("teams/" + tId + "/members/" + pId);
+}
+
+function getPlayerRef(id) {
+  return firebase.database().ref("players/" + id);
+}
 
 
 

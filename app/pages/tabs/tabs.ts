@@ -18,7 +18,7 @@ export class TabsPage implements OnInit {
   private tab2Root: any;
   private tab3Root: any;
   private tab4Root: any;
-  private tab5Root: any;
+  //private tab5Root: any;
 
   constructor(private am: AccountManager, private nav: NavController, private modalController: ModalController, private af: AngularFire) {
     // this tells the tabs component which Pages
@@ -27,7 +27,7 @@ export class TabsPage implements OnInit {
     this.tab2Root = StatsPage;
     this.tab3Root = null;
     this.tab4Root = null;
-    this.tab5Root = MyTeamPage;
+    //this.tab5Root = MyTeamPage;
   }
 
   ngOnInit() {
