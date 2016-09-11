@@ -95,11 +95,6 @@ export class MyTeamPage {
   }
 
   searchPlayers() {
-    this.nav.push(SearchPlayerPage, { teamId: this.tId });
-  }
-
-  isCaptain() {
-    return true;
-    //return new Promise<string>((resolve, reject) => { console.log(resolve); resolve('false') });;
+    this.nav.push(SearchPlayerPage, { teamId: this.tId, showDetail: true });
   }
 }

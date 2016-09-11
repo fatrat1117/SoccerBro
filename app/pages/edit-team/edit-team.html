@@ -2,35 +2,40 @@
   <ion-navbar>
     <ion-title>Edit Team</ion-title>
     <ion-buttons end>
-      <button [disabled] = "busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length)" 
-      (click) = "save()">
+      <button [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length)" (click)="save()">
         Save
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
+    <ion-item-divider light></ion-item-divider>
     <ion-item>
       <h2>Logo</h2>
       <ion-thumbnail item-right>
-        <img [src]="logoUrl || (afTeam | async)?.logo" (click)="changeLogo()"/>
+        <img [src]="logoUrl || (afTeam | async)?.logo" (click)="changeLogo()" />
       </ion-thumbnail>
     </ion-item>
     <ion-item>
       <ion-label floating>name</ion-label>
-      <ion-input type="text" maxlength="32"
-      [ngModel]="(afTeam | async)?.name"
-      (ngModelChange)="team.name=$event">
+      <ion-input type="text" maxlength="32" [ngModel]="(afTeam | async)?.name" (ngModelChange)="team.name=$event">
       </ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>description</ion-label>
-      <ion-textarea type="text" maxlength="128"
-      [ngModel]="(afTeamDetails | async)?.description"
-      (ngModelChange)="team.description=$event">
+      <ion-textarea type="text" maxlength="128" [ngModel]="(afTeamDetails | async)?.description" (ngModelChange)="team.description=$event">
       </ion-textarea>
+    </ion-item>
+    <ion-item-divider light></ion-item-divider>
+    <ion-item (click)="searchPlayer()">
+      <ion-icon name="md-alert" item-left danger></ion-icon>
+      Change Captain
+    </ion-item>
+    <ion-item>
+      <ion-icon name="md-alert" item-left danger></ion-icon>
+      Change Captain
     </ion-item>
   </ion-list>
 </ion-content>

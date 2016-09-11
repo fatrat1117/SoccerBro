@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Match Detail</ion-title>
-    <ion-buttons end *ngIf="(teamId | teamBasicPipe | async)?.captain == selfId">
+    <ion-buttons end *ngIf="(teamId | teamBasicPipe | async)?.captain === selfId">
       <button danger (click)="withDrawMatch()">
         Withdraw Match
       </button>

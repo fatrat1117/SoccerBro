@@ -7,7 +7,7 @@
 <ion-content>
   <ion-searchbar (ionInput)="filterPlayers($event)"></ion-searchbar>
   <ion-list [virtualScroll]="filteredPlayers">
-    <ion-item *virtualItem="let player" (click)="showPlayerPage(player.id)">
+    <ion-item *virtualItem="let player" (click)="selectPlayer(player.id)">
       <ion-avatar item-left>
         <ion-img [src] = "player.photoURL"></ion-img>
       </ion-avatar>

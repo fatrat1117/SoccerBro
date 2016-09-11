@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {MyPlayerPage} from '../my-player/my-player';
 
@@ -8,11 +8,13 @@ import {MyPlayerPage} from '../my-player/my-player';
   templateUrl: 'build/pages/search-player/search-player.html',
 })
 export class SearchPlayerPage {
+  showDetail: boolean;
   teamId: string;
   totalPlayers: any[];
   filteredPlayers: any[];
-  constructor(private nav: NavController, private navParams: NavParams, private fm: FirebaseManager) {
-    this.teamId = this.navParams.get('teamId'); 
+  constructor(private nav: NavController, private navParams: NavParams, private fm: FirebaseManager, private viewCtrl: ViewController) {
+    this.teamId = this.navParams.get('teamId');
+    this.showDetail = this.navParams.get('showDetail');
     this.totalPlayers = [];
 
     // firebase
@@ -55,7 +57,21 @@ export class SearchPlayerPage {
     }
   }
 
+  selectPlayer(id: string) {
+    if (this.showDetail === true)
+      this.nav.push(MyPlayerPage, { pId: id });
+    else
+      this.viewCtrl.dismiss({ playerId: id });
+  }
+
   showPlayerPage(id: string) {
+    console.log("hhhh" + this.showDetail);
     this.nav.push(MyPlayerPage, { pId: id });
   }
+
+  /*
+  dismiss(id: string) {
+    this.viewCtrl.dismiss({ playerId: id });
+  }
+  */
 }
