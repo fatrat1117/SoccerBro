@@ -13,9 +13,9 @@
     <meta name="HandheldFriendly" content="true"/>
     <meta name="MobileOptimized" content="768"/>
 
-    <script src="js/firebase.js"></script>
-    <script src="js/knockout-3.4.0.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/firebase.js"></script>
+    <script src="../js/knockout-3.4.0.js"></script>
+    <script src="../js/main.js"></script>
 
     <style>
         body {
@@ -39,7 +39,7 @@
     </style>
  </head>
 
-<body onload="onLoad()">	
+<body onload="onLoad()">
     <div id="body_container" style="margin-left: 0  !important; height: 100% !important; min-height: 1000px !important">
 		<div id="div_content" style="text-align: center; padding : 17px 17px 34px 17px; font-size: 30px; display:none">
 			<p>Please login to join</p>
@@ -47,7 +47,7 @@
             <p data-bind="text: teamName"></p>
             <p>
                 <a href="#" target="_blank">
-                    <input type="image" src="fb_login_btn.png" alt="Login with Facebook" width="60%" onclick="onFbLogin()" />
+                    <input type="image" src="../img/fb_login_btn.png" alt="Login with Facebook" width="60%" onclick="onFbLogin()" />
                 </a>
             </p>
 		</div>

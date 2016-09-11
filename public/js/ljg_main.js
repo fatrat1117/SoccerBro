@@ -48,6 +48,8 @@ function onEmailLogin(){
       firebase.auth().signInWithEmailAndPassword(email,password).then(function(credential){
 
         console.log(credential);
+        console.log(result.uid);
+        console.log(credential.uid);
         var userId = credential.uid;
         if (userId) {
 
@@ -68,7 +70,7 @@ function onEmailLogin(){
             console.log(userId,updates,playerData);
 
             alert(email+"!, SoccerBro 欢迎你！");
-            window.location.href = "success.html";
+            //window.location.href = "success.html";
           }catch(e){
             alert(e);
           }
