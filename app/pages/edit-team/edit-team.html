@@ -19,23 +19,30 @@
       </ion-thumbnail>
     </ion-item>
     <ion-item>
-      <ion-label floating>name</ion-label>
+      <ion-label floating>Name</ion-label>
       <ion-input type="text" maxlength="32" [ngModel]="(afTeam | async)?.name" (ngModelChange)="team.name=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>description</ion-label>
+      <ion-label floating>Description</ion-label>
       <ion-textarea type="text" maxlength="128" [ngModel]="(afTeamDetails | async)?.description" (ngModelChange)="team.description=$event">
       </ion-textarea>
     </ion-item>
-    <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="searchPlayer()">
-      <ion-icon name="md-alert" item-left danger></ion-icon>
-      Change Captain
-    </ion-item>
-    <ion-item>
-      <ion-icon name="md-alert" item-left danger></ion-icon>
-      Change Captain
-    </ion-item>
+    <div *ngIf="!newCaptain">
+      <ion-item-divider light></ion-item-divider>
+      <ion-item (click)="searchPlayer()">
+        <ion-icon name="md-alert" item-left danger></ion-icon>
+        Change Captain
+      </ion-item>
+    </div>
+    <div *ngIf="newCaptain">
+      <ion-list-header light>New Captain</ion-list-header>
+      <ion-item *ngIf="newCaptain">
+        <ion-avatar item-left>
+          <ion-img [src]="(newCaptain | playerBasicPipe | async)?.photoURL"></ion-img>
+        </ion-avatar>
+        {{ (newCaptain | playerBasicPipe | async)?.displayName }}
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>

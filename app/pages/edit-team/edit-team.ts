@@ -3,9 +3,11 @@ import {NavController, NavParams, ModalController} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {SearchPlayerPage} from '../search-player/search-player';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
-  templateUrl: 'build/pages/edit-team/edit-team.html'
+  templateUrl: 'build/pages/edit-team/edit-team.html',
+  pipes: [PlayerBasicPipe]
 })
 export class EditTeamPage {
   busy: boolean;
@@ -15,7 +17,7 @@ export class EditTeamPage {
   team: any;
   logoData: any;
   logoUrl: any;
-  newCaptain: any;
+  newCaptain: string;
 
   constructor(private am: AccountManager,
               private navParams: NavParams,
@@ -32,6 +34,8 @@ export class EditTeamPage {
       name: '',
       description: ''
     };
+    //this.newCaptain = '';
+    
   }
 
   changeLogo() {
@@ -54,7 +58,6 @@ export class EditTeamPage {
     let searchPlayerModal = this.modalCtrl.create(SearchPlayerPage, { teamId: this.tId, showDetail: false });
     searchPlayerModal.onDidDismiss(data => {
       this.newCaptain = data.playerId;
-      console.log(this.newCaptain);
     });
     searchPlayerModal.present();
   }

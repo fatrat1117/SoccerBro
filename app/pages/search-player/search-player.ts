@@ -63,15 +63,4 @@ export class SearchPlayerPage {
     else
       this.viewCtrl.dismiss({ playerId: id });
   }
-
-  showPlayerPage(id: string) {
-    console.log("hhhh" + this.showDetail);
-    this.nav.push(MyPlayerPage, { pId: id });
-  }
-
-  /*
-  dismiss(id: string) {
-    this.viewCtrl.dismiss({ playerId: id });
-  }
-  */
 }

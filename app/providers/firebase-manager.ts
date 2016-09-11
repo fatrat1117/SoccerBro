@@ -213,6 +213,10 @@ export class FirebaseManager {
     return this.af.database.list(`/teams/${teamId}/players`);
   }
 
+  setNewCaptain(teamId: string, playerId: string) {
+    this.af.database.object(`/teams/${teamId}/basic-info`).update({ captain: playerId });
+  } 
+
 
 
 
