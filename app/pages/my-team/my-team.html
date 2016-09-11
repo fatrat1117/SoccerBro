@@ -52,7 +52,7 @@
   </ion-card>
 
   <div class="fab-buttons">
-    <button secondary fab fab-bottom fab-left (click)="editTeam()">
+    <button secondary fab fab-bottom fab-left (click)="editTeam()" *ngIf="isCaptain()">
       <ion-icon name="md-create"></ion-icon>
     </button>
     <button primary fab fab-bottom fab-right (click)="invitePlayer()">

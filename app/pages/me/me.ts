@@ -16,7 +16,6 @@ import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 export class MePage {
   defaultTeam: any;
   player: any;
-  //defaultTeam: any;
   afPlayer: any;
   showMyTeam = false;
   showCreateTeam = false;
@@ -28,13 +27,13 @@ export class MePage {
       self.player = snapshot;
       console.log("current player data changed, update me UI", snapshot);
       if (self.player.teamId) {
+        self.defaultTeam = self.am.afGetTeam(self.player.teamId);
         self.showMyTeam = true;
         self.showCreateTeam = false;
       } else {
         self.showMyTeam = false;
         self.showCreateTeam = true;
       }
-      self.defaultTeam = self.am.afGetTeam(self.player.teamId);
     });
   }
 
