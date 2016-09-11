@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content>
   <ion-searchbar (ionInput)="filterTeams($event)"></ion-searchbar>
   <ion-list [virtualScroll]="filteredTeams">
     <ion-item *virtualItem="let team" (click)="dismiss(team)">

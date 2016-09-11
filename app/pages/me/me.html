@@ -14,7 +14,7 @@
       </ion-avatar>
       <h2>{{(afPlayer | async)?.displayName}}</h2>
     </ion-item>
-    <ion-item (click)="goManageTeamPage()" detail-push>
+    <ion-item (click)="goManageTeamPage()" *ngIf="showMyTeam" detail-push>
       <ion-avatar item-left>
         <ion-img [src]="(defaultTeam | async)?.logo"></ion-img>
       </ion-avatar>

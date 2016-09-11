@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-searchbar (ionInput)="filterPlayers($event)"></ion-searchbar>
   <ion-list [virtualScroll]="filteredPlayers">
     <ion-item *virtualItem="let player" (click)="showPlayerPage(player.id)">

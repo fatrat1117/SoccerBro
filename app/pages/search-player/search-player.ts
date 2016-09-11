@@ -16,12 +16,12 @@ export class SearchPlayerPage {
     this.totalPlayers = [];
 
     // firebase
-    let subscription = this.fm.getTeamPlayers(this.teamId).subscribe(snapshots => {
-      
-      subscription.unsubscribe();
+    this.fm.getTeamPlayers(this.teamId).subscribe(snapshots => {
+      //console.log(snapshots);
+      this.totalPlayers = [];
       snapshots.forEach(snapshot => {
         let player: any = {};
-        let subs = this.fm.getPlayerBasic(snapshot.$key).subscribe(s => {
+        this.fm.getPlayerBasic(snapshot.$key).subscribe(s => {
           player.id = snapshot.$key;
           player.displayName = s.displayName;
           player.photoURL = s.photoURL;
