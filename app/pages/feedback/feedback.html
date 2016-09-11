@@ -11,5 +11,5 @@
      </ion-textarea>
     </ion-item>
   </ion-list>
-  <button (click)="submit()" block>Submit</button>
+  <button [disabled] = "0 === feedbackContent.trim().length" (click)="submit()" block>Submit</button>
 </ion-content>

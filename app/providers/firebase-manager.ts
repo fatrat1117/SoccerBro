@@ -165,6 +165,22 @@ export class FirebaseManager {
         });
       });
     });
+
+    // update totalMatches
+    this.updateTotalMatches(this.selfTeamId);
+  }
+
+  withdrawSelfMatch(matchId: string) {
+    const promise = this.af.database.object(`/teams/${this.selfTeamId}/matches/${matchId}`).remove();
+    promise.then(_ => {
+      let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
+        subscription.unsubscribe();
+        snapshots.forEach(snapshot => {
+          this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
+        });
+      });
+    });
+    
     // update totalMatches
     this.updateTotalMatches(this.selfTeamId);
   }
@@ -196,6 +212,10 @@ export class FirebaseManager {
   getTeamPlayers(teamId: string) {
     return this.af.database.list(`/teams/${teamId}/players`);
   }
+
+  setNewCaptain(teamId: string, playerId: string) {
+    this.af.database.object(`/teams/${teamId}/basic-info`).update({ captain: playerId });
+  } 
 
 
 

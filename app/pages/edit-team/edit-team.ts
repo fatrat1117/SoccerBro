@@ -1,10 +1,13 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
+import {SearchPlayerPage} from '../search-player/search-player';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
-  templateUrl: 'build/pages/edit-team/edit-team.html'
+  templateUrl: 'build/pages/edit-team/edit-team.html',
+  pipes: [PlayerBasicPipe]
 })
 export class EditTeamPage {
   busy: boolean;
@@ -14,11 +17,13 @@ export class EditTeamPage {
   team: any;
   logoData: any;
   logoUrl: any;
+  newCaptain: string;
 
   constructor(private am: AccountManager,
-    private navParams: NavParams,
-    private nav: NavController,
-    private fm : FirebaseManager) {
+              private navParams: NavParams,
+              private nav: NavController,
+              private fm : FirebaseManager,
+              private modalCtrl: ModalController) {
     this.tId = this.navParams.get('tId');
     this.busy = false;
     this.afTeam = this.fm.getTeamBasic(this.tId);
@@ -29,6 +34,8 @@ export class EditTeamPage {
       name: '',
       description: ''
     };
+    //this.newCaptain = '';
+    
   }
 
   changeLogo() {
@@ -46,6 +53,15 @@ export class EditTeamPage {
     }
     this.am.selectImgGetData(success, error);
   }
+
+  searchPlayer() {
+    let searchPlayerModal = this.modalCtrl.create(SearchPlayerPage, { teamId: this.tId, showDetail: false });
+    searchPlayerModal.onDidDismiss(data => {
+      this.newCaptain = data.playerId;
+    });
+    searchPlayerModal.present();
+  }
+  
 
   saveTeam(teamObj) {
     let self = this;

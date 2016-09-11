@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Match Detail</ion-title>
+    <ion-buttons end *ngIf="(teamId | teamBasicPipe | async)?.captain === selfId">
+      <button danger (click)="withDrawMatch()">
+        Withdraw Match
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -12,8 +17,7 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <ion-img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
-            </ion-img>
+            <img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
           </ion-thumbnail>
           <p text-center>&nbsp;{{ (teamId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
@@ -31,8 +35,7 @@
       <ion-col center>
        <ion-item>
           <ion-thumbnail>
-            <ion-img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
-            </ion-img>
+            <img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
           </ion-thumbnail>
           <p text-center>&nbsp;{{ (opponentId | teamBasicPipe | async)?.name }}</p>
        </ion-item>
