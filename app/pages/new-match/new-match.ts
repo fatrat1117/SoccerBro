@@ -21,8 +21,8 @@ export class NewMatchPage {
   matchTime: Date;
   notice: string;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
-    private popoverController: PopoverController, private _loader: MapsAPILoader,
-    private fm: FirebaseManager) {
+              private popoverController: PopoverController, private _loader: MapsAPILoader,
+              private fm: FirebaseManager) {
 
     this.jerseyColor = 'transparent';
     this.location = {};

@@ -9,14 +9,19 @@ import {ManageTeamPage} from '../manage-team/manage-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {EditTeamPage} from '../edit-team/edit-team';
 import {SearchPlayerPage} from '../search-player/search-player';
+import {NewMatchPage} from '../new-match/new-match';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 
 @Component({
-  templateUrl: 'build/pages/my-team/my-team.html'
+  templateUrl: 'build/pages/my-team/my-team.html',
+  pipes: [TeamBasicPipe, PlayerBasicPipe]
 })
 export class MyTeamPage {
 
   //currentUser:any;
+  pId: any;
   tId: any;
   team: any;
   teamCaptain: any;
@@ -33,6 +38,7 @@ export class MyTeamPage {
   //afTeamPlayers:FirebaseListObservable<any>;
 
   // floating menu
+  isTeamPlayer: any;
   isOpen: boolean;
 
   constructor(private nav: NavController,
@@ -41,6 +47,7 @@ export class MyTeamPage {
     private navParams: NavParams,
     private fm: FirebaseManager) {
     // this.currentTeam = this.am.getCurrentTeamSnapshot();
+    this.pId = this.fm.selfId;
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().teamId;
     this.afTeam = this.am.afGetTeam(this.tId);
 
@@ -69,6 +76,9 @@ export class MyTeamPage {
     // });
 
     //console.log(this.teamPlayersNumber);
+
+    // floating menu
+    this.isTeamPlayer = this.fm.isTeamPlayer(this.pId, this.tId);
     this.isOpen = false;
   }
 
@@ -86,15 +96,20 @@ export class MyTeamPage {
 
   }
 
-  editTeam() {
-    this.nav.push(EditTeamPage,
-      {
-        tId: this.tId
-      }
-    );
-  }
 
   searchPlayers() {
     this.nav.push(SearchPlayerPage, { teamId: this.tId, showDetail: true });
+  }
+
+  showMenu() {
+    this.isOpen = !this.isOpen;
+  }
+
+  editTeam() {
+    this.modalController.create(EditTeamPage).present();
+  }
+
+  addNewMatch() {
+    this.modalController.create(NewMatchPage).present();
   }
 }

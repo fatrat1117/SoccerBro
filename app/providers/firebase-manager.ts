@@ -222,6 +222,10 @@ getPlayersObj(teamId: string) {
     this.af.database.object(`/teams/${teamId}/basic-info`).update({ captain: playerId });
   }
 
+  isTeamPlayer(playerId: string, teamId) {
+    return this.af.database.object(`/teams/${teamId}/players/${playerId}`);
+  }
+
 
 
 

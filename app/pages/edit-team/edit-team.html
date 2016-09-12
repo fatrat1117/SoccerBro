@@ -1,11 +1,6 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Edit Team</ion-title>
-    <ion-buttons end>
-      <button [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length)" (click)="save()">
-        Save
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -45,4 +40,16 @@
       </ion-item>
     </div>
   </ion-list>
+
+  <ion-row padding-horizontal>
+    <ion-col text-center>
+      <button block secondary small [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length)" (click)="save()">
+        Save
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()">Cancel</button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
