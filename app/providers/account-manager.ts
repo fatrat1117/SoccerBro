@@ -63,7 +63,7 @@ export class AccountManager {
 
     window["plugins"].OneSignal.getIds(ids => {
       self.fm.getPlayerDetail(user.uid).update({ pushId: ids.userId });
-      //console.log('push ids', ids)
+      console.log('push ids', ids)
     });
   }
 
@@ -372,7 +372,7 @@ export class AccountManager {
     });
   }
 
-  updateImgGetUrl(imageData, success, error) {
+  updateImgGetUrl(imageData, imgId, success, error) {
     let self = this;
     let options = {
       quality: 75,
@@ -395,7 +395,7 @@ export class AccountManager {
       contentType: 'image/jpeg',
     };
     let storageRef = firebase.storage().ref();
-    let uploadTask = storageRef.child('images/' + self.currPlayer.teamId + '.jpg').put(blob, metadata);;
+    let uploadTask = storageRef.child('images/' + imgId + '.jpg').put(blob, metadata);;
     uploadTask.on('state_changed', function (snapshot) {
       // Observe state change events such as progress, pause, and resume
       // See below for more detail
