@@ -91,11 +91,9 @@ function onEmailLogin(){
               throw errorMessage;
             });
             console.log(userId,updates,playerData);
-
-            alert(email+"!, SoccerBro 欢迎你！");
-            window.location.href = "success.html";
           }catch(e){
             alert(e);
+            return;
           }
 
           //Add team
@@ -115,6 +113,8 @@ function onEmailLogin(){
             alert(e);
             return;
           }
+          alert(email+"!, SoccerBro 欢迎你！");
+          window.location.href = "success.html";
 
         }
       },function (error) {
