@@ -2,23 +2,21 @@
  * Created by jixiang on 4/9/16.
  */
 
+var _teamId;
+var _teamIdValid = false;
 
 window.onload = function() {
 
   console.log("program start");
   initApp();
   firebaseRedirect();
-
+  _teamId = $_GET("teamId");
+  if (_teamId != null){
+    teamIdValidation();
+  }else{
+    console.log("Error: teamId is null");
+  }
 };
-
-var _teamId;
-var auth;
-var _appModel = {
-  teamName: ko.observable(''),
-  logo: ko.observable('')
-}
-
-
 
 function initApp(){
 
@@ -32,14 +30,38 @@ function initApp(){
   firebase.initializeApp(config);
 }
 
-function onFbLogin() {
+function teamIdValidation() {
 
+  console.log(_teamId);
+
+  var teamRef = getTeamRef(_teamId);
+  teamRef.on('value', function(snapshot) {
+    console.log(snapshot.val());
+     if (snapshot.val() == null){
+       console.log("Error: invalid teamId, please check it then resend request!");
+       window.location.href = "404.html";
+     }else{
+       console.log("Success:teamId Validation pass!");
+       _teamIdValid = true;
+     }
+  });
+}
+
+function onFbLogin() {
+  if (_teamIdValid == false){
+    alert("teamId is not valid, please resend the request!");
+    return;
+  }
   var provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithRedirect(provider);
-
 }
 
 function onEmailLogin(){
+
+  if (_teamIdValid == false){
+    alert("teamId is not valid, please resend the request!");
+    return;
+  }
   var email = document.forms["jointeam_email_login_form"]["jointeam_email_input"].value;
   var password = document.forms["jointeam_email_login_form"]["jointeam_password_input"].value;
 
@@ -53,6 +75,7 @@ function onEmailLogin(){
         var userId = credential.uid;
         if (userId) {
 
+          //Add player
           var playerData = {};
           var updates = {};
           playerData['basic-info'] = {'displayName': result.email};
@@ -70,9 +93,27 @@ function onEmailLogin(){
             console.log(userId,updates,playerData);
 
             alert(email+"!, SoccerBro 欢迎你！");
-            //window.location.href = "success.html";
+            window.location.href = "success.html";
           }catch(e){
             alert(e);
+          }
+
+          //Add team
+          try{
+            var teamRef = getTeamRef(_teamId);
+            var updates = {};
+            updates['/players/' + userId] = {'goals':0,'number':12};
+            teamRef.update(updates).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+              throw errorMessage;
+            });
+            console.log(userId);
+          }catch(e){
+            alert(e);
+            return;
           }
 
         }
@@ -114,7 +155,7 @@ function firebaseRedirect(){
     if (result.credential) {
       console.log("redirect");
       console.log("got credential");
-      _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
+      // _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       var user = result.user;
@@ -128,11 +169,22 @@ function firebaseRedirect(){
       playerData['teams'] = {_teamId:true};
       //Add userInfo into teams table
       //Add userInfo into players table
-      var teamRef = getTeamRef(_teamId);
-      var updates = {};
-      updates['/players/' + pId] = {'goals':0,'number':11};
-      teamRef.update(updates);
-      console.log(pId);
+      try{
+        var teamRef = getTeamRef(_teamId);
+        var updates = {};
+        updates['/players/' + pId] = {'goals':0,'number':12};
+        teamRef.update(updates).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+          throw errorMessage;
+        });
+        console.log(pId);
+      }catch(e){
+        alert(e);
+        return;
+      }
 
       //Add new user into players table and public table
       try {
@@ -141,13 +193,20 @@ function firebaseRedirect(){
         playersUpdates[pId] = playerData;
         //publicUpdates[pId] = playerPublicData;
         // don't use set(updates) here
-        firebase.database().ref("players/").update(playersUpdates);
+        firebase.database().ref("players/").update(playersUpdates).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+          throw errorMessage;
+        });
         //firebase.database().ref("public/players/").update(publicUpdates);
         console.log(pId);
         alert(user.displayName+"!, SoccerBro 欢迎你！");
         window.location.href = "success.html";
       }catch(e){
         alert(e);
+        return;
       }
 
 
