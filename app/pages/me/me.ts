@@ -19,8 +19,12 @@ export class MePage {
   player: any;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager, private fm: FirebaseManager) {
-    this.player = fm.getPlayerBasic(fm.selfId);
+    
   }
+
+ionViewWillEnter() {
+this.player = this.fm.getPlayerBasic(this.fm.selfId);
+}
 
   goTeamPage() {
     this.nav.push(MyTeamPage, {
