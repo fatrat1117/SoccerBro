@@ -72,7 +72,7 @@ export class LoginPage {
         let self = this;
 
         this.busy = true;
-        console.log(this.cordovaOauth);
+        //console.log(this.cordovaOauth);
         this.cordovaOauth.logInVia(this.facebookProvider).then(success => {
             //console.log("Facebook success: " + JSON.stringify(success));
             let creds = firebase.auth.FacebookAuthProvider.credential(success["access_token"]);
