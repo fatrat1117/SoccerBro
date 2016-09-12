@@ -26,6 +26,7 @@ export class NewMatchPage {
 
     this.jerseyColor = 'transparent';
     this.location = {};
+    this.notice  = "";
     this.minDate = moment().format("YYYY-MM-DD");
   }
 
@@ -69,6 +70,7 @@ export class NewMatchPage {
   // post
   postNewMatch() {
     let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
+    
     this.fm.addSelfMatch({
       //timestamp: firebase.database.ServerValue.TIMESTAMP,
       //creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',

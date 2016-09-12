@@ -17,10 +17,10 @@
           <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
         </ion-avatar>
         <h2>{{ (t.$key | teamBasicPipe | async)?.name }}</h2>
-        <button [disabled] = "isDefault(t) || busy" (click) = "makeDefault(t, $event)" clear item-right>default</button>
+        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "makeDefault(t, $event)" clear item-right>default</button>
       </ion-item>
       <ion-item-options side="right">
-        <button [disabled] = "isDefault(t) || busy" (click) = "quit(t)" danger>
+        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "quit(t)" danger>
         <ion-icon name="trash"></ion-icon>
       </button>
       </ion-item-options>

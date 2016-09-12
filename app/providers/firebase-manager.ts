@@ -164,6 +164,8 @@ export class FirebaseManager {
           });
         });
       });
+    }).catch(err => {
+      alert(err);
     });
 
     // update totalMatches
@@ -180,7 +182,7 @@ export class FirebaseManager {
         });
       });
     });
-    
+
     // update totalMatches
     this.updateTotalMatches(this.selfTeamId);
   }
@@ -215,7 +217,7 @@ export class FirebaseManager {
 
   setNewCaptain(teamId: string, playerId: string) {
     this.af.database.object(`/teams/${teamId}/basic-info`).update({ captain: playerId });
-  } 
+  }
 
 
 

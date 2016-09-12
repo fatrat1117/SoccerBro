@@ -10,6 +10,7 @@ import {EditPlayerPage} from '../edit-player/edit-player';
 import {MyPlayerPage} from '../my-player/my-player';
 import {FeedbackPage} from '../feedback/feedback';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {HomePage} from '../home/home';
 
 @Component({
   templateUrl: 'build/pages/me/me.html',
@@ -19,12 +20,9 @@ export class MePage {
   player: any;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager, private fm: FirebaseManager) {
-    
+    this.player = this.fm.getPlayerBasic(this.fm.selfId);
   }
 
-ionViewWillEnter() {
-this.player = this.fm.getPlayerBasic(this.fm.selfId);
-}
 
   goTeamPage() {
     this.nav.push(MyTeamPage, {
@@ -34,6 +32,7 @@ this.player = this.fm.getPlayerBasic(this.fm.selfId);
 
   onLogout() {
     this.am.logout();
+    location.reload();
   }
 
   showCreateTeamModel() {
@@ -42,9 +41,7 @@ this.player = this.fm.getPlayerBasic(this.fm.selfId);
   }
 
   goManageTeamPage() {
-    this.nav.push(ManageTeamPage, {
-      pId: this.fm.selfId
-    });
+    this.nav.push(ManageTeamPage);
   }
 
   goEditPlayerPage() {
@@ -61,5 +58,15 @@ this.player = this.fm.getPlayerBasic(this.fm.selfId);
 
   goFeedbackPage() {
     this.nav.push(FeedbackPage);
+  }
+
+  pushPage(){
+    // push another page on to the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+    this.nav.push(HomePage, {
+      id: "123",
+      name: "Carl"
+    });
   }
 }

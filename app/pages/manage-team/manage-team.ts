@@ -6,23 +6,25 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 import {MyTeamPage} from '../my-team/my-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/manage-team/manage-team.html',
-  pipes: [TeamBasicPipe]
+  pipes: [TeamBasicPipe, PlayerBasicPipe]
 })
 export class ManageTeamPage {
+  playerId: string;
   teams: any;
   busy: boolean;
   afTeams: any;
 
   constructor(private am: AccountManager,
-  private af: AngularFire, 
-  private navParams: NavParams,
-  private nav : NavController,
-  private modalController: ModalController,
-  private fm: FirebaseManager) {
-    let pId = this.navParams.get('pId');
+              private af: AngularFire, 
+              private navParams: NavParams,
+              private nav : NavController,
+              private modalController: ModalController,
+              private fm: FirebaseManager) {
+    this.playerId = this.fm.selfId;
     this.busy = false;
     this.afTeams = fm.getSelfTeams();
     //this.teams = [];
