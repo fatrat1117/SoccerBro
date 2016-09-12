@@ -22,6 +22,7 @@ export class MePage {
     this.player = this.fm.getPlayerBasic(this.fm.selfId);
   }
 
+
   goTeamPage() {
     this.nav.push(MyTeamPage, {
       tId: this.fm.selfTeamId,
@@ -39,9 +40,7 @@ export class MePage {
   }
 
   goManageTeamPage() {
-    this.nav.push(ManageTeamPage, {
-      pId: this.fm.selfId
-    });
+    this.nav.push(ManageTeamPage);
   }
 
   goEditPlayerPage() {
