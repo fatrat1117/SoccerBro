@@ -34,9 +34,10 @@ export class TabsPage implements OnInit {
     console.log("ngOnInit");
     let self = this;
     
-    let success = function () {
+    let success = () => {
       self.tab4Root = MePage;
       self.tab3Root = MessagePage;
+      console.log('initialize success');
     }
 
     let error = function (err) {

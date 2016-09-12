@@ -10,6 +10,7 @@ import {EditPlayerPage} from '../edit-player/edit-player';
 import {MyPlayerPage} from '../my-player/my-player';
 import {FeedbackPage} from '../feedback/feedback';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {HomePage} from '../home/home';
 
 @Component({
   templateUrl: 'build/pages/me/me.html',
@@ -58,5 +59,15 @@ export class MePage {
 
   goFeedbackPage() {
     this.nav.push(FeedbackPage);
+  }
+
+  pushPage(){
+    // push another page on to the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+    this.nav.push(HomePage, {
+      id: "123",
+      name: "Carl"
+    });
   }
 }

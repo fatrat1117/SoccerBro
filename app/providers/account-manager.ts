@@ -36,7 +36,9 @@ export class AccountManager {
     let self = this;
     this.currentUser = this.getFbUser();
     let afCurrPlayer = this.afGetCurrentPlayer();
-    afCurrPlayer.subscribe(currPlayerData => {
+    let sub = afCurrPlayer.subscribe(currPlayerData => {
+      sub.unsubscribe();
+      
       console.log("current player changed", currPlayerData);
       if (currPlayerData) {
         //player exists
