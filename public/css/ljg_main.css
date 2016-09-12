@@ -1,3 +1,19 @@
+body{
+  background-image: url("../img/jointeam_bg.jpg");
+  background-repeat:no-repeat;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -o-background-size:cover;
+  background-size:cover;
+  background-position:center;
+}
+.jointeam_index_main_div{
+  width:90%;
+  margin: 0 auto;
+
+}
+
+
 .jointeam_index_facebook_login{
   margin-top: 5rem;
 }
@@ -7,6 +23,20 @@
   margin: 0 auto;
 }
 
+.jointeam_index_facebook_login > .login_link > .btn-facebook{
+  height:8rem;
+}
+
+.jointeam_index_facebook_login > .login_link > .btn-facebook > .fa-facebook{
+  top: 2.3rem;
+  font-size: 2.6rem;
+}
+
+.jointeam_index_facebook_login > .login_link > .btn-facebook >.p-facebook{
+  font-size: 2.6rem;
+  position: relative;
+  top: 1.5rem;
+}
 
 
 .jointeam_index_email_login{
@@ -17,6 +47,22 @@
   width:60%;
   margin: 0 auto;
 }
+
+.jointeam_index_email_login > .login_link > .btn-google{
+  height:8rem;
+}
+
+.jointeam_index_email_login > .login_link > .btn-google > .fa-google{
+  top: 2.3rem;
+  font-size: 2.6rem;
+}
+
+.jointeam_index_email_login > .login_link > .btn-google >.p-google{
+  font-size: 2.6rem;
+  position: relative;
+  top: 1.5rem;
+}
+
 
 
 .line_sperator{
@@ -48,6 +94,19 @@
 }
 
 
+.jointeam_team{
+  width: 100%;
+  margin: 0 auto;
+
+}
+
+.jointeam_team .team_info{
+  display: flex;
+}
+
+.jointeam_team .team_info .logo{
+  max-width: 50%;
+}
 
 
 

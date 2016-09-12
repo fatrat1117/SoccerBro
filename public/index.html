@@ -29,20 +29,29 @@
 <body>
 <div class="jointeam_index_main_div">
 
+  <div class="jointeam_team">
+      <div class="team_info">
+        <div id="jointeam_team_logo" class="logo">
+          <img class="img-responsive" data-bind="attr: { src: url }" src="img/noteam.jpg"/>
+        </div>
+        <div id="jointeam_team_description" class="description">
+          <p data-bind="text: name"></p>
+        </div>
+      </div>
+  </div>
+
   <div class="jointeam_index_facebook_login">
     <div class="login_link">
       <a id="jointeam_index_facebook_anchor" class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
-        <span class="fa fa-facebook"></span>Sign in with Facebook
+        <span class="fa fa-facebook"></span><p class="p-facebook">Sign in with Facebook</p>
       </a>
     </div>
   </div>
 
-
-
   <div class="jointeam_index_email_login">
     <div class="login_link">
       <a id="jointeam_index_email_anchor" class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">
-        <span class="fa fa-google"></span> Sign in with Email
+        <span class="fa fa-google"></span> <p class="p-google">Sign in with Email</p>
       </a>
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -94,71 +103,6 @@
     </div>
   </div>
 
-
-  <div class="line_sperator"><b></b><span>先用上面的功能测试</span><b></b></div>
-
-  <div class="pen-title">
-    <h1>用户注册 - beta</h1><span><i class='fa fa-code'></i> by <a href='#'>SoccerBro</a></span>
-  </div>
-  <div class="container">
-    <div class="card"></div>
-
-    <div class="card">
-      <h1 class="title">Login</h1>
-      <form>
-        <div class="input-container">
-          <input type="text" id="Username" required="required"/>
-          <label for="Username">Username</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Password" required="required"/>
-          <label for="Password">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button><span>Go</span></button>
-        </div>
-        <div class="footer"><a href="#">Forgot your password?</a></div>
-      </form>
-    </div>
-
-    <div class="card alt">
-      <div class="toggle"></div>
-      <h1 class="title">Register
-        <div class="close"></div>
-      </h1>
-      <form>
-        <div class="input-container">
-          <input type="text" id="Username" required="required"/>
-          <label for="Username">Username</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Password" required="required"/>
-          <label for="Password">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Repeat Password" required="required"/>
-          <label for="Repeat Password">Repeat Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button><span>Next</span></button>
-        </div>
-      </form>
-      <script>
-        $('.toggle').on('click', function () {
-          $('.container').stop().addClass('active');
-        });
-
-        $('.close').on('click', function () {
-          $('.container').stop().removeClass('active');
-        });
-      </script>
-    </div>
-  </div>
 
 
 

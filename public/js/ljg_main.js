@@ -5,6 +5,12 @@
 var _teamId;
 var _teamIdValid = false;
 
+var _teamInfoModel = {
+  url :  ko.observable(""),
+  name : ko.observable("")
+}
+
+
 window.onload = function() {
 
   console.log("program start");
@@ -35,6 +41,7 @@ function teamIdValidation() {
   console.log(_teamId);
 
   var teamRef = getTeamRef(_teamId);
+  ko.applyBindings(_teamInfoModel);
   teamRef.on('value', function(snapshot) {
     console.log(snapshot.val());
      if (snapshot.val() == null){
@@ -43,8 +50,20 @@ function teamIdValidation() {
      }else{
        console.log("Success:teamId Validation pass!");
        _teamIdValid = true;
+       var teamInfo = snapshot.val()["basic-info"];
+       _teamInfoModel.url(teamInfo["logo"]);
+       _teamInfoModel.name(teamInfo["name"]);
+       console.log(_teamInfoModel);
      }
   });
+}
+
+function insertTeamInfo(){
+  if (_teamIdValid == false){
+    return;
+  }
+
+
 }
 
 function onFbLogin() {
