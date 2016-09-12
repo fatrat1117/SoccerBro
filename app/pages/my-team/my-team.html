@@ -63,15 +63,15 @@
   <!-->
 
   <div *ngIf="(isTeamPlayer | async)?.$value">
-    <button fab fab-bottom fab-right class="floating-button disable-hover" (click)="showMenu()">
+    <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
     <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
   </button>
     <div [hidden]="!isOpen" class="menu-buttons">
-      <button fab fab-bottom fab-right small class="swap disable-hover" (click)="invitePlayer()">
+      <button fab fab-bottom fab-right small class="invite disable-hover" (click)="invitePlayer()">
       <ion-icon name="md-person-add"></ion-icon>
     </button>
       <div *ngIf="(tId | teamBasicPipe | async)?.captain === pId">
-        <button fab fab-bottom fab-right small class="add disable-hover" (click)="addNewMatch()">
+        <button fab fab-bottom fab-right small class="post disable-hover" (click)="addNewMatch()">
       <ion-icon name="md-football"></ion-icon>
     </button>
         <button fab fab-bottom fab-right small class="edit disable-hover" (click)="editTeam()">

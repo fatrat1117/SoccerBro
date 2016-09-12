@@ -62,6 +62,7 @@ export class MessagePage {
     });
   }
 
+  /*
   postNewMatch() {
     let modal = this.modalController.create(NewMatchPage);
     modal.present();
@@ -80,6 +81,7 @@ export class MessagePage {
     pushIds.push('05baf54c-3a0c-47d6-ac59-2fcbf25aa6aa');
     this.am.postNotification(message, pushIds, success, error);
   }
+  */
 
   swipeTo(name: string) {
     this.message = name;
