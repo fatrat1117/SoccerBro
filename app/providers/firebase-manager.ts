@@ -93,10 +93,6 @@ export class FirebaseManager {
     });
   }
 
-
-
-
-
   /********** All Teams Operations ***********/
   getTeam(teamId: string) {
     return this.af.database.object(`/teams/${teamId}`);
@@ -112,6 +108,10 @@ export class FirebaseManager {
 
   getPlayers(teamId: string) {
     return this.af.database.list(`/teams/${teamId}/players`);
+  }
+
+getPlayersObj(teamId: string) {
+    return this.af.database.object(`/teams/${teamId}/players`);
   }
 
   getSelfChatMessages(teamId: string, subject: any) {
@@ -153,16 +153,19 @@ export class FirebaseManager {
     promise.then(newMatch => {
       let id = newMatch["key"];
       // add to team players
-      let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
-        subscription.unsubscribe();
-        snapshots.forEach(snapshot => {
-          this.addMatchNotification(snapshot.$key, id, {
+      this.getPlayersObj(this.selfTeamId).subscribe(snapshots => {
+        console.log('addSelfMatch', snapshots);
+        for (let pId in snapshots) {
+          console.log('player id', pId);
+          if (pId != '$key') {
+          this.addMatchNotification(pId, id, {
             isRead: false,
             teamId: this.selfTeamId,
             opponentId: match.opponentId,
             time: match.time
           });
-        });
+          }
+        }
       });
     }).catch(err => {
       alert(err);
