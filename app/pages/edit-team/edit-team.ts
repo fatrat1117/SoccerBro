@@ -87,7 +87,7 @@ export class EditTeamPage {
         }
 
         let error = err => alert(err);
-        this.am.updateImgGetUrl(this.logoData, success, error);
+        this.am.updateImgGetUrl(this.logoData, this.tId, success, error);
     } else {
       self.saveTeam(self.team);
     }

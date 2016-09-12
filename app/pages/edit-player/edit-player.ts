@@ -80,7 +80,7 @@ export class EditPlayerPage {
       }
 
       let error = err => alert(err);
-      this.am.updateImgGetUrl(this.logoData, success, error);
+      this.am.updateImgGetUrl(this.logoData, this.pId, success, error);
     } else {
       self.savePlayer(self.player);
     }

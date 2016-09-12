@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, ModalController} from 'ionic-angular';
-import { FirebaseObjectObservable} from 'angularfire2';
+import {FirebaseObjectObservable} from 'angularfire2';
 import {AccountManager} from '../../providers/account-manager'
+import {FirebaseManager} from '../../providers/firebase-manager'
 import {MyTeamPage} from '../my-team/my-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {ManageTeamPage} from '../manage-team/manage-team';
@@ -11,41 +12,24 @@ import {FeedbackPage} from '../feedback/feedback';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
-  templateUrl: 'build/pages/me/me.html'
+  templateUrl: 'build/pages/me/me.html',
+  pipes: [TeamBasicPipe]
 })
 export class MePage {
-  defaultTeam: any;
   player: any;
-  afPlayer: any;
-  showMyTeam = false;
-  showCreateTeam = false;
 
-  constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager) {
-    let self = this;
-    this.afPlayer = am.afGetCurrentPlayer();
-    this.afPlayer.subscribe(snapshot => {
-      self.player = snapshot;
-      console.log("current player data changed, update me UI", snapshot);
-      if (self.player.teamId) {
-        self.defaultTeam = self.am.afGetTeam(self.player.teamId);
-        self.showMyTeam = true;
-        self.showCreateTeam = false;
-      } else {
-        self.showMyTeam = false;
-        self.showCreateTeam = true;
-      }
-    });
+  constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager, private fm: FirebaseManager) {
+    
   }
 
+ionViewWillEnter() {
+this.player = this.fm.getPlayerBasic(this.fm.selfId);
+}
+
   goTeamPage() {
-    //console.log(this.player);
-    if (this.player && this.player.teamId) {
-      //console.log(this.player.teamId);
-      this.nav.push(MyTeamPage, {
-        //Hard code Team ID
-        tId: this.player.teamId,
-      });
-    }
+    this.nav.push(MyTeamPage, {
+      tId: this.fm.selfTeamId,
+    });
   }
 
   onLogout() {
@@ -59,19 +43,19 @@ export class MePage {
 
   goManageTeamPage() {
     this.nav.push(ManageTeamPage, {
-      pId: this.am.currentUser.uid,
+      pId: this.fm.selfId
     });
   }
 
   goEditPlayerPage() {
     this.nav.push(EditPlayerPage, {
-      pId: this.am.currentUser.uid,
+      pId: this.fm.selfId
     });
   }
 
   goPlayerPage() {
     this.nav.push(MyPlayerPage, {
-      pId: this.am.currentUser.uid,
+      pId: this.fm.selfId
     });
   }
 

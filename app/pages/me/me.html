@@ -10,15 +10,15 @@
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="goEditPlayerPage()" style="border-width:0px;" detail-push>
       <ion-avatar item-left>
-        <ion-img [src]="(afPlayer | async)?.photoURL"></ion-img>
+        <ion-img [src]="(player | async)?.photoURL"></ion-img>
       </ion-avatar>
-      <h2>{{(afPlayer | async)?.displayName}}</h2>
+      <h2>{{ (player | async)?.displayName }}</h2>
     </ion-item>
-    <ion-item (click)="goManageTeamPage()" *ngIf="showMyTeam" detail-push>
+    <ion-item (click)="goManageTeamPage()" *ngIf="(player | async)?.teamId" detail-push>
       <ion-avatar item-left>
-        <ion-img [src]="(defaultTeam | async)?.logo"></ion-img>
+        <ion-img [src]="((player | async)?.teamId | teamBasicPipe | async)?.logo"></ion-img>
       </ion-avatar>
-      <h2>{{(defaultTeam | async)?.name}}</h2>
+      <h2>{{ ((player | async)?.teamId | teamBasicPipe | async)?.name }}</h2>
     </ion-item>
 
     <!-- show pages -->
@@ -27,11 +27,11 @@
       <ion-icon name="md-aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
-    <ion-item (click)="goTeamPage()" *ngIf="showMyTeam" detail-push>
+    <ion-item (click)="goTeamPage()" *ngIf="(player | async)?.teamId" detail-push>
       <ion-icon name="md-people" item-left primary></ion-icon>
       My Team
     </ion-item>
-    <ion-item (click)="showCreateTeamModel()" *ngIf="showCreateTeam">
+    <ion-item (click)="showCreateTeamModel()" *ngIf="!(player | async)?.teamId">
       <ion-icon name="md-people" item-left primary></ion-icon>
       Create Team
     </ion-item>
@@ -44,31 +44,5 @@
       <ion-icon name="md-exit" item-left danger></ion-icon>
       Logout
     </ion-item>
-    <!-->
-    <ion-item>
-      <div class="me-team-default">
-        <img [src]="defaultTeam ? (defaultTeam | async)?.logo : 'img/none.png' " (click)="openNavTeamPage()" />
-        <div class="me-team-default-info">
-          <h4>{{defaultTeam ? (defaultTeam | async)?.name : 'no team'}}</h4>
-        </div>
-      </div>
-      <div class="me-team-default me-team-switch">
-        <ion-icon class="me-team-switch-icon" name="ios-swap-outline" (click)="goManageTeamPage()"></ion-icon>
-        <div class="me-team-switch-info">
-          <p>更换球队</p>
-        </div>
-      </div>
-      <div class="me-team-default me-team-add">
-        <ion-icon class="me-team-add-icon" name="ios-add-outline" (click)="showCreateTeamModel()"></ion-icon>
-        <div class="me-team-default-info">
-          <p>添加球队</p>
-        </div>
-      </div>
-    </ion-item>
-    <ion-item (click)="goPlayerPage()" detail-push>
-      my page
-    </ion-item>
-    <button (click)="onLogout()" block>logout</button>
-    <-->
   </ion-item-group>
 </ion-content>
