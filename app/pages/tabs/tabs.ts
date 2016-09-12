@@ -35,12 +35,15 @@ export class TabsPage implements OnInit {
     let self = this;
     
     let success = () => {
+      //console.log(self.tab4Root);
+      if (null === self.tab4Root) {
       self.tab4Root = MePage;
       self.tab3Root = MessagePage;
       console.log('initialize success');
+      }
     }
 
-    let error = function (err) {
+    let error = err => {
       alert(err);
     }
 
@@ -59,7 +62,6 @@ export class TabsPage implements OnInit {
   }
 
   checkLogin() {
-    console.log("checkLogin");
     this.am.checkLogin(this.modalController);
     //console.log("checkLogin finish");
   }

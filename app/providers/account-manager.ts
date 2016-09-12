@@ -15,7 +15,7 @@ declare let firebase: any;
 export class AccountManager {
   currentUser: any;
   afTeams: FirebaseListObservable<any>;
-  //afCurrPlayer: FirebaseObjectObservable<any>;
+  afCurrPlayer: FirebaseObjectObservable<any>;
   afCurrTeam: FirebaseObjectObservable<any>;
   afTeamsOfCurrPlayer: FirebaseListObservable<any>;
   currPlayer: any;
@@ -35,11 +35,10 @@ export class AccountManager {
     //if user is logged in first time, save default photo and name.
     let self = this;
     this.currentUser = this.getFbUser();
-    let afCurrPlayer = this.afGetCurrentPlayer();
-    let sub = afCurrPlayer.subscribe(currPlayerData => {
-      sub.unsubscribe();
-      
+    this.afCurrPlayer = this.afGetCurrentPlayer();
+    let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
+
       if (currPlayerData) {
         //player exists
         if (currPlayerData.displayName) {
@@ -51,7 +50,7 @@ export class AccountManager {
         else {
           console.log("first time login");
           //todo
-          afCurrPlayer.update({
+          self.afCurrPlayer.update({
             photoURL: user.photoURL || 'img/none.png',
             displayName: user.displayName || user.email
           }).catch(err => error(err));
@@ -60,31 +59,7 @@ export class AccountManager {
         }
       }
     });
-    // this.afCurrPlayer = this.afGetCurrentPlayer();
-    // let sub = this.afCurrPlayer.subscribe(currPlayerData => {
-    //   console.log("current player changed", currPlayerData);
-
-    //   if (currPlayerData) {
-    //     //player exists
-    //     if (currPlayerData.displayName) {
-    //       self.currPlayer = currPlayerData;
-    //       self.fm.selfTeamId = currPlayerData.teamId;
-    //       self.fm.selfId = user.uid;
-    //       success();
-    //     }
-    //     else {
-    //       console.log("first time login");
-    //       //todo
-    //       self.afCurrPlayer.update({
-    //         photoURL: user.photoURL || 'img/none.png',
-    //         displayName: user.displayName || user.email
-    //       }).catch(err => error(err));
-    //       //update player public
-    //       self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
-    //     }
-    //   }
-    // });
-    // self.subscriptions.push(sub);
+    self.subscriptions.push(sub);
 
     window["plugins"].OneSignal.getIds(ids => {
       self.fm.getPlayerDetail(user.uid).update({ pushId: ids.userId });
@@ -98,7 +73,7 @@ export class AccountManager {
       this.subscriptions[i].unsubscribe();
     }
     this.subscriptions = [];
-    //this.afCurrPlayer = null;
+    this.afCurrPlayer = null;
     this.afCurrTeam = null;
     this.currentUser = null;
     this.currTeam = null;
@@ -176,7 +151,7 @@ export class AccountManager {
 
   checkLogin(modalController) {
     let user = this.currentUser;
-    console.log(user);
+    console.log("checkLogin", user);
     if (!user) {
       this.displayLoginModal(modalController);
     }
