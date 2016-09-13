@@ -74,6 +74,9 @@ export class EditTeamPage {
       alert(err);
       self.busy = false;
     }
+    if (this.newCaptain)
+      teamObj["captain"] = this.newCaptain;
+
     this.am.updateTeam(teamObj, success, error);
   }
 

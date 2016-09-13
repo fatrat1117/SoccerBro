@@ -43,7 +43,7 @@
 
   <ion-row padding-horizontal>
     <ion-col text-center>
-      <button block secondary small [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length)" (click)="save()">
+      <button block secondary small [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length || newCaptain)" (click)="save()">
         Save
       </button>
     </ion-col>

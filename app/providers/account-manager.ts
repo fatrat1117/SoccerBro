@@ -309,16 +309,20 @@ export class AccountManager {
   }
 
   updateTeam(teamObj, success, error) {
-    console.log('update team', teamObj);
-
     let updateObj = {};
     if (teamObj.logo)
       updateObj["logo"] = teamObj.logo;
-    if (teamObj.name) {
+    if (teamObj.name && teamObj.name.trim().length > 0) {
       updateObj["name"] = teamObj.name.trim();
       //update public
       this.fm.getTeamPublic(teamObj.tId).update({ name: teamObj.name });
     }
+
+    if (teamObj.captain)
+      updateObj["captain"] = teamObj.captain;
+
+      console.log('update team', teamObj, updateObj);
+
     this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_ => success()).catch(err => error(err));
     if (teamObj.description)
       this.fm.getTeamDetail(teamObj.tId).update({ description: teamObj.description.trim() });
