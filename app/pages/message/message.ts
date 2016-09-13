@@ -62,27 +62,6 @@ export class MessagePage {
     });
   }
 
-  /*
-  postNewMatch() {
-    let modal = this.modalController.create(NewMatchPage);
-    modal.present();
-  }
-
-  test() {
-    // push notification
-    let message = {
-        'en': "A new match is waiting for you to join!",
-        'zh-Hans': "一场新球赛等待你的加入！" 
-    };
-    
-    let pushIds = [];
-    let success = result => {};
-    let error = err => {};
-    pushIds.push('05baf54c-3a0c-47d6-ac59-2fcbf25aa6aa');
-    this.am.postNotification(message, pushIds, success, error);
-  }
-  */
-
   swipeTo(name: string) {
     this.message = name;
   }

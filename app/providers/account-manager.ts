@@ -439,6 +439,8 @@ export class AccountManager {
 
   //push
   postNotification(messageObj, pushIds, success, error) {
+    console.log('push Notification', pushIds);
+    
     let notificationObj = {
       contents: messageObj,
       include_player_ids: pushIds

@@ -158,12 +158,12 @@ getPlayersObj(teamId: string) {
         for (let pId in snapshots) {
           console.log('player id', pId);
           if (pId != '$key') {
-          this.addMatchNotification(pId, id, {
-            isRead: false,
-            teamId: this.selfTeamId,
-            opponentId: match.opponentId,
-            time: match.time
-          });
+            this.addMatchNotification(pId, id, {
+              isRead: false,
+              teamId: this.selfTeamId,
+              opponentId: match.opponentId,
+              time: match.time
+            });
           }
         }
       });

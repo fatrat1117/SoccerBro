@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {ViewController, ModalController, PopoverController} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 import * as moment from 'moment';
-
 import {SearchTeamPage} from '../search-team/search-team';
 import {ColorPickerPage} from '../color-picker/color-picker';
 import {FirebaseManager} from '../../providers/firebase-manager'
+import {AccountManager} from '../../providers/account-manager'
 
 declare var google: any;
 
@@ -20,14 +20,28 @@ export class NewMatchPage {
   matchDate: Date;
   matchTime: Date;
   notice: string;
+  pushIds = [];
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
               private popoverController: PopoverController, private _loader: MapsAPILoader,
-              private fm: FirebaseManager) {
+              private fm: FirebaseManager,
+              private am: AccountManager) {
 
     this.jerseyColor = 'transparent';
     this.location = {};
     this.notice  = "";
     this.minDate = moment().format("YYYY-MM-DD");
+
+    this.fm.getPlayersObj(this.fm.selfTeamId).subscribe(snapshot => {
+      for (let pId in snapshot) {
+          if (pId != '$key') {
+            this.fm.getPlayerDetail(pId).subscribe(detail => {
+                console.log('get push ids', detail);
+                if (detail && detail.pushId)
+                  this.pushIds.push(detail.pushId);
+            });
+          }
+      }
+    }); 
   }
 
   ngOnInit() {
@@ -82,6 +96,17 @@ export class NewMatchPage {
       locationAddress: this.location.address,
       notice: this.notice
     });
+
+        // push notification
+    let message = {
+        'en': "A new match is waiting for you to join!",
+        'zh-Hans': "一场新球赛等待你的加入！" 
+    };
+    
+    let success = result => {};
+    let error = err => {};
+    this.am.postNotification(message, this.pushIds, success, error);
+
     this.dismiss();
   }
 }
