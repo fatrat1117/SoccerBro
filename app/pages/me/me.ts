@@ -25,10 +25,15 @@ export class MePage {
   }
 
   ionViewWillEnter() {
-    this.player.subscribe(snapshot => {
-      console.log('onSubscribe player basic');
-      this.playerBasic = snapshot;
-    });
+    let self = this;
+    let success = () => {self.playerBasic = self.am.getCurrentPlayerSnapshot();}
+    let error = err => self.am.showToast(err);
+    this.am.setupListener(success, error);
+    //do not subscribe one locatio more than once, the 2nd subscripiton will stop 1st subscripiton so that UI not updated.
+    // this.player.subscribe(snapshot => {
+    //   console.log('onSubscribe player basic');
+    //   this.playerBasic = snapshot;
+    // });
   }
 
   goTeamPage() {

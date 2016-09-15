@@ -36,30 +36,7 @@ export class AccountManager {
     let self = this;
     this.currentUser = this.getFbUser();
     this.afCurrPlayer = this.afGetCurrentPlayer();
-    let sub = this.afCurrPlayer.subscribe(currPlayerData => {
-      console.log("current player changed", currPlayerData);
-
-      if (currPlayerData) {
-        //player exists
-        if (currPlayerData.displayName) {
-          self.currPlayer = currPlayerData;
-          self.fm.selfTeamId = currPlayerData.teamId;
-          self.fm.selfId = user.uid;
-          success();
-        }
-        else {
-          console.log("first time login");
-          //todo
-          self.afCurrPlayer.update({
-            photoURL: user.photoURL || 'img/none.png',
-            displayName: user.displayName || user.email
-          }).catch(err => error(err));
-          //update player public
-          self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
-        }
-      }
-    });
-    self.subscriptions.push(sub);
+    this.setupListener(success, error);
 
     window["plugins"].OneSignal.getIds(ids => {
       self.fm.getPlayerDetail(user.uid).update({ pushId: ids.userId });
@@ -83,6 +60,34 @@ export class AccountManager {
     this.fm.selfId = "";
   }
 
+  setupListener(success, error) {
+    let self = this;
+    let user = firebase.auth().currentUser;
+    this.afCurrPlayer.subscribe(currPlayerData => {
+      console.log("current player changed", currPlayerData);
+
+      if (currPlayerData) {
+        //player exists
+        if (currPlayerData.displayName) {
+          self.currPlayer = currPlayerData;
+          self.fm.selfTeamId = currPlayerData.teamId;
+          self.fm.selfId = user.uid;
+          success();
+        }
+        else {
+          console.log("first time login");
+          //todo
+          self.afCurrPlayer.update({
+            photoURL: user.photoURL || 'img/none.png',
+            displayName: user.displayName || user.email
+          }).catch(err => error(err));
+          //update player public
+          self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
+        }
+      }
+    });
+    //self.subscriptions.push(sub);
+  }
   //firebase reference
   getRefBasic_Player(pId) {
     return "/players/" + pId + "/basic-info";
