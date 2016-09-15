@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
     <ion-segment [(ngModel)]="stats">
-      <ion-segment-button value="teams">
+      <ion-segment-button value="teams" (click)="updateTeamSize()">
         Teams
       </ion-segment-button>
-      <ion-segment-button value="players">
+      <ion-segment-button value="players" (click)="updatePlayerSize()">
         Players
       </ion-segment-button>
     </ion-segment>
