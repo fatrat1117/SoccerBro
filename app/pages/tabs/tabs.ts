@@ -18,6 +18,7 @@ export class TabsPage implements OnInit {
   private tab2Root: any;
   private tab3Root: any;
   private tab4Root: any;
+  //loading : any;
   //private tab5Root: any;
 
   constructor(private am: AccountManager,
@@ -31,13 +32,13 @@ export class TabsPage implements OnInit {
     this.tab2Root = StatsPage;
     this.tab3Root = null;
     this.tab4Root = null;
+    //this.loading = loadingCtrl.create();
     //this.tab5Root = MyTeamPage;
   }
 
   ngOnInit() {
     console.log("ngOnInit");
     let self = this;
-    let loading;
 
     let success = () => {
       //console.log(self.tab4Root);
@@ -45,8 +46,8 @@ export class TabsPage implements OnInit {
         self.tab4Root = MePage;
         self.tab3Root = MessagePage;
         console.log('initialize success');
-        if (loading)
-          loading.dismiss();
+        // if (self.loading)
+        //   self.loading.dismiss();
       }
     }
 
@@ -56,8 +57,7 @@ export class TabsPage implements OnInit {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        loading = self.loadingCtrl.create({});
-        loading.present();
+        //self.loading.present();
         console.log("logged in gopage", user);
         self.am.initialize(user, success, error)
       } else {

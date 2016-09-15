@@ -44,7 +44,7 @@ export class MePage {
 
   onLogout() {
     this.am.logout();
-    location.reload();
+    //location.reload();
   }
 
   showCreateTeamModel() {
