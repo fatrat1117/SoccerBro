@@ -12,7 +12,8 @@ import {SearchPlayerPage} from '../search-player/search-player';
 import {NewMatchPage} from '../new-match/new-match';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
-
+import { Clipboard } from 'ionic-native';
+import globals = require('../../providers/globals');
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html',
@@ -47,6 +48,8 @@ export class MyTeamPage {
     private navParams: NavParams,
     private fm: FirebaseManager) {
     // this.currentTeam = this.am.getCurrentTeamSnapshot();
+    //console.log(config);
+    
     this.pId = this.fm.selfId;
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().teamId;
     this.afTeam = this.am.afGetTeam(this.tId);
@@ -93,7 +96,19 @@ export class MyTeamPage {
   }
 
   invitePlayer() {
+    //console.log('invite player', teamName);
+    
+    if (this.team.name) {
+        let link = this.am.getCurrentPlayerSnapshot().displayName +
+            ' ' + 'invite you to join' + ' ' +
+            this.team.name +
+            '\n' +
+            'https://' + globals.firebaseConfig.authDomain + '/index.html?teamId=' +
+            this.tId;
 
+    Clipboard.copy(link);
+    alert('invitation link has been copied to Clipboard, you can paste it on your messager and send to your teamates');
+    }
   }
 
 

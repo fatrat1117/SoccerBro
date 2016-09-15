@@ -7,6 +7,7 @@ import {AccountManager} from './providers/account-manager';
 import {FirebaseManager} from './providers/firebase-manager';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 import '../node_modules/chart.js/dist/Chart.bundle.min.js';
+import globals = require('./providers/globals');
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
@@ -41,18 +42,7 @@ export class MyApp {
 
 ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
   // Initialize Firebase app  
-  defaultFirebase({
-    // apiKey: "AIzaSyC9HcqulBgzgtzDg-RwSlTvr0lqkbaemyk",
-    // authDomain: "soccerbro-schema.firebaseapp.com",
-    // databaseURL: "https://soccerbro-schema.firebaseio.com",
-    // storageBucket: "soccerbro-schema.appspot.com",
-    
-    apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
-    authDomain: "project-3416565325366537224.firebaseapp.com",
-    databaseURL: "https://project-3416565325366537224.firebaseio.com",
-    storageBucket: "project-3416565325366537224.appspot.com",
-    
-  }),
+  defaultFirebase(globals.firebaseConfig),
   firebaseAuthConfig({}),
   AccountManager,
   FirebaseManager,
