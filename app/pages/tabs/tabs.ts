@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController, ModalController, Tabs} from 'ionic-angular';
+import {NavController, ModalController, Tabs, LoadingController} from 'ionic-angular';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import {HomePage} from '../home/home';
 import {StatsPage} from '../stats/stats';
@@ -20,7 +20,11 @@ export class TabsPage implements OnInit {
   private tab4Root: any;
   //private tab5Root: any;
 
-  constructor(private am: AccountManager, private nav: NavController, private modalController: ModalController, private af: AngularFire) {
+  constructor(private am: AccountManager,
+    private nav: NavController,
+    private modalController: ModalController,
+    private af: AngularFire,
+    private loadingCtrl: LoadingController) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HomePage;
@@ -33,13 +37,16 @@ export class TabsPage implements OnInit {
   ngOnInit() {
     console.log("ngOnInit");
     let self = this;
-    
+    let loading;
+
     let success = () => {
       //console.log(self.tab4Root);
       if (null === self.tab4Root) {
-      self.tab4Root = MePage;
-      self.tab3Root = MessagePage;
-      console.log('initialize success');
+        self.tab4Root = MePage;
+        self.tab3Root = MessagePage;
+        console.log('initialize success');
+        if (loading)
+          loading.dismiss();
       }
     }
 
@@ -49,14 +56,16 @@ export class TabsPage implements OnInit {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        loading = self.loadingCtrl.create({});
+        loading.present();
         console.log("logged in gopage", user);
         self.am.initialize(user, success, error)
       } else {
-          self.tabRef.select(0);
-          self.tab3Root = null;
-          self.tab4Root = null;
-          self.am.uninitialize();
-          console.log("logout");
+        self.tabRef.select(0);
+        self.tab3Root = null;
+        self.tab4Root = null;
+        self.am.uninitialize();
+        console.log("logout");
       }
     });
   }
