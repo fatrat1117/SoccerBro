@@ -1,7 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Teams</ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content>
   <ion-searchbar (ionInput)="filterTeams($event)"></ion-searchbar>
   <ion-list [virtualScroll]="filteredTeams">
-    <ion-item *virtualItem="let team" (click)="dismiss(team)">
+    <ion-item *virtualItem="let team" tappable (click)="dismiss(team)">
       <ion-avatar item-left>
         <ion-img [src] = "team.logo"></ion-img>
       </ion-avatar>

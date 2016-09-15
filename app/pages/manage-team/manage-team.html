@@ -12,7 +12,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let t of afTeams | async">
-      <ion-item (click) = "goTeamPage(t)">
+      <ion-item tappable (click) = "goTeamPage(t)">
         <ion-avatar item-left>
           <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
         </ion-avatar>

@@ -16,7 +16,7 @@
   <div [ngSwitch]="message">
     <ion-list *ngSwitchCase="'chats'">
       <ion-list-header>Teams</ion-list-header>
-      <ion-item *ngFor="let team of teams | async" (click)="enterChatRoom(team.$key)">
+      <ion-item *ngFor="let team of teams | async" tappable (click)="enterChatRoom(team.$key)">
         <ion-avatar item-left>
           <ion-img [src]="(team.$key | teamBasicPipe | async)?.logo">
           </ion-img>
@@ -44,7 +44,7 @@
       <ion-list-header>
         Upcoming Matches
       </ion-list-header>
-      <ion-item *ngFor="let match of matches | async | matchFilterPipe" (click)="showNotification(match.teamId, match.opponentId, match.$key)">
+      <ion-item *ngFor="let match of matches | async | matchFilterPipe" tappable (click)="showNotification(match.teamId, match.opponentId, match.$key)">
         <ion-avatar item-left>
           <ion-img [src]="(match.opponentId | teamBasicPipe | async)?.logo">
           </ion-img>

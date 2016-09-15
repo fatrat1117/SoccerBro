@@ -110,7 +110,7 @@ export class FirebaseManager {
     return this.af.database.list(`/teams/${teamId}/players`);
   }
 
-getPlayersObj(teamId: string) {
+  getPlayersObj(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/players`);
   }
 

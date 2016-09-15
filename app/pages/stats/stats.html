@@ -15,7 +15,7 @@
   <div [ngSwitch]="stats" style="height:100%">
     <div *ngSwitchCase="'teams'" style="height:100%">
       <ion-list [virtualScroll]="afTeams | async | reverseAndCountTeamPipe">
-        <ion-item *virtualItem="let t" (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
+        <ion-item *virtualItem="let t" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
           <ion-thumbnail item-left>
             <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
           </ion-thumbnail>
@@ -56,7 +56,7 @@
 
     <div *ngSwitchCase="'players'" style="height:100%">
       <ion-list [virtualScroll]="afPlayers | async | reverseAndCountPlayerPipe">
-        <ion-item *virtualItem="let p" (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
+        <ion-item *virtualItem="let p" tappable (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
           <ion-avatar item-left>
             <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>

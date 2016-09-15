@@ -28,7 +28,7 @@
     <-->
 
       <!-- opponent -->
-      <ion-item (click)="searchTeam()">
+      <ion-item tappable (click)="searchTeam()">
         <ion-label stacked primary>Opponent</ion-label>
         <ion-label text-center>
           <h2 style="margin-right:auto;">&nbsp;{{ opponent?.name }}</h2>
@@ -54,7 +54,7 @@
         <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
       </ion-item>
       <!-- color -->
-      <ion-item (click)="pickColor()">
+      <ion-item tappable (click)="pickColor()">
         <ion-label stacked primary>Jersey Color</ion-label>
         <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor!='white'">
           <ion-icon name="ios-shirt" [style.color]="jerseyColor"></ion-icon>

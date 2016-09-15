@@ -7,7 +7,7 @@
 <ion-content padding>
   <ion-list [virtualScroll]="players | async">
     <ion-item-sliding *virtualItem="let player">
-      <ion-item (click) = "goPlayerPage(player)">
+      <ion-item tappable (click) = "goPlayerPage(player)">
         <ion-avatar item-left>
           <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>

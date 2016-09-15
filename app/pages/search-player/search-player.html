@@ -18,7 +18,7 @@
   <-->
   <ion-searchbar (ionInput)="filterPlayers($event)"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let player of filteredPlayers" (click)="selectPlayer(player.id)">
+    <ion-item *ngFor="let player of filteredPlayers" tappable (click)="selectPlayer(player.id)">
       <ion-avatar item-left>
         <ion-img [src] = "player.photoURL"></ion-img>
       </ion-avatar>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>ME</ion-title>
+    <ion-title>Me</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,13 +8,13 @@
   <ion-item-group>
     <!-- Me -->
     <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="goEditPlayerPage()" style="border-width:0px;" detail-push>
+    <ion-item tappable (click)="goEditPlayerPage()" detail-push>
       <ion-avatar item-left>
         <ion-img [src]="(playerBasic)?.photoURL"></ion-img>
       </ion-avatar>
       <h2>{{ (playerBasic)?.displayName }}</h2>
     </ion-item>
-    <ion-item (click)="goManageTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
+    <ion-item tappable (click)="goManageTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
       <ion-avatar item-left>
         <ion-img [src]="((playerBasic)?.teamId | teamBasicPipe | async)?.logo"></ion-img>
       </ion-avatar>
@@ -23,24 +23,24 @@
 
     <!-- show pages -->
     <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="goPlayerPage()" detail-push>
+    <ion-item tappable (click)="goPlayerPage()" detail-push>
       <ion-icon name="aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
-    <ion-item (click)="goTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
+    <ion-item tappable (click)="goTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
       <ion-icon name="people" item-left primary></ion-icon>
       My Team
     </ion-item>
-    <ion-item (click)="showCreateTeamModel()" *ngIf="!(playerBasic)?.teamId">
+    <ion-item tappable (click)="showCreateTeamModel()" *ngIf="!(playerBasic)?.teamId">
       <ion-icon name="people" item-left primary></ion-icon>
       Create Team
     </ion-item>
     <ion-item-divider light></ion-item-divider>
-    <ion-item (click)="goFeedbackPage()" detail-push>
+    <ion-item tappable (click)="goFeedbackPage()" detail-push>
       <ion-icon name="help" item-left gYellow></ion-icon>
       Feedback
     </ion-item>
-    <ion-item (click)="onLogout()">
+    <ion-item tappable (click)="onLogout()">
       <ion-icon name="exit" item-left danger></ion-icon>
       Logout
     </ion-item>
