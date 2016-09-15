@@ -64,18 +64,18 @@
 
   <div *ngIf="(isTeamPlayer | async)?.$value">
     <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
-    <ion-icon [name]="isOpen ? 'md-close' : 'md-add'"></ion-icon>
+    <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
   </button>
     <div [hidden]="!isOpen" class="menu-buttons">
       <button fab fab-bottom fab-right small class="invite disable-hover" (click)="invitePlayer()">
-      <ion-icon name="md-person-add"></ion-icon>
+      <ion-icon name="person-add"></ion-icon>
     </button>
       <div *ngIf="(tId | teamBasicPipe | async)?.captain === pId">
         <button fab fab-bottom fab-right small class="post disable-hover" (click)="addNewMatch()">
-      <ion-icon name="md-football"></ion-icon>
+      <ion-icon name="football"></ion-icon>
     </button>
         <button fab fab-bottom fab-right small class="edit disable-hover" (click)="editTeam()">
-      <ion-icon name="md-create"></ion-icon>
+      <ion-icon name="create"></ion-icon>
     </button>
       </div>
     </div>

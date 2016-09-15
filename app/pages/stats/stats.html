@@ -22,15 +22,15 @@
           <h2 text-center>{{(t.$key | teamBasicPipe | async)?.name}}</h2>
           <ion-row>
             <ion-col>
-              <p text-center><label><ion-icon name='md-football'></ion-icon>&nbsp;Matches</label></p>
+              <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;Matches</label></p>
               <p text-center>{{(t.$key | teamBasicPipe | async)?.totalMatches}}</p>
             </ion-col>
             <ion-col>
-              <p text-center><label><ion-icon name='md-people'></ion-icon>&nbsp;Players</label></p>
+              <p text-center><label><ion-icon name='people'></ion-icon>&nbsp;Players</label></p>
               <p text-center><label>{{(t.$key | teamBasicPipe | async)?.totalPlayers}}</label></p>
             </ion-col>
             <ion-col>
-              <p text-center><label><ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity</label></p>
+              <p text-center><label><ion-icon name='flame' danger></ion-icon>&nbsp;Popularity</label></p>
               <p text-center><span secondary>{{t.popularity}}</span></p>
             </ion-col>
             <!-->

@@ -24,15 +24,15 @@
     <!-- show pages -->
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="goPlayerPage()" detail-push>
-      <ion-icon name="md-aperture" item-left secondary></ion-icon>
+      <ion-icon name="aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
     <ion-item (click)="goTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
-      <ion-icon name="md-people" item-left primary></ion-icon>
+      <ion-icon name="people" item-left primary></ion-icon>
       My Team
     </ion-item>
     <ion-item (click)="showCreateTeamModel()" *ngIf="!(playerBasic)?.teamId">
-      <ion-icon name="md-people" item-left primary></ion-icon>
+      <ion-icon name="people" item-left primary></ion-icon>
       Create Team
     </ion-item>
     <ion-item-divider light></ion-item-divider>
@@ -41,7 +41,7 @@
       Feedback
     </ion-item>
     <ion-item (click)="onLogout()">
-      <ion-icon name="md-exit" item-left danger></ion-icon>
+      <ion-icon name="exit" item-left danger></ion-icon>
       Logout
     </ion-item>
   </ion-item-group>
