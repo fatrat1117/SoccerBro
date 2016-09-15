@@ -22,8 +22,6 @@ export class EditPlayerPage {
               private nav: NavController,
               private fm: FirebaseManager) {
 
-    console.log("Entered edit player");
-    
     this.pId = this.navParams.get('pId');
     this.busy = false;
     this.afPlayerBasic = this.fm.getPlayerBasic(this.pId);

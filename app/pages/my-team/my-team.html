@@ -62,10 +62,10 @@
   </div>
   <!-->
 
-  <div *ngIf="(isTeamPlayer | async)?.$value">
+  <div *ngIf="(isTeamPlayer | async)?.goals">
     <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
-    <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
-  </button>
+      <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
+    </button>
     <div [hidden]="!isOpen" class="menu-buttons">
       <button fab fab-bottom fab-right small class="invite disable-hover" (click)="invitePlayer()">
       <ion-icon name="person-add"></ion-icon>
