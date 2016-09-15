@@ -62,7 +62,7 @@
   </div>
   <!-->
 
-  <div *ngIf="(isTeamPlayer | async)?.goals">
+  <div *ngIf="(isTeamPlayer | async)?.goals >= 0">
     <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
       <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
     </button>
