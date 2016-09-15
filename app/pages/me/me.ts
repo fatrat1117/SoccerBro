@@ -18,11 +18,18 @@ import {HomePage} from '../home/home';
 })
 export class MePage {
   player: any;
+  playerBasic: any;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager, private fm: FirebaseManager) {
     this.player = this.fm.getPlayerBasic(this.fm.selfId);
   }
 
+  ionViewWillEnter() {
+    this.player.subscribe(snapshot => {
+      console.log('onSubscribe player basic');
+      this.playerBasic = snapshot;
+    });
+  }
 
   goTeamPage() {
     this.nav.push(MyTeamPage, {

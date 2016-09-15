@@ -10,15 +10,15 @@
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="goEditPlayerPage()" style="border-width:0px;" detail-push>
       <ion-avatar item-left>
-        <ion-img [src]="(player | async)?.photoURL"></ion-img>
+        <ion-img [src]="(playerBasic)?.photoURL"></ion-img>
       </ion-avatar>
-      <h2>{{ (player | async)?.displayName }}</h2>
+      <h2>{{ (playerBasic)?.displayName }}</h2>
     </ion-item>
-    <ion-item (click)="goManageTeamPage()" *ngIf="(player | async)?.teamId" detail-push>
+    <ion-item (click)="goManageTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
       <ion-avatar item-left>
-        <ion-img [src]="((player | async)?.teamId | teamBasicPipe | async)?.logo"></ion-img>
+        <ion-img [src]="((playerBasic)?.teamId | teamBasicPipe | async)?.logo"></ion-img>
       </ion-avatar>
-      <h2>{{ ((player | async)?.teamId | teamBasicPipe | async)?.name }}</h2>
+      <h2>{{ ((playerBasic)?.teamId | teamBasicPipe | async)?.name }}</h2>
     </ion-item>
 
     <!-- show pages -->
@@ -27,11 +27,11 @@
       <ion-icon name="md-aperture" item-left secondary></ion-icon>
       Homepage
     </ion-item>
-    <ion-item (click)="goTeamPage()" *ngIf="(player | async)?.teamId" detail-push>
+    <ion-item (click)="goTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
       <ion-icon name="md-people" item-left primary></ion-icon>
       My Team
     </ion-item>
-    <ion-item (click)="showCreateTeamModel()" *ngIf="!(player | async)?.teamId">
+    <ion-item (click)="showCreateTeamModel()" *ngIf="!(playerBasic)?.teamId">
       <ion-icon name="md-people" item-left primary></ion-icon>
       Create Team
     </ion-item>
