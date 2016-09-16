@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content class="login-content" padding>
+    <div padding>
+        <button [disabled]="busy" class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)"><ion-icon name="logo-facebook"></ion-icon>
+        Connect with facebook</button>
+    </div>
+    <p>Or via SoccerBro account</p>
     <ion-list>
         <ion-item>
             <ion-input type="text" placeholder="Email" [(ngModel)]="_credentials.email" required></ion-input>
@@ -14,15 +19,11 @@
         </ion-item>
     </ion-list>
 
-    <div padding>
-        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="login(_credentials, $event)"block>Login</button>
+    <div class="login-connect" padding>
+        <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="login(_credentials, $event)" block>Login</button>
         <button type="submit" [disabled]="busy || !_credentials.email.length || !_credentials.password.length" (click)="registerUser($event)" block>Create Account</button>
         <button type="submit" [disabled]="busy || !_credentials.email.length" (click)="ResetPassword()" block>Reset Password</button>
-    </div>
-    <p>Or</p>
-    <div class="login-connect" padding>
-        <button [disabled]="busy" class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)">Connect with facebook</button>
-        <button [disabled]="busy" (click)="dismiss()" block>Cancel</button>
+        <button [disabled]="busy" (click)="dismiss()" block danger>Cancel</button>
     </div>
     <div padding>
         <p *ngIf="error" class="error">{{error}}</p>
