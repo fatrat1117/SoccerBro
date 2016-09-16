@@ -7,10 +7,10 @@
 <ion-content>
   <ion-list>
     <ion-item-divider light></ion-item-divider>
-    <ion-item>
+    <ion-item (click)="changeLogo()" >
       <h2>Logo</h2>
       <ion-thumbnail item-right>
-        <img [src]="logoUrl || (afTeam | async)?.logo" (click)="changeLogo()" />
+        <ion-img [src]="logoUrl || (afTeam | async)?.logo"></ion-img>>
       </ion-thumbnail>
     </ion-item>
     <ion-item>

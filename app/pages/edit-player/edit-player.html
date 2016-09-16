@@ -21,15 +21,15 @@
   <ion-item-group>
     <!-- Basic -->
     <ion-item-divider light></ion-item-divider>
-    <ion-item>
+    <ion-item (click)="changePhoto()">
       <h2>Profile Photo</h2>
       <ion-thumbnail item-right>
-        <ion-img [src]="logoUrl || (afPlayerBasic | async)?.photoURL" (click)="changePhoto()"></ion-img>
+        <ion-img [src]="logoUrl || (playerBasic)?.photoURL"></ion-img>
       </ion-thumbnail>
     </ion-item>
     <ion-item>
       <ion-label floating>Name</ion-label>
-      <ion-input type="text" maxlength="32" [ngModel]="(afPlayerBasic | async)?.displayName" (ngModelChange)="player.name=$event">
+      <ion-input type="text" maxlength="32" [ngModel]="(playerBasic)?.displayName" (ngModelChange)="player.name=$event">
       </ion-input>
     </ion-item>
 

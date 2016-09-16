@@ -10,7 +10,8 @@ import {ManageTeamPage} from '../manage-team/manage-team';
 export class EditPlayerPage {
   busy: boolean;
   pId: any;
-  afPlayerBasic: any;
+  //afPlayerBasic: any;
+  playerBasic: any;
   afPlayerDetail: any;
   afTeamBasic: any;
   player: any;
@@ -24,7 +25,8 @@ export class EditPlayerPage {
 
     this.pId = this.navParams.get('pId');
     this.busy = false;
-    this.afPlayerBasic = this.fm.getPlayerBasic(this.pId);
+    this.playerBasic = am.getCurrentPlayerSnapshot();
+    //this.afPlayerBasic = this.fm.getPlayerBasic(this.pId);
     this.afPlayerDetail = this.fm.getPlayerDetail(this.pId);
     this.afTeamBasic = this.fm.getTeamBasic(this.fm.selfTeamId);
     this.player = {
