@@ -15,7 +15,7 @@
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
       <ion-list>
-        <ion-item *ngFor="let t of afTeams | async | reverseAndCountTeamPipe" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
+        <ion-item *ngFor="let t of afTeams | async | reverseAndCountTeamPipe : teamData" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
           <ion-thumbnail item-left>
             <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
           </ion-thumbnail>
@@ -33,19 +33,8 @@
               <p text-center><label><ion-icon name='flame' danger></ion-icon>&nbsp;Popularity</label></p>
               <p text-center><span secondary>{{t.popularity}}</span></p>
             </ion-col>
-            <!-->
-            <ion-col>
-              <p text-center><label><ion-icon name='md-podium'></ion-icon>&nbsp;Rank</label></p>
-              <p text-center>1</p>
-            </ion-col>
-            <ion-col>
-              <p text-center><label><ion-icon name='ios-medal'></ion-icon>&nbsp;Points</label></p>
-              <p text-center><label>38</label></p>
-            </ion-col>
-            <-->
           </ion-row>
         </ion-item>
-        <!--<button (click)="enterStandings()">test standings</button>-->
       </ion-list>
 
       <ion-infinite-scroll (ionInfinite)="moreTeam($event)">
@@ -56,7 +45,7 @@
 
     <div *ngSwitchCase="'players'">
       <ion-list>
-        <ion-item *ngFor ="let p of afPlayers | async | reverseAndCountPlayerPipe" tappable (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
+        <ion-item *ngFor ="let p of afPlayers | async | reverseAndCountPlayerPipe : playerData" tappable (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
           <ion-avatar item-left>
             <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>

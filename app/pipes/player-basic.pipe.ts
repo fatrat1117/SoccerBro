@@ -53,11 +53,17 @@ export class ReverseAndCountPlayerPipe implements PipeTransform {
 
   }
 
-  transform(arr) {
+  transform(arr, playerData) {
     if (arr)
       {
         this.fm.totalPlayers = arr.length;
         console.log('reverse player count', arr.length);
+        if (playerData.maxPlayer <= arr.length) {
+          playerData.enableScroll = true;
+          playerData.maxPlayer += 10;
+        }
+        else 
+          playerData.enableScroll = false;
         return arr.reverse(); 
       }
   }

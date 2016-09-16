@@ -16,10 +16,12 @@ export class StatsPage {
   stats: string = "teams";
   afPlayers: any;
   afTeams: any;
-  maxPlayer = 20;
-  maxTeam = 20;
+  //maxPlayer = 20;
+  //maxTeam = 20;
   playerSize = new Subject();
   teamSize = new Subject();
+  teamData = { enableScroll: true, maxTeam: 20 };
+  playerData = { enableScroll: true, maxPlayer: 20 };
 
   constructor(private nav: NavController, private fm: FirebaseManager) {
     this.afPlayers = fm.queryPublicPlayers('popularity', this.playerSize);
@@ -36,13 +38,13 @@ export class StatsPage {
 
   updateTeamSize() {
     setTimeout(() => {
-      this.teamSize.next(this.maxTeam);
+      this.teamSize.next(this.teamData.maxTeam);
     }, 500);
   }
 
   updatePlayerSize() {
     setTimeout(() => {
-      this.playerSize.next(this.maxPlayer);
+      this.playerSize.next(this.playerData.maxPlayer);
     }, 500);
   }
 
@@ -63,13 +65,13 @@ export class StatsPage {
   }
 
   morePlayer(infiniteScroll) {
-    console.log('more player available', this.maxPlayer, this.fm.totalPlayers);
-      let enable = this.maxPlayer <= this.fm.totalPlayers;
-      if (enable) {
-        //this.afPlayers = this.fm.queryPublicPlayers('popularity', this.maxPlayer + 10);
-        this.maxPlayer += 10;
-        this.playerSize.next(this.maxPlayer);
-      }
+    console.log('more player available', this.fm.totalPlayers, this.playerData);
+    let enable = this.playerData.enableScroll;
+    if (enable) {
+      //this.afPlayers = this.fm.queryPublicPlayers('popularity', this.maxPlayer + 10);
+      //this.maxPlayer += 10;
+      this.playerSize.next(this.playerData.maxPlayer);
+    }
 
     setTimeout(() => {
       infiniteScroll.enable(enable);
@@ -78,13 +80,13 @@ export class StatsPage {
   }
 
   moreTeam(infiniteScroll) {
-    console.log('more team available', this.maxTeam, this.fm.totalTeams);
-      let enable = this.maxTeam <= this.fm.totalTeams;
-      if (enable) {
-        //this.afTeams = this.fm.queryPublicTeams('popularity', this.maxTeam + 10);
-        this.maxTeam += 10;
-        this.teamSize.next(this.maxTeam);
-      }
+    console.log('more team available', this.fm.totalTeams, this.teamData);
+    let enable = this.teamData.enableScroll;
+    if (enable) {
+      //this.afTeams = this.fm.queryPublicTeams('popularity', this.maxTeam + 10);
+      //this.maxTeam += 10;
+      this.teamSize.next(this.teamData.maxTeam);
+    }
     setTimeout(() => {
       infiniteScroll.enable(enable);
       infiniteScroll.complete();
