@@ -1,4 +1,4 @@
-import {ModalController, NavController, Page, ToastController} from 'ionic-angular';
+import {ModalController, NavController, Page, ToastController, LoadingController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import { Camera } from 'ionic-native';
 import {
@@ -22,10 +22,12 @@ export class AccountManager {
   currTeam: any;
   //teamsOfCurrPlayer: any;
   subscriptions: any;
+  loading: any;
 
   constructor(public af: AngularFire,
     private fm: FirebaseManager,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -252,7 +254,7 @@ export class AccountManager {
                     name: teamObj.name,
                     popularity: 1
                   });
-                  //update total
+                //update total
                 self.fm.updateTotalPlayers(newTeamId);
                 success();
               }).catch(err => error(err));
@@ -267,7 +269,7 @@ export class AccountManager {
   switchTeam(tId, success, error) {
     let player = this.afGetCurrentPlayer();
     console.log('switchTeam to', tId);
-    
+
     player.update({ teamId: tId })
       .then(_ => success())
       .catch(err => error(err));
@@ -281,7 +283,7 @@ export class AccountManager {
     let subTeam = afTeam.subscribe(teamSnapshot => {
       setTimeout(() => {
         subTeam.unsubscribe();
-         console.log('quit team', teamSnapshot);
+        console.log('quit team', teamSnapshot);
         if (teamSnapshot.captain != this.currentUser.uid) {
           let tOfp = self.afGetTeamOfPlayer(self.currentUser.uid, tId);
           tOfp.remove().then(_ => {
@@ -326,7 +328,7 @@ export class AccountManager {
     if (teamObj.captain)
       updateObj["captain"] = teamObj.captain;
 
-      console.log('update team', teamObj, updateObj);
+    console.log('update team', teamObj, updateObj);
 
     this.fm.getTeamBasic(teamObj.tId).update(updateObj).then(_ => success()).catch(err => error(err));
     if (teamObj.description)
@@ -449,7 +451,7 @@ export class AccountManager {
   //push
   postNotification(messageObj, pushIds, success, error) {
     console.log('push Notification', pushIds);
-    
+
     let notificationObj = {
       contents: messageObj,
       include_player_ids: pushIds
@@ -457,13 +459,13 @@ export class AccountManager {
 
     window["plugins"].OneSignal.postNotification(notificationObj,
       successResponse => {
-          console.log("Notification Post Success:", successResponse);
-          success(successResponse);
+        console.log("Notification Post Success:", successResponse);
+        success(successResponse);
       },
       failedResponse => {
-          console.log("Notification Post Failed: ", failedResponse);
-          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
-          error(failedResponse);
+        console.log("Notification Post Failed: ", failedResponse);
+        alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+        error(failedResponse);
       }
     );
   }
@@ -476,5 +478,20 @@ export class AccountManager {
       position: 'top'
     });
     toast.present();
+  }
+
+  presentLoading() {
+    setTimeout(() => {
+    console.log('presentLoading');
+    //if (!this.loading)
+      this.loading = this.loadingCtrl.create();
+    }, 250);
+  }
+
+  dismissLoading() {
+    setTimeout(() => {
+      console.log('dismissLoading');
+      this.loading.dismiss();
+    }, 1000);
   }
 }
