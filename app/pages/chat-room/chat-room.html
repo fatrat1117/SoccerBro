@@ -1,46 +1,47 @@
 <ion-header>
   <ion-navbar hide-tabs>
     <ion-title>Chat Room</ion-title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
   </ion-navbar>
 </ion-header>
 
-<ion-content class="chat-room">
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-list no-lines>
     <div *ngFor="let item of items | async; let i = index; trackBy:trackByKey">
-      <ion-item *ngIf="showTime(i)" class="chat-room-item" style="text-align:center">
-        <label class="chat-room-time-label">{{ getTime(i) }}</label>
+      <ion-item *ngIf="showTime(i)" class="chat-room-time-item">
+        <label>{{ getTime(i) }}</label>
       </ion-item>
 
       <!-- other -->
-      <ion-item *ngIf="!isSelf(item.createdBy)" class="chat-room-item">
-        <div class="chat-room-avatar-div f-left">
-          <ion-avatar class="chat-room-avatar" item-left>
-            <img class="chat-room-avatar-img" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL">
+      <ion-item *ngIf="!isSelf(item.createdBy)" class="chat-room-msg-item">
+        <ion-avatar item-left>
+          <ion-img *ngIf="showAvatar(i)" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL"></ion-img>
+        </ion-avatar>
+          <p *ngIf="showAvatar(i)">{{ (item.createdBy | playerBasicPipe | async)?.displayName }}</p>
+          <div class="msg-box left">
+            {{item.content}}
+          </div>
+      </ion-item>
+      <!--ion-item *ngIf="!isSelf(item.createdBy)" class="chat-room-item">
+        <div class="chat-room-avatar-div f-left" item-left>
+          <ion-avatar >
+            <ion-img [hidden]="!showAvatar(i)" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>
         </div>
         <div class="chat-room-person-info f-left">
-          <p class="chat-room-person-name">{{ (item.createdBy | playerBasicPipe | async)?.displayName }}</p>
+          <p *ngIf="showAvatar(i)" class="chat-room-person-name">{{ (item.createdBy | playerBasicPipe | async)?.displayName }}</p>
           <div class="chat-room-person-bubble bubble-left">
             {{item.content}}
           </div>
         </div>
-      </ion-item>
+      </ion-item-->
       <!-- self -->
-      <ion-item *ngIf="isSelf(item.createdBy)" class="chat-room-item">
-        <div class="chat-room-avatar-div f-right">
-          <ion-avatar class="chat-room-avatar" item-right>
-            <img class="chat-room-avatar-img" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL">
-          </ion-avatar>
-        </div>
-        <div class="chat-room-person-info f-right chat-room-person-info-right">
-          <div class="chat-room-person-bubble bubble-right">
+      <ion-item *ngIf="isSelf(item.createdBy)" class="chat-room-msg-item">
+        <div class="msg-box right">
             {{item.content}}
-          </div>
         </div>
       </ion-item>
     </div>
@@ -65,14 +66,11 @@
 
   <ion-footer class="chat-room-footer">
     <ion-toolbar white>
-      <ion-input type="text" [(ngModel)]="newMessage" style="background:white;" clearInput></ion-input>
+      <input #input type="text" [(ngModel)]="newMessage" class="text-input" clearInput>
       <ion-buttons right>
-        <button class="chat-room-footer-button" [hidden]="newMessage == ''" (click)="sendMessage()">
+        <button class="send-button" [hidden]="newMessage == ''" (click)="sendMessage(input)">
         Send
       </button>
-        <!--button primary [hidden]="newMessage == ''">
-        <ion-icon name="md-send"></ion-icon>
-      </button-->
       </ion-buttons>
     </ion-toolbar>
   </ion-footer>

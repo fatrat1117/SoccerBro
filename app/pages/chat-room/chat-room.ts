@@ -29,29 +29,34 @@ export class ChatRoomPage {
 
   constructor(private navCtrl: NavController, private af: AngularFire, private fm: FirebaseManager, params: NavParams) {
     this.teamId = params.get("teamId");
-    
+
     this.currentSize = 10;
     this.newMessage = '';
     this.sizeSubject = new Subject();
     this.items = fm.getSelfChatMessages(this.teamId, this.sizeSubject);
-    
+
     this.items.subscribe(snapshots => {
       this.snapshots = snapshots;
-      this.content.scrollToBottom();
+      if (snapshots.length == this.currentSize)
+        this.content.scrollToBottom();
     });
-    
+
+    /*
+        window.addEventListener('native.keyboardshow', function () {
+          console.log('native.keyboardshow');
+          
+          this.content.scrollBottom();
+        });
+        */
+
   }
 
   ionViewWillEnter() {
     this.sizeSubject.next(this.currentSize);
   }
 
-  ionViewDidEnter() {
-    this.content.scrollToBottom();
-  }
-
-  trackByKey(_item) {
-    return _item.key
+  trackByKey(item) {
+    return item.key
   }
 
   getPlayer(id: string) {
@@ -65,8 +70,18 @@ export class ChatRoomPage {
   showTime(index) {
     if (index == 0)
       return true;
-    
-    return (this.snapshots[index].createdAt - this.snapshots[index-1].createdAt > 300000);
+
+    return (this.snapshots[index].createdAt - this.snapshots[index - 1].createdAt > 300000);
+  }
+
+  showAvatar(index) {
+    if (index == 0)
+      return true;
+
+    if (this.showTime(index))
+      return true;
+
+    return !(this.snapshots[index].createdBy == this.snapshots[index - 1].createdBy);
   }
 
   getTime(index) {
@@ -74,7 +89,7 @@ export class ChatRoomPage {
     var current = this.snapshots[index].createdAt;
     if (index == 0)
       isTheSameDay = false;
-    else if (moment(current).diff(moment(this.snapshots[index-1].createdAt), 'days') < 1)
+    else if (moment(current).diff(moment(this.snapshots[index - 1].createdAt), 'days') < 1)
       isTheSameDay = true;
     else
       isTheSameDay = false;
@@ -93,22 +108,28 @@ export class ChatRoomPage {
     else {
       newTime = moment(current).format('HH:mm');
     }
-    
+
     return newTime;
   }
 
-  sendMessage() {
+  sendMessage(input) {
+    this.focusInput(input);
     this.fm.addSelfChatMessage(this.teamId, this.newMessage);
     this.newMessage = '';
   }
 
   doRefresh(refresher) {
-    this.currentSize +=10;
-    this.sizeSubject.next(this.currentSize); 
+    this.currentSize += 10;
+    this.sizeSubject.next(this.currentSize);
 
     setTimeout(() => {
       this.content.scrollToTop();
       refresher.complete();
     }, 500);
+  }
+
+  focusInput(input) {
+    //console.log(input);
+    input.focus();
   }
 }
