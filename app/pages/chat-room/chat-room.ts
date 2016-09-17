@@ -20,39 +20,46 @@ export class ChatRoomPage {
   @ViewChild(Content) content: Content;
   teamId: string;
   // firebase
-  items: FirebaseListObservable<any[]>;
-  snapshots: any[];
+  //items: FirebaseListObservable<any[]>;
+  messages: any[];
   sizeSubject: Subject<any>;
   currentSize: number;
   // new
+  playersCache: { [key:string]:any; };
   newMessage: string;
 
   constructor(private navCtrl: NavController, private af: AngularFire, private fm: FirebaseManager, params: NavParams) {
     this.teamId = params.get("teamId");
+    this.playersCache = {};
 
     this.currentSize = 10;
     this.newMessage = '';
     this.sizeSubject = new Subject();
-    this.items = fm.getSelfChatMessages(this.teamId, this.sizeSubject);
 
-    this.items.subscribe(snapshots => {
-      this.snapshots = snapshots;
-      if (snapshots.length == this.currentSize)
-        this.content.scrollToBottom();
-    });
-
-    /*
-        window.addEventListener('native.keyboardshow', function () {
-          console.log('native.keyboardshow');
-          
-          this.content.scrollBottom();
-        });
-        */
-
+    fm.getSelfChatMessages(this.teamId, this.sizeSubject).subscribe(snapshots => {
+      snapshots.forEach(s => {
+        let k = s.createdBy;
+        
+        if (this.playersCache[k] === undefined) {
+          this.fm.getPlayerBasic(k).subscribe(p => {
+            let player: any = {};
+            player.name = p.displayName;
+            player.photo = p.photoURL;
+            this.playersCache[k] = player;
+          })
+        }
+      })
+      this.messages = snapshots;
+      this.content.scrollToBottom();
+    })
   }
 
   ionViewWillEnter() {
     this.sizeSubject.next(this.currentSize);
+  }
+
+  ionViewDidEnter() {
+    this.content.scrollToBottom();
   }
 
   trackByKey(item) {
@@ -60,7 +67,7 @@ export class ChatRoomPage {
   }
 
   getPlayer(id: string) {
-    return this.fm.getPlayerBasic(id)
+    return this.playersCache[id]
   }
 
   isSelf(id: string) {
@@ -71,7 +78,7 @@ export class ChatRoomPage {
     if (index == 0)
       return true;
 
-    return (this.snapshots[index].createdAt - this.snapshots[index - 1].createdAt > 300000);
+    return (this.messages[index].createdAt - this.messages[index - 1].createdAt > 300000);
   }
 
   showAvatar(index) {
@@ -81,15 +88,15 @@ export class ChatRoomPage {
     if (this.showTime(index))
       return true;
 
-    return !(this.snapshots[index].createdBy == this.snapshots[index - 1].createdBy);
+    return !(this.messages[index].createdBy == this.messages[index - 1].createdBy);
   }
 
   getTime(index) {
     var isTheSameDay: boolean;
-    var current = this.snapshots[index].createdAt;
+    var current = this.messages[index].createdAt;
     if (index == 0)
       isTheSameDay = false;
-    else if (moment(current).diff(moment(this.snapshots[index - 1].createdAt), 'days') < 1)
+    else if (moment(current).diff(moment(this.messages[index - 1].createdAt), 'days') < 1)
       isTheSameDay = true;
     else
       isTheSameDay = false;

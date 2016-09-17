@@ -10,34 +10,24 @@
   </ion-refresher>
 
   <ion-list no-lines>
-    <div *ngFor="let item of items | async; let i = index; trackBy:trackByKey">
+    <div *ngFor="let item of messages; let i = index; trackBy:trackByKey">
       <ion-item *ngIf="showTime(i)" class="chat-room-time-item">
         <label>{{ getTime(i) }}</label>
       </ion-item>
 
       <!-- other -->
       <ion-item *ngIf="!isSelf(item.createdBy)" class="chat-room-msg-item">
-        <ion-avatar item-left>
-          <ion-img *ngIf="showAvatar(i)" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL"></ion-img>
-        </ion-avatar>
-          <p *ngIf="showAvatar(i)">{{ (item.createdBy | playerBasicPipe | async)?.displayName }}</p>
-          <div class="msg-box left">
-            {{item.content}}
-          </div>
-      </ion-item>
-      <!--ion-item *ngIf="!isSelf(item.createdBy)" class="chat-room-item">
-        <div class="chat-room-avatar-div f-left" item-left>
-          <ion-avatar >
-            <ion-img [hidden]="!showAvatar(i)" [src]="(item.createdBy | playerBasicPipe | async)?.photoURL"></ion-img>
+        <div class="chat-room-avatar-div">
+          <ion-avatar item-left>
+            <ion-img [src]="getPlayer(item.createdBy)?.photo"></ion-img>
           </ion-avatar>
         </div>
-        <div class="chat-room-person-info f-left">
-          <p *ngIf="showAvatar(i)" class="chat-room-person-name">{{ (item.createdBy | playerBasicPipe | async)?.displayName }}</p>
-          <div class="chat-room-person-bubble bubble-left">
-            {{item.content}}
-          </div>
+        <p>{{ getPlayer(item.createdBy)?.name }}</p>
+        <div class="msg-box left">
+          {{item.content}}
         </div>
-      </ion-item-->
+      </ion-item>
+
       <!-- self -->
       <ion-item *ngIf="isSelf(item.createdBy)" class="chat-room-msg-item">
         <div class="msg-box right">
@@ -47,22 +37,6 @@
     </div>
   </ion-list>
 </ion-content>
-
-<!--
-<ion-footer style="background:white;" class="item-input-inset">
-  <ion-input type="text"></ion-input>
-  <button>Send</button>
-</ion-footer>
--->
-
-<!-->
-<ion-footer class="chat-room-footer">
-  <div id="chat-room-footer-input-area">
-    <ion-input type="text" [(ngModel)]="newMessage" id="chat-room-footer-ionic-input"></ion-input>
-    <button secondary class="chat-room-footer-send-btn" *ngIf="newMessage != ''" (click)="sendMessage()">Send</button>
-  </div>
-</ion-footer>
-<-->
 
   <ion-footer class="chat-room-footer">
     <ion-toolbar white>

@@ -13,12 +13,14 @@
 
 .chat-room-msg-item {
   background-color: transparent;
+  
+
   ion-label{
     white-space: normal;
   }
   .msg-box {
     min-width: 25px;
-    max-width: 90%;
+    max-width: 80%;
     float: left;
     font-size: 0.9em;
     border-radius: 5px;
@@ -32,6 +34,7 @@
     float: right;
     background: #9de856;
   }
+
 }
 
 .chat-room-footer {
@@ -57,4 +60,9 @@
     font-weight: normal;
     text-transform: capitalize;
   }
+}
+
+.chat-room-avatar-div ion-avatar[item-left] {
+  float: left;
+  margin: 5px 5px 5px 0px;
 }
