@@ -1,6 +1,6 @@
 import {Component, enableProdMode} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {StatusBar, Keyboard} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, AuthMethods } from 'angularfire2';
 import {AccountManager} from './providers/account-manager';

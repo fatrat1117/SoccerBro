@@ -1,4 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
+import {Keyboard} from 'ionic-native';
 import {Content} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
@@ -52,6 +53,20 @@ export class ChatRoomPage {
       this.messages = snapshots;
       this.content.scrollToBottom();
     })
+
+    Keyboard.onKeyboardShow().subscribe(() => {
+      console.log("onKeyboardShow");
+      this.content.scrollToBottom(); 
+    })
+    Keyboard.onKeyboardHide().subscribe(() => {
+      console.log("onKeyboardHide");
+      this.content.scrollToBottom(); 
+    })
+
+  }
+
+  scrollToBottom() {
+      this.content.scrollToBottom(); 
   }
 
   ionViewWillEnter() {
