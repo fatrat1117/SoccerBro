@@ -53,13 +53,13 @@ export class LoginPage {
 
         let self = this;
         let _credentials = this._credentials;
-        console.log("create user", _credentials);
+        console.log("create user");
         this.af.auth.createUser(_credentials)
             .then((user) => {
                 console.log(`Create User Success:`, user);
-                _credentials.created = true;
-
-                return this.login(_credentials, _event);
+                //_credentials.created = true;
+                self.dismiss();
+                //return this.login(_credentials, _event);
             })
             .catch(e => {
                 self.error = e;

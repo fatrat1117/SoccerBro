@@ -486,7 +486,7 @@ export class AccountManager {
     //if (!this.loading)
       this.loading = this.loadingCtrl.create();
       this.loading.present();
-    }, 250);
+    }, 1000);
   }
 
   dismissLoading() {
