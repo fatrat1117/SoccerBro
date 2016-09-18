@@ -55,11 +55,9 @@ export class ChatRoomPage {
     })
 
     Keyboard.onKeyboardShow().subscribe(() => {
-      console.log("onKeyboardShow");
       this.content.scrollToBottom(); 
     })
     Keyboard.onKeyboardHide().subscribe(() => {
-      console.log("onKeyboardHide");
       this.content.scrollToBottom(); 
     })
 
