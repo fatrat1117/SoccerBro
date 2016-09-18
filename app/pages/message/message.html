@@ -12,7 +12,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content (swipeLeft)="swipeTo('notifications')" (swipeRight)="swipeTo('chats')">
+<!--ion-content (swipeLeft)="swipeTo('notifications')" (swipeRight)="swipeTo('chats')"-->
+<ion-content>
   <div [ngSwitch]="message">
     <ion-list *ngSwitchCase="'chats'">
       <ion-list-header>Teams</ion-list-header>

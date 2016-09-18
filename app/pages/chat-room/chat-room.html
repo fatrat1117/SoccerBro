@@ -31,20 +31,20 @@
       <!-- self -->
       <ion-item *ngIf="isSelf(item.createdBy)" class="chat-room-msg-item">
         <div class="msg-box right">
-            {{item.content}}
+          {{item.content}}
         </div>
       </ion-item>
     </div>
   </ion-list>
 </ion-content>
 
-  <ion-footer class="chat-room-footer">
-    <ion-toolbar white>
-      <input #input type="text" [(ngModel)]="newMessage" class="text-input" clearInput>
-      <ion-buttons right>
-        <button class="send-button" [hidden]="newMessage == ''" (click)="sendMessage(input)">
+<ion-footer class="chat-room-footer">
+  <ion-toolbar white>
+    <input #input type="text" [(ngModel)]="newMessage" class="text-input" clearInput>
+    <ion-buttons right>
+      <button class="send-button" [hidden]="newMessage == ''" (click)="sendMessage(input)">
         Send
       </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

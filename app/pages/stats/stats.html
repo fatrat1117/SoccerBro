@@ -11,7 +11,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')">
+<!--ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')"-->
+<ion-content> 
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
       <ion-list>

@@ -62,15 +62,9 @@ export class MessagePage {
     });
   }
 
+  /*
   swipeTo(name: string) {
     this.message = name;
   }
-
-  swipeRight() {
-    this.message = "chats";
-  }
-
-  swipeLeft() {
-    this.message = "notifications";
-  }
+  */
 }

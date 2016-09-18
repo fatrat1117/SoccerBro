@@ -60,9 +60,11 @@ export class StatsPage {
     this.nav.push(StandingsPage);
   }
 
+  /*
   swipeTo(name: string) {
     this.stats = name;
   }
+  */
 
   morePlayer(infiniteScroll) {
     console.log('more player available', this.fm.totalPlayers, this.playerData);
