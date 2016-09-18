@@ -27,6 +27,6 @@
         <button [disabled]="busy" (click)="dismiss()" block danger>Cancel</button>
     </div>
     <div padding>
-        <p *ngIf="error" class="error">{{error}}</p>
+        <p *ngIf="error" danger>{{error}}</p>
     </div>
 </ion-content>
