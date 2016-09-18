@@ -51,13 +51,13 @@
             <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>
           <ion-row center>
-            <ion-col>
+            <ion-col width-50>
               <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
             </ion-col>
             <ion-col text-center>
               <p><span primary text-uppercase>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
             </ion-col>
-            <ion-col text-center>
+            <ion-col width-25 text-center>
               <p text-center>
                 <label>
                 <ion-icon name='ios-flame' danger></ion-icon>&nbsp;Popularity: <span secondary>{{p.popularity}}</span>

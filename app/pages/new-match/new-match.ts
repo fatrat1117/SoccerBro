@@ -17,8 +17,8 @@ export class NewMatchPage {
   jerseyColor: string;
   location: any;
   minDate: string;
-  matchDate: Date;
-  matchTime: Date;
+  matchDate: string;
+  matchTime: string;
   notice: string;
   pushIds = [];
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
@@ -30,6 +30,8 @@ export class NewMatchPage {
     this.location = {};
     this.notice  = "";
     this.minDate = moment().format("YYYY-MM-DD");
+    this.matchDate = this.minDate;
+    this.matchTime = "15:00"
 
     this.fm.getPlayersObj(this.fm.selfTeamId).subscribe(snapshot => {
       for (let pId in snapshot) {
@@ -83,8 +85,9 @@ export class NewMatchPage {
 
   // post
   postNewMatch() {
-    let time = moment(this.matchDate.valueOf() + " " + this.matchTime.valueOf()).unix() * 1000;
+    let time = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
     
+
     this.fm.addSelfMatch({
       //timestamp: firebase.database.ServerValue.TIMESTAMP,
       //creatorId: 'VP0ilOBwY1YM9QTzyYeq23B82pR2',
@@ -97,7 +100,7 @@ export class NewMatchPage {
       notice: this.notice
     });
 
-        // push notification
+    // push notification
     let message = {
         'en': "A new match is waiting for you to join!",
         'zh-Hans': "一场新球赛等待你的加入！" 
