@@ -54,7 +54,7 @@
       </ion-item>
 
       <!-- notice -->
-      <ion-item text-wrap>
+      <ion-item text-wrap *ngIf="(teamId | matchInfoPipe: matchId | async)?.notice !== ''">
         {{ (teamId | matchInfoPipe: matchId | async)?.notice }}
       </ion-item>
 
