@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {StandingsPage}from '../standings/standings';
 import {FirebaseManager} from '../../providers/firebase-manager';
+import {AccountManager} from '../../providers/account-manager';
 import {Subject} from 'rxjs/Subject';
 import {PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe} from '../../pipes/player-basic.pipe';
 import {TeamBasicPipe, ReverseAndCountTeamPipe} from '../../pipes/team-basic.pipe';
@@ -23,7 +24,9 @@ export class StatsPage {
   teamData = { enableScroll: true, maxTeam: 20 };
   playerData = { enableScroll: true, maxPlayer: 20 };
 
-  constructor(private nav: NavController, private fm: FirebaseManager) {
+  constructor(private nav: NavController, 
+  private fm: FirebaseManager,
+  private am: AccountManager) {
     this.afPlayers = fm.queryPublicPlayers('popularity', this.playerSize);
     this.afTeams = fm.queryPublicTeams('popularity', this.teamSize);
     this.updateTeamSize();
@@ -37,12 +40,16 @@ export class StatsPage {
   // }
 
   updateTeamSize() {
+    this.am.presentLoading(4000, false);
+
     setTimeout(() => {
       this.teamSize.next(this.teamData.maxTeam);
     }, 500);
   }
 
   updatePlayerSize() {
+    this.am.presentLoading(3000, false);
+
     setTimeout(() => {
       this.playerSize.next(this.playerData.maxPlayer);
     }, 500);

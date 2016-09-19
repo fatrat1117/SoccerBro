@@ -469,7 +469,7 @@ export class AccountManager {
       },
       any => {
         console.log(any);
-        
+
       }
     );
   }
@@ -484,19 +484,39 @@ export class AccountManager {
     toast.present();
   }
 
-  presentLoading() {
+  presentLoading(autoDismissTimeout = 5000, delayPresent = true) {
+    if (delayPresent) {
+      setTimeout(() => {
+        this.createLoading();
+      }, 1000);
+    } else
+      this.createLoading();
+    
+    //auto dismiss to prevent dead lock
     setTimeout(() => {
-    console.log('presentLoading');
-    //if (!this.loading)
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
-    }, 1000);
+      this.destroyLoading();
+    }, autoDismissTimeout);
   }
 
   dismissLoading() {
     setTimeout(() => {
+      this.destroyLoading();
+    }, 1000);
+  }
+
+  createLoading() {
+    if (!this.loading) {
+      console.log('presentLoading');
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
+  }
+
+  destroyLoading() {
+    if (this.loading) {
       console.log('dismissLoading');
       this.loading.dismiss();
-    }, 1000);
+      this.loading = null;
+    }
   }
 }
