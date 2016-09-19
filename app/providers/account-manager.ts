@@ -47,11 +47,7 @@ export class AccountManager {
   }
 
   uninitialize() {
-    //must unsubscribe
-    for (let i = 0; i < this.subscriptions.length; ++i) {
-      this.subscriptions[i].unsubscribe();
-    }
-    this.subscriptions = [];
+    this.unsubAll();
     this.afCurrPlayer = null;
     this.afCurrTeam = null;
     this.currentUser = null;
@@ -62,10 +58,22 @@ export class AccountManager {
     this.fm.selfId = "";
   }
 
+  unsubAll() {
+    //must unsubscribe
+    for (let i = 0; i < this.subscriptions.length; ++i) {
+      this.subscriptions[i].unsubscribe();
+    }
+    this.subscriptions = [];
+  }
+
   setupListener(success, error) {
+    console.log('setupListener');
+    
     let self = this;
     let user = firebase.auth().currentUser;
-    this.afCurrPlayer.subscribe(currPlayerData => {
+    //unsub to prevent dupliates
+    this.unsubAll();
+    let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
 
       if (currPlayerData) {
@@ -88,7 +96,7 @@ export class AccountManager {
         }
       }
     });
-    //self.subscriptions.push(sub);
+    self.subscriptions.push(sub);
   }
   //firebase reference
   getRefBasic_Player(pId) {
