@@ -73,6 +73,7 @@ export class AccountManager {
     let user = firebase.auth().currentUser;
     //unsub to prevent dupliates
     this.unsubAll();
+    let eventFired = false;
     let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
 
@@ -82,7 +83,12 @@ export class AccountManager {
           self.currPlayer = currPlayerData;
           self.fm.selfTeamId = currPlayerData.teamId;
           self.fm.selfId = user.uid;
-          success();
+          console.log('event fired', eventFired);
+          
+          if (false === eventFired) {
+              success();
+              eventFired = true;
+          }
         }
         else {
           console.log("first time login");
@@ -90,7 +96,9 @@ export class AccountManager {
           self.afCurrPlayer.update({
             photoURL: user.photoURL || 'img/none.png',
             displayName: user.displayName || user.email
-          }).catch(err => error(err));
+          }).catch(err => 
+            error(err)
+          );
           //update player public
           self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
         }
