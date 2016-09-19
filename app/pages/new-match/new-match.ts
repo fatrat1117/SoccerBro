@@ -106,9 +106,9 @@ export class NewMatchPage {
         'zh-Hans': "一场新球赛等待你的加入！" 
     };
     
-    let success = result => {};
-    let error = err => {};
-    this.am.postNotification(message, this.pushIds, success, error);
+    //let success = result => {};
+    //let error = err => {};
+    this.am.postNotification(message, this.pushIds);
 
     this.dismiss();
   }
