@@ -17,6 +17,6 @@
       </ion-select>
     </ion-item>-->
     <button (click)="doCreateTeam()" [disabled]="!teamName.trim().length || busy" block>Create</button>
-    <button (click)="doCancel()" [disabled]="busy" block>Cancel</button>
+    <button (click)="doCancel()" [disabled]="busy" block danger>Cancel</button>
   </ion-list>
 </ion-content>
