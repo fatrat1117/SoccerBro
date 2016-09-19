@@ -68,18 +68,18 @@
 
                 <div class="card">
                   <h1 class="title">Login</h1>
-                  <div id="jointeam_email_input_error_alert" style="display: none;" class="alert" onclick="this.style.display='none';">
+                  <div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert" onclick="this.style.display='none';">
                     <span class="closebtn" >&times;</span>
                   </div>
 
                   <form name="jointeam_email_login_form"  onsubmit="return onEmailLogin()" method="post">
                     <div class="input-container">
-                      <input type="text" id="Username" name="jointeam_email_input" required="required"/>
+                      <input type="text" id="Username" name="jointeam_email_input_login" required="required"/>
                       <label for="Username">Email</label>
                       <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                      <input type="password" id="Password" name="jointeam_password_input" required="required"/>
+                      <input type="password" id="Password" name="jointeam_password_input_login" required="required"/>
                       <label for="Password">Password</label>
                       <div class="bar"></div>
                     </div>
@@ -94,19 +94,22 @@
                   <h1 class="title">Register
                     <div class="close"></div>
                   </h1>
-                  <form>
+                  <div id="jointeam_email_input_error_alert_register" style="display: none;" class="alert" onclick="this.style.display='none';">
+                    <span class="closebtn" >&times;</span>
+                  </div>
+                  <form name="jointeam_email_register_form" onsubmit="return onEmailRegister()" method="post">
                     <div class="input-container">
-                      <input type="text" id="Username" required="required"/>
-                      <label for="Username">Username</label>
+                      <input type="text" id="Username" name="jointeam_email_input_register" required="required"/>
+                      <label for="Username">Set your Username</label>
                       <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                      <input type="password" id="Password" required="required"/>
-                      <label for="Password">Password</label>
+                      <input type="password" id="Password" name="jointeam_password_input_register" required="required"/>
+                      <label for="Password">Set your Password</label>
                       <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                      <input type="password" id="Repeat Password" required="required"/>
+                      <input type="password" id="Repeat Password" name="jointeam_confirm_password_input_register" required="required"/>
                       <label for="Repeat Password">Repeat Password</label>
                       <div class="bar"></div>
                     </div>

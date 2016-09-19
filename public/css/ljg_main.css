@@ -108,6 +108,10 @@ body{
   max-width: 50%;
 }
 
+#jointeam_email_input_error_alert_register{
+  position:absolute;
+  top:0;
+}
 
 
 /**** Don't touch below, thanks*****/
