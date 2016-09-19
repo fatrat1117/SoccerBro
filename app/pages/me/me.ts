@@ -19,6 +19,7 @@ import {HomePage} from '../home/home';
 export class MePage {
   player: any;
   playerBasic: any;
+  teamBasic: any;
 
   constructor(private nav: NavController, private modalController: ModalController, private am: AccountManager, private fm: FirebaseManager) {
     this.player = this.fm.getPlayerBasic(this.fm.selfId);
@@ -26,7 +27,15 @@ export class MePage {
 
   ionViewWillEnter() {
     let self = this;
-    let success = () => {self.playerBasic = self.am.getCurrentPlayerSnapshot();}
+    let success = () => {
+      self.playerBasic = self.am.getCurrentPlayerSnapshot();
+      if (self.playerBasic.teamId) {
+        self.fm.getTeamBasic(self.playerBasic.teamId).subscribe(snapshot => {
+          console.log('me update team basic UI');
+          self.teamBasic = snapshot;
+        }); 
+      }
+    }
     let error = err => self.am.showToast(err);
     this.am.setupListener(success, error);
     //do not subscribe one locatio more than once, the 2nd subscripiton will stop 1st subscripiton so that UI not updated.

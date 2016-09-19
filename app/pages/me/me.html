@@ -16,9 +16,9 @@
     </ion-item>
     <ion-item tappable (click)="goManageTeamPage()" *ngIf="(playerBasic)?.teamId" detail-push>
       <ion-avatar item-left>
-        <ion-img [src]="((playerBasic)?.teamId | teamBasicPipe | async)?.logo"></ion-img>
+        <ion-img [src]="(teamBasic)?.logo"></ion-img>
       </ion-avatar>
-      <h2>{{ ((playerBasic)?.teamId | teamBasicPipe | async)?.name }}</h2>
+      <h2>{{ (teamBasic)?.name }}</h2>
     </ion-item>
 
     <!-- show pages -->
