@@ -449,7 +449,7 @@ export class AccountManager {
   }
 
   //push
-  postNotification(messageObj, pushIds, success, error) {
+  postNotification(messageObj, pushIds, success=null, error=null) {
     console.log('push Notification', pushIds);
 
     let notificationObj = {
@@ -460,18 +460,15 @@ export class AccountManager {
     window["plugins"].OneSignal.postNotification(notificationObj,
       successResponse => {
         console.log("Notification Post Success:", successResponse);
-        success(successResponse);
+        if (success)
+          success(successResponse);
       },
       failedResponse => {
         console.log("Notification Post Failed: ", failedResponse);
-        alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
-        error(failedResponse);
-      },
-      any => {
-        console.log(any);
-
-      }
-    );
+        //alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+        if (error)
+          error(failedResponse);
+      });
   }
 
   //misc
