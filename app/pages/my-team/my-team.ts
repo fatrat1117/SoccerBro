@@ -25,14 +25,14 @@ export class MyTeamPage {
   pId: any;
   tId: any;
   team: any;
-  teamCaptain: any;
+  //teamCaptain: any;
   teamAvatar: any;
   teamPlayers: any;
   teamPlayersNumber: any;
 
   //af
   afTeam: FirebaseObjectObservable<any>;
-  afTeamCaptain: FirebaseObjectObservable<any>;
+  //afTeamCaptain: FirebaseObjectObservable<any>;
 
   afTeamDetail: FirebaseObjectObservable<any>;
   afTeamPublic: FirebaseObjectObservable<any>;
@@ -47,38 +47,16 @@ export class MyTeamPage {
     private am: AccountManager,
     private navParams: NavParams,
     private fm: FirebaseManager) {
-    // this.currentTeam = this.am.getCurrentTeamSnapshot();
-    //console.log(config);
-    
     this.pId = this.fm.selfId;
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().teamId;
     this.afTeam = this.am.afGetTeam(this.tId);
-
-    var teamLogoURL = "";
-    //getCaptainAFObject
     this.afTeam.subscribe(snapshot => {
       this.team = snapshot;
-      var captainId = snapshot.captain;
-      teamLogoURL = snapshot.logo;
-      console.log(teamLogoURL);
-      this.afTeamCaptain = this.am.afGetPlayerById(captainId);
-      this.afTeamCaptain.subscribe(playerSnapshot => {
-        this.teamCaptain = playerSnapshot;
-      });
     });
 
     this.afTeamDetail = this.fm.getTeamDetail(this.tId);
     this.afTeamPublic = this.fm.getTeamPublic(this.tId);
     this.fm.increasePopularity(this.afTeamPublic);
-    // var number;
-    // let afTeamPlayers = this.fm.getPlayers(this.tId);
-    // let subPlayer = afTeamPlayers.subscribe(snapshot => {
-    //   console.log(this.tId);
-    //   this.teamPlayersNumber = snapshot.length;
-    //   this.teamPlayers = snapshot;
-    // });
-
-    //console.log(this.teamPlayersNumber);
 
     // floating menu
     this.isTeamPlayer = this.fm.isTeamPlayer(this.pId, this.tId);
