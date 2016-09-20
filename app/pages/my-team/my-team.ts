@@ -75,17 +75,20 @@ export class MyTeamPage {
 
   invitePlayer() {
     //console.log('invite player', teamName);
-    
-    if (this.team.name) {
-        let link = this.am.getCurrentPlayerSnapshot().displayName +
-            ' ' + 'invite you to join' + ' ' +
-            this.team.name +
-            '\n' +
-            'https://' + globals.firebaseConfig.authDomain + '/index.html?teamId=' +
-            this.tId;
 
-    Clipboard.copy(link);
-    alert('invitation link has been copied to Clipboard, you can paste it on your messager and send to your teamates');
+    if (this.team.name) {
+      let link = this.am.getCurrentPlayerSnapshot().displayName +
+        ' ' + 'invite you to join' + ' ' +
+        this.team.name +
+        '\n' +
+        'https://' + globals.firebaseConfig.authDomain + '/index.html?teamId=' + this.tId;
+
+      if (1 === globals.prod) {
+        link += '&prod=1';
+      }
+
+      Clipboard.copy(link);
+      alert('invitation link has been copied to Clipboard, you can paste it on your messager and send to your teamates');
     }
   }
 

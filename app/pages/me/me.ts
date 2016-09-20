@@ -35,7 +35,7 @@ export class MePage {
             console.log('me update team basic UI');
             self.teamBasic = snapshot;
           });
-        }, 250);
+        }, 500);
       }
     }
     let error = err => self.am.showToast(err);

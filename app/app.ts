@@ -40,7 +40,8 @@ export class MyApp {
     }
 }
 
-//enableProdMode();
+if (globals.prod)
+  enableProdMode();
 
 ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
   // Initialize Firebase app  
