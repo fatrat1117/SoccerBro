@@ -20,6 +20,7 @@ export class MessagePage {
   message: string;
   teams: any;
   matches: any;
+  uid = '';
   // firebase
 
   constructor(private navCtrl: NavController, 
@@ -34,10 +35,14 @@ export class MessagePage {
   }
 
   ionViewWillEnter() {
-    setTimeout(() => {
+    if (this.uid != this.fm.selfId) {
+      setTimeout(() => {
+
         this.teams = this.fm.getSelfTeams();
         this.matches = this.fm.getSelfMatchNotifications();
-    }, 500);
+      }, 500);
+      this.uid = this.fm.selfId;
+    }
   }
 
   enterChatRoom(id) {
