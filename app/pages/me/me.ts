@@ -30,10 +30,12 @@ export class MePage {
     let success = () => {
       self.playerBasic = self.am.getCurrentPlayerSnapshot();
       if (self.playerBasic.teamId) {
-        self.fm.getTeamBasic(self.playerBasic.teamId).subscribe(snapshot => {
-          console.log('me update team basic UI');
-          self.teamBasic = snapshot;
-        }); 
+        setTimeout(function () {
+          self.fm.getTeamBasic(self.playerBasic.teamId).subscribe(snapshot => {
+            console.log('me update team basic UI');
+            self.teamBasic = snapshot;
+          });
+        }, 250);
       }
     }
     let error = err => self.am.showToast(err);
@@ -81,7 +83,7 @@ export class MePage {
     this.nav.push(FeedbackPage);
   }
 
-  pushPage(){
+  pushPage() {
     // push another page on to the navigation stack
     // causing the nav controller to transition to the new page
     // optional data can also be passed to the pushed page.
