@@ -27,14 +27,17 @@ export class MessagePage {
   private fm: FirebaseManager,
   private am: AccountManager) {
     this.message = "chats";
-    this.teams = [];
-    this.matches = [];
+    //this.teams = [];
+    //this.matches = [];
     console.log(moment({hour: 5}));
     console.log(moment().valueOf());
+  }
 
-    this.teams = fm.getSelfTeams();
-    this.matches = fm.getSelfMatchNotifications();
-
+  ionViewWillEnter() {
+    setTimeout(() => {
+        this.teams = this.fm.getSelfTeams();
+        this.matches = this.fm.getSelfMatchNotifications();
+    }, 500);
   }
 
   enterChatRoom(id) {
