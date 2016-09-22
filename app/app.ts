@@ -19,18 +19,10 @@ export class MyApp {
   private rootPage: any;
 
   constructor(private platform: Platform,
-  private translateService: TranslateService) {
+    private translateService: TranslateService) {
     this.rootPage = TabsPage;
     console.log('lang', navigator.language.split('-')[0]);
     translateService.use('zh');
-
-    translateService.get('HELLO').subscribe(
-  value => {
-    // value is our translated string
-    console.log(value);
-    
-  }
-)
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -40,17 +32,17 @@ export class MyApp {
     });
   }
 
-  registerForPushNotifications () {
-        let notificationOpenedCallback = jsonData => {
-            console.log('didReceiveRemoteNotificationCallBack:', jsonData);
-        };
+  registerForPushNotifications() {
+    let notificationOpenedCallback = jsonData => {
+      console.log('didReceiveRemoteNotificationCallBack:', jsonData);
+    };
 
-        window["plugins"].OneSignal.init("f6268d9c-3503-4696-8e4e-a6cf2c028fc6",
-                                       { googleProjectNumber: "63493717987" },
-                                       notificationOpenedCallback);
-        window["plugins"].OneSignal.enableInAppAlertNotification(false);
-        window["plugins"].OneSignal.enableNotificationsWhenActive(true);
-    }
+    window["plugins"].OneSignal.init("f6268d9c-3503-4696-8e4e-a6cf2c028fc6",
+      { googleProjectNumber: "63493717987" },
+      notificationOpenedCallback);
+    window["plugins"].OneSignal.enableInAppAlertNotification(false);
+    window["plugins"].OneSignal.enableNotificationsWhenActive(true);
+  }
 }
 
 if (globals.prod)
@@ -69,10 +61,10 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     libraries: ['places'],
     region: "SG"
   }),
-  { 
+  {
     provide: TranslateLoader,
     useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
     deps: [Http]
   },
   TranslateService
-], {tabsHideOnSubPages:"true"});
+], { tabsHideOnSubPages: "true" });
