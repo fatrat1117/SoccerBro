@@ -16,11 +16,14 @@
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
       <ion-list>
-        <ion-item *ngFor="let t of afTeams | async | reverseAndCountTeamPipe : teamData" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
+        <ion-item *ngFor="let t of afTeams | async | reverseAndCountTeamPipe : teamData; let i = index;" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
           <ion-thumbnail item-left>
             <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
           </ion-thumbnail>
-          <h2 text-center>{{(t.$key | teamBasicPipe | async)?.name}}</h2>
+          <ion-badge style="position:absolute;">{{ i+1 }}</ion-badge>
+          <h2 text-center>
+            {{(t.$key | teamBasicPipe | async)?.name}}
+          </h2>
           <ion-row>
             <ion-col>
               <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;Matches</label></p>
@@ -46,13 +49,16 @@
 
     <div *ngSwitchCase="'players'">
       <ion-list>
-        <ion-item *ngFor ="let p of afPlayers | async | reverseAndCountPlayerPipe : playerData" tappable (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
+        <ion-item *ngFor ="let p of afPlayers | async | reverseAndCountPlayerPipe : playerData; let i = index;" tappable (click)="goPlayerPage(p.$key)" style="margin-bottom:10px">
           <ion-avatar item-left>
             <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
           </ion-avatar>
           <ion-row center>
             <ion-col class="stats-col-text">
-              <h2>{{(p.$key | playerBasicPipe | async)?.displayName}}</h2>
+              <h2>
+                <ion-badge>{{ i+1 }}</ion-badge>
+                {{(p.$key | playerBasicPipe | async)?.displayName}}
+              </h2>
             </ion-col>
             <ion-col width-20 text-center>
               <p><span primary text-uppercase>{{(p.$key | playerDetailPipe | async)?.position}}</span></p>
