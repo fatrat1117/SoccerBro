@@ -1,19 +1,28 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
 @Injectable()
 export class Localization {
     langCode = 'en';
 
     setLang(lang) {
-        let l = navigator.language.split('-')[0];
-        if (lang != 'zh-tw' && 'zh' == l)
+        let lowerLang = lang.toLowerCase();
+        let l = lowerLang.split('-')[0];
+        if (lowerLang != 'zh-tw' && 'zh' == l)
             this.langCode = 'zh';
         else 
             this.langCode = 'en';
         console.log('lang', lang, l, this.langCode);
     }
 
-    translation: {
+    getString(id) {
+        console.log(id, this.langCode, this.translation);
+        
+        let s = this.translation[this.langCode][id];
+        console.log('getString', id, s);
+        return s ? s : id;
+    }
+
+    translation = {
         en: {
             Description: 'description',
             West: 'West',
@@ -150,4 +159,20 @@ export class Localization {
             Yellowcard: '黄牌'
         }
     }
+}
+
+@Pipe({
+  name: 'trans'
+})
+
+export class transPipe implements PipeTransform {
+  constructor(private localization: Localization) {
+      console.log(localization);
+  }
+
+  transform(id) {
+      console.log(this.localization);
+      
+    return this.localization.getString(id);
+  }
 }
