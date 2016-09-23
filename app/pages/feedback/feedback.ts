@@ -5,7 +5,8 @@ import {AccountManager} from '../../providers/account-manager';
 import {transPipe} from '../../providers/localization'
 
 @Component({
-  templateUrl: 'build/pages/feedback/feedback.html'
+  templateUrl: 'build/pages/feedback/feedback.html',
+  pipes: [transPipe]
 })
 export class FeedbackPage {
   feedbackContent = '';

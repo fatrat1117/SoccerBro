@@ -29,6 +29,7 @@ export class Localization {
             South: 'South',
             Book: 'Book',
             Team: 'Team',
+            Teams: 'Teams',
             MyTeam: 'My Team',
             CreateTeam: 'Create your Team',
             NoTeamPrompt: 'You have not joined a team',
@@ -36,9 +37,9 @@ export class Localization {
             Home: 'Home',
             Settings: 'Settings',
             ChatRoom: 'Chat Room',
-            players: 'players',
             Create: 'Create',
             Quit: 'Quit',
+            players: 'players',
             Players: 'Players',
             PromoteToCaptain: 'Promote to captain',
             Date: 'Date',
@@ -85,7 +86,12 @@ export class Localization {
             Cannotgo: 'Can not go',
             Typeyourmessage: 'Type your message',
             Redcard: 'Red card',
-            Yellowcard: 'Yellow card'
+            Yellowcard: 'Yellow card',
+            Rank : 'Rank',
+            Message: 'Message',
+            Played: 'Played',
+            Matches: 'Matches',
+            Popularity: 'Popularity'
         },
 
         zh: {
@@ -97,6 +103,7 @@ export class Localization {
             South: '南部',
             Book: '预定',
             Team: '球队',
+            Teams: '球队',
             MyTeam: '我的球队',
             CreateTeam: '创建球队',
             NoTeamPrompt: '你还没有自己的球队',
@@ -104,9 +111,9 @@ export class Localization {
             Home: '首页',
             Settings: '设置',
             ChatRoom: '聊天室',
-            players: '队员',
             Create: '创建',
             Quit: '退出',
+            players: '队员',
             Players: '队员',
             PromoteToCaptain: '升为队长',
             Date: '日期',
@@ -153,7 +160,12 @@ export class Localization {
             Cannotgo: '不报名',
             Typeyourmessage: '输入消息',
             Redcard: '红牌',
-            Yellowcard: '黄牌'
+            Yellowcard: '黄牌',
+            Rank : '排名',
+            Message: '信息',
+            Played: '出场',
+            Matches: '比赛',
+            Popularity: '人气'
         }
     }
 }

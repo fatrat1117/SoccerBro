@@ -2,16 +2,15 @@
   <ion-navbar>
     <ion-segment [(ngModel)]="stats">
       <ion-segment-button value="teams" (click)="updateTeamSize()">
-        Teams
+        {{'Teams' | trans}}
       </ion-segment-button>
       <ion-segment-button value="players" (click)="updatePlayerSize()">
-        Players
+        {{'Players' | trans}}
       </ion-segment-button>
     </ion-segment>
   </ion-navbar>
 </ion-header>
 
-<!--ion-content (swipeLeft)="swipeTo('players')" (swipeRight)="swipeTo('teams')"-->
 <ion-content> 
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
@@ -26,15 +25,15 @@
           </h2>
           <ion-row>
             <ion-col>
-              <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;Matches</label></p>
+              <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;{{'Played' | trans}}</label></p>
               <p text-center>{{(t.$key | teamBasicPipe | async)?.totalMatches}}</p>
             </ion-col>
             <ion-col>
-              <p text-center><label><ion-icon name='people'></ion-icon>&nbsp;Players</label></p>
+              <p text-center><label><ion-icon name='people'></ion-icon>&nbsp;{{'Players' | trans}}</label></p>
               <p text-center><label>{{(t.$key | teamBasicPipe | async)?.totalPlayers}}</label></p>
             </ion-col>
             <ion-col>
-              <p text-center><label><ion-icon name='flame' danger></ion-icon>&nbsp;Popularity</label></p>
+              <p text-center><label><ion-icon name='flame' danger></ion-icon>&nbsp;{{'Popularity' | trans}}</label></p>
               <p text-center><span secondary>{{t.popularity}}</span></p>
             </ion-col>
           </ion-row>
