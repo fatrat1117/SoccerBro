@@ -41,7 +41,7 @@ export class MyPlayerPage {
     let self = this;
     let success = snapshot => {
       //console.log(self.radarChartData);
-      self.radarChartData = [[snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity]];
+      //self.radarChartData = [[snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity, snapshot.popularity]];
       //self.radarChartData[0][3] = snapshot.popularity;
     }
 

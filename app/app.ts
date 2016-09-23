@@ -5,6 +5,7 @@ import {TabsPage} from './pages/tabs/tabs';
 import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, AuthMethods } from 'angularfire2';
 import {AccountManager} from './providers/account-manager';
 import {FirebaseManager} from './providers/firebase-manager';
+import {Localization} from './providers/localization';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 import '../node_modules/chart.js/dist/Chart.bundle.min.js';
 import globals = require('./providers/globals');
@@ -15,9 +16,10 @@ import globals = require('./providers/globals');
 export class MyApp {
 
   private rootPage: any;
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform,
+  private localization : Localization) {
     this.rootPage = TabsPage;
-    console.log('lang', navigator.language.split('-')[0]);
+    localization.setLang(navigator.language);
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -49,6 +51,7 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
   firebaseAuthConfig({}),
   AccountManager,
   FirebaseManager,
+  Localization,
   // google maps
   GOOGLE_MAPS_PROVIDERS,
   provideLazyMapsAPILoaderConfig({
