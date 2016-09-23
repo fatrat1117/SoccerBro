@@ -15,10 +15,7 @@ export class Localization {
     }
 
     getString(id) {
-        console.log(id, this.langCode, this.translation);
-        
         let s = this.translation[this.langCode][id];
-        console.log('getString', id, s);
         return s ? s : id;
     }
 
@@ -167,12 +164,9 @@ export class Localization {
 
 export class transPipe implements PipeTransform {
   constructor(private localization: Localization) {
-      console.log(localization);
   }
 
   transform(id) {
-      console.log(this.localization);
-      
     return this.localization.getString(id);
   }
 }
