@@ -1,13 +1,10 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
-  pipes: [TranslatePipe]
+  templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-  translate : any;
   constructor(private navCtrl: NavController) {
   }
 

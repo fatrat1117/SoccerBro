@@ -6,8 +6,6 @@ import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders,
 import {AccountManager} from './providers/account-manager';
 import {FirebaseManager} from './providers/firebase-manager';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
-import { TranslateService, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
-import { Http }    from '@angular/http';
 import '../node_modules/chart.js/dist/Chart.bundle.min.js';
 import globals = require('./providers/globals');
 
@@ -17,12 +15,9 @@ import globals = require('./providers/globals');
 export class MyApp {
 
   private rootPage: any;
-
-  constructor(private platform: Platform,
-    private translateService: TranslateService) {
+  constructor(private platform: Platform) {
     this.rootPage = TabsPage;
     console.log('lang', navigator.language.split('-')[0]);
-    translateService.use('zh');
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -61,10 +56,5 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     libraries: ['places'],
     region: "SG"
   }),
-  {
-    provide: TranslateLoader,
-    useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
-    deps: [Http]
-  },
-  TranslateService
 ], { tabsHideOnSubPages: "true" });
+
