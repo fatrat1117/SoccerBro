@@ -7,9 +7,11 @@ import {MessagePage} from '../message/message';
 import {MePage} from '../me/me';
 import {MyTeamPage} from '../my-team/my-team';
 import {AccountManager} from '../../providers/account-manager'
+import {transPipe} from '../../providers/localization'
 
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html'
+  templateUrl: 'build/pages/tabs/tabs.html',
+  pipes: [transPipe]
 })
 export class TabsPage implements OnInit {
   @ViewChild('mainTabs') tabRef: Tabs;

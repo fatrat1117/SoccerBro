@@ -4,10 +4,11 @@ import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {SearchPlayerPage} from '../search-player/search-player';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/edit-team/edit-team.html',
-  pipes: [PlayerBasicPipe]
+  pipes: [PlayerBasicPipe, transPipe]
 })
 export class EditTeamPage {
   busy: boolean;

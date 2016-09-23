@@ -14,10 +14,11 @@ import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import { Clipboard } from 'ionic-native';
 import globals = require('../../providers/globals');
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html',
-  pipes: [TeamBasicPipe, PlayerBasicPipe]
+  pipes: [TeamBasicPipe, PlayerBasicPipe, transPipe]
 })
 export class MyTeamPage {
 

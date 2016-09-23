@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, ModalController} from 'ionic-angular';
 import * as moment from 'moment';
 declare let firebase: any;
-
+import {transPipe} from '../../providers/localization'
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {MatchInfoPage} from '../match-info/match-info';
@@ -14,7 +14,7 @@ import {AccountManager} from '../../providers/account-manager';
 
 @Component({
   templateUrl: 'build/pages/message/message.html',
-  pipes: [TeamBasicPipe, MatchInfoPipe, MatchFilterPipe]
+  pipes: [TeamBasicPipe, MatchInfoPipe, MatchFilterPipe, transPipe]
 })
 export class MessagePage {
   message: string;

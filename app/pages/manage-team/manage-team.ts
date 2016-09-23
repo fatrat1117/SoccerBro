@@ -7,10 +7,11 @@ import {MyTeamPage} from '../my-team/my-team';
 import {CreateTeamPage} from '../create-team/create-team';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/manage-team/manage-team.html',
-  pipes: [TeamBasicPipe, PlayerBasicPipe]
+  pipes: [TeamBasicPipe, PlayerBasicPipe, transPipe]
 })
 export class ManageTeamPage {
   playerId: string;

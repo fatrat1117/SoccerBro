@@ -7,11 +7,12 @@ import {AccountManager} from "../../providers/account-manager";
 import {FirebaseManager} from "../../providers/firebase-manager";
 import {ManagePlayerPage} from '../manage-player/manage-player';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/my-player/my-player.html',
   directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
-  pipes: [TeamBasicPipe]
+  pipes: [TeamBasicPipe, transPipe]
 })
 export class MyPlayerPage {
   pId: any;

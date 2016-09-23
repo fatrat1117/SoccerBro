@@ -8,10 +8,11 @@ import {PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe} from '../.
 import {TeamBasicPipe, ReverseAndCountTeamPipe} from '../../pipes/team-basic.pipe';
 import {MyPlayerPage} from '../my-player/my-player';
 import {MyTeamPage} from '../my-team/my-team';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/stats/stats.html',
-  pipes: [PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe, ReverseAndCountTeamPipe, TeamBasicPipe]
+  pipes: [PlayerBasicPipe, PlayerDetailPipe, ReverseAndCountPlayerPipe, ReverseAndCountTeamPipe, TeamBasicPipe, transPipe]
 })
 export class StatsPage {
   stats: string = "teams";

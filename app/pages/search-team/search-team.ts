@@ -4,7 +4,7 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 
 
 @Component({
-  templateUrl: 'build/pages/search-team/search-team.html',
+  templateUrl: 'build/pages/search-team/search-team.html'
 })
 export class SearchTeamPage {
   totalTeams: any[];

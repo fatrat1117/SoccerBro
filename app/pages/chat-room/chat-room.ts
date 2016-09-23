@@ -3,7 +3,7 @@ import {Keyboard} from 'ionic-native';
 import {Content} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-//import {CalendarPipe} from 'angular2-moment';
+import {transPipe} from '../../providers/localization'
 import { Subject } from 'rxjs/Subject';
 
 import * as moment from 'moment';
@@ -14,7 +14,7 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [PlayerBasicPipe]
+  pipes: [PlayerBasicPipe, transPipe]
 })
 
 export class ChatRoomPage {

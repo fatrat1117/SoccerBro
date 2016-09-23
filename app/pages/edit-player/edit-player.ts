@@ -3,9 +3,11 @@ import {NavController, NavParams } from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {ManageTeamPage} from '../manage-team/manage-team';
+import {transPipe} from '../../providers/localization'
 
 @Component({
-  templateUrl: 'build/pages/edit-player/edit-player.html'
+  templateUrl: 'build/pages/edit-player/edit-player.html',
+  pipes: [transPipe]
 })
 export class EditPlayerPage {
   busy: boolean;

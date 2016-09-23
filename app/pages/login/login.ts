@@ -6,11 +6,12 @@ import {
     AuthMethods
 } from 'angularfire2';
 import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
-
+import {transPipe} from '../../providers/localization'
 declare let firebase: any;
 
 @Page({
-    templateUrl: 'build/pages/login/login.html'
+    templateUrl: 'build/pages/login/login.html',
+    pipes: [transPipe]
 })
 export class LoginPage {
 

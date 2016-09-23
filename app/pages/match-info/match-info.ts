@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, AlertController, ViewController} from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
-
+import {transPipe} from '../../providers/localization'
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {MatchInfoPipe} from '../../pipes/match-info.pipe';
@@ -10,7 +10,7 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/match-info/match-info.html',
-  pipes: [TeamBasicPipe, MatchInfoPipe, PlayerBasicPipe]
+  pipes: [TeamBasicPipe, MatchInfoPipe, PlayerBasicPipe, transPipe]
 })
 export class MatchInfoPage {
   selfId: string;

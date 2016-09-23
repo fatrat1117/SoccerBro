@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager'
+import {transPipe} from '../../providers/localization'
 
 @Component({
-  templateUrl: 'build/pages/create-team/create-team.html'
+  templateUrl: 'build/pages/create-team/create-team.html',
+  pipes: [transPipe]
 })
 export class CreateTeamPage {
   teamName: any;

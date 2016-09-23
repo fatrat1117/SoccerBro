@@ -6,11 +6,12 @@ import {SearchTeamPage} from '../search-team/search-team';
 import {ColorPickerPage} from '../color-picker/color-picker';
 import {FirebaseManager} from '../../providers/firebase-manager'
 import {AccountManager} from '../../providers/account-manager'
-
+import {transPipe} from '../../providers/localization'
 declare var google: any;
 
 @Component({
   templateUrl: 'build/pages/new-match/new-match.html',
+  pipes: [transPipe]
 })
 export class NewMatchPage {
   opponent: any;

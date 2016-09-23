@@ -11,10 +11,11 @@ import {MyPlayerPage} from '../my-player/my-player';
 import {FeedbackPage} from '../feedback/feedback';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {HomePage} from '../home/home';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/me/me.html',
-  pipes: [TeamBasicPipe]
+  pipes: [TeamBasicPipe, transPipe]
 })
 export class MePage {
   player: any;
