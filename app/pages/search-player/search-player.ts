@@ -2,10 +2,12 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {MyPlayerPage} from '../my-player/my-player';
+import {transPipe} from '../../providers/localization'
 
 
 @Component({
   templateUrl: 'build/pages/search-player/search-player.html',
+  pipes: [transPipe]
 })
 export class SearchPlayerPage {
   showDetail: boolean;

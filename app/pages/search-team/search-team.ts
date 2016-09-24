@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager';
+import {transPipe} from '../../providers/localization'
 
 
 @Component({
-  templateUrl: 'build/pages/search-team/search-team.html'
+  templateUrl: 'build/pages/search-team/search-team.html',
+  pipes: [transPipe]
 })
 export class SearchTeamPage {
   totalTeams: any[];
