@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'TeamInfo' | trans}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-thumbnail class="player-avatar-bar">
+      <div class="bar">
+        <div class="left" text-center>
+          <p class="player-title-text">{{'Popularity' | trans}}</p>
+          <p danger>{{(afTeamPublic | async)?.popularity }}</p>
+        </div>
+        <div class="right">
+          <p class="player-title-text">{{'Matches' | trans}}</p>
+          <p secondary>{{(afTeam | async)?.totalMatches }}</p>
+        </div>
+      </div>
+      <img class="avatar" [src]="(afTeam | async)?.logo">
+    </ion-thumbnail>
+    <h2 class="player-bold-text" text-center>{{(afTeam | async)?.name}}</h2>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header class="player-header-decoration">
+      {{'Captain' | trans}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-avatar item-left>
+          <ion-img [src]="((team)?.captain | playerBasicPipe | async)?.photoURL"></ion-img>
+        </ion-avatar>
+        <h2>{{((team)?.captain | playerBasicPipe | async)?.displayName}}</h2>
+        <button clear item-right (click)="searchPlayers()">{{'ViewAll' | trans}}&nbsp;<span secondary>{{(afTeam | async)?.totalPlayers }}</span>&nbsp;{{'Players' | trans}}</button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header class="player-header-decoration">
+      {{'Description' | trans}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{(afTeamDetail | async)?.description}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-->
+  <div class="fab-buttons">
+    <button secondary fab fab-bottom fab-left (click)="editTeam()">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+    <button primary fab fab-bottom fab-right (click)="invitePlayer()">
+      <ion-icon name="md-person-add"></ion-icon>
+    </button>
+  </div>
+  <!-->
+
+  <div *ngIf="(isTeamPlayer | async)?.goals >= 0">
+    <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
+      <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
+    </button>
+    <div [hidden]="!isOpen" class="menu-buttons">
+      <button fab fab-bottom fab-right small class="invite disable-hover" (click)="invitePlayer()">
+      <ion-icon name="person-add"></ion-icon>
+    </button>
+      <div *ngIf="(tId | teamBasicPipe | async)?.captain === pId">
+        <button fab fab-bottom fab-right small class="post disable-hover" (click)="addNewMatch()">
+      <ion-icon name="football"></ion-icon>
+    </button>
+        <button fab fab-bottom fab-right small class="edit disable-hover" (click)="editTeam()">
+      <ion-icon name="create"></ion-icon>
+    </button>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>
+
+<!-->
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <button (click)="editTeam()">
+        <ion-icon name="create"></ion-icon>
+        Edit
+      </button>
+      <button>
+        <ion-icon (click)="invitePlayer()" name="person-add"></ion-icon>
+        Invite Player
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+<-->

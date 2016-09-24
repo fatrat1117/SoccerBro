@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'ManageTeams' | trans}}</ion-title>
+    <ion-buttons end>
+      <button (click)="showCreateTeamModel()"> 
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let t of afTeams | async">
+      <ion-item tappable (click) = "goTeamPage(t)">
+        <ion-avatar item-left>
+          <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
+        </ion-avatar>
+        <h2>{{ (t.$key | teamBasicPipe | async)?.name }}</h2>
+        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "makeDefault(t, $event)" clear item-right>{{'Default' | trans}}</button>
+      </ion-item>
+      <ion-item-options side="right">
+        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "quit(t)" danger>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
