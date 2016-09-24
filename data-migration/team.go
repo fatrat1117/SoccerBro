@@ -20,8 +20,9 @@ type teamDetail struct {
 }
 
 type member struct {
-	Number int `json:"number,omitempty"`
-	Goals  int `json:"goals"`
+	Number   int  `json:"number,omitempty"`
+	Goals    int  `json:"goals,omitempty"`
+	IsMember bool `json:"isMember"`
 }
 
 func GetNewTeams(data map[string]interface{}) (map[string]team, error) {
@@ -52,7 +53,7 @@ func GetNewTeams(data map[string]interface{}) (map[string]team, error) {
 		if val, ok := t["players"]; ok {
 			players := val.(map[string]interface{})
 			for km := range players {
-				m[km] = member{Goals: 0}
+				m[km] = member{IsMember: true}
 			}
 		}
 
