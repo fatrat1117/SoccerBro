@@ -10,12 +10,6 @@ var _teamInfoModel = {
   name: ko.observable("")
 }
 
-//
-// var teamPlayers = getTeamPlayersRef(_teamId);
-// teamPlayers.on('value', function (snapshot) {
-//
-// }
-
 window.onload = function () {
   console.log("program start");
   _teamId = $_GET("teamId");
