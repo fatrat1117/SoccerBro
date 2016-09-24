@@ -1,5 +1,4 @@
 body{
-  background-image: url("../img/jointeam_bg.jpg");
   background-repeat:no-repeat;
   -webkit-background-size:cover;
   -moz-background-size:cover;
@@ -101,11 +100,13 @@ body{
 }
 
 .jointeam_team .team_info{
-  display: flex;
+  width: 100%;
 }
 
 .jointeam_team .team_info .logo{
-  max-width: 50%;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
 }
 
 #jointeam_email_input_error_alert_register{
@@ -113,6 +114,11 @@ body{
   top:0;
 }
 
+.jointeam_team .team_info .description{
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+}
 
 /**** Don't touch below, thanks*****/
 

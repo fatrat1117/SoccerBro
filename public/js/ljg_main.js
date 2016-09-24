@@ -86,9 +86,9 @@ function onFbLogin() {
 
 function firebaseRedirect() {
 
-  if (window.location.href.indexOf('#') != -1) {
-    close();
-  }
+  // if (window.location.href.indexOf('#') != -1) {
+  //   close();
+  // }
   firebase.auth().getRedirectResult().then(function (result) {
     if (result.credential) {
       var user = result.user;
@@ -381,29 +381,34 @@ function updateTotalPlayers() {
   var updates_basic_info = {};
   var updates_players = {};
 
-  teamRef_players.once('value', function (snapshot) {
-    console.log(snapshot.val());
-    var players = snapshot.val();
-    var size = Object.keys(players).length;
+  try{
+    teamRef_players.once('value', function (snapshot) {
+      console.log(snapshot.val());
+      var players = snapshot.val();
+      var size = Object.keys(players).length;
 
-    updates_basic_info['totalPlayers'] = size;
-    //updates_players[userId] = { 'goals': 0, 'number': 0 };
-    console.log(size, updates_basic_info, teamRef_basic_info);
-    teamRef_basic_info.update(updates_basic_info, function (error) {
-      // Handle Errors here.
+      updates_basic_info['totalPlayers'] = size;
+      //updates_players[userId] = { 'goals': 0, 'number': 0 };
+      console.log(size, updates_basic_info, teamRef_basic_info);
+      teamRef_basic_info.update(updates_basic_info, function (error) {
+        // Handle Errors here.
 
-      console.log(error);
-      if (error)
-        handleServiceError(error);
-      else
-        goDownloadPage();
+        console.log(error);
+        if (error)
+          handleServiceError(error);
+        else
+          goDownloadPage();
+      });
     });
-  });
+  }catch(e){
+    alert(e);
+  }
+
   //console.log(userId);
 }
 
 function goDownloadPage() {
-  //window.location.href = "success.html";
+  window.location.href = "success.html";
 }
 
 function onTestNewFeature() {
