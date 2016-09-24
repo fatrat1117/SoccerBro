@@ -133,7 +133,9 @@ export class Localization {
             defence: 'defence',
             Email: 'Email',
             Password: 'Password',
-            ViewAll: 'View All'
+            ViewAll: 'View All',
+            EditTeam: 'Edit Team',
+            Logo: 'Logo',
         },
 
         zh: {
@@ -248,7 +250,9 @@ export class Localization {
             defence: '防守',
             Email: '邮箱',
             Password: '密码',
-            ViewAll: '查看所有'
+            ViewAll: '查看所有',
+            EditTeam: '编辑球队',
+            Logo: '队徽'
         }
     }
 }

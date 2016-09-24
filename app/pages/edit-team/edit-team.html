@@ -14,7 +14,7 @@
       </ion-thumbnail>
     </ion-item>
     <ion-item>
-      <ion-label floating>{{'Name' | trans}}</ion-label>
+      <ion-label floating>{{'TeamName' | trans}}</ion-label>
       <ion-input type="text" maxlength="32" [ngModel]="(afTeam | async)?.name" (ngModelChange)="team.name=$event">
       </ion-input>
     </ion-item>
@@ -27,7 +27,7 @@
       <ion-item-divider light></ion-item-divider>
       <ion-item tappable (click)="searchPlayer()">
         <ion-icon name="alert" item-left danger></ion-icon>
-        {{'ChangeCaptain' | trans}}
+        {{'PromoteToCaptain' | trans}}
       </ion-item>
     </div>
     <div *ngIf="newCaptain">

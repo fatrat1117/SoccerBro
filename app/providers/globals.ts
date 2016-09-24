@@ -1,5 +1,5 @@
 'use strict';
-export var prod = 0;  // DO NOT SET TO 1!
+export var prod = 2;  // DO NOT SET TO 1!
 
 export var firebaseConfig = (1 === prod) ?
   {
