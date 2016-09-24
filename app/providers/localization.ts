@@ -93,12 +93,19 @@ export class Localization {
             Played: 'Played',
             Matches: 'Matches',
             Popularity: 'Popularity',
+            MyPage: 'My Page',
             Notifications: 'Notifications',
             UpcomingMatches: 'Upcoming Match',
             Today: 'Today',
             Tomorrow: 'Tomorrow',
             Yesterday: 'Yesterday',
             MatchDetail: 'Match Detail',
+            EditPlayer: 'Edit Player',
+            Photo: 'Photo',
+            Nickname: 'Nick Name',
+            HeightCM: 'Height (CM)',
+            WeightKG: 'Weight (KG)',
+            Save: 'Save'
         },
 
         zh: {
@@ -173,12 +180,19 @@ export class Localization {
             Played: '出场',
             Matches: '比赛',
             Popularity: '人气',
+            MyPage: '我的主页',
             Notifications: '通知',
             UpcomingMatches: '赛程',
             Today: '今天',
             Tomorrow: '明天',
             Yesterday: '昨天',
             MatchDetail: '比赛信息',
+            EditPlayer: '编辑球员',
+            Photo: '头像',
+            Nickname: '昵称',
+            HeightCM: '身高 (厘米)',
+            WeightKG: '体重 (公斤)',
+            Save: '保存'
         }
     }
 }
