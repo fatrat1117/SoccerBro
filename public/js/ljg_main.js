@@ -15,6 +15,21 @@ var _teamInfoModel = {
 // teamPlayers.on('value', function (snapshot) {
 //
 // }
+function $_GET(param) {
+  var vars = {};
+  window.location.href.replace(location.hash, '').replace(
+    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+    function (m, key, value) { // callback
+      vars[key] = value !== undefined ? value : '';
+    }
+  );
+
+  if (param) {
+    return vars[param] ? vars[param] : null;
+  }
+  return vars;
+}
+
 
 window.onload = function () {
   console.log("program start");
@@ -75,19 +90,56 @@ function onFbLogin() {
   firebase.auth().signInWithRedirect(provider);
 }
 
+function firebaseRedirect() {
+
+  if (window.location.href.indexOf('#') != -1) {
+    close();
+  }
+  firebase.auth().getRedirectResult().then(function (result) {
+    if (result.credential) {
+      var user = result.user;
+      console.log('redirect', user);
+
+      insertIntoPlayerTable(user);
+      insertIntoTeamsTable(user);
+
+    } else {
+      console.log("show");
+      if (_teamId != null) {
+        teamIdValidation();
+      } else {
+        console.log("Error: teamId is null");
+      }
+    }
+  }).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+}
+
+
 
 function onEmailLogin() {
 
   if (_teamIdValid == false) {
     alert("teamId is not valid, please resend the request!");
     return;
-    // }
+    }
     // var email = document.forms["jointeam_email_login_form"]["jointeam_email_input_login"].value;
     // var password = document.forms["jointeam_email_login_form"]["jointeam_password_input_login"].value;
     var email = document.getElementById("Username");
     var password = document.getElementById("Password");
 
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function (credential) {
+    console.log(email.value);
+    console.log(password.value);
+
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function (credential) {
 
       console.log(credential);
       console.log(credential.uid);
@@ -97,16 +149,17 @@ function onEmailLogin() {
         insertIntoPlayerTable(credential);
         //Add team
         insertIntoTeamsTable(credential);
-        alert(email + "!, SoccerBro 欢迎你！");
+        alert(email.value + "!, SoccerBro 欢迎你！");
         window.location.href = "success.html";
 
       }
     }, function (error) {
       var errorMessage = error.message;
-      //alert(errorMessage);
+      alert(errorMessage);
       displayLoginError(errorMessage);
     });
     return false;
+
   }
 
   function onEmailRegister() {
@@ -166,54 +219,8 @@ function onEmailLogin() {
     $('#jointeam_email_input_error_alert_login').css("display", "block");
   }
 
-  function firebaseRedirect() {
-
-    if (window.location.href.indexOf('#') != -1) {
-      close();
-    }
-    firebase.auth().getRedirectResult().then(function (result) {
-      if (result.credential) {
-        var user = result.user;
-        console.log('redirect', user);
-
-        insertIntoPlayerTable(user);
-        insertIntoTeamsTable(user);
-
-      } else {
-        console.log("show");
-        if (_teamId != null) {
-          teamIdValidation();
-        } else {
-          console.log("Error: teamId is null");
-        }
-      }
-    }).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-  }
 
 
-  function $_GET(param) {
-    var vars = {};
-    window.location.href.replace(location.hash, '').replace(
-      /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-      function (m, key, value) { // callback
-        vars[key] = value !== undefined ? value : '';
-      }
-    );
-
-    if (param) {
-      return vars[param] ? vars[param] : null;
-    }
-    return vars;
-  }
 
 
 //some event
@@ -355,4 +362,4 @@ function onEmailLogin() {
       console.log(size);
     });
   }
-}
+
