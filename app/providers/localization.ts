@@ -118,7 +118,12 @@ export class Localization {
             Ability: 'Ability',
             TeamInfo: 'Team Info',
             NewMatch: 'New Match',
-            Notice: 'Notice'
+            Notice: 'Notice',
+            ResetMsg: 'Check your email to reset password.',
+            InviteMsg: 'Invitation link copied.',
+            Withdraw: 'Withdraw',
+            WithdrawMatch: 'Withdraw this match?',
+            FeedbackMsg: 'Thanks for your feedback!'
         },
 
         zh: {
@@ -218,7 +223,12 @@ export class Localization {
             Ability: '能力',
             TeamInfo: '球队信息',
             NewMatch: '新球赛',
-            Notice: '注意事项'
+            Notice: '注意事项',
+            ResetMsg: '重置密码的连接已经发到您的邮箱。',
+            InviteMsg: '你的邀请链接已复制。',
+            Withdraw: '撤销',
+            WithdrawMatch: '撤销比赛',
+            FeedbackMsg: '感谢你的反馈!'
         }
     }
 }

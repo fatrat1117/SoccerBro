@@ -15,6 +15,7 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import { Clipboard } from 'ionic-native';
 import globals = require('../../providers/globals');
 import {transPipe} from '../../providers/localization'
+import {Localization} from '../../providers/localization';
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html',
@@ -43,11 +44,9 @@ export class MyTeamPage {
   isTeamPlayer: any;
   isOpen: boolean;
 
-  constructor(private nav: NavController,
-    private modalController: ModalController,
-    private am: AccountManager,
-    private navParams: NavParams,
-    private fm: FirebaseManager) {
+  constructor(private nav: NavController, private modalController: ModalController,
+    private am: AccountManager, private navParams: NavParams,
+    private fm: FirebaseManager, private local: Localization) {
     this.pId = this.fm.selfId;
     this.tId = this.navParams.get('tId') || this.am.getCurrentPlayerSnapshot().teamId;
     this.afTeam = this.am.afGetTeam(this.tId);
@@ -89,7 +88,8 @@ export class MyTeamPage {
       }
 
       Clipboard.copy(link);
-      alert('invitation link has been copied to Clipboard, you can paste it on your messager and send to your teamates');
+      
+      alert(this.local.getString('InviteMsg'))
     }
   }
 
