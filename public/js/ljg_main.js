@@ -95,31 +95,10 @@ function onEmailLogin() {
     console.log(credential.uid);
     var userId = credential.uid;
     if (userId) {
-
       //Add player
-      var playerData = {};
-      var updates = {};
-      playerData['basic-info'] = {'displayName': credential.email,'teamId':_teamId};
-      playerData['teams'] = {_teamId:"true"};
-      try {
-        updates = {};
-        updates[userId] = playerData;
-        // don't use set(updates) here
-        firebase.database().ref("players/" + userId).update(updates).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var  errorMessage = error.message;
-          // ...
-          throw errorMessage;
-        });
-        console.log(userId, updates, playerData);
-      } catch (e) {
-        alert(e);
-        return;
-      }
-
+      insertIntoPlayerTable(credential);
       //Add team
-      insertIntoTeamsTable(userId);
+      insertIntoTeamsTable(credential);
       alert(email + "!, SoccerBro 欢迎你！");
       window.location.href = "success.html";
 
@@ -129,8 +108,6 @@ function onEmailLogin() {
     //alert(errorMessage);
     displayLoginError(errorMessage);
   });
-
-
   return false;
 }
 
@@ -161,28 +138,9 @@ function onEmailRegister() {
       if (userId) {
 
         //Add player
-        var playerData = {};
-        var updates = {};
-        playerData['basic-info'] = {'displayName': result.email};
-        try {
-          updates = {};
-          updates[userId] = playerData;
-          // don't use set(updates) here
-          firebase.database().ref("players/" + userId).update(updates).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            throw errorMessage;
-          });
-          console.log(userId, updates, playerData);
-        } catch (e) {
-          alert(e);
-          return;
-        }
-
+        insertIntoPlayerTable(credential);
         //Add team
-        insertIntoTeamsTable(userId);
+        insertIntoTeamsTable(credential);
         alert(email.value + "!, SoccerBro 欢迎你！");
         window.location.href = "success.html";
         return true;
@@ -249,53 +207,8 @@ function firebaseRedirect() {
       var pId = result.user.uid;
       console.log(user);
 
-      var playerData = {};
-      //var playerPublicData = {};
-      playerData['basic-info'] = {'displayName': user.displayName, 'photoURL': user.photoURL, 'teamId': _teamId};
-      //playerPublicData = {'name':user.displayName, 'popularity':0}
-      playerData['teams'] = {_teamId: true};
-      //Add userInfo into teams table
-      //Add userInfo into players table
-      try {
-        var teamRef = getTeamRef(_teamId);
-        var updates = {};
-        updates['/players/' + pId] = {'goals': 0, 'number': 12};
-        teamRef.update(updates).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-          throw errorMessage;
-        });
-        console.log(pId);
-      } catch (e) {
-        alert(e);
-        return;
-      }
-
-      //Add new user into players table and public table
-      try {
-        var playersUpdates = {};
-        //var publicUpdates = {};
-        playersUpdates[pId] = playerData;
-        //publicUpdates[pId] = playerPublicData;
-        // don't use set(updates) here
-        firebase.database().ref("players/").update(playersUpdates).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-          throw errorMessage;
-        });
-        //firebase.database().ref("public/players/").update(publicUpdates);
-        console.log(pId);
-        alert(user.displayName + "!, SoccerBro 欢迎你！");
-        window.location.href = "success.html";
-      } catch (e) {
-        alert(e);
-        return;
-      }
-
+      insertIntoPlayerTable(user);
+      insertIntoTeamsTable(user);
 
     } else {
       console.log("show");
@@ -397,7 +310,36 @@ function getTeamPlayerSize(){
 }
 
 
-function insertIntoTeamsTable(userId){
+function insertIntoPlayerTable(user){
+
+  var userId = user.uid;
+  var playerData = {};
+  var updates = {};
+  var playerRef = getPlayerRef(userId);
+  playerData['basic-info'] = { 'displayName': user.email, 'photoURL': user.photoURL, 'teamId': _teamId};
+  var playerTeamIdObj = {};
+  playerTeamIdObj[_teamId] = "true";
+  playerData['teams']= playerTeamIdObj;
+  try {
+    updates[userId] = playerData;
+    // don't use set(updates) here
+    playerRef.update(updates).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var  errorMessage = error.message;
+      // ...
+      throw errorMessage;
+    });
+    console.log(userId, updates, playerData);
+  } catch (e) {
+    alert(e);
+    return;
+  }
+}
+
+function insertIntoTeamsTable(user){
+
+  var userId = user.uid;
   //Add team
   try {
     var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
