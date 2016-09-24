@@ -36,7 +36,7 @@ export class Localization {
             JoinTeam: 'Join a Team',
             Home: 'Home',
             Settings: 'Settings',
-            ChatRoom: 'Chat Room',
+            ChatRoom: 'Chats',
             Create: 'Create',
             Quit: 'Quit',
             players: 'players',
@@ -91,7 +91,12 @@ export class Localization {
             Message: 'Message',
             Played: 'Played',
             Matches: 'Matches',
-            Popularity: 'Popularity'
+            Popularity: 'Popularity',
+            Notifications: 'Notifications',
+            UpcomingMatches: 'Upcoming Match',
+            Today: 'Today',
+            Tomorrow: 'Tomorrow',
+            MatchDetail: 'Match Detail',
         },
 
         zh: {
@@ -165,7 +170,12 @@ export class Localization {
             Message: '信息',
             Played: '出场',
             Matches: '比赛',
-            Popularity: '人气'
+            Popularity: '人气',
+            Notifications: '通知',
+            UpcomingMatches: '赛程',
+            Today: '今天',
+            Tomorrow: '明天',
+            MatchDetail: '比赛信息',
         }
     }
 }

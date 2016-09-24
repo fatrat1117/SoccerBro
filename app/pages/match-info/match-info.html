@@ -1,6 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Match Detail</ion-title>
+    <ion-title>
+      {{'MatchDetail' | trans}}
+    </ion-title>
     <ion-buttons end *ngIf="(teamId | teamBasicPipe | async)?.captain === selfId">
       <button (click)="withDrawMatch()">
         <ion-icon danger name="trash"></ion-icon>
@@ -85,13 +87,13 @@
     <ion-col text-center>
       <button block secondary small [disabled]="isGoing" (click)="joinMatch()">
         <ion-icon name="checkmark"></ion-icon>
-        Going
+        {{'Going' | trans}}
       </button>
     </ion-col>
     <ion-col text-center>
       <button block danger small [disabled]="!isGoing" (click)="leaveMatch()">
         <ion-icon name="close"></ion-icon>
-        Not going
+        {{'Cannotgo' | trans}}
       </button>
     </ion-col>
   </ion-row>

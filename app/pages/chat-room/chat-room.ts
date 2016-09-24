@@ -3,7 +3,6 @@ import {Keyboard} from 'ionic-native';
 import {Content} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {transPipe} from '../../providers/localization'
 import { Subject } from 'rxjs/Subject';
 
 import * as moment from 'moment';
@@ -11,6 +10,7 @@ declare let firebase: any;
 
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',

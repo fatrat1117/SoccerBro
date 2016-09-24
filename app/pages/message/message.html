@@ -2,10 +2,10 @@
   <ion-navbar>
     <ion-segment [(ngModel)]="message">
       <ion-segment-button value="chats">
-        Chats
+        {{'ChatRoom' | trans}}
       </ion-segment-button>
       <ion-segment-button value="notifications">
-        Notifications
+        {{'Notifications' | trans}}
         <!--ion-badge danger *ngIf="unReadCount > 0">{{unReadCount}}</ion-badge-->
       </ion-segment-button>
     </ion-segment>
@@ -16,7 +16,7 @@
 <ion-content>
   <div [ngSwitch]="message">
     <ion-list *ngSwitchCase="'chats'">
-      <ion-list-header>Teams</ion-list-header>
+      <ion-list-header>{{'Teams' | trans}}</ion-list-header>
       <ion-item *ngFor="let team of teams | async" tappable (click)="enterChatRoom(team.$key)">
         <ion-avatar item-left>
           <ion-img [src]="(team.$key | teamBasicPipe | async)?.logo">
@@ -43,7 +43,7 @@
 
     <ion-list *ngSwitchCase="'notifications'">
       <ion-list-header>
-        Upcoming Matches
+        {{'UpcomingMatches' | trans}}
       </ion-list-header>
       <ion-item *ngFor="let match of matches | async | matchFilterPipe" tappable (click)="showNotification(match.teamId, match.opponentId, match.$key)">
         <ion-avatar item-left>
@@ -56,7 +56,7 @@
         </h2>
         <h3>
           <ion-icon name="time" gRed></ion-icon>
-          {{getTime((match.teamId | matchInfoPipe:match.$key | async)?.time)}} 
+          {{ (match.teamId | matchInfoPipe:match.$key | async)?.time | momentPipe}} 
         </h3>
         <p>
           <ion-icon name="pin" gGreen></ion-icon>
