@@ -244,12 +244,14 @@ export class AccountManager {
           "basic-info":
           {
             name: teamObj.name,
-            location: teamObj.location,
             captain: this.currentUser.uid,
-            logo: 'img/none.png'
+            logo: 'img/none.png',
+            totalMatches: 0,
+            totalPlayers: 1
           },
           "detail-info": {
-            founder: this.currentUser.uid
+            founder: this.currentUser.uid,
+            location: teamObj.location
           }
         };
 
