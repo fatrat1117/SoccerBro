@@ -116,11 +116,11 @@ function onEmailRegister() {
   var password = document.forms["jointeam_email_register_form"]["jointeam_password_input_register"];
   var conformPassword = document.forms["jointeam_email_register_form"]["jointeam_confirm_password_input_register"];
 
-  if (!validRegisterPassword(password, conformPassword)) {
-    displayRegisterError("Passwords don't match!");
-    console.log("passwords don't match!");
-    return false;
-  }
+  // if (!validRegisterPassword(password, conformPassword)) {
+  //   displayRegisterError("Passwords don't match!");
+  //   console.log("passwords don't match!");
+  //   return false;
+  // }
 
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
 
