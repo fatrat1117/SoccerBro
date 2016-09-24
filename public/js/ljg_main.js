@@ -182,37 +182,7 @@ function onEmailRegister() {
         }
 
         //Add team
-        try {
-          var teamRef = getTeamRef(_teamId);
-          var updates = {};
-
-          //update total players
-          var teamPlayerRef = getTeamRefPlayer(_teamId);
-          teamPlayerRef.on('value', function (snapshot) {
-            console.log(snapshot.val());
-            var players = snapshot.val();
-            var size = Object.keys(players).length;
-            console.log(size);
-            if (!(userId in players)){
-              updates['basic-info'] = {'totalPlayers' : size + 1};
-            }else{
-              updates['basic-info'] = {'totalPlayers' : size };
-            }
-            updates['/players/' + userId] = {'goals': 0, 'number': 12};
-            teamRef.update(updates).catch(function (error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              // ...
-              throw errorMessage;
-            });
-
-          });
-          console.log(userId);
-        } catch (e) {
-          alert(e);
-          return;
-        }
+        insertIntoTeamsTable(userId);
         alert(email.value + "!, SoccerBro 欢迎你！");
         window.location.href = "success.html";
         return true;
