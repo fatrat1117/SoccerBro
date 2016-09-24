@@ -40,6 +40,7 @@ export class MyApp {
       notificationOpenedCallback);
     window["plugins"].OneSignal.enableInAppAlertNotification(false);
     window["plugins"].OneSignal.enableNotificationsWhenActive(true);
+
   }
 }
 

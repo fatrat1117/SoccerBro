@@ -1,5 +1,6 @@
 'use strict';
-export var prod = 0;
+export var prod = 0;  // DO NOT SET TO 1!
+
 export var firebaseConfig = (1 === prod) ?
   {
     apiKey: "AIzaSyA9L3ja5ZcViqTc5Tgz8tG6QvJGlYO-fa4",

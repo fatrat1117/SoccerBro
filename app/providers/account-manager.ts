@@ -264,7 +264,7 @@ export class AccountManager {
             promiseTP.then(_ => {
               //update players list of team
               let playersOfTeam = this.afGetPlayerOfTeam(this.currentUser.uid, newTeamId);
-              const promisePT = playersOfTeam.set({ goals: 0 });
+              const promisePT = playersOfTeam.set({ isMember: true });
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
                   let player = self.fm.getPlayerBasic(self.currentUser.uid);
