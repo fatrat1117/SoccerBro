@@ -1,6 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Feedback</ion-title>
+    <ion-title>
+      {{'Feedback' | trans}}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,5 +13,5 @@
      </ion-textarea>
     </ion-item>
   </ion-list>
-  <button [disabled] = "0 === feedbackContent.trim().length" (click)="submit()" block>Submit</button>
+  <button [disabled] = "0 === feedbackContent.trim().length" (click)="submit()" block>{{'Submit' | trans}}</button>
 </ion-content>

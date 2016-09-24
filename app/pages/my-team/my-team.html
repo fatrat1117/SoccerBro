@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Team Info</ion-title>
+    <ion-title>{{'TeamInfo' | trans}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,11 +9,11 @@
     <ion-thumbnail class="player-avatar-bar">
       <div class="bar">
         <div class="left" text-center>
-          <p class="player-title-text">Popularity</p>
+          <p class="player-title-text">{{'Popularity' | trans}}</p>
           <p danger>{{(afTeamPublic | async)?.popularity }}</p>
         </div>
         <div class="right">
-          <p class="player-title-text">Matches</p>
+          <p class="player-title-text">{{'Matches' | trans}}</p>
           <p secondary>{{(afTeam | async)?.totalMatches }}</p>
         </div>
       </div>
@@ -24,7 +24,7 @@
 
   <ion-card>
     <ion-card-header class="player-header-decoration">
-      Captain
+      {{'Captain' | trans}}
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -39,7 +39,7 @@
 
   <ion-card>
     <ion-card-header class="player-header-decoration">
-      About
+      {{'Description' | trans}}
     </ion-card-header>
     <ion-card-content>
       <p>
