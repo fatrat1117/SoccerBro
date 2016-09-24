@@ -17,16 +17,11 @@ var _teamInfoModel = {
 // }
 
 window.onload = function () {
-
   console.log("program start");
+  _teamId = $_GET("teamId");
+  console.log('join team', _teamId)
   initApp();
   firebaseRedirect();
-  _teamId = $_GET("teamId");
-  if (_teamId != null) {
-    teamIdValidation();
-  } else {
-    console.log("Error: teamId is null");
-  }
 };
 
 function initApp() {
@@ -121,7 +116,7 @@ function onEmailRegister() {
   var password = document.forms["jointeam_email_register_form"]["jointeam_password_input_register"];
   var conformPassword = document.forms["jointeam_email_register_form"]["jointeam_confirm_password_input_register"];
 
-  if (!validRegisterPassword(password,conformPassword)){
+  if (!validRegisterPassword(password, conformPassword)) {
     displayRegisterError("Passwords don't match!");
     console.log("passwords don't match!");
     return false;
@@ -169,22 +164,22 @@ function onEmailRegister() {
   return false;
 }
 
-function validRegisterPassword(password,confirmPassWord){
+function validRegisterPassword(password, confirmPassWord) {
 
-  if (password.value != confirmPassWord.value){
+  if (password.value != confirmPassWord.value) {
     return false;
-  }else{
+  } else {
     return true;
   }
 }
 
-function displayLoginError(error_msg){
+function displayLoginError(error_msg) {
   empty_error_message($('#jointeam_email_input_error_alert_login'));
   $('#jointeam_email_input_error_alert_login').append(error_msg);
   $('#jointeam_email_input_error_alert_login').css("display", "block");
 }
 
-function displayRegisterError(error_msg){
+function displayRegisterError(error_msg) {
   empty_error_message($('#jointeam_email_input_error_alert_register'));
   $('#jointeam_email_input_error_alert_register').append(error_msg);
   $('#jointeam_email_input_error_alert_register').css("display", "block");
@@ -198,22 +193,20 @@ function firebaseRedirect() {
   }
   firebase.auth().getRedirectResult().then(function (result) {
     if (result.credential) {
-      console.log("redirect");
-      console.log("got credential");
-      // _teamId = '-KL1QXqFWsC1Jbb-HXsJ';
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
       var user = result.user;
-      var pId = result.user.uid;
-      console.log(user);
+      console.log('redirect', user);
 
       insertIntoPlayerTable(user);
       insertIntoTeamsTable(user);
 
     } else {
       console.log("show");
+      if (_teamId != null) {
+        teamIdValidation();
+      } else {
+        console.log("Error: teamId is null");
+      }
     }
-
   }).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -251,12 +244,12 @@ function empty_error_message(selector) {
 
 }
 
-function refreshForm(){
+function refreshForm() {
   $('#jointeam_email_input_error_alert_login').empty();
   $('#jointeam_email_input_error_alert_login').css("display", "none");
 
   $('#jointeam_email_input_error_alert_register').empty();
-  $('#jointeam_email_input_error_alert_register').css("display","none");
+  $('#jointeam_email_input_error_alert_register').css("display", "none");
 
 }
 
@@ -269,11 +262,11 @@ function getTeamRef(id) {
   return firebase.database().ref("teams/" + id);
 }
 
-function getTeamRefBasicInfo(id){
-  return firebase.database().ref("teams/" + id +"/basic-info");
+function getTeamRefBasicInfo(id) {
+  return firebase.database().ref("teams/" + id + "/basic-info");
 }
 
-function getTeamRefPlayer(id){
+function getTeamRefPlayer(id) {
   return firebase.database().ref("teams/" + id + "/players");
 }
 
@@ -299,7 +292,7 @@ function getPlayerRef(id) {
 
 
 
-function getTeamPlayerSize(){
+function getTeamPlayerSize() {
   var teamPlayerRef = getTeamRefPlayer(_teamId);
   teamPlayerRef.on('value', function (snapshot) {
     console.log(snapshot.val());
@@ -310,35 +303,33 @@ function getTeamPlayerSize(){
 }
 
 
-function insertIntoPlayerTable(user){
-
+function insertIntoPlayerTable(user) {
   var userId = user.uid;
-  var playerData = {};
-  var updates = {};
-  var playerRef = getPlayerRef(userId);
-  playerData['basic-info'] = { 'displayName': user.email, 'photoURL': user.photoURL, 'teamId': _teamId};
-  var playerTeamIdObj = {};
-  playerTeamIdObj[_teamId] = "true";
-  playerData['teams']= playerTeamIdObj;
+  //var playerData = {};
+  //var updates = {};
+  var playerTeamsRef = getPlayerTeamsRef(userId, _teamId);
+  console.log('update player teams', userId, playerTeamsRef);
+  //playerData['basic-info'] = { 'displayName': user.email, 'photoURL': user.photoURL, 'teamId': _teamId };
+  //var playerTeamIdObj = {};
+  //playerTeamIdObj[_teamId] = "true";
+  //playerData['teams'] = playerTeamIdObj;
   try {
-    updates[userId] = playerData;
+    //updates[_teamId] = true;
     // don't use set(updates) here
-    playerRef.update(updates).catch(function (error) {
+    playerTeamsRef.set(true).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
-      var  errorMessage = error.message;
+      var errorMessage = error.message;
       // ...
       throw errorMessage;
     });
-    console.log(userId, updates, playerData);
   } catch (e) {
     alert(e);
     return;
   }
 }
 
-function insertIntoTeamsTable(user){
-
+function insertIntoTeamsTable(user) {
   var userId = user.uid;
   //Add team
   try {
@@ -354,12 +345,12 @@ function insertIntoTeamsTable(user){
       var players = snapshot.val();
       var size = Object.keys(players).length;
       console.log(size);
-      if (!(userId in players)){
+      if (!(userId in players)) {
         updates_basic_info['totalPlayers'] = size + 1;
-      }else{
-        updates_basic_info['totalPlayers'] = size ;
+      } else {
+        updates_basic_info['totalPlayers'] = size;
       }
-      updates_players[userId] = {'goals': 0, 'number': 0};
+      updates_players[userId] = { 'goals': 0, 'number': 0 };
       teamRef_basic_info.update(updates_basic_info).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -385,7 +376,7 @@ function insertIntoTeamsTable(user){
   }
 }
 
-function onTestNewFeature(){
+function onTestNewFeature() {
 
   var teamPlayerRef = getTeamRefPlayer(_teamId);
   teamPlayerRef.on('value', function (snapshot) {
