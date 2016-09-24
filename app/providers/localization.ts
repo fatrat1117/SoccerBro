@@ -22,7 +22,7 @@ export class Localization {
 
     translation = {
         en: {
-            Description: 'description',
+            Description: 'Description',
             West: 'West',
             East: 'East',
             Central: 'Central',
@@ -32,13 +32,14 @@ export class Localization {
             Team: 'Team',
             Teams: 'Teams',
             MyTeam: 'My Team',
-            CreateTeam: 'Create your Team',
+            CreateTeam: 'Create New Team',
             NoTeamPrompt: 'You have not joined a team',
             JoinTeam: 'Join a Team',
             Home: 'Home',
             Settings: 'Settings',
             ChatRoom: 'Chats',
             Create: 'Create',
+            CreateAccount: 'CreateAccount',
             Quit: 'Quit',
             players: 'players',
             Players: 'Players',
@@ -105,7 +106,19 @@ export class Localization {
             Nickname: 'Nick Name',
             HeightCM: 'Height (CM)',
             WeightKG: 'Weight (KG)',
-            Save: 'Save'
+            Save: 'Save',
+            TeamName: 'Team Name',
+            ConnectWithFacebook: 'Connect with Facebook',
+            UsingSBAccount: 'Or via SoccerBro account',
+            ResetPwd: 'Reset Password',
+            ManagePlayers: 'Manage Players',
+            ManageTeams: 'Manage Teams',
+            Me: 'Me',
+            PlayerInfo: 'Player Info',
+            Ability: 'Ability',
+            TeamInfo: 'Team Info',
+            NewMatch: 'New Match',
+            Notice: 'Notice'
         },
 
         zh: {
@@ -126,6 +139,7 @@ export class Localization {
             Settings: '设置',
             ChatRoom: '聊天室',
             Create: '创建',
+            CreateAccount: '创建账号',
             Quit: '退出',
             players: '队员',
             Players: '队员',
@@ -192,7 +206,19 @@ export class Localization {
             Nickname: '昵称',
             HeightCM: '身高 (厘米)',
             WeightKG: '体重 (公斤)',
-            Save: '保存'
+            Save: '保存',
+            TeamName: '队名',
+            ConnectWithFacebook: '用Facebook登录',
+            UsingSBAccount: '或 用足球兄弟账号登陆',
+            ResetPwd: '重置密码',
+            ManagePlayers: '管理球员',
+            ManageTeams: '管理球队',
+            Me: '个人',
+            PlayerInfo: '球员信息',
+            Ability: '能力',
+            TeamInfo: '球队信息',
+            NewMatch: '新球赛',
+            Notice: '注意事项'
         }
     }
 }

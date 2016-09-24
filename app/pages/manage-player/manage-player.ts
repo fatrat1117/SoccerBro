@@ -5,10 +5,11 @@ import {AccountManager} from '../../providers/account-manager';
 import {MyTeamPage} from '../my-team/my-team';
 import {FirebaseManager} from "../../providers/firebase-manager";
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/manage-player/manage-player.html',
-  pipes: [PlayerBasicPipe]
+  pipes: [PlayerBasicPipe, transPipe]
 })
 export class ManagePlayerPage {
   players: any;

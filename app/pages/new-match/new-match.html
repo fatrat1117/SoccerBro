@@ -1,6 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>New Match</ion-title>
+    <ion-title>
+      {{'NewMatch' | trans}}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -29,7 +31,7 @@
 
       <!-- opponent -->
       <ion-item tappable (click)="searchTeam()">
-        <ion-label stacked primary>Opponent</ion-label>
+        <ion-label stacked primary>{{'Opponent' | trans}}</ion-label>
         <ion-label text-center>
           <h2 style="margin-right:auto;">&nbsp;{{ opponent?.name }}</h2>
         </ion-label>
@@ -37,7 +39,7 @@
 
       <!-- location -->
       <ion-item>
-        <ion-label stacked primary>Location</ion-label>
+        <ion-label stacked primary>{{'Location' | trans}}</ion-label>
         <ion-label>
           <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
         </ion-label>
@@ -45,17 +47,17 @@
 
       <!-- date -->
       <ion-item>
-        <ion-label stacked primary>Start Date</ion-label>
+        <ion-label stacked primary>{{'Date' | trans}}</ion-label>
         <ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
       </ion-item>
       <!-- time -->
       <ion-item>
-        <ion-label stacked primary>Start Time</ion-label>
+        <ion-label stacked primary>{{'Time' | trans}}</ion-label>
         <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
       </ion-item>
       <!-- color -->
       <ion-item tappable (click)="pickColor()">
-        <ion-label stacked primary>Jersey Color</ion-label>
+        <ion-label stacked primary>{{'JerseyColor' | trans}}</ion-label>
         <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor!='white'">
           <ion-icon name="ios-shirt" [style.color]="jerseyColor"></ion-icon>
         </ion-label>
@@ -65,7 +67,7 @@
       </ion-item>
       <!-- notice -->
       <ion-item>
-        <ion-label stacked primary>Notice</ion-label>
+        <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
         <ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
         </ion-textarea>
       </ion-item>

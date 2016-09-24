@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Player Info</ion-title>
+    <ion-title>{{'PlayerInfo' | trans}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,11 +9,11 @@
     <ion-thumbnail class="player-avatar-bar">
       <div class="bar">
         <div class="left" text-center>
-          <p class="player-title-text">Popularity</p>
+          <p class="player-title-text">{{'Popularity' | trans}}</p>
           <p danger>{{(afPublic | async)?.popularity}}</p>
         </div>
         <div class="right">
-          <p class="player-title-text">Played</p>
+          <p class="player-title-text">{{'Played' | trans}}</p>
           <p secondary>0</p>
         </div>
       </div>
@@ -27,15 +27,15 @@
     <ion-card-content>
       <ion-row>
         <ion-col text-center>
-          <p class="player-title-text">Height</p>
+          <p class="player-title-text">{{'Height' | trans}}</p>
           <p>{{(afDetail | async)?.height}} CM</p>
         </ion-col>
         <ion-col text-center class="player-detail-border">
-          <p class="player-title-text">Weight</p>
+          <p class="player-title-text">{{'Weight' | trans}}</p>
           <p>{{(afDetail | async)?.weight}} KG</p>
         </ion-col>
         <ion-col text-center class="player-detail-border">
-          <p class="player-title-text">Foot</p>
+          <p class="player-title-text">{{'Foot' | trans}}</p>
           <p text-capitalize>{{(afDetail | async)?.foot}}</p>
         </ion-col>
       </ion-row>
@@ -44,7 +44,7 @@
 
   <ion-card>
     <ion-card-header class="player-header-decoration">
-      Ability
+      {{'Ability' | trans}}
     </ion-card-header>
     <ion-card-content>
       <base-chart class="chart" [data]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType" [options]="radarOptions">
@@ -54,7 +54,7 @@
 
   <ion-card>
     <ion-card-header class="player-header-decoration">
-      Description
+      {{'Description' | trans}}
     </ion-card-header>
     <ion-card-content>
       <p>
