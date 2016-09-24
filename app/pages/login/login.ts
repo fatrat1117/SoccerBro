@@ -7,6 +7,7 @@ import {
 } from 'angularfire2';
 import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import {transPipe} from '../../providers/localization'
+import {Localization} from '../../providers/localization';
 declare let firebase: any;
 
 @Page({
@@ -25,7 +26,8 @@ export class LoginPage {
     private cordovaOauth: CordovaOauth = new CordovaOauth();
 
     constructor(public af: AngularFire,
-        public viewCtrl: ViewController
+        public viewCtrl: ViewController,
+        private local: Localization
     ) {
         this._credentials = {
             email: '',
@@ -147,7 +149,7 @@ export class LoginPage {
         let self = this;
         this.busy = true;
         firebase.auth().sendPasswordResetEmail(this._credentials.email).then(_ => {
-            alert("check your email to reset password");
+            alert(this.local.getString('ResetMsg'));
             self.busy = false;
         }).catch(err => {
             alert(err);

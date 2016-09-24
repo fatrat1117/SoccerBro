@@ -7,6 +7,7 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {MatchInfoPipe} from '../../pipes/match-info.pipe';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {Localization} from '../../providers/localization';
 
 @Component({
   templateUrl: 'build/pages/match-info/match-info.html',
@@ -20,7 +21,7 @@ export class MatchInfoPage {
   isGoing: boolean;
   matchPlayers: any;
   constructor(private navCtrl: NavController, private navParams: NavParams, private fm: FirebaseManager, 
-              private alertCtrl: AlertController, private viewCtrl: ViewController) {
+              private alertCtrl: AlertController, private viewCtrl: ViewController, private local: Localization) {
     this.selfId = fm.selfId;
     this.teamId = navParams.get("teamId");
     this.opponentId = navParams.get("opponentId");
@@ -66,14 +67,14 @@ export class MatchInfoPage {
 
   withDrawMatch() {
     let alert = this.alertCtrl.create({
-      title: 'Withdraw this match?',
+      title: this.local.getString('WithdrawMatch'),
       buttons: [
         {
-          text: 'Cancel',
+          text: this.local.getString('Cancel'),
           role: 'cancel'
         },
         {
-          text: 'Withdraw',
+          text: this.local.getString('Withdraw'),
           handler: () => {
             this.fm.withdrawSelfMatch(this.matchId);
             this.viewCtrl.dismiss();
