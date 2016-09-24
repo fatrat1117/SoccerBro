@@ -79,7 +79,7 @@ export class AccountManager {
 
       if (currPlayerData) {
         //player exists
-        if (currPlayerData.displayName) {
+        if (currPlayerData.created) {
           self.currPlayer = currPlayerData;
           self.fm.selfTeamId = currPlayerData.teamId;
           self.fm.selfId = user.uid;
@@ -92,10 +92,16 @@ export class AccountManager {
         }
         else {
           console.log("first time login");
+          let photoURL = user.photoURL || 'img/none.png';
+          let providerData = user.providerData[0]
+          if (providerData.providerId.toLowerCase().indexOf('facebook') != -1) {
+            photoURL = 'https://graph.facebook.com/' + providerData.uid + '/picture';
+          }
           //todo
           self.afCurrPlayer.update({
-            photoURL: user.photoURL || 'img/none.png',
-            displayName: user.displayName || user.email
+            photoURL: photoURL,
+            displayName: user.displayName || user.email,
+            created: true
           }).catch(err => 
             error(err)
           );

@@ -10,6 +10,11 @@ var _teamInfoModel = {
   name: ko.observable("")
 }
 
+//
+// var teamPlayers = getTeamPlayersRef(_teamId);
+// teamPlayers.on('value', function (snapshot) {
+//
+// }
 
 window.onload = function () {
 
@@ -94,7 +99,8 @@ function onEmailLogin() {
       //Add player
       var playerData = {};
       var updates = {};
-      playerData['basic-info'] = {'displayName': credential.email};
+      playerData['basic-info'] = {'displayName': credential.email,'teamId':_teamId};
+      playerData['teams'] = {_teamId:"true"};
       try {
         updates = {};
         updates[userId] = playerData;
@@ -102,7 +108,7 @@ function onEmailLogin() {
         firebase.database().ref("players/" + userId).update(updates).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
-          var errorMessage = error.message;
+          var  errorMessage = error.message;
           // ...
           throw errorMessage;
         });
@@ -113,22 +119,7 @@ function onEmailLogin() {
       }
 
       //Add team
-      try {
-        var teamRef = getTeamRef(_teamId);
-        var updates = {};
-        updates['/players/' + userId] = {'goals': 0, 'number': 12};
-        teamRef.update(updates).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-          throw errorMessage;
-        });
-        console.log(userId);
-      } catch (e) {
-        alert(e);
-        return;
-      }
+      insertIntoTeamsTable(userId);
       alert(email + "!, SoccerBro 欢迎你！");
       window.location.href = "success.html";
 
@@ -194,13 +185,28 @@ function onEmailRegister() {
         try {
           var teamRef = getTeamRef(_teamId);
           var updates = {};
-          updates['/players/' + userId] = {'goals': 0, 'number': 12};
-          teamRef.update(updates).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            throw errorMessage;
+
+          //update total players
+          var teamPlayerRef = getTeamRefPlayer(_teamId);
+          teamPlayerRef.on('value', function (snapshot) {
+            console.log(snapshot.val());
+            var players = snapshot.val();
+            var size = Object.keys(players).length;
+            console.log(size);
+            if (!(userId in players)){
+              updates['basic-info'] = {'totalPlayers' : size + 1};
+            }else{
+              updates['basic-info'] = {'totalPlayers' : size };
+            }
+            updates['/players/' + userId] = {'goals': 0, 'number': 12};
+            teamRef.update(updates).catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+              throw errorMessage;
+            });
+
           });
           console.log(userId);
         } catch (e) {
@@ -380,12 +386,20 @@ function getTeamRef(id) {
   return firebase.database().ref("teams/" + id);
 }
 
+function getTeamRefBasicInfo(id){
+  return firebase.database().ref("teams/" + id +"/basic-info");
+}
+
+function getTeamRefPlayer(id){
+  return firebase.database().ref("teams/" + id + "/players");
+}
+
 function getPlayerTeamsRef(pId, tId) {
   return firebase.database().ref("players/" + pId + "/teams/" + tId);
 }
 
 function getTeamPlayersRef(tId, pId) {
-  return firebase.database().ref("teams/" + tId + "/members/" + pId);
+  return firebase.database().ref("teams/" + tId + "/players/" + pId);
 }
 
 function getPlayerRef(id) {
@@ -399,3 +413,73 @@ function getPlayerRef(id) {
 //   'basic-info':{'captain':'OqliCkGF8aeMeGOIBQNr5vJBHKU2','logo':'https://firebasestorage.googleapis.com/v0/b/stk-soccer.appspot.com/o/images%2F-KL1a8zTfCXDapavsN_L.jpg?alt=media&token=57a99f56-8f61-4888-84d4-551ca9171ae1','name':'Jixiang test'},
 //   'detail-info':{'founder': 'OqliCkGF8aeMeGOIBQNr5vJBHKU2'},
 //   'members':{'OqliCkGF8aeMeGOIBQNr5vJBHKU2':{'goals':0,'number':10}}});
+
+
+
+function getTeamPlayerSize(){
+  var teamPlayerRef = getTeamRefPlayer(_teamId);
+  teamPlayerRef.on('value', function (snapshot) {
+    console.log(snapshot.val());
+    var players = snapshot.val();
+    var size = Object.keys(players).length;
+    console.log(size);
+  });
+}
+
+
+function insertIntoTeamsTable(userId){
+  //Add team
+  try {
+    var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
+    var teamRef_players = getTeamRefPlayer(_teamId);
+    var updates_basic_info = {};
+    var updates_players = {};
+
+    //update total players
+
+    teamRef_players.on('value', function (snapshot) {
+      console.log(snapshot.val());
+      var players = snapshot.val();
+      var size = Object.keys(players).length;
+      console.log(size);
+      if (!(userId in players)){
+        updates_basic_info['totalPlayers'] = size + 1;
+      }else{
+        updates_basic_info['totalPlayers'] = size ;
+      }
+      updates_players[userId] = {'goals': 0, 'number': 12};
+      teamRef_basic_info.update(updates_basic_info).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        throw errorMessage;
+      });
+
+      teamRef_players.update(updates_players).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        throw errorMessage;
+      });
+
+
+    });
+    console.log(userId);
+  } catch (e) {
+    alert(e);
+    return;
+  }
+}
+
+function onTestNewFeature(){
+
+  var teamPlayerRef = getTeamRefPlayer(_teamId);
+  teamPlayerRef.on('value', function (snapshot) {
+    console.log(snapshot.val());
+    var players = snapshot.val();
+    var size = Object.keys(players).length;
+    console.log(size);
+  });
+}
