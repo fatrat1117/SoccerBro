@@ -98,6 +98,12 @@ export class Localization {
             Today: 'Today',
             Tomorrow: 'Tomorrow',
             MatchDetail: 'Match Detail',
+            EditPlayer: 'Edit Player',
+            Photo: 'Photo',
+            Nickname: 'Nick Name',
+            HeightCM: 'Height (CM)',
+            WeightKG: 'Weight (KG)',
+            Save: 'Save'
         },
 
         zh: {
@@ -178,6 +184,12 @@ export class Localization {
             Today: '今天',
             Tomorrow: '明天',
             MatchDetail: '比赛信息',
+            EditPlayer: '编辑球员',
+            Photo: '头像',
+            Nickname: '昵称',
+            HeightCM: '身高 (厘米)',
+            WeightKG: '体重 (公斤)',
+            Save: '保存'
         }
     }
 }

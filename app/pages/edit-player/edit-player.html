@@ -22,7 +22,7 @@
     <!-- Basic -->
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="changePhoto()">
-      <h2>{{'ProfilePhoto' | trans}}</h2>
+      <h2>{{'Photo' | trans}}</h2>
       <ion-thumbnail item-right>
         <ion-img [src]="logoUrl || (playerBasic)?.photoURL"></ion-img>
       </ion-thumbnail>
@@ -36,12 +36,12 @@
     <!-- Detail -->
     <ion-item-divider light></ion-item-divider>
     <ion-item>
-      <ion-label floating>{{'Height(CM)' | trans}}</ion-label>
+      <ion-label floating>{{'HeightCM' | trans}}</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.height" (ngModelChange)="player.height=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>{{'Weigh(KG)' | trans}}</ion-label>
+      <ion-label floating>{{'WeightKG' | trans}}</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.weight" (ngModelChange)="player.weight=$event">
       </ion-input>
     </ion-item>
