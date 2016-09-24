@@ -91,7 +91,8 @@ export class Localization {
             Message: 'Message',
             Played: 'Played',
             Matches: 'Matches',
-            Popularity: 'Popularity'
+            Popularity: 'Popularity',
+            MyPage: 'My Page'
         },
 
         zh: {
@@ -165,7 +166,8 @@ export class Localization {
             Message: '信息',
             Played: '出场',
             Matches: '比赛',
-            Popularity: '人气'
+            Popularity: '人气',
+            MyPage: '我的主页'
         }
     }
 }
