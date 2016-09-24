@@ -32,7 +32,7 @@
           <ion-img [src]="((team)?.captain | playerBasicPipe | async)?.photoURL"></ion-img>
         </ion-avatar>
         <h2>{{((team)?.captain | playerBasicPipe | async)?.displayName}}</h2>
-        <button clear item-right (click)="searchPlayers()">View All&nbsp;<span secondary>{{(afTeam | async)?.totalPlayers }}</span>&nbsp;Players</button>
+        <button clear item-right (click)="searchPlayers()">{{'ViewAll' | trans}}&nbsp;<span secondary>{{(afTeam | async)?.totalPlayers }}</span>&nbsp;{{'Players' | trans}}</button>
       </ion-item>
     </ion-card-content>
   </ion-card>

@@ -9,6 +9,7 @@ import {Localization} from './providers/localization';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 import '../node_modules/chart.js/dist/Chart.bundle.min.js';
 import globals = require('./providers/globals');
+import * as moment from 'moment';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
