@@ -359,7 +359,7 @@ function insertIntoTeamsTable(user){
       }else{
         updates_basic_info['totalPlayers'] = size ;
       }
-      updates_players[userId] = {'goals': 0, 'number': 12};
+      updates_players[userId] = {'goals': 0, 'number': 0};
       teamRef_basic_info.update(updates_basic_info).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
