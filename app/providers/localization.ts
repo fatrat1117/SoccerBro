@@ -123,7 +123,13 @@ export class Localization {
             InviteMsg: 'Invitation link copied.',
             Withdraw: 'Withdraw',
             WithdrawMatch: 'Withdraw this match?',
-            FeedbackMsg: 'Thanks for your feedback!'
+            FeedbackMsg: 'Thanks for your feedback!',
+            speed: 'speed',
+            power: 'power',
+            stamina: 'stamina',
+            pass: 'pass',
+            attack: 'attack',
+            defence: 'defence'
         },
 
         zh: {
@@ -228,7 +234,13 @@ export class Localization {
             InviteMsg: '你的邀请链接已复制。',
             Withdraw: '撤销',
             WithdrawMatch: '撤销比赛',
-            FeedbackMsg: '感谢你的反馈!'
+            FeedbackMsg: '感谢你的反馈!',
+            speed: '速度',
+            power: '力量',
+            stamina: '体能',
+            pass: '传球',
+            attack: '进攻',
+            defence: '防守'
         }
     }
 }
