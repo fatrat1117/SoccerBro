@@ -17,7 +17,7 @@
           <ion-img [src]="(t.$key | teamBasicPipe | async)?.logo"></ion-img>
         </ion-avatar>
         <h2>{{ (t.$key | teamBasicPipe | async)?.name }}</h2>
-        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "makeDefault(t, $event)" clear item-right>default</button>
+        <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "makeDefault(t, $event)" clear item-right>{{'Default' | trans}}</button>
       </ion-item>
       <ion-item-options side="right">
         <button [disabled] = "(playerId | playerBasicPipe | async)?.teamId === t.$key || busy" (click) = "quit(t)" danger>

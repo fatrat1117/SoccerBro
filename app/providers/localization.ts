@@ -70,7 +70,8 @@ export class Localization {
             Feedback: 'Feedback',
             Submit: 'Submit',
             Logout: 'Logout',
-            PleaseLogin: 'Please log in',
+            PleaseLogin: 'Please Login',
+            Login: 'Login',
             Createteamsuccessfully: 'Create team successfully',
             Youcannotquitdefaultteam: 'You can not quit default team',
             Captaincannotquit: 'Captain can not quit',
@@ -129,7 +130,10 @@ export class Localization {
             stamina: 'stamina',
             pass: 'pass',
             attack: 'attack',
-            defence: 'defence'
+            defence: 'defence',
+            Email: 'Email',
+            Password: 'Password',
+            ViewAll: 'View All'
         },
 
         zh: {
@@ -182,6 +186,7 @@ export class Localization {
             Submit: '提交',
             Logout: '注销',
             PleaseLogin: '请登录',
+            Login: '登录',
             Createteamsuccessfully: '创建球队成功',
             Youcannotquitdefaultteam: '你不能退出默认球队',
             Captaincannotquit: '队长不能退队',
@@ -240,7 +245,10 @@ export class Localization {
             stamina: '体能',
             pass: '传球',
             attack: '进攻',
-            defence: '防守'
+            defence: '防守',
+            Email: '邮箱',
+            Password: '密码',
+            ViewAll: '查看所有'
         }
     }
 }

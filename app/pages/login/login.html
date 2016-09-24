@@ -10,15 +10,15 @@
   <div padding>
     <button [disabled]="busy" class="login-connect-btn login-connect-btn-fb" block (click)="registerUserWithFacebook($event)">
             <ion-icon name="logo-facebook"></ion-icon>
-        {{'ConnectWithFaceboo' | trans}}</button>
+        {{'ConnectWithFacebook' | trans}}</button>
   </div>
   <p>{{'UsingSBAccount' | trans}}</p>
   <ion-list>
     <ion-item>
-      <ion-input type="text" placeholder="Email" [(ngModel)]="_credentials.email" required clearInput></ion-input>
+      <ion-input type="text" [placeholder]="'Email' | trans" [(ngModel)]="_credentials.email" required clearInput></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" placeholder="Password" [(ngModel)]="_credentials.password" required clearInput></ion-input>
+      <ion-input type="password" [placeholder]="'Password' | trans" [(ngModel)]="_credentials.password" required clearInput></ion-input>
     </ion-item>
   </ion-list>
 
