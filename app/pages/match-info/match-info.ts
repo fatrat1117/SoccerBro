@@ -45,7 +45,7 @@ export class MatchInfoPage {
   }
 
   getTime(time: number) {
-    return moment(time).format("h:mm A")
+    return moment(time).format("HH:mm")
   }
 
   getDay(time: number) {

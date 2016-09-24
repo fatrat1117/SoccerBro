@@ -14,6 +14,7 @@ export class Localization {
         console.log('lang', lang, l, this.langCode);
     }
 
+
     getString(id) {
         let s = this.translation[this.langCode][id];
         return s ? s : id;
@@ -96,6 +97,7 @@ export class Localization {
             UpcomingMatches: 'Upcoming Match',
             Today: 'Today',
             Tomorrow: 'Tomorrow',
+            Yesterday: 'Yesterday',
             MatchDetail: 'Match Detail',
         },
 
@@ -175,6 +177,7 @@ export class Localization {
             UpcomingMatches: '赛程',
             Today: '今天',
             Tomorrow: '明天',
+            Yesterday: '昨天',
             MatchDetail: '比赛信息',
         }
     }
