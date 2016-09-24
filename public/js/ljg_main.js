@@ -119,13 +119,6 @@ function onEmailRegister() {
   }
   var email = document.forms["jointeam_email_register_form"]["jointeam_email_input_register"];
   var password = document.forms["jointeam_email_register_form"]["jointeam_password_input_register"];
-  var conformPassword = document.forms["jointeam_email_register_form"]["jointeam_confirm_password_input_register"];
-
-  if (!validRegisterPassword(password,conformPassword)){
-    displayRegisterError("Passwords don't match!");
-    console.log("passwords don't match!");
-    return false;
-  }
 
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
 
@@ -167,15 +160,6 @@ function onEmailRegister() {
 
   });
   return false;
-}
-
-function validRegisterPassword(password,confirmPassWord){
-
-  if (password.value != confirmPassWord.value){
-    return false;
-  }else{
-    return true;
-  }
 }
 
 function displayLoginError(error_msg){
@@ -299,15 +283,6 @@ function getPlayerRef(id) {
 
 
 
-function getTeamPlayerSize(){
-  var teamPlayerRef = getTeamRefPlayer(_teamId);
-  teamPlayerRef.on('value', function (snapshot) {
-    console.log(snapshot.val());
-    var players = snapshot.val();
-    var size = Object.keys(players).length;
-    console.log(size);
-  });
-}
 
 
 function insertIntoPlayerTable(user){
