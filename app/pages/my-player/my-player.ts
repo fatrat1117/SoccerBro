@@ -7,7 +7,7 @@ import {AccountManager} from "../../providers/account-manager";
 import {FirebaseManager} from "../../providers/firebase-manager";
 import {ManagePlayerPage} from '../manage-player/manage-player';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
-import {transPipe} from '../../providers/localization'
+import {transPipe, Localization} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/my-player/my-player.html',
@@ -21,7 +21,7 @@ export class MyPlayerPage {
   afDetail: any;
   afPublic: any;
   // Radar
-  public radarChartLabels:string[] = ['Ability', 'Awards', 'MVP', 'Popularity', 'Followers', 'Matches'];
+  public radarChartLabels:string[];
 
   public radarChartData:any = [
     [20, 20, 20, 20, 20, 20],
@@ -32,10 +32,16 @@ export class MyPlayerPage {
   constructor(private nav: NavController,
     private am: AccountManager,
     private navParams: NavParams,
-    private fm: FirebaseManager) {
+    private fm: FirebaseManager,
+    private localization: Localization) {
     this.pId = this.navParams.get('pId');
     console.log('open player page', this.pId);
-
+    this.radarChartLabels = [localization.getString('speed'), 
+    localization.getString('power'), 
+    localization.getString('pass'), 
+    localization.getString('stamina'), 
+    localization.getString('attack'), 
+    localization.getString('defence')];
     this.afBasic = this.fm.getPlayerBasic(this.pId);
     this.afDetail = this.fm.getPlayerDetail(this.pId);
     this.afPublic = this.fm.getPlayerPublic(this.pId);
@@ -48,31 +54,4 @@ export class MyPlayerPage {
 
     this.fm.increasePopularity(this.afPublic, success);
   }
-
-  // events
-  // public chartClicked(e:any):void {
-  //   console.log(e);
-  // }
-
-  // public chartHovered(e:any):void {
-  //   console.log(e);
-  // }
-  
-  // editTeam() {
-  //   this.nav.push(EditTeamPage,
-  //     {
-  //       tId: this.tId
-  //     }
-  //   );
-  // }
-
-  // getTeamAvatar(src){
-  //   var image = new Image();
-  //   image.src = src
-  //   return image;
-  // }
-
-  // goManagePlayerPage() {
-  //   this.nav.push(ManagePlayerPage, {tId: this.tId});
-  // }
 }

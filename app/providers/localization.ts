@@ -118,7 +118,13 @@ export class Localization {
             Ability: 'Ability',
             TeamInfo: 'Team Info',
             NewMatch: 'New Match',
-            Notice: 'Notice'
+            Notice: 'Notice',
+            speed: 'speed',
+            power: 'power',
+            stamina: 'stamina',
+            pass: 'pass',
+            attack: 'attack',
+            defence: 'defence'
         },
 
         zh: {
@@ -218,7 +224,13 @@ export class Localization {
             Ability: '能力',
             TeamInfo: '球队信息',
             NewMatch: '新球赛',
-            Notice: '注意事项'
+            Notice: '注意事项',
+            speed: '速度',
+            power: '力量',
+            stamina: '体能',
+            pass: '传球',
+            attack: '进攻',
+            defence: '防守'
         }
     }
 }
