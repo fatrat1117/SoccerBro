@@ -9,10 +9,17 @@ import {Localization} from '../providers/localization';
 
 export class MomentPipe implements PipeTransform {
   constructor(private local: Localization) {
+    moment.updateLocale('en', {
+      weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    });
+    
     moment.updateLocale('zh', {
       weekdays: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
       weekdaysShort: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
-    });
+    })
+
+    moment.locale(local.langCode);
   }
 
   transform(timestamp: number) {

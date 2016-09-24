@@ -12,7 +12,7 @@ export class HomePage {
   adSlideOptions: any;
   constructor(private navCtrl: NavController, local: Localization) {
     this.slides = [];
-    this.loadSlides(local.langCode, 3);
+    this.loadSlides(local.langCode, 4);
 
     this.adSlideOptions = {
       autoplay: 3000,
