@@ -94,9 +94,7 @@ function onEmailLogin() {
       insertIntoPlayerTable(credential);
       //Add team
       insertIntoTeamsTable(credential);
-      alert(email + "!, SoccerBro 欢迎你！");
-      window.location.href = "success.html";
-
+      //alert(email + "!, SoccerBro 欢迎你！");
     }
   }, function (error) {
     var errorMessage = error.message;
@@ -302,6 +300,13 @@ function getTeamPlayerSize() {
   });
 }
 
+function handleServiceError(error) {
+   // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      throw errorMessage;
+}
 
 function insertIntoPlayerTable(user) {
   var userId = user.uid;
@@ -316,12 +321,11 @@ function insertIntoPlayerTable(user) {
   try {
     //updates[_teamId] = true;
     // don't use set(updates) here
-    playerTeamsRef.set(true).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      throw errorMessage;
+    playerTeamsRef.set(true, function (error) {
+      if (error)
+          handleServiceError(error);
+      else
+          onDefaultTeamChanged();
     });
   } catch (e) {
     alert(e);
@@ -333,51 +337,53 @@ function insertIntoTeamsTable(user) {
   var userId = user.uid;
   //Add team
   try {
-    //var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
-    //var teamRef_players = getTeamRefPlayer(_teamId);
-    //var updates_basic_info = {};
-    //var updates_players = {};
     var teamPlayersRef = getTeamPlayersRef(_teamId, userId);
     teamPlayersRef.once('value', function (snapshot) {
       if (snapshot.val()) {
         console.log('user already joined');
       }
       else {
-        teamPlayersRef.update({ banned: false }).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-          throw errorMessage;
+        teamPlayersRef.update({ isMember: true }, function (error) {
+          if (error)
+            handleServiceError(error);
+          else
+            updateTotalPlayers();
         });;
       }
     });
-    //update total players
-
-    // teamRef_players.on('value', function (snapshot) {
-    //   console.log(snapshot.val());
-    //   var players = snapshot.val();
-    //   var size = Object.keys(players).length;
-    //   console.log(size);
-    //   if (!(userId in players)) {
-    //     updates_basic_info['totalPlayers'] = size + 1;
-    //   } else {
-    //     updates_basic_info['totalPlayers'] = size;
-    //   }
-    //   updates_players[userId] = { 'goals': 0, 'number': 0 };
-    //   teamRef_basic_info.update(updates_basic_info).catch(function (error) {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     // ...
-    //     throw errorMessage;
-    //   });
-    // });
-    // console.log(userId);
   } catch (e) {
     alert(e);
     return;
   }
+}
+
+function updateTotalPlayers() {
+    //update total players
+    var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
+    var teamRef_players = getTeamRefPlayer(_teamId);
+    //var updates_basic_info = {};
+    //var updates_players = {};
+    
+    teamRef_players.on('value', function (snapshot) {
+      console.log(snapshot.val());
+      var players = snapshot.val();
+      var size = Object.keys(players).length;
+      console.log(size);
+      updates_basic_info['totalPlayers'] = size;
+      //updates_players[userId] = { 'goals': 0, 'number': 0 };
+      teamRef_basic_info.update(updates_basic_info, function (error) {
+        // Handle Errors here.
+        if (error)
+            handleServiceError(error);
+          else
+            goDownloadPage();
+      });
+    });
+    //console.log(userId);
+}
+
+function goDownloadPage() {
+  window.location.href = "success.html";
 }
 
 function onTestNewFeature() {
