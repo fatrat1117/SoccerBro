@@ -333,43 +333,47 @@ function insertIntoTeamsTable(user) {
   var userId = user.uid;
   //Add team
   try {
-    var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
-    var teamRef_players = getTeamRefPlayer(_teamId);
-    var updates_basic_info = {};
-    var updates_players = {};
-
+    //var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
+    //var teamRef_players = getTeamRefPlayer(_teamId);
+    //var updates_basic_info = {};
+    //var updates_players = {};
+    var teamPlayersRef = getTeamPlayersRef(_teamId, userId);
+    teamPlayersRef.once('value', function (snapshot) {
+      if (snapshot.val()) {
+        console.log('user already joined');
+      }
+      else {
+        teamPlayersRef.update({ banned: false }).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+          throw errorMessage;
+        });;
+      }
+    });
     //update total players
 
-    teamRef_players.on('value', function (snapshot) {
-      console.log(snapshot.val());
-      var players = snapshot.val();
-      var size = Object.keys(players).length;
-      console.log(size);
-      if (!(userId in players)) {
-        updates_basic_info['totalPlayers'] = size + 1;
-      } else {
-        updates_basic_info['totalPlayers'] = size;
-      }
-      updates_players[userId] = { 'goals': 0, 'number': 0 };
-      teamRef_basic_info.update(updates_basic_info).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        throw errorMessage;
-      });
-
-      teamRef_players.update(updates_players).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        throw errorMessage;
-      });
-
-
-    });
-    console.log(userId);
+    // teamRef_players.on('value', function (snapshot) {
+    //   console.log(snapshot.val());
+    //   var players = snapshot.val();
+    //   var size = Object.keys(players).length;
+    //   console.log(size);
+    //   if (!(userId in players)) {
+    //     updates_basic_info['totalPlayers'] = size + 1;
+    //   } else {
+    //     updates_basic_info['totalPlayers'] = size;
+    //   }
+    //   updates_players[userId] = { 'goals': 0, 'number': 0 };
+    //   teamRef_basic_info.update(updates_basic_info).catch(function (error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     // ...
+    //     throw errorMessage;
+    //   });
+    // });
+    // console.log(userId);
   } catch (e) {
     alert(e);
     return;
