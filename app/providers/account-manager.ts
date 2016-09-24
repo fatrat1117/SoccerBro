@@ -244,12 +244,14 @@ export class AccountManager {
           "basic-info":
           {
             name: teamObj.name,
-            location: teamObj.location,
             captain: this.currentUser.uid,
-            logo: 'img/none.png'
+            logo: 'img/none.png',
+            totalMatches: 0,
+            totalPlayers: 1
           },
           "detail-info": {
-            founder: this.currentUser.uid
+            founder: this.currentUser.uid,
+            location: teamObj.location
           }
         };
 
@@ -264,7 +266,7 @@ export class AccountManager {
             promiseTP.then(_ => {
               //update players list of team
               let playersOfTeam = this.afGetPlayerOfTeam(this.currentUser.uid, newTeamId);
-              const promisePT = playersOfTeam.set({ goals: 0 });
+              const promisePT = playersOfTeam.set({ isMember: true });
               promisePT.then(_ => {
                 if (teamObj.isDefault) {
                   let player = self.fm.getPlayerBasic(self.currentUser.uid);
