@@ -3,7 +3,6 @@ import {Keyboard} from 'ionic-native';
 import {Content} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {transPipe} from '../../providers/localization'
 import { Subject } from 'rxjs/Subject';
 
 import * as moment from 'moment';
@@ -11,6 +10,9 @@ declare let firebase: any;
 
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {MomentPipe} from '../../pipes/moment.pipe';
+import {transPipe} from '../../providers/localization'
+import {Localization} from '../../providers/localization';
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
@@ -29,7 +31,9 @@ export class ChatRoomPage {
   playersCache: { [key:string]:any; };
   newMessage: string;
 
-  constructor(private navCtrl: NavController, private af: AngularFire, private fm: FirebaseManager, params: NavParams) {
+  constructor(private navCtrl: NavController, private af: AngularFire, 
+              private fm: FirebaseManager, private loacal: Localization, 
+              params: NavParams) {
     this.teamId = params.get("teamId");
     this.playersCache = {};
 
@@ -117,12 +121,15 @@ export class ChatRoomPage {
     var newTime: string;
     //if (count != this.daysAgo) {
     if (!isTheSameDay) {
+      newTime = new MomentPipe(this.loacal).transform(current);
+      /*
       newTime = moment(current).calendar(null, {
         sameDay: '[Today] HH:mm',
         lastDay: '[Yesterday] HH:mm',
         lastWeek: 'ddd HH:mm',
         sameElse: 'M/DD/YY HH:mm'
       });
+      */
       //this.daysAgo = count;
     }
     else {

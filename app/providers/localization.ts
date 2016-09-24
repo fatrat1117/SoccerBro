@@ -14,6 +14,7 @@ export class Localization {
         console.log('lang', lang, l, this.langCode);
     }
 
+
     getString(id) {
         let s = this.translation[this.langCode][id];
         return s ? s : id;
@@ -36,7 +37,7 @@ export class Localization {
             JoinTeam: 'Join a Team',
             Home: 'Home',
             Settings: 'Settings',
-            ChatRoom: 'Chat Room',
+            ChatRoom: 'Chats',
             Create: 'Create',
             Quit: 'Quit',
             players: 'players',
@@ -91,7 +92,20 @@ export class Localization {
             Message: 'Message',
             Played: 'Played',
             Matches: 'Matches',
-            Popularity: 'Popularity'
+            Popularity: 'Popularity',
+            MyPage: 'My Page',
+            Notifications: 'Notifications',
+            UpcomingMatches: 'Upcoming Match',
+            Today: 'Today',
+            Tomorrow: 'Tomorrow',
+            Yesterday: 'Yesterday',
+            MatchDetail: 'Match Detail',
+            EditPlayer: 'Edit Player',
+            Photo: 'Photo',
+            Nickname: 'Nick Name',
+            HeightCM: 'Height (CM)',
+            WeightKG: 'Weight (KG)',
+            Save: 'Save'
         },
 
         zh: {
@@ -165,7 +179,20 @@ export class Localization {
             Message: '信息',
             Played: '出场',
             Matches: '比赛',
-            Popularity: '人气'
+            Popularity: '人气',
+            MyPage: '我的主页',
+            Notifications: '通知',
+            UpcomingMatches: '赛程',
+            Today: '今天',
+            Tomorrow: '明天',
+            Yesterday: '昨天',
+            MatchDetail: '比赛信息',
+            EditPlayer: '编辑球员',
+            Photo: '头像',
+            Nickname: '昵称',
+            HeightCM: '身高 (厘米)',
+            WeightKG: '体重 (公斤)',
+            Save: '保存'
         }
     }
 }

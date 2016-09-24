@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Edit Team</ion-title>
+    <ion-title>{{'EditTeam' | trans}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,18 +8,18 @@
   <ion-list>
     <ion-item-divider light></ion-item-divider>
     <ion-item (click)="changeLogo()" >
-      <h2>Logo</h2>
+      <h2>{{'Logo' | trans}}</h2>
       <ion-thumbnail item-right>
         <ion-img [src]="logoUrl || (afTeam | async)?.logo"></ion-img>
       </ion-thumbnail>
     </ion-item>
     <ion-item>
-      <ion-label floating>Name</ion-label>
+      <ion-label floating>{{'Name' | trans}}</ion-label>
       <ion-input type="text" maxlength="32" [ngModel]="(afTeam | async)?.name" (ngModelChange)="team.name=$event">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Description</ion-label>
+      <ion-label floating>{{'Description' | trans}}</ion-label>
       <ion-textarea type="text" maxlength="128" [ngModel]="(afTeamDetails | async)?.description" (ngModelChange)="team.description=$event">
       </ion-textarea>
     </ion-item>
@@ -27,11 +27,11 @@
       <ion-item-divider light></ion-item-divider>
       <ion-item tappable (click)="searchPlayer()">
         <ion-icon name="alert" item-left danger></ion-icon>
-        Change Captain
+        {{'ChangeCaptain' | trans}}
       </ion-item>
     </div>
     <div *ngIf="newCaptain">
-      <ion-list-header light>New Captain</ion-list-header>
+      <ion-list-header light>{{'NewCaptain' | trans}}</ion-list-header>
       <ion-item *ngIf="newCaptain">
         <ion-avatar item-left>
           <ion-img [src]="(newCaptain | playerBasicPipe | async)?.photoURL"></ion-img>
@@ -44,11 +44,11 @@
   <ion-row padding-horizontal>
     <ion-col text-center>
       <button block secondary small [disabled]="busy || !(logoData || team.logo.length || team.name.trim().length || team.description.trim().length || newCaptain)" (click)="save()">
-        Save
+        {{'Save' | trans}}
       </button>
     </ion-col>
     <ion-col text-center>
-      <button block danger small (click)="dismiss()">Cancel</button>
+      <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
     </ion-col>
   </ion-row>
 
