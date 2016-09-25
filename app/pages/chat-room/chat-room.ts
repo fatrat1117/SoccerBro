@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {Keyboard} from 'ionic-native';
-import {Content} from 'ionic-angular';
+import {Content, Platform} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
@@ -13,10 +13,13 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {MomentPipe} from '../../pipes/moment.pipe';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
+import {KeyboardAttachDirective} from '../../directives/keyboard-attach.directive';
+
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [PlayerBasicPipe, transPipe]
+  pipes: [PlayerBasicPipe, transPipe],
+  directives: [KeyboardAttachDirective]
 })
 
 export class ChatRoomPage {
@@ -30,6 +33,9 @@ export class ChatRoomPage {
   // new
   playersCache: { [key:string]:any; };
   newMessage: string;
+  // keyboard
+  showSub: any;
+  hideSub: any;
 
   constructor(private navCtrl: NavController, private af: AngularFire, 
               private fm: FirebaseManager, private loacal: Localization, 
@@ -55,20 +61,13 @@ export class ChatRoomPage {
         }
       })
       this.messages = snapshots;
-      this.content.scrollToBottom();
     })
-
-    Keyboard.onKeyboardShow().subscribe(() => {
-      this.content.scrollToBottom(); 
-    })
-    Keyboard.onKeyboardHide().subscribe(() => {
-      this.content.scrollToBottom(); 
-    })
-
+    console.log("hack2")
   }
 
   scrollToBottom() {
-      this.content.scrollToBottom(); 
+    this.content.resize();
+    this.content.scrollToBottom();
   }
 
   ionViewWillEnter() {
@@ -76,8 +75,24 @@ export class ChatRoomPage {
   }
 
   ionViewDidEnter() {
-    this.content.scrollToBottom();
+    this.showSub = Keyboard.onKeyboardShow().subscribe(() => {
+      this.scrollToBottom(); 
+    })
+    this.hideSub = Keyboard.onKeyboardHide().subscribe(() => {
+      this.scrollToBottom(); 
+    })
+    this.scrollToBottom();
   }
+
+  ionViewDidLeave() {
+    if (this.showSub) {
+      this.showSub.unsubscribe();
+    }
+    if (this.hideSub) {
+      this.hideSub.unsubscribe();
+    }
+  }
+
 
   trackByKey(item) {
     return item.key
@@ -160,3 +175,4 @@ export class ChatRoomPage {
     input.focus();
   }
 }
+

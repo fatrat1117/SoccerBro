@@ -17,8 +17,7 @@ import * as moment from 'moment';
 export class MyApp {
 
   private rootPage: any;
-  constructor(private platform: Platform,
-  private localization : Localization) {
+  constructor(private platform: Platform, private localization : Localization) {
     this.rootPage = TabsPage;
     localization.setLang(navigator.language);
 
@@ -27,6 +26,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       this.registerForPushNotifications();
+      
+      Keyboard.disableScroll(true);
     });
   }
 
@@ -40,8 +41,8 @@ export class MyApp {
       notificationOpenedCallback);
     window["plugins"].OneSignal.enableInAppAlertNotification(false);
     window["plugins"].OneSignal.enableNotificationsWhenActive(true);
+  };
 
-  }
 }
 
 if (globals.prod)
@@ -61,5 +62,5 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     libraries: ['places'],
     region: "SG"
   }),
-], { tabsHideOnSubPages: "true" });
+], { tabsHideOnSubPages: true });
 
