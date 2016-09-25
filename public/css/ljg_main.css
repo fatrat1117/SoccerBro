@@ -18,7 +18,7 @@ body{
 }
 
 .jointeam_index_facebook_login > .login_link{
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -37,13 +37,23 @@ body{
   top: 1.5rem;
 }
 
+.jointeam_index_split{
+  display: block;
+  width: 100%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.jointeam_index_split>p{
+  font-size: 3rem;
+}
 
 .jointeam_index_email_login{
   margin-top: 3rem;
 }
 
 .jointeam_index_email_login > .login_link{
-  width:60%;
+  width:100%;
   margin: 0 auto;
 }
 
@@ -206,9 +216,10 @@ body{
 /* Container */
 .container {
   position: relative;
-  max-width: 460px;
   width: 100%;
   margin: 0 auto 100px;
+  padding-left: 0;
+  padding-right: 0;
 }
 .container.active .card:first-child {
   background: #f2f2f2;
@@ -299,10 +310,10 @@ body{
 .card .title {
   position: relative;
   z-index: 1;
-  border-left: 5px solid #ed2553;
+  border-left: 5px solid #2E9008;
   margin: 0 0 35px;
   padding: 10px 0 10px 50px;
-  color: #ed2553;
+  color: #2E9008;
   font-size: 32px;
   font-weight: 600;
   text-transform: uppercase;
@@ -358,7 +369,7 @@ body{
 .card .input-container .bar:before, .card .input-container .bar:after {
   content: '';
   position: absolute;
-  background: #ed2553;
+  background: #2E9008;
   width: 0;
   height: 2px;
   -webkit-transition: .2s ease;
@@ -373,6 +384,9 @@ body{
 .card .button-container {
   margin: 0 60px;
   text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
 }
 .card .button-container button {
   outline: 0;
@@ -380,8 +394,8 @@ body{
   position: relative;
   display: inline-block;
   background: 0;
-  width: 240px;
-  border: 2px solid #ed2553;
+  width: 100%;
+  border: 2px solid #2E9008;
   padding: 20px 0;
   font-size: 24px;
   font-weight: 600;
@@ -394,7 +408,7 @@ body{
 .card .button-container button span {
   position: relative;
   z-index: 1;
-  color:#ed2553;
+  color:#2E9008;
   -webkit-transition: .3s ease;
   transition: .3s ease;
 }
@@ -404,8 +418,8 @@ body{
   top: 50%;
   left: 50%;
   display: block;
-  background: #ed2553;
-  width: 30px;
+  background: #2E9008;
+  width: 100%;
   height: 30px;
   border-radius: 100%;
   margin: -15px 0 0 -15px;
@@ -414,10 +428,10 @@ body{
   transition: .3s ease;
 }
 .card .button-container button:hover, .card .button-container button:active, .card .button-container button:focus {
-  border-color: #ed2553;
+  border-color: #2E9008;
 }
 .card .button-container button:hover span, .card .button-container button:active span, .card .button-container button:focus span {
-  color: #ed2553;
+  color: #2E9008;
 }
 .card .button-container button:active span, .card .button-container button:focus span {
   color: #ffffff;
@@ -467,7 +481,7 @@ body{
   justify-content: center;
 
   position: relative;
-  background: #ed2553;
+  background: #2E9008;
   width: 140px;
   height: 140px;
   border-radius: 100%;
@@ -538,7 +552,7 @@ body{
   border-color: #ffffff;
 }
 .card.alt .button-container button span {
-  color: #ed2553;
+  color: #2E9008;
 }
 .card.alt .button-container button:hover {
   background: rgba(255, 255, 255, 0.9);

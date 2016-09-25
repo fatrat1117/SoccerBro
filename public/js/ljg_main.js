@@ -181,6 +181,7 @@ function onEmailRegister() {
   console.log(email.value);
   console.log(password.value);
 
+  // displayLoginError("123");
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
       //console.log(credential);
       console.log(result.uid);
@@ -200,16 +201,15 @@ function onEmailRegister() {
       var errorMessage = error.message;
       displayLoginError(errorMessage);
       console.log(errorMessage);
-      return false;
     });
 
-  return false;
 }
 
 
 function displayLoginError(error_msg) {
   empty_error_message($('#jointeam_email_input_error_alert_login'));
-  $('#jointeam_email_input_error_alert_login').append(error_msg);
+  var error_content = "<strong>Error!</strong>" + error_msg;
+  $('#jointeam_email_input_error_alert_login').append(error_content);
   $('#jointeam_email_input_error_alert_login').css("display", "block");
 }
 
