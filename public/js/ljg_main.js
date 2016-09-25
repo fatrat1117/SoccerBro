@@ -178,19 +178,19 @@ function onEmailRegister() {
   var email = document.getElementById("Username");
   var password = document.getElementById("Password");
 
+  console.log(email.value);
+  console.log(password.value);
+
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
-
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function (credential) {
-
-      console.log(credential);
+      //console.log(credential);
       console.log(result.uid);
-      console.log(credential.uid);
-      var userId = credential.uid;
+      //console.log(credential.uid);
+      var userId = result.uid;
       if (userId) {
 
         //Add player
         //Add team
-        updateFirebase(credential).then(function(result){
+        updateFirebase(result).then(function(result){
         },function(error){
           var errorMessage = error.message;
           alert(errorMessage);
@@ -198,22 +198,11 @@ function onEmailRegister() {
       }
     }, function (error) {
       var errorMessage = error.message;
-      alert(errorMessage);
+      displayLoginError(errorMessage);
+      console.log(errorMessage);
+      return false;
     });
 
-
-  }, function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-
-
-    console.log(errorCode);
-    console.log(email.value);
-    console.log(password.value);
-
-    displayLoginError(errorMessage);
-
-  });
   return false;
 }
 

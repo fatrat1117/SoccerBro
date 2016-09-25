@@ -39,6 +39,47 @@
     </div>
   </div>
 
+  <button onclick="onEmailRegister()">Register</button>
+
+
+  <div class="container" onclick="refreshForm()">
+    <div class="card"></div>
+
+    <div class="card">
+      <h1 class="title">Login
+        <div class="close"></div>
+      </h1>
+      <div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert" onclick="this.style.display='none';">
+        <span class="closebtn" >&times;</span>
+      </div>
+      <div name="jointeam_email_login_form">
+        <div class="input-container">
+          <input type="text" id="Username" name="jointeam_email_input_login" required="required"/>
+          <label for="Username">Email</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="Password" name="jointeam_password_input_login" required="required"/>
+          <label for="Password">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button onclick="onEmailLogin()"><span>Login</span></button>
+        </div>
+
+        <div class="button-container">
+          <button onclick="onEmailRegister()"><span>Register</span></button>
+        </div>
+
+        <hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />
+
+
+        <div class="footer"><a href="#">Forgot your password?</a></div>
+      </div>
+    </div>
+
+  </div>
+
 
   <div class="jointeam_index_email_login">
     <div class="login_link">
@@ -46,88 +87,90 @@
       <button data-bind="enable:isTeamIdValid" id="jointeam_index_email_anchor" class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">
         <span class="fa fa-google"></span> <p class="p-google">Sign in with Email</p>
       </button>
+
+
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">User Login/Register</h4>
-            </div>
-            <div class="modal-body">
+      <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--<div class="modal-dialog" role="document">-->
+          <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+              <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+              <!--<h4 class="modal-title" id="myModalLabel">User Login/Register</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
 
-              <div class="container" onclick="refreshForm()">
-                <div class="card"></div>
+              <!--<div class="container" onclick="refreshForm()">-->
+                <!--<div class="card"></div>-->
 
-                <div class="card">
-                  <h1 class="title">Login
-                    <div class="close"></div>
-                  </h1>
-                  <div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert" onclick="this.style.display='none';">
-                    <span class="closebtn" >&times;</span>
-                  </div>
-                  <form name="jointeam_email_login_form" method="post">
-                    <div class="input-container">
-                      <input type="text" id="Username" name="jointeam_email_input_login" required="required"/>
-                      <label for="Username">Email</label>
-                      <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                      <input type="password" id="Password" name="jointeam_password_input_login" required="required"/>
-                      <label for="Password">Password</label>
-                      <div class="bar"></div>
-                    </div>
-                    <div class="button-container">
-                      <button type="submit" value="Submit" onclick="onEmailLogin()"><span>Login</span></button>
-                    </div>
-
-                    <div class="button-container">
-                      <button type="submit" value="Submit" onclick="onEmailRegister()"><span>Register</span></button>
-                    </div>
-
-                    <hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />
-
-                    <!--<h1 class="title">Register-->
-                      <!--<div class="close"></div>-->
-                    <!--</h1>-->
-                    <!--<div id="jointeam_email_input_error_alert_register" style="display: none;" class="alert" onclick="this.style.display='none';">-->
-                      <!--<span class="closebtn" >&times;</span>-->
+                <!--<div class="card">-->
+                  <!--<h1 class="title">Login-->
+                    <!--<div class="close"></div>-->
+                  <!--</h1>-->
+                  <!--<div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert" onclick="this.style.display='none';">-->
+                    <!--<span class="closebtn" >&times;</span>-->
+                  <!--</div>-->
+                  <!--<form name="jointeam_email_login_form" method="post">-->
+                    <!--<div class="input-container">-->
+                      <!--<input type="text" id="Username" name="jointeam_email_input_login" required="required"/>-->
+                      <!--<label for="Username">Email</label>-->
+                      <!--<div class="bar"></div>-->
                     <!--</div>-->
-                    <!--<form name="jointeam_email_register_form" onsubmit="return onEmailRegister()" method="post">-->
-                      <!--<div class="input-container">-->
-                        <!--<input type="text" id="Username" name="jointeam_email_input_register" required="required"/>-->
-                        <!--<label for="Username">Set your Username</label>-->
-                        <!--<div class="bar"></div>-->
-                      <!--</div>-->
-                      <!--<div class="input-container">-->
-                        <!--<input type="password" id="Password" name="jointeam_password_input_register" required="required"/>-->
-                        <!--<label for="Password">Set your Password</label>-->
-                        <!--<div class="bar"></div>-->
-                      <!--</div>-->
-                      <!--<div class="input-container">-->
-                        <!--<input type="password" id="Repeat Password" name="jointeam_confirm_password_input_register" required="required"/>-->
-                        <!--<label for="Repeat Password">Repeat Password</label>-->
-                        <!--<div class="bar"></div>-->
-                      <!--</div>-->
-                      <!--<div class="button-container">-->
-                        <!--<button><span>CREATE ACCOUNT</span></button>-->
-                      <!--</div>-->
-                    <!--</form>-->
+                    <!--<div class="input-container">-->
+                      <!--<input type="password" id="Password" name="jointeam_password_input_login" required="required"/>-->
+                      <!--<label for="Password">Password</label>-->
+                      <!--<div class="bar"></div>-->
+                    <!--</div>-->
+                    <!--<div class="button-container">-->
+                      <!--<button onclick="onEmailLogin()"><span>Login</span></button>-->
+                    <!--</div>-->
 
-                    <div class="footer"><a href="#">Forgot your password?</a></div>
-                  </form>
-                </div>
+                    <!--<div class="button-container">-->
+                      <!--<button onclick="onEmailRegister()"><span>Register</span></button>-->
+                    <!--</div>-->
 
-              </div>
+                    <!--<hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />-->
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                    <!--&lt;!&ndash;<h1 class="title">Register&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="close"></div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</h1>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div id="jointeam_email_input_error_alert_register" style="display: none;" class="alert" onclick="this.style.display='none';">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<span class="closebtn" >&times;</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<form name="jointeam_email_register_form" onsubmit="return onEmailRegister()" method="post">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="input-container">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="text" id="Username" name="jointeam_email_input_register" required="required"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="Username">Set your Username</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="bar"></div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="input-container">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="password" id="Password" name="jointeam_password_input_register" required="required"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="Password">Set your Password</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="bar"></div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="input-container">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="password" id="Repeat Password" name="jointeam_confirm_password_input_register" required="required"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="Repeat Password">Repeat Password</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="bar"></div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="button-container">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button><span>CREATE ACCOUNT</span></button>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</form>&ndash;&gt;-->
 
-          </div>
+                    <!--<div class="footer"><a href="#">Forgot your password?</a></div>-->
+                  <!--</form>-->
+                <!--</div>-->
 
-        </div>
+              <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+              <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            <!--</div>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
       </div>
     </div>
   </div>
