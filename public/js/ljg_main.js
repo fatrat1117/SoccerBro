@@ -7,7 +7,8 @@ var _teamIdValid = false;
 
 var _teamInfoModel = {
   url: ko.observable(""),
-  name: ko.observable("")
+  name: ko.observable(""),
+  isTeamIdValid : ko.observable(false)
 }
 
 function $_GET(param) {
@@ -43,6 +44,10 @@ function initApp() {
     storageBucket: "project-3416565325366537224.appspot.com",
   };
   firebase.initializeApp(config);
+
+  //
+  teamIdValidation();
+
 }
 
 function teamIdValidation() {
@@ -51,14 +56,16 @@ function teamIdValidation() {
 
   var teamRef = getTeamRef(_teamId);
   ko.applyBindings(_teamInfoModel);
-  teamRef.on('value', function (snapshot) {
+  teamRef.once('value', function (snapshot) {
     console.log(snapshot.val());
     if (snapshot.val() == null) {
       console.log("Error: invalid teamId, please check it then resend request!");
       window.location.href = "404.html";
     } else {
-      console.log("Success:teamId Validation pass!");
       _teamIdValid = true;
+      console.log("Success:teamId Validation pass!");
+      _teamInfoModel.isTeamIdValid(true);
+      console.log( _teamInfoModel.isTeamIdValid);
       var teamInfo = snapshot.val()["basic-info"];
       _teamInfoModel.url(teamInfo["logo"]);
       _teamInfoModel.name(teamInfo["name"]);
@@ -106,9 +113,7 @@ function firebaseRedirect() {
 
     } else {
       console.log("show");
-      if (_teamId != null) {
-        teamIdValidation();
-      } else {
+      if (_teamId == null) {
         console.log("Error: teamId is null");
       }
     }

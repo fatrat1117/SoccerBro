@@ -33,9 +33,9 @@
 
   <div class="jointeam_index_facebook_login">
     <div class="login_link">
-      <a id="jointeam_index_facebook_anchor" class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
+      <button data-bind="enable:isTeamIdValid" id="jointeam_index_facebook_anchor" class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
         <span class="fa fa-facebook"></span><p class="p-facebook">Sign in with Facebook</p>
-      </a>
+      </button>
     </div>
   </div>
 
@@ -43,9 +43,9 @@
   <div class="jointeam_index_email_login">
     <div class="login_link">
 
-      <a id="jointeam_index_email_anchor" class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">
+      <button data-bind="enable:isTeamIdValid" id="jointeam_index_email_anchor" class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">
         <span class="fa fa-google"></span> <p class="p-google">Sign in with Email</p>
-      </a>
+      </button>
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
