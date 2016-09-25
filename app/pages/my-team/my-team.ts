@@ -13,9 +13,8 @@ import {NewMatchPage} from '../new-match/new-match';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import { Clipboard } from 'ionic-native';
+import {transPipe, Localization} from '../../providers/localization'
 import globals = require('../../providers/globals');
-import {transPipe} from '../../providers/localization'
-import {Localization} from '../../providers/localization';
 
 @Component({
   templateUrl: 'build/pages/my-team/my-team.html',
@@ -78,9 +77,9 @@ export class MyTeamPage {
 
     if (this.team.name) {
       let link = this.am.getCurrentPlayerSnapshot().displayName +
-        ' ' + 'invite you to join' + ' ' +
+        ' ' + this.local.getString('inviteyoutojoin') + ' ' +
         this.team.name +
-        '\n' +
+        ' ' +
         'https://' + globals.firebaseConfig.authDomain + '/index.html?teamId=' + this.tId;
 
       if (1 === globals.prod) {
@@ -89,7 +88,7 @@ export class MyTeamPage {
 
       Clipboard.copy(link);
       
-      alert(this.local.getString('InviteMsg'))
+      this.am.showAlert(this.local.getString('InviteMsg'))
     }
   }
 

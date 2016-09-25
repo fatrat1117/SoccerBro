@@ -57,6 +57,8 @@ export class Localization {
             Height: 'Height',
             Weight: 'Weight',
             Foot: 'Foot',
+            left: 'Left',
+            right: 'Right',
             RightFoot: 'Right Foot',
             LeftFoot: 'Left Foot',
             Position: 'Position',
@@ -116,7 +118,7 @@ export class Localization {
             ManageTeams: 'Manage Teams',
             Me: 'Me',
             PlayerInfo: 'Player Info',
-            Ability: 'Ability',
+            Ability: 'Ability (comming soon)',
             TeamInfo: 'Team Info',
             NewMatch: 'New Match',
             Notice: 'Notice',
@@ -136,6 +138,8 @@ export class Localization {
             ViewAll: 'View All',
             EditTeam: 'Edit Team',
             Logo: 'Logo',
+            SoccerBro: 'SoccerBro',
+            OK: 'OK'
         },
 
         zh: {
@@ -173,6 +177,8 @@ export class Localization {
             MyProfile: '我的信息',
             Height: '身高',
             Weight: '体重',
+            left: '左',
+            right: '右',
             Foot: '惯用脚',
             RightFoot: '右脚',
             LeftFoot: '左脚',
@@ -233,7 +239,7 @@ export class Localization {
             ManageTeams: '管理球队',
             Me: '个人',
             PlayerInfo: '球员信息',
-            Ability: '能力',
+            Ability: '能力 (即将开放)',
             TeamInfo: '球队信息',
             NewMatch: '新球赛',
             Notice: '注意事项',
@@ -252,7 +258,9 @@ export class Localization {
             Password: '密码',
             ViewAll: '查看所有',
             EditTeam: '编辑球队',
-            Logo: '队徽'
+            Logo: '队徽',
+            SoccerBro: '足球兄弟',
+            OK: '确定'
         }
     }
 }

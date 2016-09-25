@@ -1,4 +1,4 @@
-import {ModalController, NavController, Page, ToastController, LoadingController} from 'ionic-angular';
+import {ModalController, NavController, Page, ToastController, LoadingController, AlertController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import { Camera } from 'ionic-native';
 import {
@@ -8,6 +8,7 @@ import {
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login';
 import {FirebaseManager} from './firebase-manager';
+import {Localization} from './localization';
 
 declare let firebase: any;
 
@@ -27,7 +28,9 @@ export class AccountManager {
   constructor(public af: AngularFire,
     private fm: FirebaseManager,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public localization: Localization) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -539,5 +542,14 @@ export class AccountManager {
       this.loading.dismiss();
       this.loading = null;
     }
+  }
+
+  showAlert(msg) {
+    let alert = this.alertCtrl.create({
+      title: this.localization.getString('SoccerBro'),
+      subTitle: msg,
+      buttons: [this.localization.getString('OK')]
+    });
+    alert.present();
   }
 }
