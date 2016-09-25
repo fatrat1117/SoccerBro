@@ -26,6 +26,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       this.registerForPushNotifications();
+      
+      Keyboard.disableScroll(true);
     });
   }
 
@@ -39,8 +41,8 @@ export class MyApp {
       notificationOpenedCallback);
     window["plugins"].OneSignal.enableInAppAlertNotification(false);
     window["plugins"].OneSignal.enableNotificationsWhenActive(true);
-
   };
+
 }
 
 if (globals.prod)

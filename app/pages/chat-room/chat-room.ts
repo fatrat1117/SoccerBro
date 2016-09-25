@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {Keyboard} from 'ionic-native';
-import {Content} from 'ionic-angular';
+import {Content, Platform} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
@@ -13,10 +13,13 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {MomentPipe} from '../../pipes/moment.pipe';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
+import {KeyboardAttachDirective} from '../../directives/keyboard-attach.directive';
+
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [PlayerBasicPipe, transPipe]
+  pipes: [PlayerBasicPipe, transPipe],
+  directives: [KeyboardAttachDirective]
 })
 
 export class ChatRoomPage {
@@ -59,6 +62,7 @@ export class ChatRoomPage {
       })
       this.messages = snapshots;
     })
+    console.log("hack2")
   }
 
   scrollToBottom() {
@@ -171,3 +175,4 @@ export class ChatRoomPage {
     input.focus();
   }
 }
+

@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -40,7 +40,7 @@
   </ion-list>
 </ion-content>
 
-<ion-footer class="chat-room-footer">
+<ion-footer class="chat-room-footer" [keyboardAttach]="content">
   <ion-toolbar white>
     <input #input type="text" [(ngModel)]="newMessage" class="text-input" clearInput>
     <ion-buttons right>
