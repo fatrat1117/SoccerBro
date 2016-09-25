@@ -20,23 +20,23 @@
       <img class="avatar" [src]="(afBasic | async)?.photoURL">
     </ion-thumbnail>
     <h2 class="player-bold-text" text-center>{{ (afBasic | async)?.displayName }}</h2>
-    <h3 text-center><span class="player-bold-text" primary text-uppercase>{{(afDetail | async)?.position}}</span> <ion-icon name="ios-at-outline" dark></ion-icon> {{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
+    <h3 text-center><span class="player-bold-text" primary text-uppercase>{{(afDetail | async)?.position | uppercase | trans}}</span> <ion-icon name="ios-at-outline" dark></ion-icon> {{((afBasic | async)?.teamId | teamBasicPipe | async)?.name}}</h3>
   </ion-card>
 
   <ion-card>
     <ion-card-content>
       <ion-row>
         <ion-col text-center>
-          <p class="player-title-text">{{'Height' | trans}}</p>
-          <p>{{(afDetail | async)?.height}} CM</p>
+          <p class="player-title-text">{{'HeightCM' | trans}}</p>
+          <p>{{(afDetail | async)?.height}}</p>
         </ion-col>
         <ion-col text-center class="player-detail-border">
-          <p class="player-title-text">{{'Weight' | trans}}</p>
-          <p>{{(afDetail | async)?.weight}} KG</p>
+          <p class="player-title-text">{{'WeightKG' | trans}}</p>
+          <p>{{(afDetail | async)?.weight}}</p>
         </ion-col>
         <ion-col text-center class="player-detail-border">
           <p class="player-title-text">{{'Foot' | trans}}</p>
-          <p text-capitalize>{{(afDetail | async)?.foot}}</p>
+          <p text-capitalize>{{(afDetail | async)?.foot | trans}}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>

@@ -7,7 +7,8 @@ var _teamIdValid = false;
 
 var _teamInfoModel = {
   url: ko.observable(""),
-  name: ko.observable("")
+  name: ko.observable(""),
+  isTeamIdValid : ko.observable(false)
 }
 
 function $_GET(param) {
@@ -43,6 +44,10 @@ function initApp() {
     storageBucket: "project-3416565325366537224.appspot.com",
   };
   firebase.initializeApp(config);
+
+  //
+  teamIdValidation();
+
 }
 
 function teamIdValidation() {
@@ -51,14 +56,16 @@ function teamIdValidation() {
 
   var teamRef = getTeamRef(_teamId);
   ko.applyBindings(_teamInfoModel);
-  teamRef.on('value', function (snapshot) {
+  teamRef.once('value', function (snapshot) {
     console.log(snapshot.val());
     if (snapshot.val() == null) {
       console.log("Error: invalid teamId, please check it then resend request!");
       window.location.href = "404.html";
     } else {
-      console.log("Success:teamId Validation pass!");
       _teamIdValid = true;
+      console.log("Success:teamId Validation pass!");
+      _teamInfoModel.isTeamIdValid(true);
+      console.log( _teamInfoModel.isTeamIdValid);
       var teamInfo = snapshot.val()["basic-info"];
       _teamInfoModel.url(teamInfo["logo"]);
       _teamInfoModel.name(teamInfo["name"]);
@@ -86,9 +93,9 @@ function onFbLogin() {
 
 function firebaseRedirect() {
 
-  if (window.location.href.indexOf('#') != -1) {
-    close();
-  }
+  // if (window.location.href.indexOf('#') != -1) {
+  //   close();
+  // }
   firebase.auth().getRedirectResult().then(function (result) {
     if (result.credential) {
       var user = result.user;
@@ -106,9 +113,7 @@ function firebaseRedirect() {
 
     } else {
       console.log("show");
-      if (_teamId != null) {
-        teamIdValidation();
-      } else {
+      if (_teamId == null) {
         console.log("Error: teamId is null");
       }
     }
@@ -173,19 +178,19 @@ function onEmailRegister() {
   var email = document.getElementById("Username");
   var password = document.getElementById("Password");
 
+  console.log(email.value);
+  console.log(password.value);
+
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
-
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function (credential) {
-
-      console.log(credential);
+      //console.log(credential);
       console.log(result.uid);
-      console.log(credential.uid);
-      var userId = credential.uid;
+      //console.log(credential.uid);
+      var userId = result.uid;
       if (userId) {
 
         //Add player
         //Add team
-        updateFirebase(credential).then(function(result){
+        updateFirebase(result).then(function(result){
         },function(error){
           var errorMessage = error.message;
           alert(errorMessage);
@@ -193,22 +198,11 @@ function onEmailRegister() {
       }
     }, function (error) {
       var errorMessage = error.message;
-      alert(errorMessage);
+      displayLoginError(errorMessage);
+      console.log(errorMessage);
+      return false;
     });
 
-
-  }, function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-
-
-    console.log(errorCode);
-    console.log(email.value);
-    console.log(password.value);
-
-    displayLoginError(errorMessage);
-
-  });
   return false;
 }
 
@@ -381,29 +375,34 @@ function updateTotalPlayers() {
   var updates_basic_info = {};
   var updates_players = {};
 
-  teamRef_players.once('value', function (snapshot) {
-    console.log(snapshot.val());
-    var players = snapshot.val();
-    var size = Object.keys(players).length;
+  try{
+    teamRef_players.once('value', function (snapshot) {
+      console.log(snapshot.val());
+      var players = snapshot.val();
+      var size = Object.keys(players).length;
 
-    updates_basic_info['totalPlayers'] = size;
-    //updates_players[userId] = { 'goals': 0, 'number': 0 };
-    console.log(size, updates_basic_info, teamRef_basic_info);
-    teamRef_basic_info.update(updates_basic_info, function (error) {
-      // Handle Errors here.
+      updates_basic_info['totalPlayers'] = size;
+      //updates_players[userId] = { 'goals': 0, 'number': 0 };
+      console.log(size, updates_basic_info, teamRef_basic_info);
+      teamRef_basic_info.update(updates_basic_info, function (error) {
+        // Handle Errors here.
 
-      console.log(error);
-      if (error)
-        handleServiceError(error);
-      else
-        goDownloadPage();
+        console.log(error);
+        if (error)
+          handleServiceError(error);
+        else
+          goDownloadPage();
+      });
     });
-  });
+  }catch(e){
+    alert(e);
+  }
+
   //console.log(userId);
 }
 
 function goDownloadPage() {
-  //window.location.href = "success.html";
+  window.location.href = "success.html";
 }
 
 function onTestNewFeature() {

@@ -36,12 +36,12 @@ export class MyPlayerPage {
     private localization: Localization) {
     this.pId = this.navParams.get('pId');
     console.log('open player page', this.pId);
-    this.radarChartLabels = [localization.getString('speed'), 
-    localization.getString('power'), 
+    this.radarChartLabels = [localization.getString('attack'), 
     localization.getString('pass'), 
+    localization.getString('speed'),
+    localization.getString('defence'),
     localization.getString('stamina'), 
-    localization.getString('attack'), 
-    localization.getString('defence')];
+    localization.getString('power')];
     this.afBasic = this.fm.getPlayerBasic(this.pId);
     this.afDetail = this.fm.getPlayerDetail(this.pId);
     this.afPublic = this.fm.getPlayerPublic(this.pId);
