@@ -138,6 +138,8 @@ export class Localization {
             ViewAll: 'View All',
             EditTeam: 'Edit Team',
             Logo: 'Logo',
+            SoccerBro: 'SoccerBro',
+            OK: 'OK'
         },
 
         zh: {
@@ -256,7 +258,9 @@ export class Localization {
             Password: '密码',
             ViewAll: '查看所有',
             EditTeam: '编辑球队',
-            Logo: '队徽'
+            Logo: '队徽',
+            SoccerBro: '足球兄弟',
+            OK: '确定'
         }
     }
 }
