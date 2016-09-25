@@ -30,6 +30,9 @@ export class ChatRoomPage {
   // new
   playersCache: { [key:string]:any; };
   newMessage: string;
+  // keyboard
+  showSub: any;
+  hideSub: any;
 
   constructor(private navCtrl: NavController, private af: AngularFire, 
               private fm: FirebaseManager, private loacal: Localization, 
@@ -55,20 +58,12 @@ export class ChatRoomPage {
         }
       })
       this.messages = snapshots;
-      this.content.scrollToBottom();
     })
-
-    Keyboard.onKeyboardShow().subscribe(() => {
-      this.content.scrollToBottom(); 
-    })
-    Keyboard.onKeyboardHide().subscribe(() => {
-      this.content.scrollToBottom(); 
-    })
-
   }
 
   scrollToBottom() {
-      this.content.scrollToBottom(); 
+    this.content.resize();
+    this.content.scrollToBottom();
   }
 
   ionViewWillEnter() {
@@ -76,8 +71,24 @@ export class ChatRoomPage {
   }
 
   ionViewDidEnter() {
-    this.content.scrollToBottom();
+    this.showSub = Keyboard.onKeyboardShow().subscribe(() => {
+      this.scrollToBottom(); 
+    })
+    this.hideSub = Keyboard.onKeyboardHide().subscribe(() => {
+      this.scrollToBottom(); 
+    })
+    this.scrollToBottom();
   }
+
+  ionViewDidLeave() {
+    if (this.showSub) {
+      this.showSub.unsubscribe();
+    }
+    if (this.hideSub) {
+      this.hideSub.unsubscribe();
+    }
+  }
+
 
   trackByKey(item) {
     return item.key
