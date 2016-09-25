@@ -27,7 +27,7 @@ export class MyApp {
       StatusBar.styleDefault();
       this.registerForPushNotifications();
       
-      Keyboard.disableScroll(true);
+      //Keyboard.disableScroll(true);
     });
   }
 
@@ -62,5 +62,5 @@ ionicBootstrap(MyApp, [FIREBASE_PROVIDERS,
     libraries: ['places'],
     region: "SG"
   }),
-], { tabsHideOnSubPages: true });
+], { tabsHideOnSubPages: true }); //scrollAssist: false, autoFocusAssist: false
 

@@ -34,10 +34,12 @@ export class KeyboardAttachDirective {
   private onShow(e) {
     let keyboardHeight: number = e.keyboardHeight || (e.detail && e.detail.keyboardHeight);
     this.setElementPosition(keyboardHeight);
+    this.content.scrollToBottom();
   };
 
   private onHide() {
     this.setElementPosition(0);
+    this.content.scrollToBottom();
   };
 
   private setElementPosition(pixels: number) {

@@ -13,13 +13,13 @@ import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {MomentPipe} from '../../pipes/moment.pipe';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
-import {KeyboardAttachDirective} from '../../directives/keyboard-attach.directive';
+//import {KeyboardAttachDirective} from '../../directives/keyboard-attach.directive';
 
 
 @Component({
   templateUrl: 'build/pages/chat-room/chat-room.html',
-  pipes: [PlayerBasicPipe, transPipe],
-  directives: [KeyboardAttachDirective]
+  pipes: [PlayerBasicPipe, transPipe]
+  //directives: [KeyboardAttachDirective]
 })
 
 export class ChatRoomPage {
@@ -62,7 +62,6 @@ export class ChatRoomPage {
       })
       this.messages = snapshots;
     })
-    console.log("hack2")
   }
 
   scrollToBottom() {
