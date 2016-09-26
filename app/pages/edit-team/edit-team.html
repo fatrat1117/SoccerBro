@@ -31,7 +31,7 @@
       </ion-item>
     </div>
     <div *ngIf="newCaptain">
-      <ion-list-header light>{{'NewCaptain' | trans}}</ion-list-header>
+      <ion-list-header light>{{'Captain' | trans}}</ion-list-header>
       <ion-item *ngIf="newCaptain">
         <ion-avatar item-left>
           <ion-img [src]="(newCaptain | playerBasicPipe | async)?.photoURL"></ion-img>

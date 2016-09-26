@@ -139,7 +139,7 @@ export class Localization {
             EditTeam: 'Edit Team',
             Logo: 'Logo',
             SoccerBro: 'SoccerBro',
-            OK: 'OK'
+            OK: 'OK',
         },
 
         zh: {
