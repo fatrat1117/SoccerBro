@@ -18,11 +18,6 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
   <link rel="stylesheet" type="text/css" href="css/ljg_main.css">
 
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/knockout-3.4.0.js"></script>
-  <script src="js/ljg_main.js"></script>
 
 </head>
 
@@ -30,155 +25,7 @@
 <div class="jointeam_index_main_div">
 
 
-
-  <div class="jointeam_index_facebook_login">
-    <div class="login_link">
-      <button data-bind="enable:isTeamIdValid" id="jointeam_index_facebook_anchor" class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
-        <span class="fa fa-facebook"></span><p class="p-facebook">Sign in with Facebook</p>
-      </button>
-    </div>
-  </div>
-
-  <divc class="jointeam_index_split">
-    <p>Or Login with Email</p>
-  </divc>
-
-
-  <div class="container">
-    <div class="card"></div>
-
-    <div class="card">
-      <h1 class="title">Welcome to SoccerBro
-        <div class="close"></div>
-      </h1>
-      <div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> A problem has been occurred while submitting your data.
-      </div>
-
-      <div name="jointeam_email_login_form">
-        <div class="input-container">
-          <input type="text" id="Username" onfocus="refreshForm()" name="jointeam_email_input_login" required="required"/>
-          <label for="Username">Email</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Password" onfocus="refreshForm()" name="jointeam_password_input_login" required="required"/>
-          <label for="Password">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button onclick="onEmailLogin()"><span>Login</span></button>
-        </div>
-
-        <div class="button-container">
-          <button onclick="onEmailRegister()"><span>Register</span></button>
-        </div>
-
-        <hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />
-
-
-        <div class="footer"><a href="#">Forgot your password?</a></div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!--<div class="jointeam_index_email_login">-->
-    <!--<div class="login_link">-->
-
-      <!--<button data-bind="enable:isTeamIdValid" id="jointeam_index_email_anchor" class="btn btn-block btn-social btn-google" data-toggle="modal" data-target="#myModal">-->
-        <!--<span class="fa fa-google"></span> <p class="p-google">Sign in with Email</p>-->
-      <!--</button>-->
-
-
-      <!--&lt;!&ndash; Modal &ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="modal-dialog" role="document">&ndash;&gt;-->
-          <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="modal-header">&ndash;&gt;-->
-              <!--&lt;!&ndash;<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>&ndash;&gt;-->
-              <!--&lt;!&ndash;<h4 class="modal-title" id="myModalLabel">User Login/Register</h4>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="modal-body">&ndash;&gt;-->
-
-              <!--&lt;!&ndash;<div class="container" onclick="refreshForm()">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="card"></div>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<div class="card">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<h1 class="title">Login&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="close"></div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</h1>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert" onclick="this.style.display='none';">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span class="closebtn" >&times;</span>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<form name="jointeam_email_login_form" method="post">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="input-container">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<input type="text" id="Username" name="jointeam_email_input_login" required="required"/>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<label for="Username">Email</label>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="bar"></div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="input-container">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<input type="password" id="Password" name="jointeam_password_input_login" required="required"/>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<label for="Password">Password</label>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="bar"></div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="button-container">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<button onclick="onEmailLogin()"><span>Login</span></button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<div class="button-container">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<button onclick="onEmailRegister()"><span>Register</span></button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;&lt;!&ndash;<h1 class="title">Register&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<div class="close"></div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</h1>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<div id="jointeam_email_input_error_alert_register" style="display: none;" class="alert" onclick="this.style.display='none';">&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<span class="closebtn" >&times;</span>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<form name="jointeam_email_register_form" onsubmit="return onEmailRegister()" method="post">&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<div class="input-container">&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<input type="text" id="Username" name="jointeam_email_input_register" required="required"/>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<label for="Username">Set your Username</label>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<div class="bar"></div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<div class="input-container">&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<input type="password" id="Password" name="jointeam_password_input_register" required="required"/>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<label for="Password">Set your Password</label>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<div class="bar"></div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<div class="input-container">&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<input type="password" id="Repeat Password" name="jointeam_confirm_password_input_register" required="required"/>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<label for="Repeat Password">Repeat Password</label>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<div class="bar"></div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;<div class="button-container">&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<button><span>CREATE ACCOUNT</span></button>&ndash;&gt;&ndash;&gt;-->
-                      <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<div class="footer"><a href="#">Forgot your password?</a></div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="modal-footer">&ndash;&gt;-->
-              <!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
+  <h1 data-localize="greeting"> Welcome to </h1>
   <div class="jointeam_team">
     <div class="team_info">
       <div id="jointeam_team_logo" class="logo">
@@ -190,14 +37,71 @@
     </div>
   </div>
 
+  <div class="jointeam_index_facebook_login">
+    <div class="login_link">
+      <button data-bind="enable:isTeamIdValid" id="jointeam_index_facebook_anchor" class="btn btn-block btn-social btn-facebook" onclick="onFbLogin()" href="#" target="_blank">
+        <span class="fa fa-facebook"></span><p class="p-facebook" data-localize="loginFacebook">Sign in with Facebook</p>
+      </button>
+    </div>
+  </div>
 
-  <div class="btn btn-block" onclick="onTestNewFeature()">TEST_NEW FEATURE</div>
+  <divc class="jointeam_index_split">
+    <p data-localize="or">Or</p>
+    <p data-localize="loginEmail">Login with Email</p>
+  </divc>
 
 
+  <div class="container">
+    <div class="card"></div>
 
+    <div class="card">
+      <h1 class="title" data-localize="welcome">Welcome to SoccerBro
+        <div class="close"></div>
+      </h1>
+      <div id="jointeam_email_input_error_alert_login" style="display: none;" class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong data-localize="error">Error!</strong> <p>A problem has been occurred while submitting your data.</p>
+      </div>
+
+      <div name="jointeam_email_login_form">
+        <div class="input-container">
+          <input type="text" id="Username" onfocus="refreshForm()" name="jointeam_email_input_login" required="required"/>
+          <label for="Username" data-localize="email">Email</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="Password" onfocus="refreshForm()" name="jointeam_password_input_login" required="required"/>
+          <label for="Password" data-localize="password">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button data-bind="enable:isTeamIdValid" onclick="onEmailLogin()"><span data-localize="login">Login</span></button>
+        </div>
+
+        <div class="button-container">
+          <button data-bind="enable:isTeamIdValid" onclick="onEmailRegister()"><span data-localize="register">Register</span></button>
+        </div>
+
+        <hr style="border: 1px dashed #ccc; width: 100%; height: 1px; margin-top: 5rem; margin-bottom: 5rem" />
+
+
+        <div class="footer"><a href="#" data-localize="forgetPassword">Forgot your password?</a></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="btn btn-block" onclick="onTestNewFeature()"> &copy; 2016 SoccerBro </div>
 </div>
 
 
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/knockout-3.4.0.js"></script>
+<script src="js/jquery.localize.min.js"></script>
+<script src="js/localization.js"></script>
+<script src="js/ljg_main.js"></script>
 
 
 

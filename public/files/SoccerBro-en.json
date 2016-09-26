@@ -1,0 +1,14 @@
+{
+  "greeting": "Hello",
+  "loginFacebook":"Sign in with Facebook",
+  "or":"OR",
+  "loginEmail":"Login with Email",
+  "welcome":"WELCOME TO SOCCERBRO",
+  "email":"Email",
+  "password":"Password",
+  "login":"LOGIN",
+  "register":"REGISTER",
+  "forgetPassword":"Forgot your password?",
+
+  "error":"Error!"
+}

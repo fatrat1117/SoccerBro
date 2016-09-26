@@ -1,0 +1,23 @@
+{
+  "greeting": "欢迎来到",
+  "loginFacebook":"使用Facebook账户加入球队",
+  "or":"或",
+  "loginEmail":"使用邮箱加入球队",
+  "welcome":"欢迎来到足球兄弟",
+  "email":"邮箱",
+  "password":"密码",
+  "login":"直接登录",
+  "register":"创建账户",
+  "forgetPassword":"忘记密码点这里",
+
+  "error":"错误!",
+  "bad_email":"此邮箱格式无效,请输入正确格式的邮箱 e.g: soccerbro@163.com",
+  "disabled_email":"您的账户已被冻结,请发送邮件至足球兄弟客服邮箱 fatrat1117@gmail.com 进行处理",
+  "no_email":"无法找到此用户邮箱",
+  "wrong_password":"密码错误",
+  "already_in_use_email":"此用户邮箱已经被注册过了!无法再次进行注册",
+  "register_disabled":"服务器正在维护,请稍后进行注册",
+  "weak_password":"密码必须是6位字符以上(包括6位)",
+  "default_error":"未知错误,请联系足球兄弟客服 fatrat1117@gmail.com ,我们会极力抢救!"
+}
+

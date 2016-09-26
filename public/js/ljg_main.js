@@ -45,8 +45,9 @@ function initApp() {
   };
   firebase.initializeApp(config);
 
-  //
+  localization();
   teamIdValidation();
+
 
 }
 
@@ -136,8 +137,7 @@ function onEmailLogin() {
     alert("teamId is not valid, please resend the request!");
     return;
   }
-  // var email = document.forms["jointeam_email_login_form"]["jointeam_email_input_login"].value;
-  // var password = document.forms["jointeam_email_login_form"]["jointeam_password_input_login"].value;
+
   var email = document.getElementById("Username");
   var password = document.getElementById("Password");
 
@@ -154,14 +154,11 @@ function onEmailLogin() {
       insertIntoPlayerTable(credential);
       //Add team
       insertIntoTeamsTable(credential);
-      //alert(email.value + "!, SoccerBro 欢迎你！");
-      //window.location.href = "success.html";
-
     }
   }, function (error) {
     var errorMessage = error.message;
-    alert(errorMessage);
-    displayLoginError(errorMessage);
+    var errorCode = error.code;
+    displayLoginError(errorMessage,errorCode);
   });
   return false;
 
@@ -173,19 +170,11 @@ function onEmailRegister() {
     alert("teamId is not valid, please resend the request!");
     return;
   }
-  // var email = document.forms["jointeam_email_register_form"]["jointeam_email_input_register"];
-  // var password = document.forms["jointeam_email_register_form"]["jointeam_password_input_register"];
+
   var email = document.getElementById("Username");
   var password = document.getElementById("Password");
 
-  console.log(email.value);
-  console.log(password.value);
-
-  // displayLoginError("123");
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
-      //console.log(credential);
-      console.log(result.uid);
-      //console.log(credential.uid);
       var userId = result.uid;
       if (userId) {
 
@@ -199,18 +188,49 @@ function onEmailRegister() {
       }
     }, function (error) {
       var errorMessage = error.message;
-      displayLoginError(errorMessage);
+      var errorCode = error.code;
+      displayLoginError(errorMessage,errorCode);
       console.log(errorMessage);
     });
 
 }
 
 
-function displayLoginError(error_msg) {
+function displayLoginError(error_msg,error_code) {
   empty_error_message($('#jointeam_email_input_error_alert_login'));
-  var error_content = "<strong>Error!</strong>" + error_msg;
+
+  var localize = "";
+  switch (error_code) {
+    case "auth/invalid-email":
+      localize = "bad_email";
+      break;
+    case "auth/user-disabled":
+      localize = "disabled_email";
+      break;
+    case "auth/user-not-found":
+      localize = "no_email";
+      break;
+    case "auth/wrong-password":
+      localize = "wrong_password";
+      break;
+    case "auth/email-already-in-use":
+      localize = "already_in_use_email";
+      break;
+    case "auth/operation-not-allowed":
+      localize = "register_disabled";
+      break;
+    case "auth/weak-password":
+      localize = "weak_password";
+      break;
+    default:
+      localize = "default_error";
+          break;
+  }
+  var error_content = "<strong data-localize='error'>Error!</strong>" + "<p data-localize="+localize+">"+error_msg+"</p>";
   $('#jointeam_email_input_error_alert_login').append(error_content);
   $('#jointeam_email_input_error_alert_login').css("display", "block");
+
+  localization();
 }
 
 //some event
@@ -283,21 +303,15 @@ function updateFirebase(credential){
 
 function insertIntoPlayerTable(user) {
   var userId = user.uid;
-  //var playerData = {};
-  //var updates = {};
   var playerTeamsRef = getPlayerTeamsRef(userId, _teamId);
   console.log('update player teams', userId, playerTeamsRef);
-  //playerData['basic-info'] = { 'displayName': user.email, 'photoURL': user.photoURL, 'teamId': _teamId };
-  //var playerTeamIdObj = {};
-  //playerTeamIdObj[_teamId] = "true";
-  //playerData['teams'] = playerTeamIdObj;
   try {
-    //updates[_teamId] = true;
     // don't use set(updates) here
     playerTeamsRef.set(true, function (error) {
       if (error)
         handleServiceError(error);
       else{
+        //if no error, then populate data into table
         onDefaultTeamChanged(user);
       }
 
@@ -307,9 +321,7 @@ function insertIntoPlayerTable(user) {
   }
 }
 
-
-
-//some firebase apis
+//populate data into Player table by user credential
 function onDefaultTeamChanged(user) {
 
   var userId = user.uid;
@@ -328,7 +340,6 @@ function onDefaultTeamChanged(user) {
   } catch (e) {
     alert(e);
   }
-
 
 }
 
