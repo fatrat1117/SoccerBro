@@ -4,12 +4,47 @@
 
 var _teamId;
 var _teamIdValid = false;
+var _prodId;
+
+var _apiKey;
+var _authDomain;
+var _databaseURL;
+var _storageBucket;
+
 
 var _teamInfoModel = {
   url: ko.observable(""),
   name: ko.observable(""),
   isTeamIdValid : ko.observable(false)
 }
+
+
+function getConfig() {
+
+  //alert(_prodId);
+  _prodId = $_GET("prod");
+  var config = {};
+  if (_prodId != null){
+    config = {
+      apiKey: "[FILL PRODUCT API KEY]",
+      authDomain: "[FILL PRODUCT AUTHDOMAIN]",
+      databaseURL: "[FILL PRODUCT DATABASEURL]",
+      storageBucket: "[FILL PRODUCT STORAGEBUCKET]",
+    };
+    alert("请到public/js/ljg_main.js的 line29-32行填写production 的信息,然后把line34,35行删除");
+    console.log("请到public/js/ljg_main.js的 line29-32行填写production 的信息,然后把line34,35行删除")
+  }else{
+    config = {
+      apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
+      authDomain: "project-3416565325366537224.firebaseapp.com",
+      databaseURL: "https://project-3416565325366537224.firebaseio.com",
+      storageBucket: "project-3416565325366537224.appspot.com",
+    };
+  }
+
+  return config;
+}
+
 
 function $_GET(param) {
   var vars = {};
@@ -26,23 +61,24 @@ function $_GET(param) {
   return vars;
 }
 
+//entry
 window.onload = function () {
   console.log("program start");
   _teamId = $_GET("teamId");
   console.log('join team', _teamId)
-  initApp();
+  initApp(getConfig());
   firebaseRedirect();
 };
 
-function initApp() {
+function initApp(config) {
 
   // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
-    authDomain: "project-3416565325366537224.firebaseapp.com",
-    databaseURL: "https://project-3416565325366537224.firebaseio.com",
-    storageBucket: "project-3416565325366537224.appspot.com",
-  };
+  // var config = {
+  //   apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
+  //   authDomain: "project-3416565325366537224.firebaseapp.com",
+  //   databaseURL: "https://project-3416565325366537224.firebaseio.com",
+  //   storageBucket: "project-3416565325366537224.appspot.com",
+  // };
   firebase.initializeApp(config);
 
   localization();
@@ -368,17 +404,6 @@ function insertIntoTeamsTable(user) {
   }
 }
 
-function onTestNewFeature() {
-
-  var teamPlayerRef = getTeamRefPlayer(_teamId);
-  teamPlayerRef.on('value', function (snapshot) {
-    console.log(snapshot.val());
-    var players = snapshot.val();
-    var size = Object.keys(players).length;
-    console.log(size);
-  });
-}
-
 function updateTotalPlayers() {
   //update total players
   var teamRef_basic_info = getTeamRefBasicInfo(_teamId);
@@ -416,13 +441,3 @@ function goDownloadPage() {
   window.location.href = "success.html";
 }
 
-function onTestNewFeature() {
-
-  var teamPlayerRef = getTeamRefPlayer(_teamId);
-  teamPlayerRef.on('value', function (snapshot) {
-    console.log(snapshot.val());
-    var players = snapshot.val();
-    var size = Object.keys(players).length;
-    console.log(size);
-  });
-}
