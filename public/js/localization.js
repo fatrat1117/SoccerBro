@@ -21,8 +21,7 @@ function localization() {
   if (Localization.browserLang.userLang.toLowerCase() === "zh"||
     Localization.browserLang.userLang.toLowerCase() === "zh-cn" ||
     Localization.browserLang.userLang.toLowerCase() === "zh-sg" ||
-    Localization.browserLang.userLang.toLowerCase() === "zh-hk" ||
-    Localization.browserLang.userLang.toLowerCase() === "zh-tw"){
+    Localization.browserLang.userLang.toLowerCase() === "zh-hk"){
     $("[data-localize]").localize("files/SoccerBro", { language: "cn" })
   }else{
     $("[data-localize]").localize("SoccerBro", { language: "en" })

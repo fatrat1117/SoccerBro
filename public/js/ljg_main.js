@@ -6,16 +6,10 @@ var _teamId;
 var _teamIdValid = false;
 var _prodId;
 
-var _apiKey;
-var _authDomain;
-var _databaseURL;
-var _storageBucket;
-
-
 var _teamInfoModel = {
   url: ko.observable(""),
   name: ko.observable(""),
-  isTeamIdValid : ko.observable(false)
+  isTeamIdValid: ko.observable(false)
 }
 
 
@@ -24,16 +18,16 @@ function getConfig() {
   //alert(_prodId);
   _prodId = $_GET("prod");
   var config = {};
-  if (_prodId != null){
+  if (_prodId && 1 == _prodId) {
     config = {
-      apiKey: "[FILL PRODUCT API KEY]",
-      authDomain: "[FILL PRODUCT AUTHDOMAIN]",
-      databaseURL: "[FILL PRODUCT DATABASEURL]",
-      storageBucket: "[FILL PRODUCT STORAGEBUCKET]",
+      apiKey: "AIzaSyA9L3ja5ZcViqTc5Tgz8tG6QvJGlYO-fa4",
+      authDomain: "stk-soccer.firebaseapp.com",
+      databaseURL: "https://stk-soccer.firebaseio.com",
+      storageBucket: "stk-soccer.appspot.com",
+      messagingSenderId: "63493717987"
     };
-    alert("请到public/js/ljg_main.js的 line29-32行填写production 的信息,然后把line34,35行删除");
-    console.log("请到public/js/ljg_main.js的 line29-32行填写production 的信息,然后把line34,35行删除")
-  }else{
+    console.log('connect to production')
+  } else {
     config = {
       apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
       authDomain: "project-3416565325366537224.firebaseapp.com",
@@ -71,20 +65,8 @@ window.onload = function () {
 };
 
 function initApp(config) {
-
-  // Initialize Firebase
-  // var config = {
-  //   apiKey: "AIzaSyCrhL6g6rHs7-X09jw5Oq8I_g0fspD8bf8",
-  //   authDomain: "project-3416565325366537224.firebaseapp.com",
-  //   databaseURL: "https://project-3416565325366537224.firebaseio.com",
-  //   storageBucket: "project-3416565325366537224.appspot.com",
-  // };
   firebase.initializeApp(config);
-
   localization();
-  teamIdValidation();
-
-
 }
 
 function teamIdValidation() {
@@ -102,7 +84,7 @@ function teamIdValidation() {
       _teamIdValid = true;
       console.log("Success:teamId Validation pass!");
       _teamInfoModel.isTeamIdValid(true);
-      console.log( _teamInfoModel.isTeamIdValid);
+      console.log(_teamInfoModel.isTeamIdValid);
       var teamInfo = snapshot.val()["basic-info"];
       _teamInfoModel.url(teamInfo["logo"]);
       _teamInfoModel.name(teamInfo["name"]);
@@ -129,10 +111,9 @@ function onFbLogin() {
 }
 
 function firebaseRedirect() {
-
-  // if (window.location.href.indexOf('#') != -1) {
-  //   close();
-  // }
+  if (window.location.href.indexOf('#') != -1) {
+    close();
+  }
   firebase.auth().getRedirectResult().then(function (result) {
     if (result.credential) {
       var user = result.user;
@@ -140,19 +121,17 @@ function firebaseRedirect() {
 
       //Add player
       //Add team
-      updateFirebase(user).then(function(result){
+      updateFirebase(user).then(function (result) {
         //alert(user.email + "!, SoccerBro 欢迎你！");
         //window.location.href = "success.html";
-      },function(error){
+      }, function (error) {
         var errorMessage = error.message;
         alert(errorMessage);
       });
 
     } else {
       console.log("show");
-      if (_teamId == null) {
-        console.log("Error: teamId is null");
-      }
+      teamIdValidation();
     }
   }).catch(function (error) {
     // Handle Errors here.
@@ -194,7 +173,7 @@ function onEmailLogin() {
   }, function (error) {
     var errorMessage = error.message;
     var errorCode = error.code;
-    displayLoginError(errorMessage,errorCode);
+    displayLoginError(errorMessage, errorCode);
   });
   return false;
 
@@ -211,28 +190,28 @@ function onEmailRegister() {
   var password = document.getElementById("Password");
 
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (result) {
-      var userId = result.uid;
-      if (userId) {
+    var userId = result.uid;
+    if (userId) {
 
-        //Add player
-        //Add team
-        updateFirebase(result).then(function(result){
-        },function(error){
-          var errorMessage = error.message;
-          alert(errorMessage);
-        });
-      }
-    }, function (error) {
-      var errorMessage = error.message;
-      var errorCode = error.code;
-      displayLoginError(errorMessage,errorCode);
-      console.log(errorMessage);
-    });
+      //Add player
+      //Add team
+      updateFirebase(result).then(function (result) {
+      }, function (error) {
+        var errorMessage = error.message;
+        alert(errorMessage);
+      });
+    }
+  }, function (error) {
+    var errorMessage = error.message;
+    var errorCode = error.code;
+    displayLoginError(errorMessage, errorCode);
+    console.log(errorMessage);
+  });
 
 }
 
 
-function displayLoginError(error_msg,error_code) {
+function displayLoginError(error_msg, error_code) {
   empty_error_message($('#jointeam_email_input_error_alert_login'));
 
   var localize = "";
@@ -260,9 +239,9 @@ function displayLoginError(error_msg,error_code) {
       break;
     default:
       localize = "default_error";
-          break;
+      break;
   }
-  var error_content = "<strong data-localize='error'>Error!</strong>" + "<p data-localize="+localize+">"+error_msg+"</p>";
+  var error_content = "<strong data-localize='error'>Error!</strong>" + "<p data-localize=" + localize + ">" + error_msg + "</p>";
   $('#jointeam_email_input_error_alert_login').append(error_content);
   $('#jointeam_email_input_error_alert_login').css("display", "block");
 
@@ -295,7 +274,7 @@ function getTeamRefPlayer(id) {
   return firebase.database().ref("teams/" + id + "/players");
 }
 
-function getPlayerRefBasicInfo(id){
+function getPlayerRefBasicInfo(id) {
   return firebase.database().ref("players/" + id + "/basic-info");
 }
 
@@ -330,7 +309,7 @@ function handleServiceError(error) {
   throw errorMessage;
 }
 
-function updateFirebase(credential){
+function updateFirebase(credential) {
   //Add player
   insertIntoPlayerTable(credential);
   //Add team
@@ -346,7 +325,7 @@ function insertIntoPlayerTable(user) {
     playerTeamsRef.set(true, function (error) {
       if (error)
         handleServiceError(error);
-      else{
+      else {
         //if no error, then populate data into table
         onDefaultTeamChanged(user);
       }
@@ -365,11 +344,11 @@ function onDefaultTeamChanged(user) {
   var playerData = {};
   playerData['teamId'] = _teamId;
 
-  try{
-    playerBasicInfoRef.update(playerData , function (error) {
+  try {
+    playerBasicInfoRef.update(playerData, function (error) {
 
       console.log(error);
-      if (error){
+      if (error) {
         handleServiceError(error);
       }
     })
@@ -386,13 +365,13 @@ function insertIntoTeamsTable(user) {
     var teamPlayersRef = getTeamPlayersRef(_teamId, userId);
     teamPlayersRef.once('value', function (snapshot) {
       if (snapshot.val()) {
-       alert('user already joined');
+        alert('user already joined');
       }
       else {
-        teamPlayersRef.update({isMember: true},function(error) {
+        teamPlayersRef.update({ isMember: true }, function (error) {
           if (error) {
             console.log("Error updating data:", error);
-          }else{
+          } else {
             updateTotalPlayers();
           }
         });
@@ -411,7 +390,7 @@ function updateTotalPlayers() {
   var updates_basic_info = {};
   var updates_players = {};
 
-  try{
+  try {
     teamRef_players.once('value', function (snapshot) {
       console.log(snapshot.val());
       var players = snapshot.val();
@@ -430,7 +409,7 @@ function updateTotalPlayers() {
           goDownloadPage();
       });
     });
-  }catch(e){
+  } catch (e) {
     alert(e);
   }
 
