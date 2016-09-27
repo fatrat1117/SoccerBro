@@ -60,6 +60,7 @@ window.onload = function () {
   console.log("program start");
   _teamId = $_GET("teamId");
   console.log('join team', _teamId)
+  ko.applyBindings(_teamInfoModel);
   initApp(getConfig());
   firebaseRedirect();
 };
@@ -72,9 +73,7 @@ function initApp(config) {
 function teamIdValidation() {
 
   console.log(_teamId);
-
   var teamRef = getTeamRef(_teamId);
-  ko.applyBindings(_teamInfoModel);
   teamRef.once('value', function (snapshot) {
     console.log(snapshot.val());
     if (snapshot.val() == null) {
@@ -152,7 +151,7 @@ function onEmailLogin() {
     alert("teamId is not valid, please resend the request!");
     return;
   }
-
+  
   var email = document.getElementById("Username");
   var password = document.getElementById("Password");
 
