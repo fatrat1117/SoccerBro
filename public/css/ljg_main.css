@@ -130,6 +130,23 @@ body{
   text-align: center;
 }
 
+
+.card .button-container button[disabled]{
+  cursor: not-allowed;
+  border: 2px solid #ccc;
+}
+
+.card .button-container button[disabled] span{
+  color: #ccc !important;
+}
+
+.card .button-container button[disabled]:before{
+  background: #ccc;
+}
+.card .button-container button[disabled]:hover{
+  border-color: #ed2553 !important;
+}
+
 /**** Don't touch below, thanks*****/
 
 
