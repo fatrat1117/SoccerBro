@@ -14,8 +14,8 @@ declare var google: any;
   pipes: [transPipe]
 })
 export class ScheduleMatchPage {
-  opponent: any;
-  jerseyColor: string;
+  host: any;
+  visiting: any;
   location: any;
   minDate: string;
   matchDate: string;
@@ -26,46 +26,26 @@ export class ScheduleMatchPage {
               private popoverController: PopoverController, private _loader: MapsAPILoader,
               private fm: FirebaseManager,
               private am: AccountManager) {
-
-    this.jerseyColor = 'transparent';
     this.location = {};
     this.notice  = "";
     this.minDate = moment().format("YYYY-MM-DD");
     this.matchDate = this.minDate;
     this.matchTime = "15:00"
-
-    this.fm.getPlayersObj(this.fm.selfTeamId).subscribe(snapshot => {
-      for (let pId in snapshot) {
-          if (pId != '$key') {
-            this.fm.getPlayerDetail(pId).subscribe(detail => {
-                console.log('get push ids', detail);
-                if (detail && detail.pushId)
-                  this.pushIds.push(detail.pushId);
-            });
-          }
-      }
-    }); 
   }
 
   ngOnInit() {
     this.autocomplete();
   }
 
-  searchTeam() {
+  searchTeam(teamType) {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
-      this.opponent = data.team;
+      if (1 == teamType)
+        this.host = data.team;
+      else
+        this.visiting = data.team;
     });
     searchTeamModal.present();
-  }
-
-  pickColor() {
-    let popover = this.popoverController.create(ColorPickerPage);
-    popover.onDidDismiss(data => {
-      if (data != null)
-        this.jerseyColor = data.color;
-    });
-    popover.present();
   }
 
   dismiss() {
@@ -86,25 +66,18 @@ export class ScheduleMatchPage {
 
   // post
   postNewMatch() {
-    let time = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
+    let t = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
+    console.log(this.host, this.visiting);
     
 
-    this.fm.addSelfMatch({
-      opponentId: this.opponent.id,
-      time: time,
-      color: this.jerseyColor,
-      locationName: this.location.name,
-      locationAddress: this.location.address,
-      notice: this.notice
-    });
-
-    // push notification
-    let message = {
-        'en': "A new match is waiting for you to join!",
-        'zh-Hans': "一场新球赛等待你的加入！" 
-    };
-    
-    this.am.postNotification(message, this.pushIds);
+    // this.fm.addSelfMatch({
+    //   hostId: this.host.id,
+    //   visitingId: this.visiting.id,
+    //   time: t,
+    //   locationName: this.location.name,
+    //   locationAddress: this.location.address,
+    //   notice: this.notice
+    // });
 
     this.dismiss();
   }

@@ -9,10 +9,16 @@
 <ion-content>
   <ion-list>
       <!-- opponent -->
-      <ion-item tappable (click)="searchTeam()">
-        <ion-label stacked primary>{{'Opponent' | trans}}</ion-label>
+      <ion-item tappable (click)="searchTeam(1)">
+        <ion-label stacked primary>Host Team</ion-label>
         <ion-label text-center>
-          <h2 style="margin-right:auto;">&nbsp;{{ opponent?.name }}</h2>
+          <h2 style="margin-right:auto;">&nbsp;{{ host?.name }}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item tappable (click)="searchTeam(2)">
+        <ion-label stacked primary>Visiting Team</ion-label>
+        <ion-label text-center>
+          <h2 style="margin-right:auto;">&nbsp;{{ visiting?.name }}</h2>
         </ion-label>
       </ion-item>
 
@@ -34,16 +40,7 @@
         <ion-label stacked primary>{{'Time' | trans}}</ion-label>
         <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
       </ion-item>
-      <!-- color -->
-      <ion-item tappable (click)="pickColor()">
-        <ion-label stacked primary>{{'JerseyColor' | trans}}</ion-label>
-        <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor!='white'">
-          <ion-icon name="ios-shirt" [style.color]="jerseyColor"></ion-icon>
-        </ion-label>
-        <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor=='white'">
-          <ion-icon name="ios-shirt-outline" style="color:lightgrey;"></ion-icon>
-        </ion-label>
-      </ion-item>
+
       <!-- notice -->
       <ion-item>
         <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
