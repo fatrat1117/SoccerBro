@@ -12,6 +12,7 @@ import { NavController } from 'ionic-angular';
 })
 export class StandingsPage {
   standings: any[];
+  leagueStats : string = "standings";
   constructor(private nav: NavController) {
     this.standings = [
       {
@@ -54,6 +55,10 @@ export class StandingsPage {
         PTS:"87",
       },
     ];
+  }
+
+  testClick(){
+    console.log("I clicked the standing cell");
   }
 
 }

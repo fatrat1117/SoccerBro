@@ -10,35 +10,45 @@
     <ion-title>Standings</ion-title>
   </ion-navbar>
 
+
+
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <ion-header-bar class="bar-stable">
+    <ion-segment [(ngModel)]="leagueStats">
+      <ion-segment-button value="standings">
+        积分榜
+      </ion-segment-button>
+      <ion-segment-button value="goals">
+        射手榜
+      </ion-segment-button>
+    </ion-segment>
     <h1 text-center>Standings</h1>
   </ion-header-bar>
+
+  <div [ngSwitch]="leagueStats">
+    <div *ngSwitchCase= "'standings'">
   <ion-item>
     <ion-row>
-      <ion-col class="col-10">
-        <p text-left><label><ion-icon name='ios-grid-outline'></ion-icon>&nbsp;Rank</label></p>
-      </ion-col>
-      <ion-col>
+      <ion-col width-33>
         <p text-left><label>Team</label></p>
       </ion-col>
       <ion-col>
         <p text-center><label>GP</label></p>
       </ion-col>
       <ion-col>
-        <p text-center><label>W</label></p>
+        <p text-center><label>WIN</label></p>
       </ion-col>
       <ion-col>
-        <p text-center><label>D</label></p>
+        <p text-center><label>DRWA</label></p>
       </ion-col>
       <ion-col>
-        <p text-center><label>L</label></p>
+        <p text-center><label>LOSE</label></p>
       </ion-col>
       <ion-col>
-        <p text-center><label>GF</label></p>
+        <p text-center><label>GOAL</label></p>
       </ion-col>
       <ion-col>
         <p text-center><label>GA</label></p>
@@ -53,12 +63,12 @@
   </ion-item>
   <ion-item *ngFor="let s of standings">
     <ion-row>
-      <ion-col class="col-10">
+      <ion-col no-padding width-10>
         <p text-left>{{s.Rank}}</p>
-      </ion-col>
-      <ion-col>
+      </ion-col >
+      <ion-col no-padding width-20>
         <ion-row><ion-thumbnail>
-          <img src="img/test_team.jpg">
+          <img class="standings-team-img" src="img/test_team.jpg">
         </ion-thumbnail>
           <p text-left>&nbsp;{{s.Team}}</p>
         </ion-row>
@@ -90,6 +100,16 @@
       </ion-col>
     </ion-row>
   </ion-item>
+    </div>
+
+
+    <div *ngSwitchCase="'goals'">
+      Tianyi
+    </div>
+
+    </div>
+
+
 
 </ion-content>
 

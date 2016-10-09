@@ -3,6 +3,8 @@ import {NavController} from 'ionic-angular';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
 
+import {StandingsPage}from '../standings/standings';
+
 @Component({
   templateUrl: 'build/pages/home/home.html',
   pipes: [transPipe]
@@ -19,7 +21,12 @@ export class HomePage {
       loop: true
     };
     console.log(local.langCode);
-    
+
+
+  }
+
+  enterStandings(){
+    this.navCtrl.push(StandingsPage);
   }
 
   loadSlides(langCode: string, total: number) {
@@ -30,6 +37,8 @@ export class HomePage {
       });
     }
   }
+
+
 
 /*
   slides = [
@@ -46,5 +55,5 @@ export class HomePage {
   ];
   */
 
-  
+
 }
