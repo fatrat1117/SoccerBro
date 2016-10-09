@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 /*
-  Generated class for the StandingsPage page.
+  Generated class for the LeagueStatsPage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/standings/standings.html',
+  templateUrl: 'build/pages/league-stats/league-stats.html',
 })
-export class StandingsPage {
+export class LeagueStatsPage {
   standings: any[];
   leagueStats : string = "standings";
   constructor(private nav: NavController) {

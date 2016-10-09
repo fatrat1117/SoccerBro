@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {StandingsPage}from '../standings/standings';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {AccountManager} from '../../providers/account-manager';
 import {Subject} from 'rxjs/Subject';
@@ -9,6 +8,7 @@ import {TeamBasicPipe, ReverseAndCountTeamPipe} from '../../pipes/team-basic.pip
 import {MyPlayerPage} from '../my-player/my-player';
 import {MyTeamPage} from '../my-team/my-team';
 import {transPipe} from '../../providers/localization'
+import {LeagueStatsPage} from '../league-stats/league-stats';
 
 @Component({
   templateUrl: 'build/pages/stats/stats.html',
@@ -25,7 +25,7 @@ export class StatsPage {
   teamData = { enableScroll: true, maxTeam: 20 };
   playerData = { enableScroll: true, maxPlayer: 20 };
 
-  constructor(private nav: NavController, 
+  constructor(private nav: NavController,
   private fm: FirebaseManager,
   private am: AccountManager) {
     this.afPlayers = fm.queryPublicPlayers('popularity', this.playerSize);
@@ -65,7 +65,7 @@ export class StatsPage {
   }
 
   enterStandings() {
-    this.nav.push(StandingsPage);
+    this.nav.push(LeagueStatsPage);
   }
 
   /*

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
-import {StandingsPage}from '../standings/standings';
+import {LeagueStatsPage}from '../league-stats/league-stats';
 import {LeaguePage} from '../league/league';
 
 @Component({
@@ -38,6 +38,6 @@ export class HomePage {
   }
 
   enterStandings() {
-    this.navCtrl.push(StandingsPage);
+    this.navCtrl.push(LeagueStatsPage);
   }
 }
