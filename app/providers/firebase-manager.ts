@@ -269,6 +269,8 @@ export class FirebaseManager {
   }
 
   scheduleMatch(matchObj, success, error) {
+    console.log('scheduleMatch', matchObj);
+    
     this.getMatches().push(matchObj)
     .then(newMatch=>success())
     .catch(err => error(err));

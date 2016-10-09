@@ -75,7 +75,7 @@
 
   <ion-row padding-horizontal>
     <ion-col text-center>
-      <button block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
+      <button [disabled] = "!location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
     </ion-col>
     <ion-col text-center>
       <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>

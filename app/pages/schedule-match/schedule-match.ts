@@ -79,7 +79,9 @@ export class ScheduleMatchPage {
       alert('schedule match successful');
       self.dismiss();
     };
-    let error = () => {};
+    let error = err => {
+      alert(err);
+    };
 
     this.fm.scheduleMatch({
       hostId: this.host.id,
