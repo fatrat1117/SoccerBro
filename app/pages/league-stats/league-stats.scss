@@ -21,3 +21,22 @@ ion-thumbnail{
   max-width: 1.4rem;
   max-height: 1.4rem;
 }
+
+
+.league-stats-goals-panel{
+  
+  .goals-title{
+  padding: 0;
+  .item-inner{
+    padding: 0;
+    ion-label{
+      margin: 0;
+      .first-row{
+        background-color: rgba(245, 245, 245, 0.2); 
+        margin:0;
+      }
+    }
+  }
+  }
+}
+
