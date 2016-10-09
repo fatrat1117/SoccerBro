@@ -263,9 +263,16 @@ export class FirebaseManager {
     });
   }
 
+  //League 
+  getMatches() {
+    return this.af.database.list('/matches');
+  }
 
-
-
+  scheduleMatch(matchObj, success, error) {
+    this.getMatches().push(matchObj)
+    .then(newMatch=>success())
+    .catch(err => error(err));
+  }
 
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {

@@ -22,8 +22,11 @@ export class ScheduleMatchPage {
   matchTime: string;
   notice: string;
   pushIds = [];
-  constructor(private viewCtrl: ViewController, private modalCtrl: ModalController,
-              private popoverController: PopoverController, private _loader: MapsAPILoader,
+  busy = false;
+  constructor(private viewCtrl: ViewController, 
+              private modalCtrl: ModalController,
+              private popoverController: PopoverController, 
+              private _loader: MapsAPILoader,
               private fm: FirebaseManager,
               private am: AccountManager) {
     this.location = {};
@@ -66,19 +69,27 @@ export class ScheduleMatchPage {
 
   // post
   postNewMatch() {
+    this.busy = true;
     let t = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
-    console.log(this.host, this.visiting);
+    console.log(this.matchDate, this.matchTime, t);
     
+    let self = this;
+    let success = () => {
+      alert('schedule match successful');
+      self.dismiss();
+    };
+    let error = () => {};
 
-    // this.fm.addSelfMatch({
-    //   hostId: this.host.id,
-    //   visitingId: this.visiting.id,
-    //   time: t,
-    //   locationName: this.location.name,
-    //   locationAddress: this.location.address,
-    //   notice: this.notice
-    // });
-
-    this.dismiss();
+    this.fm.scheduleMatch({
+      hostId: this.host.id,
+      visitingId: this.visiting.id,
+      date: this.matchDate,
+      time: t,
+      locationName: this.location.name,
+      locationAddress: this.location.address,
+      notice: this.notice
+    }, 
+    success, 
+    error);
   }
 }

@@ -30,6 +30,7 @@ export class TabsPage implements OnInit {
     private loadingCtrl: LoadingController) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
+    am.presentLoading(3000, false);
     this.tab1Root = HomePage;
     this.tab2Root = StatsPage;
     this.tab3Root = null;
