@@ -71,7 +71,8 @@ export class ScheduleMatchPage {
   postNewMatch() {
     this.busy = true;
     let t = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
-    console.log(this.matchDate, this.matchTime, t);
+    let tDate = moment(this.matchDate).unix() * 1000;
+    console.log(this.matchDate, this.matchTime, t, tDate);
     
     let self = this;
     let success = () => {
@@ -83,7 +84,7 @@ export class ScheduleMatchPage {
     this.fm.scheduleMatch({
       hostId: this.host.id,
       visitingId: this.visiting.id,
-      date: this.matchDate,
+      date: tDate,
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
