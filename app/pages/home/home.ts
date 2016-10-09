@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
+import {StandingsPage}from '../standings/standings';
 import {LeaguePage} from '../league/league';
 
 @Component({
@@ -34,5 +35,9 @@ export class HomePage {
 
   goLeaguePage() {
     this.navCtrl.push(LeaguePage);
+  }
+
+  enterStandings() {
+    this.navCtrl.push(StandingsPage);
   }
 }
