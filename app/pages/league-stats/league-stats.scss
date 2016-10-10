@@ -21,3 +21,27 @@ ion-thumbnail{
   max-width: 1.4rem;
   max-height: 1.4rem;
 }
+
+
+
+//jixiang
+.league-stats-standing .standings-title .team{
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 40%;
+  -ms-flex: 0 0 40%;
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+
+.league-stats-standing .standings-title>ion-col>p{
+  line-height: 0;
+}
+
+.league-stats-standing .standings-title>ion-col>p>label{
+  font-size: 0.5rem;
+}
+
+
+.league-stats-standing>.item ion-label{
+  margin:0;
+}

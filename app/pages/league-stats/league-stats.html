@@ -9,9 +9,6 @@
   <ion-navbar>
     <ion-title>League Statistics</ion-title>
   </ion-navbar>
-
-
-
 </ion-header>
 
 
@@ -28,77 +25,75 @@
   </ion-header-bar>
 
   <div [ngSwitch]="leagueStats">
-    <div *ngSwitchCase= "'standings'">
-  <ion-item>
-    <ion-row>
-      <ion-col width-33>
-        <p text-left><label>Team</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>GP</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>WIN</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>DRWA</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>LOSE</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>GOAL</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>GA</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>GD</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>PTS</label></p>
-      </ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item *ngFor="let s of standings">
-    <ion-row>
-      <ion-col no-padding width-10>
-        <p text-left>{{s.Rank}}</p>
-      </ion-col >
-      <ion-col no-padding width-20>
-        <ion-row><ion-thumbnail>
-          <img class="standings-team-img" src="img/test_team.jpg">
-        </ion-thumbnail>
-          <p text-left>&nbsp;{{s.Team}}</p>
+    <div *ngSwitchCase="'standings'" class="league-stats-standing">
+      <ion-item>
+        <ion-row class="standings-title">
+          <ion-col class="team">
+            <p text-left><label>Team</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>GP</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>W</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>D</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>L</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>GF/GA</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>GD</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>PTS</label></p>
+          </ion-col>
         </ion-row>
+      </ion-item>
+      <ion-item *ngFor="let s of standings" no-margin>
+        <ion-row>
+          <ion-col no-padding width-10>
+            <p text-left>{{s.Rank}}</p>
+          </ion-col>
+          <ion-col no-padding width-20>
+            <ion-row>
+              <ion-thumbnail>
+                <img class="standings-team-img" src="img/test_team.jpg">
+              </ion-thumbnail>
+              <p text-left>&nbsp;{{s.Team}}</p>
+            </ion-row>
 
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.GP}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.W}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.D}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.L}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.GF}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.GA}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.GD}}</label></p>
-      </ion-col>
-      <ion-col>
-        <p text-center><label>{{s.PTS}}</label></p>
-      </ion-col>
-    </ion-row>
-  </ion-item>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.GP}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.W}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.D}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.L}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.GF}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.GA}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.GD}}</label></p>
+          </ion-col>
+          <ion-col>
+            <p text-center><label>{{s.PTS}}</label></p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
     </div>
 
 
@@ -106,8 +101,7 @@
       Tianyi
     </div>
 
-    </div>
-
+  </div>
 
 
 </ion-content>
