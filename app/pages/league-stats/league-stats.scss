@@ -23,27 +23,79 @@ ion-thumbnail{
 }
 
 //jixiang
-.league-stats-standing .standings-title .team{
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 40%;
-  -ms-flex: 0 0 40%;
-  flex: 0 0 40%;
-  max-width: 40%;
+.league-stats-standing{
+  label{
+    font-size: 0.5rem;
+  }
+
+  ion-col{
+    display: flex;
+
+  }
+  .standings-title{
+    .team{
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 40%;
+      -ms-flex: 0 0 40%;
+      flex: 0 0 40%;
+      max-width: 40%;
+    }
+
+    ion-col{
+      max-width: 8.5%;
+      p{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+
+      }
+    }
+  }
+  .item{
+    ion-label{
+      margin:0;
+    }
+  }
+
+  .standings-stats{
+    .rank{
+      flex: 0 0 5%;
+    }
+
+    .team-name{
+      flex: 0 0 35%;
+      max-width: none;
+    }
+    ion-col {
+      max-width: 8%;
+    }
+
+    p{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+  }
 }
 
-.league-stats-standing .standings-title>ion-col>p{
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line-height-0{
   line-height: 0;
 }
 
-.league-stats-standing .standings-title>ion-col>p>label{
-  font-size: 0.5rem;
-}
 
 
-.league-stats-standing>.item ion-label{
-  margin:0;
-}
 
+
+//tianyi
 .league-stats-goals-panel{
 
   .goals-title{

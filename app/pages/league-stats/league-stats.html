@@ -55,18 +55,17 @@
         </ion-row>
       </ion-item>
       <ion-item *ngFor="let s of standings" no-margin>
-        <ion-row>
-          <ion-col no-padding width-10>
+        <ion-row class="standings-stats">
+          <ion-col no-padding width-10 class="rank flex-center">
             <p text-left>{{s.Rank}}</p>
           </ion-col>
-          <ion-col no-padding width-20>
+          <ion-col no-padding width-20 class="team-name flex-center">
             <ion-row>
-              <ion-thumbnail>
+              <ion-thumbnail class="flex-center">
                 <img class="standings-team-img" src="img/test_team.jpg">
               </ion-thumbnail>
               <p text-left>&nbsp;{{s.Team}}</p>
             </ion-row>
-
           </ion-col>
           <ion-col>
             <p text-center><label>{{s.GP}}</label></p>
@@ -96,7 +95,7 @@
       </ion-item>
     </div>
 
-<!-- 
+<!--
   Goals rank page by Tianyi
   -->
     <div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
