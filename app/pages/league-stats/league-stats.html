@@ -96,9 +96,23 @@
       </ion-item>
     </div>
 
-
-    <div *ngSwitchCase="'goals'">
-      Tianyi
+<!-- 
+  Goals rank page by Tianyi
+  -->
+    <div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
+      <ion-item class="goals-title">
+        <ion-row class="first-row">
+          <ion-col  width-33>
+            <p text-center><label>球员</label></p>
+          </ion-col>
+          <ion-col width-33>
+            <p text-center><label>球队</label></p>
+          </ion-col>
+          <ion-col width-33>
+            <p text-center><label>进球</label></p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
     </div>
 
   </div>

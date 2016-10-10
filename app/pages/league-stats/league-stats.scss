@@ -22,8 +22,6 @@ ion-thumbnail{
   max-height: 1.4rem;
 }
 
-
-
 //jixiang
 .league-stats-standing .standings-title .team{
   -webkit-box-flex: 0;
@@ -45,3 +43,21 @@ ion-thumbnail{
 .league-stats-standing>.item ion-label{
   margin:0;
 }
+
+.league-stats-goals-panel{
+
+  .goals-title{
+  padding: 0;
+  .item-inner{
+    padding: 0;
+    ion-label{
+      margin: 0;
+      .first-row{
+        background-color: rgba(245, 245, 245, 0.2);
+        margin:0;
+      }
+    }
+  }
+  }
+}
+
