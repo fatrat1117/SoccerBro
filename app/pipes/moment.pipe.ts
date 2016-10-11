@@ -48,3 +48,13 @@ export class StringToDatePipe implements PipeTransform {
     return moment(t).format('M/D');
   }
 }
+
+@Pipe({
+  name: 'numberToTimePipe'
+})
+
+export class NumberToTimePipe implements PipeTransform {
+  transform(timestamp) {
+    return moment(timestamp).format('LT');
+  }
+}

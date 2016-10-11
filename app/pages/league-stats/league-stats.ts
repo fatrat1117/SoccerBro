@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager'; 
-import {StringToDatePipe} from '../../pipes/moment.pipe';
+import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
-  pipes: [StringToDatePipe]
+  pipes: [StringToDatePipe, NumberToTimePipe]
 })
 
 export class LeagueStatsPage {

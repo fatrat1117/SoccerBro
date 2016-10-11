@@ -120,17 +120,25 @@
     <div *ngSwitchCase="'fixtures'">
       <ion-grid>
         <ion-row>
-          <ion-col width-20>
+          <ion-col width-10>
             <ion-list>
-              <ion-item *ngFor="let date of dates" (click) = "showMatches(date.$key)">
+              <ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
                 {{date.$key | stringToDatePipe}}
               </ion-item>
             </ion-list>
           </ion-col>
           <ion-col>
             <ion-item *ngFor="let match of afMatches | async">
-                {{match.time}}
-              </ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col width-80>
+                    1
+                    </ion-col>
+                    <ion-col >
+                    </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
