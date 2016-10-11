@@ -132,11 +132,23 @@
               <ion-grid>
                 <ion-row>
                   <ion-col width-80>
-                    1
-                    </ion-col>
-                    <ion-col >
-                      {{match.time | numberToTimePipe}}
-                    </ion-col>
+                    <ion-item>
+                      <ion-avatar item-left>
+                        <ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
+                      </ion-avatar>
+                      <h2>1</h2>
+                      <!--<h2>{{match.hostId | teamBasicPipe | async)?.name}}</h2>-->
+                    </ion-item>
+                    <ion-item>
+                      <ion-avatar item-left>
+                        <ion-img [src]="(match.visitingId | teamBasicPipe | async)?.logo"></ion-img>
+                      </ion-avatar>
+                      <!--<h2>{{match.visitingId | teamBasicPipe | async)?.captain}}</h2>-->
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    {{match.time | numberToTimePipe}}
+                  </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-item>

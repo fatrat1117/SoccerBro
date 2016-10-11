@@ -3,10 +3,11 @@ import { NavController } from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager'; 
 import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {Subject} from 'rxjs/Subject';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
-  pipes: [StringToDatePipe, NumberToTimePipe]
+  pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
 })
 
 export class LeagueStatsPage {
