@@ -46,11 +46,8 @@
           <ion-col>
             <p text-center><label>L</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="max-width-16p">
             <p text-center><label>GF/GA</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>GD</label></p>
           </ion-col>
           <ion-col>
             <p text-center><label>PTS</label></p>
@@ -67,7 +64,7 @@
               <ion-thumbnail class="flex-center">
                 <img class="standings-team-img" src="img/test_team.jpg">
               </ion-thumbnail>
-              <p text-left>&nbsp;{{s.Team}}</p>
+              <p text-left class="truncate-p"><label>{{s.Team}}</label></p>
             </ion-row>
           </ion-col>
           <ion-col>
@@ -82,14 +79,8 @@
           <ion-col>
             <p text-center><label>{{s.L}}</label></p>
           </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.GF}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.GA}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.GD}}</label></p>
+          <ion-col class="max-width-16p">
+            <p text-center><label>{{s.GF}}/{{s.GA}}</label></p>
           </ion-col>
           <ion-col>
             <p text-center><label>{{s.PTS}}</label></p>
