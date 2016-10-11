@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager'; 
 import {StringToDatePipe} from '../../pipes/moment.pipe';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
@@ -12,6 +13,9 @@ export class LeagueStatsPage {
   standings: any[];
   leagueStats : string = "standings";
   dates: any;
+  afMatches: any;
+  dateSubject = new Subject();
+
   constructor(private nav: NavController,
   private fm: FirebaseManager) {
     this.standings = [
@@ -59,10 +63,15 @@ export class LeagueStatsPage {
     fm.getMatchDates().subscribe(dates=> {
       this.dates = dates;
       console.log(dates)});
+    this.afMatches = fm.queryMatches(this.dateSubject);
   }
 
   testClick(){
     console.log("I clicked the standing cell");
   }
 
+  showMatches(date: string) {
+      console.log('showMatches', date);
+      this.dateSubject.next(Number(date));
+  }
 }

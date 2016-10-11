@@ -42,9 +42,9 @@ export class MomentPipe implements PipeTransform {
 
 export class StringToDatePipe implements PipeTransform {
 
-  transform(timestamp) {
+  transform(timestamp: string) {
     let t = Number(timestamp);
     console.log(t);
-    return moment(t).format('L');
+    return moment(t).format('M/D');
   }
 }

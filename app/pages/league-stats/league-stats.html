@@ -122,12 +122,16 @@
         <ion-row>
           <ion-col width-20>
             <ion-list>
-              <ion-item *ngFor="let date of dates">
+              <ion-item *ngFor="let date of dates" (click) = "showMatches(date.$key)">
                 {{date.$key | stringToDatePipe}}
               </ion-item>
             </ion-list>
           </ion-col>
-          <ion-col>This column will take 80% of space</ion-col>
+          <ion-col>
+            <ion-item *ngFor="let match of afMatches | async">
+                {{match.time}}
+              </ion-item>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </div>

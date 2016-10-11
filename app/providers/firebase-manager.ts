@@ -268,6 +268,15 @@ export class FirebaseManager {
     return this.af.database.list('/matches/list');
   }
 
+  queryMatches(dateSubject) {
+    return this.af.database.list('/matches/list', {
+      query: {
+        orderByChild: 'date',
+        equalTo: dateSubject
+      }
+    });
+  }
+
   getMatchDates() {
     return this.af.database.list('/matches/dates');
   }
