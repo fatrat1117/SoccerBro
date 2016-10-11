@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import {FirebaseManager} from '../../providers/firebase-manager'; 
 /*
   Generated class for the LeagueStatsPage page.
 
@@ -13,7 +13,9 @@ import { NavController } from 'ionic-angular';
 export class LeagueStatsPage {
   standings: any[];
   leagueStats : string = "standings";
-  constructor(private nav: NavController) {
+  dates: any;
+  constructor(private nav: NavController,
+  private fm: FirebaseManager) {
     this.standings = [
       {
         Rank:"1",
@@ -55,6 +57,10 @@ export class LeagueStatsPage {
         PTS:"87",
       },
     ];
+
+    fm.getMatchDates().subscribe(dates=> {
+      this.dates = dates;
+      console.log(dates)});
   }
 
   testClick(){

@@ -21,6 +21,9 @@
       <ion-segment-button value="goals">
         射手榜
       </ion-segment-button>
+      <ion-segment-button value="fixtures">
+        Fixtures
+      </ion-segment-button>
     </ion-segment>
   </ion-header-bar>
 
@@ -95,7 +98,7 @@
       </ion-item>
     </div>
 
-<!--
+    <!--
   Goals rank page by Tianyi
   -->
     <div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
@@ -114,9 +117,20 @@
       </ion-item>
     </div>
 
+    <div *ngSwitchCase="'fixtures'">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-20>
+            <ion-list>
+              <ion-item *ngFor="let date of dates">
+                {{date.$key}}
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col>This column will take 80% of space</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </div>
 
-
 </ion-content>
-
-
