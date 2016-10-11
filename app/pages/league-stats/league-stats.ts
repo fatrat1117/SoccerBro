@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager'; 
-/*
-  Generated class for the LeagueStatsPage page.
+import {StringToDatePipe} from '../../pipes/moment.pipe';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
+  pipes: [StringToDatePipe]
 })
+
 export class LeagueStatsPage {
   standings: any[];
   leagueStats : string = "standings";

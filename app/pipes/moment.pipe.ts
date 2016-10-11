@@ -23,6 +23,8 @@ export class MomentPipe implements PipeTransform {
   }
 
   transform(timestamp: number) {
+    console.log(timestamp);
+    
     return moment(timestamp).calendar(null, {
       sameDay: `[${this.local.getString('Today')}] HH:mm`,
       lastDay: `[${this.local.getString('Yesterday')}]  HH:mm`,
@@ -31,5 +33,18 @@ export class MomentPipe implements PipeTransform {
       nextWeek: 'ddd HH:mm',
       sameElse: 'M/DD/YY HH:mm'
     });
+  }
+}
+
+@Pipe({
+  name: 'stringToDatePipe'
+})
+
+export class StringToDatePipe implements PipeTransform {
+
+  transform(timestamp) {
+    let t = Number(timestamp);
+    console.log(t);
+    return moment(t).format('L');
   }
 }
