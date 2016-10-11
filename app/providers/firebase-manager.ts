@@ -264,15 +264,22 @@ export class FirebaseManager {
   }
 
   //League 
-  getMatches() {
-    return this.af.database.list('/matches');
+  getMatchList() {
+    return this.af.database.list('/matches/list');
+  }
+
+  getMatchDate(day) {
+    return this.af.database.object('/matches/dates/' + day);
   }
 
   scheduleMatch(matchObj, success, error) {
     console.log('scheduleMatch', matchObj);
     
-    this.getMatches().push(matchObj)
-    .then(newMatch=>success())
+    this.getMatchList().push(matchObj)
+    .then(newMatch=> {
+      this.getMatchDate(matchObj.date).set(true);
+      success();
+    })
     .catch(err => error(err));
   }
 
