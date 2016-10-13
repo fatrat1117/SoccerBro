@@ -6,146 +6,164 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>League Statistics</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>League Statistics</ion-title>
+	</ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding>
-  <ion-header-bar class="bar-stable">
-    <ion-segment [(ngModel)]="leagueStats">
-      <ion-segment-button value="standings">
-        积分榜
-      </ion-segment-button>
-      <ion-segment-button value="goals">
-        射手榜
-      </ion-segment-button>
-      <ion-segment-button value="fixtures">
-        Fixtures
-      </ion-segment-button>
-    </ion-segment>
-  </ion-header-bar>
+	<ion-header-bar class="bar-stable">
+		<ion-segment [(ngModel)]="leagueStats">
+			<ion-segment-button value="standings">
+				积分榜
+			</ion-segment-button>
+			<ion-segment-button value="goals">
+				射手榜
+			</ion-segment-button>
+			<ion-segment-button value="fixtures">
+				Fixtures
+			</ion-segment-button>
+		</ion-segment>
+	</ion-header-bar>
 
-  <div [ngSwitch]="leagueStats">
-    <div *ngSwitchCase="'standings'" class="league-stats-standing">
-      <ion-item>
-        <ion-row class="standings-title">
-          <ion-col class="team">
-            <p text-left><label>Team</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>GP</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>W</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>D</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>L</label></p>
-          </ion-col>
-          <ion-col class="max-width-16p">
-            <p text-center><label>GF/GA</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>PTS</label></p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item *ngFor="let s of standings" no-margin>
-        <ion-row class="standings-stats">
-          <ion-col no-padding width-10 class="rank flex-center">
-            <p text-left>{{s.Rank}}</p>
-          </ion-col>
-          <ion-col no-padding width-20 class="team-name flex-center">
-            <ion-row>
-              <ion-thumbnail class="flex-center">
-                <img class="standings-team-img" src="img/test_team.jpg">
-              </ion-thumbnail>
-              <p text-left class="truncate-p"><label>{{s.Team}}</label></p>
-            </ion-row>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.GP}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.W}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.D}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.L}}</label></p>
-          </ion-col>
-          <ion-col class="max-width-16p">
-            <p text-center><label>{{s.GF}}/{{s.GA}}</label></p>
-          </ion-col>
-          <ion-col>
-            <p text-center><label>{{s.PTS}}</label></p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </div>
+	<div [ngSwitch]="leagueStats">
+		<div *ngSwitchCase="'standings'" class="league-stats-standing">
+			<ion-item>
+				<ion-row class="standings-title">
+					<ion-col class="team">
+						<p text-left><label>Team</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>GP</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>W</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>D</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>L</label></p>
+					</ion-col>
+					<ion-col class="max-width-16p">
+						<p text-center><label>GF/GA</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>PTS</label></p>
+					</ion-col>
+				</ion-row>
+			</ion-item>
+			<ion-item *ngFor="let s of standings" no-margin>
+				<ion-row class="standings-stats">
+					<ion-col no-padding width-10 class="rank flex-center">
+						<p text-left>{{s.Rank}}</p>
+					</ion-col>
+					<ion-col no-padding width-20 class="team-name flex-center">
+						<ion-row>
+							<ion-thumbnail class="flex-center">
+								<img class="standings-team-img" src="img/test_team.jpg">
+							</ion-thumbnail>
+							<p text-left class="truncate-p"><label>{{s.Team}}</label></p>
+						</ion-row>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>{{s.GP}}</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>{{s.W}}</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>{{s.D}}</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>{{s.L}}</label></p>
+					</ion-col>
+					<ion-col class="max-width-16p">
+						<p text-center><label>{{s.GF}}/{{s.GA}}</label></p>
+					</ion-col>
+					<ion-col>
+						<p text-center><label>{{s.PTS}}</label></p>
+					</ion-col>
+				</ion-row>
+			</ion-item>
+		</div>
 
-    <!--
+		<!--
   Goals rank page by Tianyi
   -->
-    <div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
-      <ion-item class="goals-title">
-        <ion-row class="first-row">
-          <ion-col  width-33>
-            <p text-center><label>球员</label></p>
-          </ion-col>
-          <ion-col width-33>
-            <p text-center><label>球队</label></p>
-          </ion-col>
-          <ion-col width-33>
-            <p text-center><label>进球</label></p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </div>
+		<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
+			<ion-item class="goals-title">
+				<ion-row class="first-row">
+					<ion-col  width-33>
+						<p text-center><label>球员</label></p>
+					</ion-col>
+					<ion-col width-33>
+						<p text-center><label>球队</label></p>
+					</ion-col>
+					<ion-col width-33>
+						<p text-center><label>进球</label></p>
+					</ion-col>
+				</ion-row>
+			</ion-item>
+		</div>
 
-    <div *ngSwitchCase="'fixtures'">
-      <ion-grid>
-        <ion-row>
-          <ion-col width-10>
-            <ion-list>
-              <ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
-                {{date.$key | stringToDatePipe}}
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col>
-            <ion-item *ngFor="let match of afMatches | async">
-              <ion-grid>
-                <ion-row>
-                  <ion-col width-80>
-                    <ion-item>
-                      <ion-avatar item-left>
-                        <ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
-                      </ion-avatar>
-                      <h2>{{(match.hostId | teamBasicPipe | async)?.name}}</h2>
-                    </ion-item>
-                    <ion-item>
-                      <ion-avatar item-left>
-                        <ion-img [src]="(match.visitingId | teamBasicPipe | async)?.logo"></ion-img>
-                      </ion-avatar>
-                      <h2>{{(match.visitingId | teamBasicPipe | async)?.name}}</h2>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col>
-                    {{match.time | numberToTimePipe}}
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-  </div>
+		<div *ngSwitchCase="'fixtures'">
+			<ion-grid>
+				<ion-row>
+					<ion-col width-10>
+						<ion-list>
+							<ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
+								{{date.$key | stringToDatePipe}}
+							</ion-item>
+						</ion-list>
+					</ion-col>
+					<ion-col>
+						<ion-item *ngFor="let match of afMatches | async">
+							<ion-grid>
+								<ion-row>
+									<ion-col width-80>
+										<ion-item>
+											<ion-avatar item-left>
+												<ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
+											</ion-avatar>
+											<ion-grid>
+												<ion-row>
+													<ion-col>
+														{{(match.hostId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-10>
+														2
+													</ion-col>
+												</ion-row>
+											</ion-grid>
+										</ion-item>
+										<ion-item>
+											<ion-avatar item-left>
+												<ion-img [src]="(match.visitingId | teamBasicPipe | async)?.logo"></ion-img>
+											</ion-avatar>
+											<ion-grid>
+												<ion-row>
+													<ion-col>
+														{{(match.visitingId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-10>
+														3
+													</ion-col>
+												</ion-row>
+											</ion-grid>
+										</ion-item>
+									</ion-col>
+									<ion-col>
+										{{match.time | numberToTimePipe}}
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+	</div>
 
 </ion-content>
