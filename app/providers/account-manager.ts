@@ -9,6 +9,7 @@ import {
 import {LoginPage} from '../pages/login/login';
 import {FirebaseManager} from './firebase-manager';
 import {Localization} from './localization';
+import * as moment from 'moment';
 
 declare let firebase: any;
 
@@ -551,5 +552,14 @@ export class AccountManager {
       buttons: [this.localization.getString('OK')]
     });
     alert.present();
+  }
+
+  //time converter
+  numberToDateString(date) {
+    return moment(date).format("YYYY-MM-DD");
+  }
+
+  numberToTimeString(time) {
+    return moment(time).format('H:mm');
   }
 }

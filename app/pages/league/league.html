@@ -21,7 +21,7 @@
 						</ion-list>
 					</ion-col>
 					<ion-col>
-						<ion-item *ngFor="let match of afMatches | async">
+						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
 								<ion-row>
 									<ion-col width-80>

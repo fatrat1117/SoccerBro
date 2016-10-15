@@ -268,6 +268,10 @@ export class FirebaseManager {
     return this.af.database.list('/matches/list');
   }
 
+  getMatch(id) {
+    return this.af.database.object('/matches/list/' + id); 
+  }
+
   queryMatches(dateSubject) {
     return this.af.database.list('/matches/list', {
       query: {

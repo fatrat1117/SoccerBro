@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ViewController, ModalController, PopoverController} from 'ionic-angular';
+import {ViewController, ModalController, PopoverController, NavParams} from 'ionic-angular';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 import * as moment from 'moment';
 import {SearchTeamPage} from '../search-team/search-team';
@@ -21,23 +21,54 @@ export class ScheduleMatchPage {
   matchDate: string;
   matchTime: string;
   notice: string;
-  pushIds = [];
+  //pushIds = [];
   busy = false;
+  mId: any;
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
               private popoverController: PopoverController, 
               private _loader: MapsAPILoader,
               private fm: FirebaseManager,
-              private am: AccountManager) {
+              private am: AccountManager,
+              params: NavParams) {
     this.location = {};
     this.notice  = "";
     this.minDate = moment().format("YYYY-MM-DD");
     this.matchDate = this.minDate;
-    this.matchTime = "15:00"
+    this.matchTime = "15:00";
+    this.mId = params.get('mId');
+    let self = this;
+    if (this.mId) {
+      console.log('match id', this.mId);
+      fm.getMatch(this.mId).subscribe(matchSnapshot=> {
+        console.log(matchSnapshot);
+        
+        self.host = {};
+        self.visiting = {};
+        self.location = {};
+        self.host["id"] = matchSnapshot.hostId;
+        self.visiting["id"] = matchSnapshot.visitingId;
+        self.location["name"] = matchSnapshot.locationName;
+        self.location["address"] = matchSnapshot.locationAddress;
+        self.matchDate = am.numberToDateString(matchSnapshot.date);
+        self.matchTime = am.numberToTimeString(matchSnapshot.time);
+        console.log(self.matchTime);
+        
+        self.notice = matchSnapshot.notice;
+        //self.updateUI();
+        //self
+      });
+    }
   }
 
   ngOnInit() {
     this.autocomplete();
+  }
+
+  updateUI() {
+    //console.log(document.getElementById("autocompleteInput"));
+    
+    //document.getElementById("autocompleteInput").textContent = "2";
   }
 
   searchTeam(teamType) {

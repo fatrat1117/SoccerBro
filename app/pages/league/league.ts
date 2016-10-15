@@ -45,4 +45,10 @@ export class LeaguePage {
     console.log('showMatches', date);
     this.dateSubject.next(Number(date));
   }
+
+  popupUpdateSchedulePage(matchId) {
+    this.modalController.create(ScheduleMatchPage, {
+      mId: matchId
+    }).present();
+  } 
 }
