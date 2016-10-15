@@ -31,8 +31,11 @@
 
 @import "../pages/login/login";
 
+
+// 以下是联赛系统的css布局
 // 积分榜
 @import "../pages/league-stats/league-stats";
+@import "../pages/league/league";
 
 ion-content {
     background-color: #f4f4f4;

@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Matches</ion-title>
     <ion-buttons end>
-      <button (click)="showScheduleMatchModal()"> 
+      <button (click)="showScheduleMatchModal()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -13,14 +13,14 @@
   <ion-list>
     <ion-grid>
     <ion-row>
-					<ion-col width-10>
-						<ion-list>
+					<ion-col width-20 class="matches-date-tab-col">
+						<ion-list class="date-tab-list">
 							<ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
 								{{date.$key | stringToDatePipe}}
 							</ion-item>
 						</ion-list>
 					</ion-col>
-					<ion-col>
+					<ion-col width-80>
 						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
 								<ion-row>
