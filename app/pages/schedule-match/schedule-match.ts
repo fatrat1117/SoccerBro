@@ -53,7 +53,7 @@ export class ScheduleMatchPage {
         self.location["address"] = matchSnapshot.locationAddress;
         self.matchDate = am.numberToDateString(matchSnapshot.date);
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
-        console.log(self.matchTime);
+        //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
         if (matchSnapshot.hostScore)
           self.hostScore = matchSnapshot.hostScore;
