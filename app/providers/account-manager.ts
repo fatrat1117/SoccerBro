@@ -560,7 +560,7 @@ export class AccountManager {
   }
 
   numberToTimeString(time) {
-    return moment(time).format('H:mm');
+    return moment(time).format('HH:mm');
   }
 
   dateTimeStringToNumber(time) {
