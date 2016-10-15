@@ -51,7 +51,8 @@
 
   <ion-row padding-horizontal>
     <ion-col text-center>
-      <button [disabled] = "busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
+      <button *ngIf = "!mId" [disabled] = "busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
+      <button *ngIf = "mId" [disabled] = "busy || !location.address" block secondary small (click)="UpdateMatch()">Update</button>
     </ion-col>
     <ion-col text-center>
       <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
