@@ -44,7 +44,6 @@ export class ScheduleMatchPage {
       console.log('match id', this.mId);
       fm.getMatch(this.mId).subscribe(matchSnapshot=> {
         console.log(matchSnapshot);
-        
         self.host = {};
         self.visiting = {};
         self.location = {};
@@ -60,6 +59,9 @@ export class ScheduleMatchPage {
           self.hostScore = matchSnapshot.hostScore;
         if (matchSnapshot.visitingScore)
           self.visitingScore = matchSnapshot.visitingScore;
+
+        fm.getTeamBasic(matchSnapshot.hostId).subscribe(teamSnapshot=> self.host["name"] = teamSnapshot.name);
+        fm.getTeamBasic(matchSnapshot.visitingId).subscribe(teamSnapshot=> self.visiting["name"] = teamSnapshot.name);
       });
     }
   }
@@ -145,7 +147,7 @@ export class ScheduleMatchPage {
 
     let self = this;
     let success = () => {
-      alert('update match successful');
+      //alert('update match successful');
       self.dismiss();
     };
     let error = err => {
