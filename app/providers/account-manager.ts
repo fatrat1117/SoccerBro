@@ -562,4 +562,8 @@ export class AccountManager {
   numberToTimeString(time) {
     return moment(time).format('H:mm');
   }
+
+  dateTimeStringToNumber(time) {
+    return moment(time).unix() * 1000;
+  }
 }

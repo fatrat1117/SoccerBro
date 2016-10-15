@@ -300,6 +300,17 @@ export class FirebaseManager {
     .catch(err => error(err));
   }
 
+  updateMatch(id, matchObj, success, error) {
+    console.log('updateMatch', matchObj);
+    
+    this.getMatch(id).update(matchObj)
+    .then(newMatch=> {
+      this.getMatchDate(matchObj.date).set(true);
+      success();
+    })
+    .catch(err => error(err));
+  }
+
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {
     this.af.database.list(`/misc/feedbacks`).push({

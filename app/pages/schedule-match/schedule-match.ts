@@ -24,6 +24,8 @@ export class ScheduleMatchPage {
   //pushIds = [];
   busy = false;
   mId: any;
+  hostScore = 0;
+  visitingScore = 0;
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
               private popoverController: PopoverController, 
@@ -52,11 +54,12 @@ export class ScheduleMatchPage {
         self.location["address"] = matchSnapshot.locationAddress;
         self.matchDate = am.numberToDateString(matchSnapshot.date);
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
-        console.log(self.matchTime);
-        
+        //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
-        //self.updateUI();
-        //self
+        if (matchSnapshot.hostScore)
+          self.hostScore = matchSnapshot.hostScore;
+        if (matchSnapshot.visitingScore)
+          self.visitingScore = matchSnapshot.visitingScore;
       });
     }
   }
@@ -101,9 +104,9 @@ export class ScheduleMatchPage {
   // post
   postNewMatch() {
     this.busy = true;
-    let t = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
-    let tDate = moment(this.matchDate).unix() * 1000;
-    console.log(this.matchDate, this.matchTime, t, tDate);
+    let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
+    let tDate = this.am.dateTimeStringToNumber(this.matchDate);
+    //console.log(this.matchDate, this.matchTime, t, tDate);
     
     let self = this;
     let success = () => {
@@ -123,6 +126,33 @@ export class ScheduleMatchPage {
       locationAddress: this.location.address,
       notice: this.notice
     }, 
+    success, 
+    error);
+  }
+
+  UpdateMatch() {
+    let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
+    let tDate = this.am.dateTimeStringToNumber(this.matchDate);
+
+    let updateMatchData = {date: tDate,
+      time: t,
+      locationName: this.location.name,
+      locationAddress: this.location.address,
+      notice: this.notice,
+      hostScore: this.hostScore,
+      visitingScore: this.visitingScore
+    }
+
+    let self = this;
+    let success = () => {
+      alert('update match successful');
+      self.dismiss();
+    };
+    let error = err => {
+      alert(err);
+    };
+
+    this.fm.updateMatch(this.mId, updateMatchData, 
     success, 
     error);
   }

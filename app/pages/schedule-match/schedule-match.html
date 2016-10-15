@@ -1,62 +1,83 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      {{'NewMatch' | trans}}
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>
+			{{'NewMatch' | trans}}
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-      <!-- opponent -->
-      <ion-item tappable (click)="searchTeam(1)">
-        <ion-label stacked primary>Host Team</ion-label>
-        <ion-label text-center>
-          <h2 style="margin-right:auto;">&nbsp;{{ host?.name }}</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item tappable (click)="searchTeam(2)">
-        <ion-label stacked primary>Visiting Team</ion-label>
-        <ion-label text-center>
-          <h2 style="margin-right:auto;">&nbsp;{{ visiting?.name }}</h2>
-        </ion-label>
-      </ion-item>
+	<ion-list>
+		<!-- opponent -->
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-item tappable (click)="searchTeam(1)">
+						<ion-label stacked primary>Host Team</ion-label>
+						<ion-label text-center>
+							<h2 style="margin-right:auto;">&nbsp;{{ host?.name }}</h2>
+						</ion-label>
+					</ion-item>
+				</ion-col>
+				<ion-col width-20 *ngIf='mId'>
+					<ion-item>
+						<ion-label stacked>Score</ion-label>
+						<ion-input type="number" min='0' max="99" [(ngModel)]="hostScore"></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item tappable (click)="searchTeam(2)">
+						<ion-label stacked primary>Visiting Team</ion-label>
+						<ion-label text-center>
+							<h2 style="margin-right:auto;">&nbsp;{{ visiting?.name }}</h2>
+						</ion-label>
+					</ion-item>
+				</ion-col>
+				<ion-col width-20 *ngIf='mId'>
+					<ion-item>
+						<ion-label stacked>Score</ion-label>
+						<ion-input type="number" min='0' max="99" [(ngModel)]="visitingScore"></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<!-- location -->
+		<ion-item>
+			<ion-label stacked primary>{{'Location' | trans}}</ion-label>
+			<ion-label>
+				<input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
+			</ion-label>
+		</ion-item>
 
-      <!-- location -->
-      <ion-item>
-        <ion-label stacked primary>{{'Location' | trans}}</ion-label>
-        <ion-label>
-          <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
-        </ion-label>
-      </ion-item>
+		<!-- date -->
+		<ion-item>
+			<ion-label stacked primary>{{'Date' | trans}}</ion-label>
+			<ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
+		</ion-item>
+		<!-- time -->
+		<ion-item>
+			<ion-label stacked primary>{{'Time' | trans}}</ion-label>
+			<ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
+		</ion-item>
 
-      <!-- date -->
-      <ion-item>
-        <ion-label stacked primary>{{'Date' | trans}}</ion-label>
-        <ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
-      </ion-item>
-      <!-- time -->
-      <ion-item>
-        <ion-label stacked primary>{{'Time' | trans}}</ion-label>
-        <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
-      </ion-item>
+		<!-- notice -->
+		<ion-item>
+			<ion-label stacked primary>{{'Notice' | trans}}</ion-label>
+			<ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
+			</ion-textarea>
+		</ion-item>
+	</ion-list>
 
-      <!-- notice -->
-      <ion-item>
-        <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
-        <ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
-        </ion-textarea>
-      </ion-item>
-  </ion-list>
-
-  <ion-row padding-horizontal>
-    <ion-col text-center>
-      <button *ngIf = "!mId" [disabled] = "busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
-      <button *ngIf = "mId" [disabled] = "busy || !location.address" block secondary small (click)="UpdateMatch()">Update</button>
-    </ion-col>
-    <ion-col text-center>
-      <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
-    </ion-col>
-  </ion-row>
+	<ion-row padding-horizontal>
+		<ion-col text-center>
+			<button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
+			<button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="UpdateMatch()">Update</button>
+		</ion-col>
+		<ion-col text-center>
+			<button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
+		</ion-col>
+	</ion-row>
 
 </ion-content>
