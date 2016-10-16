@@ -26,8 +26,7 @@ export class ScheduleMatchPage {
   mId: any;
   hostScore = 0;
   visitingScore = 0;
-  hostGoals = [{num: 8, goals: 1},
-  {num: 10, goals: 2}];
+  hostGoals = [];
   visitingGoals = [];
 
   constructor(private viewCtrl: ViewController, 
@@ -136,7 +135,7 @@ export class ScheduleMatchPage {
     error);
   }
 
-  UpdateMatch() {
+  updateMatch() {
     let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
     let tDate = this.am.dateTimeStringToNumber(this.matchDate);
 
@@ -146,7 +145,8 @@ export class ScheduleMatchPage {
       locationAddress: this.location.address,
       notice: this.notice,
       hostScore: this.hostScore,
-      visitingScore: this.visitingScore
+      visitingScore: this.visitingScore,
+      hostGoals: this.hostGoals
     }
 
     let self = this;
@@ -161,5 +161,9 @@ export class ScheduleMatchPage {
     this.fm.updateMatch(this.mId, updateMatchData, 
     success, 
     error);
+  }
+
+  addGoal(goals) {
+    goals.push({num: 0, goals: 0});
   }
 }
