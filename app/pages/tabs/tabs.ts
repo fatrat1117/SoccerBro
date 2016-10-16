@@ -76,4 +76,5 @@ export class TabsPage implements OnInit {
     this.am.checkLogin(this.modalController);
     //console.log("checkLogin finish");
   }
+
 }

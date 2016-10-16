@@ -1,0 +1,71 @@
+<ion-content>
+  <!-- rate match -->
+  <ion-card [hidden]="showMVP">
+    <ion-item>
+      <h2>STK <span danger>vs</span> EP Sport</h2>
+      <p>Sunday, 2:47 PM</p>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/test_avatar.jpg">
+      </ion-avatar>
+      <h3>Li Hao (<span primary>DMF</span>)</h3>
+      <p>5 Goals, 10 Asists</p>
+    </ion-item>
+    <ion-item>
+      <p text-center>Rate your match</p>
+      <p text-center no-padding>
+        <button *ngFor="let i of starArray" ion-button icon-only clear class="disable-hover" 
+                [ngStyle]="getColorStyle(i)"
+                (click)="setRating(i)">
+          <ion-icon name="star"></ion-icon>
+        </button>
+      </p>
+    </ion-item>
+  </ion-card>
+
+  <!-- chose mvp -->
+  <ion-card [hidden]="!showMVP">
+    <ion-item>Vote for MVP</ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/test_avatar.jpg">
+      </ion-avatar>
+      <h3>P0 (<span primary>DMF</span>)</h3>
+      <p>5 Goals</p>
+      <button ion-button icon-only clear class="disable-hover" item-right style="color: lightgray">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/test_avatar.jpg">
+      </ion-avatar>
+      <h3>P1 (<span primary>DMF</span>)</h3>
+      <p>5 Goals</p>
+      <button ion-button icon-only clear class="disable-hover" item-right style="color: lightgray">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/test_avatar.jpg">
+      </ion-avatar>
+      <h3>P2 (<span primary>DMF</span>)</h3>
+      <p>5 Goals</p>
+      <button ion-button icon-only clear class="disable-hover" item-right style="color: lightgray">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/test_avatar.jpg">
+      </ion-avatar>
+      <h3>P3 (<span primary>DMF</span>)</h3>
+      <p>5 Goals</p>
+      <button ion-button icon-only clear class="disable-hover" item-right style="color: lightgray">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-card>
+</ion-content>

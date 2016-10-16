@@ -1,4 +1,4 @@
-import {ModalController, NavController, Page, ToastController, LoadingController, AlertController} from 'ionic-angular';
+import {ModalController, NavController, Page, ToastController, LoadingController, AlertController, PopoverController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import { Camera } from 'ionic-native';
 import {
@@ -7,6 +7,7 @@ import {
   AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
 import {LoginPage} from '../pages/login/login';
+import {MatchRatingPage} from '../pages/match-rating/match-rating';
 import {FirebaseManager} from './firebase-manager';
 import {Localization} from './localization';
 import * as moment from 'moment';
@@ -31,7 +32,8 @@ export class AccountManager {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public localization: Localization) {
+    public localization: Localization,
+    private popoverCtrl: PopoverController) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
     this.subscriptions = [];
@@ -44,10 +46,15 @@ export class AccountManager {
     this.afCurrPlayer = this.afGetCurrentPlayer();
     this.setupListener(success, error);
 
+    setTimeout(()=>{
+      this.showMatchVip();
+    }, 3000);
+
     window["plugins"].OneSignal.getIds(ids => {
       self.fm.getPlayerDetail(user.uid).update({ pushId: ids.userId });
       console.log('push ids', ids)
     });
+
   }
 
   uninitialize() {
@@ -553,6 +560,12 @@ export class AccountManager {
     });
     alert.present();
   }
+
+  showMatchVip() {
+    let popover = this.popoverCtrl.create(MatchRatingPage);
+    popover.present();
+  }
+
 
   //time converter
   numberToDateString(date) {
