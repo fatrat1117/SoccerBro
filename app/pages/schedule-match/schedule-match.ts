@@ -27,6 +27,9 @@ export class ScheduleMatchPage {
   hostScore = 0;
   visitingScore = 0;
   hostGoals = [];
+  hostAssists = [];
+  hostYellowCards = [];
+  hostRedCards = [];
   visitingGoals = [];
 
   constructor(private viewCtrl: ViewController, 
@@ -62,6 +65,14 @@ export class ScheduleMatchPage {
           self.hostScore = matchSnapshot.hostScore;
         if (matchSnapshot.visitingScore)
           self.visitingScore = matchSnapshot.visitingScore;
+        if (matchSnapshot.hostGoals)
+          self.hostGoals = matchSnapshot.hostGoals;
+        if (matchSnapshot.hostAssists)
+          self.hostAssists = matchSnapshot.hostAssists;
+        if (matchSnapshot.hostYellowCards)
+          self.hostYellowCards = matchSnapshot.hostYellowCards;
+        if (matchSnapshot.hostRedCards)
+          self.hostRedCards = matchSnapshot.hostRedCards;
 
         fm.getTeamBasic(matchSnapshot.hostId).subscribe(teamSnapshot=> self.host["name"] = teamSnapshot.name);
         fm.getTeamBasic(matchSnapshot.visitingId).subscribe(teamSnapshot=> self.visiting["name"] = teamSnapshot.name);
@@ -146,7 +157,10 @@ export class ScheduleMatchPage {
       notice: this.notice,
       hostScore: this.hostScore,
       visitingScore: this.visitingScore,
-      hostGoals: this.hostGoals
+      hostGoals: this.hostGoals,
+      hostAssists: this.hostAssists,
+      hostYellowCards: this.hostYellowCards,
+      hostRedCards: this.hostRedCards
     }
 
     let self = this;
@@ -165,5 +179,17 @@ export class ScheduleMatchPage {
 
   addGoal(goals) {
     goals.push({num: 0, goals: 0});
+  }
+
+  addAssist(assists) {
+    assists.push({num: 0, assists: 0});
+  }
+
+  addYellowCard(cards) {
+    cards.push({num: 0, cards: 1});
+  }
+
+  addRedCard(cards) {
+    cards.push({num: 0, cards: 1});
   }
 }

@@ -99,6 +99,75 @@
 				<ion-input type="number" min='0' max="99" [(ngModel)]="player.goals"></ion-input>
 			</ion-item>
 		</ion-list>
+
+		<ion-list>
+			<ion-list-header>
+				<ion-buttons end>
+					<button (click)="addAssist(hostAssists)">
+        <ion-icon name="add"></ion-icon>
+		Add Assist
+      </button>
+				</ion-buttons>
+				<ion-grid>
+					<ion-row>
+						<ion-col width-50>
+							Player Number
+						</ion-col>
+						<ion-col width-50>
+							Assists
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-list-header>
+			<ion-item *ngFor="let player of hostAssists">
+				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='0' max="99" [(ngModel)]="player.assists"></ion-input>
+			</ion-item>
+		</ion-list>
+
+		<ion-list>
+			<ion-list-header>
+				<ion-buttons end>
+					<button (click)="addYellowCard(hostYellowCards)"><ion-icon name="add"></ion-icon>Add yellow card</button>
+				</ion-buttons>
+				<ion-grid>
+					<ion-row>
+						<ion-col width-50>
+							Player Number
+						</ion-col>
+						<ion-col width-50>
+							Yellow Cards
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-list-header>
+			<ion-item *ngFor="let player of hostYellowCards">
+				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='1' max="2" [(ngModel)]="player.cards"></ion-input>
+			</ion-item>
+		</ion-list>
+
+		<ion-list>
+			<ion-list-header>
+				<ion-buttons end>
+					<button (click)="addRedCard(hostRedCards)"><ion-icon name="add"></ion-icon>Add red card</button>
+				</ion-buttons>
+				<ion-grid>
+					<ion-row>
+						<ion-col width-50>
+							Player Number
+						</ion-col>
+						<ion-col width-50>
+							Red Cards
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-list-header>
+			<ion-item *ngFor="let player of hostRedCards">
+				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled] = "true"></ion-input>
+			</ion-item>
+		</ion-list>
 	</ion-card>
 
 	<ion-row padding-horizontal>
