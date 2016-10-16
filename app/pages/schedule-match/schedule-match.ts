@@ -26,6 +26,10 @@ export class ScheduleMatchPage {
   mId: any;
   hostScore = 0;
   visitingScore = 0;
+  hostGoals = [{num: 8, goals: 1},
+  {num: 10, goals: 2}];
+  visitingGoals = [];
+
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
               private popoverController: PopoverController, 

@@ -70,6 +70,33 @@
 		</ion-item>
 	</ion-list>
 
+	<div *ngIf='mId'>
+		<ion-item>{{host?.name}}</ion-item>
+		<ion-list>
+			<ion-list-header>
+				<ion-grid>
+					<ion-row>
+						<ion-col width-50>
+							Player Number
+						</ion-col>
+						<ion-col width-50>
+							Goals
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+  			</ion-list-header>
+			<ion-item *ngFor="let player of hostGoals">
+				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='0' max="99" [(ngModel)]="player.goals"></ion-input>
+			</ion-item>
+		</ion-list>
+		<!--<label>{{visiting?.name}}</label>
+		<ion-list>
+			<ion-item *ngIf="let g in visitingGoals">
+			</ion-item>
+		</ion-list>-->
+	</div>
+
 	<ion-row padding-horizontal>
 		<ion-col text-center>
 			<button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
