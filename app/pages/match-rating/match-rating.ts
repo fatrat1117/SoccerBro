@@ -6,6 +6,7 @@ import {PopoverController} from 'ionic-angular';
 })
 export class MatchRatingPage {
   starArray = [0, 1, 2, 3, 4];
+  mvpArray = [0, 0, 0, 0];
   rating: number;
   showMVP: boolean;
   constructor(private popoverCtrl: PopoverController) {
@@ -20,12 +21,30 @@ export class MatchRatingPage {
     }, 500);
   }
 
-  getColorStyle(index: number) {
+  setMVP(index: number) {
+    this.mvpArray = [0, 0, 0, 0];
+    this.mvpArray[index] = 1;
+  }
+
+  getStarColorStyle(index: number) {
     let style: any = {};
     if (index >= this.rating)
     {
       style.color = 'lightgray';
     }
     return style;
+  }
+
+  getMVPColorStyle(isSelected: number) {
+    let style: any = {};
+    if (isSelected == 0)
+    {
+      style.color = 'lightgray';
+    }
+    return style;
+  }
+
+  back() {
+    this.showMVP = false;
   }
 }
