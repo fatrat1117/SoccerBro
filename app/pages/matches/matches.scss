@@ -1,0 +1,21 @@
+.matches-date-tab-col{
+
+  .date-tab-list{
+    ion-item{
+      padding-left: 0;
+      .item-inner{
+        padding-right: 0;
+        ion-label{
+          font-size: 0.4em;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+    }
+
+  }
+}
+
+

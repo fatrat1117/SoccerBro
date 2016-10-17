@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Matches</ion-title>
+    <ion-buttons end>
+      <button (click)="showScheduleMatchModal()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-grid>
+    <ion-row>
+					<ion-col width-20 class="matches-date-tab-col">
+						<ion-list class="date-tab-list">
+							<ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
+								{{date.$key | stringToDatePipe}}
+							</ion-item>
+						</ion-list>
+					</ion-col>
+					<ion-col width-80>
+						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
+							<ion-grid>
+								<ion-row>
+									<ion-col width-80>
+										<ion-item>
+											<ion-avatar item-left>
+												<ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
+											</ion-avatar>
+											<ion-grid>
+												<ion-row>
+													<ion-col>
+														{{(match.hostId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-10>
+														{{match.hostScore}}
+													</ion-col>
+												</ion-row>
+											</ion-grid>
+										</ion-item>
+										<ion-item>
+											<ion-avatar item-left>
+												<ion-img [src]="(match.visitingId | teamBasicPipe | async)?.logo"></ion-img>
+											</ion-avatar>
+											<ion-grid>
+												<ion-row>
+													<ion-col>
+														{{(match.visitingId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-10>
+														{{match.visitingScore}}
+													</ion-col>
+												</ion-row>
+											</ion-grid>
+										</ion-item>
+									</ion-col>
+									<ion-col>
+										{{match.time | numberToTimePipe}}
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+        </ion-grid>
+  </ion-list>
+</ion-content>
