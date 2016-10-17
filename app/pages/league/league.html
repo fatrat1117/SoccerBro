@@ -24,7 +24,7 @@
 						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
 								<ion-row>
-									<ion-col width-80>
+									<ion-col>
 										<ion-item>
 											<ion-avatar item-left>
 												<ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
@@ -56,9 +56,9 @@
 											</ion-grid>
 										</ion-item>
 									</ion-col>
-									<ion-col>
-										{{match.time | numberToTimePipe}}
-									</ion-col>
+									<!--<ion-col>-->
+										<!--{{match.time | numberToTimePipe}}-->
+									<!--</ion-col>-->
 								</ion-row>
 							</ion-grid>
 						</ion-item>
