@@ -46,10 +46,6 @@ export class AccountManager {
     this.afCurrPlayer = this.afGetCurrentPlayer();
     this.setupListener(success, error);
 
-    setTimeout(()=>{
-      this.showMatchVip();
-    }, 3000);
-
     window["plugins"].OneSignal.getIds(ids => {
       self.fm.getPlayerDetail(user.uid).update({ pushId: ids.userId });
       console.log('push ids', ids)
@@ -562,6 +558,7 @@ export class AccountManager {
   }
 
   showMatchVip() {
+    console.log('showMatchVip');
     let popover = this.popoverCtrl.create(MatchRatingPage);
     popover.present();
   }

@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Matches</ion-title>
     <ion-buttons end>
-      <button (click)="addTournament()">
+      <button (click)="showScheduleMatchModal()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -24,7 +24,7 @@
 						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
 								<ion-row>
-									<ion-col>
+									<ion-col width-80>
 										<ion-item>
 											<ion-avatar item-left>
 												<ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
@@ -56,17 +56,14 @@
 											</ion-grid>
 										</ion-item>
 									</ion-col>
-									<!--<ion-col>-->
-										<!--{{match.time | numberToTimePipe}}-->
-									<!--</ion-col>-->
+									<ion-col>
+										{{match.time | numberToTimePipe}}
+									</ion-col>
 								</ion-row>
 							</ion-grid>
 						</ion-item>
 					</ion-col>
 				</ion-row>
         </ion-grid>
-		<ion-item *ngFor = "let t of afTournament | async" (click) = "goTournament(t.$key)">
-			{{t.name}}
-		</ion-item>
   </ion-list>
 </ion-content>

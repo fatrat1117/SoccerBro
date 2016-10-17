@@ -31,6 +31,9 @@ export class ScheduleMatchPage {
   hostYellowCards = [];
   hostRedCards = [];
   visitingGoals = [];
+  visitingAssists = [];
+  visitingYellowCards = [];
+  visitingRedCards = [];
 
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
@@ -65,6 +68,7 @@ export class ScheduleMatchPage {
           self.hostScore = matchSnapshot.hostScore;
         if (matchSnapshot.visitingScore)
           self.visitingScore = matchSnapshot.visitingScore;
+
         if (matchSnapshot.hostGoals)
           self.hostGoals = matchSnapshot.hostGoals;
         if (matchSnapshot.hostAssists)
@@ -73,6 +77,15 @@ export class ScheduleMatchPage {
           self.hostYellowCards = matchSnapshot.hostYellowCards;
         if (matchSnapshot.hostRedCards)
           self.hostRedCards = matchSnapshot.hostRedCards;
+
+        if (matchSnapshot.visitingGoals)
+          self.visitingGoals = matchSnapshot.visitingGoals;
+        if (matchSnapshot.visitingAssists)
+          self.visitingAssists = matchSnapshot.visitingAssists;
+        if (matchSnapshot.visitingYellowCards)
+          self.visitingYellowCards = matchSnapshot.visitingYellowCards;
+        if (matchSnapshot.visitingRedCards)
+          self.visitingRedCards = matchSnapshot.visitingRedCards;
 
         fm.getTeamBasic(matchSnapshot.hostId).subscribe(teamSnapshot=> self.host["name"] = teamSnapshot.name);
         fm.getTeamBasic(matchSnapshot.visitingId).subscribe(teamSnapshot=> self.visiting["name"] = teamSnapshot.name);
@@ -160,8 +173,12 @@ export class ScheduleMatchPage {
       hostGoals: this.hostGoals,
       hostAssists: this.hostAssists,
       hostYellowCards: this.hostYellowCards,
-      hostRedCards: this.hostRedCards
-    }
+      hostRedCards: this.hostRedCards,
+      visitingGoals: this.visitingGoals,
+      visitingAssists: this.visitingAssists,
+      visitingYellowCards: this.visitingYellowCards,
+      visitingRedCards: this.visitingRedCards
+    };
 
     let self = this;
     let success = () => {

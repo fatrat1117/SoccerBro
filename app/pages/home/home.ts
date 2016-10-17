@@ -4,6 +4,7 @@ import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
 import {LeagueStatsPage}from '../league-stats/league-stats';
 import {LeaguePage} from '../league/league';
+import {MatchesPage} from '../matches/matches';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
@@ -34,7 +35,7 @@ export class HomePage {
   }
 
   goLeaguePage() {
-    this.navCtrl.push(LeaguePage);
+    this.navCtrl.push(MatchesPage);
   }
 
   enterStandings() {

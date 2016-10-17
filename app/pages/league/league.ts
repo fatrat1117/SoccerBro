@@ -6,6 +6,7 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {Subject} from 'rxjs/Subject';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {LeagueStatsPage} from '../league-stats/league-stats';
 import * as moment from 'moment';
 
 @Component({
@@ -13,42 +14,29 @@ import * as moment from 'moment';
   pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
 })
 export class LeaguePage {
-
-  dates: any;
-  afMatches: any;
-  dateSubject = new Subject();
-  today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
+  afTournaments : any;
 
   constructor(private navCtrl: NavController,
-    local: Localization,
-    private modalController: ModalController,
-    fm: FirebaseManager) {
+    private local: Localization,
+    private fm: FirebaseManager) {
 
     let  self = this;
-    fm.getMatchDates().subscribe(dates => {
-      self.dates = dates;
-      //console.log(dates);
-      setTimeout(function() {
-        console.log('show today', self.today);
-        self.dateSubject.next(self.today);
-      }, 1000);
-    });
-    this.afMatches = fm.queryMatches(this.dateSubject);
+    // fm.getMatchDates().subscribe(dates => {
+    //   self.dates = dates;
+    //   //console.log(dates);
+    //   setTimeout(function() {
+    //     console.log('show today', self.today);
+    //     self.dateSubject.next(self.today);
+    //   }, 1000);
+    // });
+    // this.afMatches = fm.queryMatches(this.dateSubject);
   }
 
-
-  showScheduleMatchModal() {
-    this.modalController.create(ScheduleMatchPage).present();
+  addTournament() {
+    //this.fm.addTournament({name: })
   }
 
-  showMatches(date: string) {
-    console.log('showMatches', date);
-    this.dateSubject.next(Number(date));
+  goTournament(id) {
+    this.navCtrl.push(LeagueStatsPage, {tournamentId: id});
   }
-
-  popupUpdateSchedulePage(matchId) {
-    this.modalController.create(ScheduleMatchPage, {
-      mId: matchId
-    }).present();
-  } 
 }
