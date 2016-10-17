@@ -19,3 +19,67 @@
 }
 
 
+.matches-match-info-col{
+
+
+
+  .item{
+    padding-left:0;
+  }
+
+  .item-inner{
+    padding-right: 0;
+  }
+
+  ion-label{
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+  }
+
+  .matches-time{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    font-size: 0.8em;
+  }
+
+  .matches-info{
+    .team-bar{
+      padding-left:0;
+      ion-img{
+        max-width: 2em;
+        max-height: 2em;
+        border-radius: 50%;
+      }
+      ion-avatar[item-left]{
+        margin:0;
+      }
+
+      .team-name{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.8em;
+
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 85%;
+        -ms-flex: 0 0 85%;
+        flex: 0 0 85%;
+        max-width: 85%;
+      }
+      .team-score{
+        font-size: 0.8em;
+
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 15%;
+        -ms-flex: 0 0 15%;
+        flex: 0 0 15%;
+        max-width: 15%;
+      }
+    }
+  }
+}
+
