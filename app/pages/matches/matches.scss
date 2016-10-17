@@ -1,4 +1,8 @@
 .matches-date-tab-col{
+  .input-wrapper:active{
+    border: solid 1px #8ed058;
+    background: #a9db80;
+  }
 
   .date-tab-list{
     ion-item{

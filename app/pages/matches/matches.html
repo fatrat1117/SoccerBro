@@ -15,7 +15,7 @@
     <ion-row>
 					<ion-col width-20 class="matches-date-tab-col">
 						<ion-list class="date-tab-list">
-							<ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
+							<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
 								{{date.$key | stringToDatePipe}}
 							</ion-item>
 						</ion-list>

@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class MatchesPage {
 
   dates: any;
+  datesColorArray:any;
   afMatches: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
@@ -27,6 +28,7 @@ export class MatchesPage {
     let  self = this;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
+      self.initialDatesColorArray(self.dates);
       //console.log(dates);
       setTimeout(function() {
         console.log('show today', self.today);
@@ -41,14 +43,45 @@ export class MatchesPage {
     this.modalController.create(ScheduleMatchPage).present();
   }
 
-  showMatches(date: string) {
+  showMatches(date: string, i : number) {
     console.log('showMatches', date);
     this.dateSubject.next(Number(date));
+
+    this.setDatesColorArray(i);
   }
 
   popupUpdateSchedulePage(matchId) {
     this.modalController.create(ScheduleMatchPage, {
       mId: matchId
     }).present();
-  } 
+  }
+
+  initialDatesColorArray(dates:any){
+    this.datesColorArray = new Array(dates.length);
+    if (this.datesColorArray.length > 0){
+      this.datesColorArray[0] = "#2E9008";
+    }
+    for (var i = 1 ; i < this.datesColorArray.length; i++){
+      this.datesColorArray[i] = "none";
+    }
+  }
+
+  setDatesColorArray(index:number){
+    for (var i = 0 ; i < this.datesColorArray.length;i++) {
+      if (index === i) {
+        this.datesColorArray[i] = "#2E9008";
+      } else {
+        this.datesColorArray[i] = "none";
+      }
+    }
+  }
+
+  getDateTabBGColor(date:string){
+    for (let i in this.dates) {
+        if (this.dates[i] === date){
+            return this.datesColorArray[i];
+        }
+    }
+    return;
+  }
 }
