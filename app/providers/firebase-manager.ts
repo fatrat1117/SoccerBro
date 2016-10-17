@@ -263,7 +263,7 @@ export class FirebaseManager {
     });
   }
 
-  //League 
+  //Matches 
   getMatchList() {
     return this.af.database.list('/matches/list');
   }
@@ -309,6 +309,17 @@ export class FirebaseManager {
       success();
     })
     .catch(err => error(err));
+  }
+
+  //Tournament
+  getTournamentList() {
+    return this.af.database.list('/tournaments/list');
+  }
+
+  addTournament (tournamentName, success, error) {
+    this.getTournamentList().push({name: tournamentName})
+    .then(newTournament=>success())
+    .catch(err=>error(err));
   }
 
   /********** All Misc Operations ***********/

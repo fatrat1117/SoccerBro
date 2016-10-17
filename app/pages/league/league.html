@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-		<ion-item *ngFor = "let t of afTournament | async" (click) = "goTournament(t.$key)"> 
+		<ion-item *ngFor = "let t of afTournaments | async" (click) = "goTournament(t.$key)"> 
 			{{t.name}}
 		</ion-item>
   </ion-list>
