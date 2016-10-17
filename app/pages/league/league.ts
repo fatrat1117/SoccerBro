@@ -21,6 +21,7 @@ export class LeaguePage {
     private fm: FirebaseManager) {
 
     let  self = this;
+    this.afTournaments = fm.getTournamentList();
     // fm.getMatchDates().subscribe(dates => {
     //   self.dates = dates;
     //   //console.log(dates);
