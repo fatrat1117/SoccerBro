@@ -22,7 +22,7 @@
 				<ion-col width-20 *ngIf='mId'>
 					<ion-item>
 						<ion-label stacked>Score</ion-label>
-						<ion-input type="number" min='0' max="99" [(ngModel)]="homeScore"></ion-input>
+						<ion-input type="number" min='0' max="99" [ngModel]="homeScore" (ngModelChange)="homeScore=toNumber($event)"></ion-input>
 					</ion-item>
 				</ion-col>
 			</ion-row>

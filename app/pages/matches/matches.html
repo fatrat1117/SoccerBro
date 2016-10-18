@@ -36,19 +36,11 @@
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
-<<<<<<< HEAD
-													<ion-col>
+													<ion-col class="team-name">
 														{{(match.homeId | teamBasicPipe | async)?.name}}
 													</ion-col>
-													<ion-col width-10>
-														{{match.homeScore}}
-=======
-													<ion-col class="team-name">
-														{{(match.hostId | teamBasicPipe | async)?.name}}
-													</ion-col>
 													<ion-col width-10 class="team-score">
-														{{match.hostScore}}
->>>>>>> 917e191548968f5f11961b0ba6629693e6c3b2d3
+														{{match.homeScore}}
 													</ion-col>
 												</ion-row>
 											</ion-grid>
@@ -59,25 +51,16 @@
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
-<<<<<<< HEAD
-													<ion-col>
+													<ion-col class="team-name">
 														{{(match.awayId | teamBasicPipe | async)?.name}}
 													</ion-col>
-													<ion-col width-10>
-														{{match.awayScore}}
-=======
-													<ion-col class="team-name">
-														{{(match.visitingId | teamBasicPipe | async)?.name}}
-													</ion-col>
 													<ion-col width-20 class="team-score">
-														{{match.visitingScore}}
->>>>>>> 917e191548968f5f11961b0ba6629693e6c3b2d3
+														{{match.awayScore}}
 													</ion-col>
 												</ion-row>
 											</ion-grid>
 										</ion-item>
 									</ion-col>
-
 								</ion-row>
 							</ion-grid>
 						</ion-item>

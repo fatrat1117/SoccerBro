@@ -209,4 +209,8 @@ export class ScheduleMatchPage {
   addRedCard(cards) {
     cards.push({num: 0, cards: 1});
   }
+
+  toNumber(s) {
+    return Number(s);
+  }
 }
