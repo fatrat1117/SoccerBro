@@ -14,8 +14,8 @@ declare var google: any;
   pipes: [transPipe]
 })
 export class ScheduleMatchPage {
-  host: any;
-  visiting: any;
+  home: any;
+  away: any;
   location: any;
   minDate: string;
   matchDate: string;
@@ -24,16 +24,16 @@ export class ScheduleMatchPage {
   //pushIds = [];
   busy = false;
   mId: any;
-  hostScore = 0;
-  visitingScore = 0;
-  hostGoals = [];
-  hostAssists = [];
-  hostYellowCards = [];
-  hostRedCards = [];
-  visitingGoals = [];
-  visitingAssists = [];
-  visitingYellowCards = [];
-  visitingRedCards = [];
+  homeScore = 0;
+  awayScore = 0;
+  homeGoals = [];
+  homeAssists = [];
+  homeYellowCards = [];
+  homeRedCards = [];
+  awayGoals = [];
+  awayAssists = [];
+  awayYellowCards = [];
+  awayRedCards = [];
 
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
@@ -53,42 +53,42 @@ export class ScheduleMatchPage {
       console.log('match id', this.mId);
       fm.getMatch(this.mId).subscribe(matchSnapshot=> {
         console.log(matchSnapshot);
-        self.host = {};
-        self.visiting = {};
+        self.home = {};
+        self.away = {};
         self.location = {};
-        self.host["id"] = matchSnapshot.hostId;
-        self.visiting["id"] = matchSnapshot.visitingId;
+        self.home["id"] = matchSnapshot.homeId;
+        self.away["id"] = matchSnapshot.awayId;
         self.location["name"] = matchSnapshot.locationName;
         self.location["address"] = matchSnapshot.locationAddress;
         self.matchDate = am.numberToDateString(matchSnapshot.date);
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
         //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
-        if (matchSnapshot.hostScore)
-          self.hostScore = matchSnapshot.hostScore;
-        if (matchSnapshot.visitingScore)
-          self.visitingScore = matchSnapshot.visitingScore;
+        if (matchSnapshot.homeScore)
+          self.homeScore = matchSnapshot.homeScore;
+        if (matchSnapshot.awayScore)
+          self.awayScore = matchSnapshot.awayScore;
 
-        if (matchSnapshot.hostGoals)
-          self.hostGoals = matchSnapshot.hostGoals;
-        if (matchSnapshot.hostAssists)
-          self.hostAssists = matchSnapshot.hostAssists;
-        if (matchSnapshot.hostYellowCards)
-          self.hostYellowCards = matchSnapshot.hostYellowCards;
-        if (matchSnapshot.hostRedCards)
-          self.hostRedCards = matchSnapshot.hostRedCards;
+        if (matchSnapshot.homeGoals)
+          self.homeGoals = matchSnapshot.homeGoals;
+        if (matchSnapshot.homeAssists)
+          self.homeAssists = matchSnapshot.homeAssists;
+        if (matchSnapshot.homeYellowCards)
+          self.homeYellowCards = matchSnapshot.homeYellowCards;
+        if (matchSnapshot.homeRedCards)
+          self.homeRedCards = matchSnapshot.homeRedCards;
 
-        if (matchSnapshot.visitingGoals)
-          self.visitingGoals = matchSnapshot.visitingGoals;
-        if (matchSnapshot.visitingAssists)
-          self.visitingAssists = matchSnapshot.visitingAssists;
-        if (matchSnapshot.visitingYellowCards)
-          self.visitingYellowCards = matchSnapshot.visitingYellowCards;
-        if (matchSnapshot.visitingRedCards)
-          self.visitingRedCards = matchSnapshot.visitingRedCards;
+        if (matchSnapshot.awayGoals)
+          self.awayGoals = matchSnapshot.awayGoals;
+        if (matchSnapshot.awayAssists)
+          self.awayAssists = matchSnapshot.awayAssists;
+        if (matchSnapshot.awayYellowCards)
+          self.awayYellowCards = matchSnapshot.awayYellowCards;
+        if (matchSnapshot.awayRedCards)
+          self.awayRedCards = matchSnapshot.awayRedCards;
 
-        fm.getTeamBasic(matchSnapshot.hostId).subscribe(teamSnapshot=> self.host["name"] = teamSnapshot.name);
-        fm.getTeamBasic(matchSnapshot.visitingId).subscribe(teamSnapshot=> self.visiting["name"] = teamSnapshot.name);
+        fm.getTeamBasic(matchSnapshot.homeId).subscribe(teamSnapshot=> self.home["name"] = teamSnapshot.name);
+        fm.getTeamBasic(matchSnapshot.awayId).subscribe(teamSnapshot=> self.away["name"] = teamSnapshot.name);
       });
     }
   }
@@ -107,9 +107,9 @@ export class ScheduleMatchPage {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
       if (1 == teamType)
-        this.host = data.team;
+        this.home = data.team;
       else
-        this.visiting = data.team;
+        this.away = data.team;
     });
     searchTeamModal.present();
   }
@@ -147,8 +147,8 @@ export class ScheduleMatchPage {
     };
 
     this.fm.scheduleMatch({
-      hostId: this.host.id,
-      visitingId: this.visiting.id,
+      homeId: this.home.id,
+      awayId: this.away.id,
       date: tDate,
       time: t,
       locationName: this.location.name,
@@ -168,16 +168,16 @@ export class ScheduleMatchPage {
       locationName: this.location.name,
       locationAddress: this.location.address,
       notice: this.notice,
-      hostScore: this.hostScore,
-      visitingScore: this.visitingScore,
-      hostGoals: this.hostGoals,
-      hostAssists: this.hostAssists,
-      hostYellowCards: this.hostYellowCards,
-      hostRedCards: this.hostRedCards,
-      visitingGoals: this.visitingGoals,
-      visitingAssists: this.visitingAssists,
-      visitingYellowCards: this.visitingYellowCards,
-      visitingRedCards: this.visitingRedCards
+      homeScore: this.homeScore,
+      awayScore: this.awayScore,
+      homeGoals: this.homeGoals,
+      homeAssists: this.homeAssists,
+      homeYellowCards: this.homeYellowCards,
+      homeRedCards: this.homeRedCards,
+      awayGoals: this.awayGoals,
+      awayAssists: this.awayAssists,
+      awayYellowCards: this.awayYellowCards,
+      awayRedCards: this.awayRedCards
     };
 
     let self = this;

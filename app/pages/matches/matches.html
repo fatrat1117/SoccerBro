@@ -27,30 +27,30 @@
 									<ion-col width-80>
 										<ion-item>
 											<ion-avatar item-left>
-												<ion-img [src]="(match.hostId | teamBasicPipe | async)?.logo"></ion-img>
+												<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
 													<ion-col>
-														{{(match.hostId | teamBasicPipe | async)?.name}}
+														{{(match.homeId | teamBasicPipe | async)?.name}}
 													</ion-col>
 													<ion-col width-10>
-														{{match.hostScore}}
+														{{match.homeScore}}
 													</ion-col>
 												</ion-row>
 											</ion-grid>
 										</ion-item>
 										<ion-item>
 											<ion-avatar item-left>
-												<ion-img [src]="(match.visitingId | teamBasicPipe | async)?.logo"></ion-img>
+												<ion-img [src]="(match.awayId | teamBasicPipe | async)?.logo"></ion-img>
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
 													<ion-col>
-														{{(match.visitingId | teamBasicPipe | async)?.name}}
+														{{(match.awayId | teamBasicPipe | async)?.name}}
 													</ion-col>
 													<ion-col width-10>
-														{{match.visitingScore}}
+														{{match.awayScore}}
 													</ion-col>
 												</ion-row>
 											</ion-grid>
