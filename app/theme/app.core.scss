@@ -1,0 +1,47 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+@import "../pages/home/home";
+
+@import "../pages/stats/stats";
+
+@import "../pages/message/message";
+
+@import "../pages/match-info/match-info";
+
+@import "../pages/new-match/new-match";
+
+@import "../pages/search-team/search-team";
+
+@import "../pages/color-picker/color-picker";
+
+@import "../pages/me/me";
+
+@import "../pages/chat-room/chat-room";
+
+@import "../pages/my-player/my-player";
+
+@import "../pages/my-team/my-team";
+
+@import "../pages/login/login";
+
+
+// 以下是联赛系统的css布局
+// 积分榜
+@import "../pages/league-stats/league-stats";
+@import "../pages/league/league";
+@import "../pages/matches/matches";
+
+ion-content {
+    background-color: #f4f4f4;
+}
+
+ion-img img {
+  min-height: initial;
+}

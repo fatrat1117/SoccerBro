@@ -15,50 +15,69 @@
     <ion-row>
 					<ion-col width-20 class="matches-date-tab-col">
 						<ion-list class="date-tab-list">
-							<ion-item *ngFor="let date of dates" (click)="showMatches(date.$key)">
+							<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
 								{{date.$key | stringToDatePipe}}
 							</ion-item>
 						</ion-list>
 					</ion-col>
-					<ion-col width-80>
+					<ion-col width-80 class="matches-match-info-col">
 						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
+                <ion-row>
+                  <ion-col class="matches-time">
+                    {{match.time | numberToTimePipe}}
+                  </ion-col>
+                </ion-row>
 								<ion-row>
-									<ion-col width-80>
-										<ion-item>
+									<ion-col class="matches-info" no-padding>
+										<ion-item class="team-bar">
 											<ion-avatar item-left>
 												<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
+<<<<<<< HEAD
 													<ion-col>
 														{{(match.homeId | teamBasicPipe | async)?.name}}
 													</ion-col>
 													<ion-col width-10>
 														{{match.homeScore}}
+=======
+													<ion-col class="team-name">
+														{{(match.hostId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-10 class="team-score">
+														{{match.hostScore}}
+>>>>>>> 917e191548968f5f11961b0ba6629693e6c3b2d3
 													</ion-col>
 												</ion-row>
 											</ion-grid>
 										</ion-item>
-										<ion-item>
+										<ion-item class="team-bar">
 											<ion-avatar item-left>
 												<ion-img [src]="(match.awayId | teamBasicPipe | async)?.logo"></ion-img>
 											</ion-avatar>
 											<ion-grid>
 												<ion-row>
+<<<<<<< HEAD
 													<ion-col>
 														{{(match.awayId | teamBasicPipe | async)?.name}}
 													</ion-col>
 													<ion-col width-10>
 														{{match.awayScore}}
+=======
+													<ion-col class="team-name">
+														{{(match.visitingId | teamBasicPipe | async)?.name}}
+													</ion-col>
+													<ion-col width-20 class="team-score">
+														{{match.visitingScore}}
+>>>>>>> 917e191548968f5f11961b0ba6629693e6c3b2d3
 													</ion-col>
 												</ion-row>
 											</ion-grid>
 										</ion-item>
 									</ion-col>
-									<ion-col>
-										{{match.time | numberToTimePipe}}
-									</ion-col>
+
 								</ion-row>
 							</ion-grid>
 						</ion-item>
