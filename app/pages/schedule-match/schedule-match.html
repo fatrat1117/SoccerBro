@@ -38,7 +38,7 @@
 				<ion-col width-20 *ngIf='mId'>
 					<ion-item>
 						<ion-label stacked>Score</ion-label>
-						<ion-input type="number" min='0' max="99" [(ngModel)]="awayScore"></ion-input>
+						<ion-input type="number" min='0' max="99" [ngModel]="awayScore" (ngModelChange)="awayScore=toNumber($event)"></ion-input>
 					</ion-item>
 				</ion-col>
 			</ion-row>
@@ -95,8 +95,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeGoals">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='0' max="99" [(ngModel)]="player.goals"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='0' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -120,8 +120,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeAssists">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='0' max="99" [(ngModel)]="player.assists"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='0' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -142,8 +142,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeYellowCards">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='1' max="2" [(ngModel)]="player.cards"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -164,7 +164,7 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeRedCards">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
 				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
 			</ion-item>
 		</ion-list>
@@ -196,8 +196,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayGoals">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='0' max="99" [(ngModel)]="player.goals"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='0' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -221,8 +221,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayAssists">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='0' max="99" [(ngModel)]="player.assists"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='0' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -243,8 +243,8 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayYellowCards">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
-				<ion-input type="number" min='1' max="2" [(ngModel)]="player.cards"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
 			</ion-item>
 		</ion-list>
 
@@ -265,7 +265,7 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayRedCards">
-				<ion-input type="number" min='0' [(ngModel)]="player.num"></ion-input>
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
 				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
 			</ion-item>
 		</ion-list>
