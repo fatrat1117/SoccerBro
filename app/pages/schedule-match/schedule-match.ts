@@ -213,4 +213,8 @@ export class ScheduleMatchPage {
   toNumber(s) {
     return Number(s);
   }
+
+  delRecord(i, arr) {
+    arr.splice(i, 1);
+  }
 }
