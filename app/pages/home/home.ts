@@ -39,6 +39,6 @@ export class HomePage {
   }
 
   enterStandings() {
-    this.navCtrl.push(LeagueStatsPage);
+    this.navCtrl.push(LeaguePage);
   }
 }

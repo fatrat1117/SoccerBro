@@ -316,8 +316,10 @@ export class FirebaseManager {
     return this.af.database.list('/tournaments/list');
   }
 
-  addTournament (tournamentName, success, error) {
-    this.getTournamentList().push({name: tournamentName})
+  createTournament (tournamentObj, success, error) {
+    console.log('createTournament', tournamentObj);
+    
+    this.getTournamentList().push({name: tournamentObj.name})
     .then(newTournament=>success())
     .catch(err=>error(err));
   }

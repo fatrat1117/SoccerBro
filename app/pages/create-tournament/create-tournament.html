@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Create Tournament
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label primary>Name</ion-label>
+      <ion-input type="text" placeholder="" [(ngModel)]="name" maxlength="32"></ion-input>
+    </ion-item>
+    <button (click)="doCreate()" [disabled]="!name.trim().length || busy" block>{{'Create' | trans}}</button>
+    <button (click)="doCancel()" [disabled]="busy" block danger>{{'Cancel' | trans}}</button>
+  </ion-list>
+</ion-content>

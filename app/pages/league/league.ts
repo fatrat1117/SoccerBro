@@ -7,6 +7,7 @@ import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {Subject} from 'rxjs/Subject';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {LeagueStatsPage} from '../league-stats/league-stats';
+import {CreateTournamentPage} from '../create-tournament/create-tournament';
 import * as moment from 'moment';
 
 @Component({
@@ -18,7 +19,8 @@ export class LeaguePage {
 
   constructor(private navCtrl: NavController,
     private local: Localization,
-    private fm: FirebaseManager) {
+    private fm: FirebaseManager,
+    private mc: ModalController) {
 
     let  self = this;
     this.afTournaments = fm.getTournamentList();
@@ -34,7 +36,8 @@ export class LeaguePage {
   }
 
   addTournament() {
-    //this.fm.addTournament({name: })
+    let modal = this.mc.create(CreateTournamentPage);
+    modal.present();
   }
 
   goTournament(id) {
