@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
+import { Injectable } from '@angular/core';
+import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 
 declare let firebase: any;
 
@@ -381,6 +381,123 @@ export class FirebaseManager {
       result[teamId1].PTS = result[teamId1].PTS + 1;
     }
   }
+
+
+
+
+
+  /********** All Misc Operations ***********/
+  calculateMVP(homeStats: any, awayStats: any) {
+    let mvp = Array<any>();
+
+    // find won and lost team
+    let homeWon = (homeStats.goals - awayStats.goals) >= 0;
+    let won = homeWon ? homeStats : awayStats;
+    let lost = homeWon ? awayStats : homeStats;
+
+    // filter out yellow/red cards
+    let candidates = Array<any>();
+    let spliter = 0;
+    for (let p of won) {
+      if (p.yellow == 0 && p.red == 0)
+        candidates.push(p);
+        spliter++;
+    }
+    for (let p of lost) {
+      if (p.yellow == 0 && p.red == 0)
+        candidates.push(p);
+    }
+
+    // find mvp for different positions
+    // goals
+    let goalsMvp = this.getGoalsMvp(candidates);
+    // assists
+    let assistsMvp = this.getAssistsMvp(candidates);
+    // gk
+    let minGoals = 2;
+    let gkMvp = Array<any>();
+    if (won.goals < minGoals && lost.goals < minGoals)
+      gkMvp = this.getGkMvp(candidates);
+    else if (won.goals < minGoals) // lost gk mvp
+      gkMvp = this.getGkMvp(candidates.slice(spliter));
+    else if (lost.goals < minGoals) // won gk mvp
+      gkMvp = this.getGkMvp(candidates.slice(0, spliter));
+    // def
+    let averageGoals = 3;
+    let defMvp = Array<any>();
+    if (won.goals < averageGoals && lost.goals < averageGoals)
+      defMvp = this.getDefMvp(candidates);
+    else if (won.goals < averageGoals) // lost def mvp
+      defMvp = this.getDefMvp(candidates.slice(spliter));
+    else if (lost.goals < averageGoals) // won def mvp
+      defMvp = this.getDefMvp(candidates.slice(0, spliter));
+    
+    // summarize
+    while (mvp.length < 4) {
+      mvp.push(goalsMvp.shift());
+      mvp.push(assistsMvp.shift());
+      mvp.push(gkMvp.shift());
+      mvp.push(defMvp.shift());
+    }
+
+    return mvp.slice(0, 4);
+  }
+
+  getGoalsMvp(candidates: Array<any>) {
+    let minGoals = 2;
+    let result = Array<any>();
+    for (let p of candidates) {
+      if (p.goals >= minGoals)
+        result.push(p);
+    }
+    result.sort((p1, p2) => p1.goals - p2.goals);
+    return result;
+  }
+
+  getAssistsMvp(candidates: Array<any>) {
+    let minAssists = 2;
+    let result = Array<any>();
+    for (let p of candidates) {
+      if (p.goals >= minAssists)
+        result.push(p);
+    }
+    result.sort((p1, p2) => p1.assists - p2.assists);
+    return result;
+  }
+
+  getGkMvp(candidates: Array<any>) {
+    let result = Array<any>();
+    for (let p of candidates) {
+      if (p.position.toUpperCase() == "GK")
+        result.push(p);
+    }
+    this.shuffle(result);
+    return result;
+  }
+
+  getDefMvp(candidates: Array<any>) {
+    let result = Array<any>();
+    let positions = ["CB", "SB", "DMF"];
+    for (let p of candidates) {
+      let pos = p.position.toUpperCase();
+      if (positions.indexOf(pos) >= 0) 
+        result.push(p);
+    }
+    this.shuffle(result);
+    return result;
+  }
+
+  shuffle(a) {
+    for (let i = a.length; i; i--) {
+      let j = Math.floor(Math.random() * i);
+      [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+  }
+
+
+
+
+
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {
     this.af.database.list(`/misc/feedbacks`).push({
@@ -389,4 +506,6 @@ export class FirebaseManager {
       createdBy: this.selfId
     });
   }
+
+
 }
