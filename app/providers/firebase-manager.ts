@@ -269,7 +269,7 @@ export class FirebaseManager {
   }
 
   getMatch(id) {
-    return this.af.database.object('/matches/list/' + id); 
+    return this.af.database.object('/matches/list/' + id);
   }
 
   queryMatches(dateSubject) {
@@ -295,26 +295,26 @@ export class FirebaseManager {
 
   scheduleMatch(matchObj, success, error) {
     console.log('scheduleMatch', matchObj);
-    
+
     this.getMatchList().push(matchObj)
-    .then(newMatch=> {
-      this.getMatchDate(matchObj.date).set(true);
-      if (matchObj.tournamentId)
-        this.getTournamentMatchDate(matchObj.tournamentId, matchObj.date).set(true);
-      success();
-    })
-    .catch(err => error(err));
+      .then(newMatch => {
+        this.getMatchDate(matchObj.date).set(true);
+        if (matchObj.tournamentId)
+          this.getTournamentMatchDate(matchObj.tournamentId, matchObj.date).set(true);
+        success();
+      })
+      .catch(err => error(err));
   }
 
   updateMatch(id, matchObj, success, error) {
     console.log('updateMatch', matchObj);
-    
+
     this.getMatch(id).update(matchObj)
-    .then(newMatch=> {
-      this.getMatchDate(matchObj.date).set(true);
-      success();
-    })
-    .catch(err => error(err));
+      .then(newMatch => {
+        this.getMatchDate(matchObj.date).set(true);
+        success();
+      })
+      .catch(err => error(err));
   }
 
   deleteMatch(id) {
@@ -325,12 +325,12 @@ export class FirebaseManager {
     return this.af.database.list('/tournaments/list');
   }
 
-  createTournament (tournamentObj, success, error) {
+  createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
-    
-    this.getTournamentList().push({name: tournamentObj.name})
-    .then(newTournament=>success())
-    .catch(err=>error(err));
+
+    this.getTournamentList().push({ name: tournamentObj.name })
+      .then(newTournament => success())
+      .catch(err => error(err));
   }
 
   computeTournamentTable(id) {
@@ -340,12 +340,47 @@ export class FirebaseManager {
         orderByChild: 'tournamentId',
         equalTo: id
       }
-    }).subscribe(rawData=> {
+    }).subscribe(rawData => {
       console.log('raw data', rawData);
-      
+      let tableData = {};
+      rawData.forEach(match => {
+        if (match.homeScore && match.awayScore) {
+          this.computeOneMatch(tableData, match.homeId, match.awayId, match.homeScore, match.awayScore);
+          this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
+        }
+      })
+      console.log(tableData);
     });
   }
 
+  computeOneMatch(result, teamId1, teamId2, score1, score2) {
+    if (!result[teamId1]) {
+      result[teamId1] = {
+        W: 0,
+        L: 0,
+        D: 0,
+        P: 0,
+        PTS: 0,
+        GA: 0,
+        GS: 0
+      }
+    }
+
+    ++result[teamId1].P;
+    result[teamId1].GS = result[teamId1].GS + score1;
+    result[teamId1].GA = result[teamId1].GA + score2;
+    if (score1 > score2) {
+      ++result[teamId1].W;
+      result[teamId1].PTS = result[teamId1].PTS + 3;
+    }
+    else if (score1 < score2) {
+      ++result[teamId1].L;
+    }
+    else {
+      ++result[teamId1].D;
+      result[teamId1].PTS = result[teamId1].PTS + 1;
+    }
+  }
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {
     this.af.database.list(`/misc/feedbacks`).push({
