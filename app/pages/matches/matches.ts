@@ -16,6 +16,7 @@ export class MatchesPage {
 
   dates: any;
   datesColorArray:any;
+  currentSelectedDateIndex = 0;
   afMatches: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
@@ -44,10 +45,15 @@ export class MatchesPage {
   }
 
   showMatches(date: string, i : number) {
-    console.log('showMatches', date);
+    // console.log('currentSelectedDate', date);
+    // console.log('lastSelectedDate',this.dates[this.currentSelectedDateIndex].$key);
+    
+    if (this.dates[this.currentSelectedDateIndex].$key === date){
+      return;
+    }
     this.dateSubject.next(Number(date));
-
     this.setDatesColorArray(i);
+    this.currentSelectedDateIndex = i;
   }
 
   popupUpdateSchedulePage(matchId) {
