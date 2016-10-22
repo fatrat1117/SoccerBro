@@ -14,6 +14,7 @@ import * as moment from 'moment';
 
 export class LeagueStatsPage {
   standings: any[];
+  goals: any[];
   leagueStats : string = "standings";
   dates: any;
   afMatches: any;
@@ -66,6 +67,14 @@ export class LeagueStatsPage {
         GA:"32",
         GD:"41",
         PTS:"87",
+      },
+    ];
+
+    this.goals = [
+      {
+        Name: "Tianyi",
+        Team: "Everpioneer FC",
+        Goals: "90"
       },
     ];
 
