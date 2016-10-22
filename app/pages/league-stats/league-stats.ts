@@ -88,4 +88,8 @@ export class LeagueStatsPage {
   addTournamentMatch() {
     this.modalController.create(ScheduleMatchPage, {tournamentId: this.tournamentId}).present();
   }
+
+  compute() {
+    this.fm.computeTournamentTable(this.tournamentId);
+  }
 }
