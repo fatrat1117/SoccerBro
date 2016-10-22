@@ -317,6 +317,9 @@ export class FirebaseManager {
     .catch(err => error(err));
   }
 
+  deleteMatch(id) {
+    this.getMatch(id).remove();
+  }
   //Tournament
   getTournamentList() {
     return this.af.database.list('/tournaments/list');

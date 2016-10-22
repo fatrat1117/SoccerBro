@@ -45,7 +45,7 @@ export class ScheduleMatchPage {
               params: NavParams) {
     this.location = {};
     this.notice  = "";
-    this.minDate = moment().format("YYYY-MM-DD");
+    this.minDate = moment("20160101", "YYYYMMDD").format("YYYY-MM-DD");
     this.matchDate = this.minDate;
     this.matchTime = "15:00";
     this.mId = params.get('mId');
@@ -160,7 +160,7 @@ export class ScheduleMatchPage {
     }
     if (this.tournamentId)
       matchData["tournamentId"] = this.tournamentId;
-      
+
     this.fm.scheduleMatch(matchData, 
     success, 
     error);
@@ -223,5 +223,10 @@ export class ScheduleMatchPage {
 
   delRecord(i, arr) {
     arr.splice(i, 1);
+  }
+
+  deleteMatch() {
+    this.fm.deleteMatch(this.mId);
+    this.viewCtrl.dismiss();
   }
 }
