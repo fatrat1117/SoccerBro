@@ -1,0 +1,56 @@
+<ion-grid>
+	<ion-row>
+		<ion-col width-20 class="matches-date-tab-col">
+			<ion-list class="date-tab-list">
+				<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
+					{{date.$key | stringToDatePipe}}
+				</ion-item>
+			</ion-list>
+		</ion-col>
+		<ion-col width-80 class="matches-match-info-col">
+			<ion-item *ngFor="let match of afMatches | async" (click)="popupUpdateSchedulePage(match.$key)">
+				<ion-grid>
+					<ion-row>
+						<ion-col class="matches-time">
+							{{match.time | numberToTimePipe}}
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col class="matches-info" no-padding>
+							<ion-item class="team-bar">
+								<ion-avatar item-left>
+									<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
+								</ion-avatar>
+								<ion-grid>
+									<ion-row>
+										<ion-col class="team-name">
+											{{(match.homeId | teamBasicPipe | async)?.name}}
+										</ion-col>
+										<ion-col width-10 class="team-score">
+											{{match.homeScore}}
+										</ion-col>
+									</ion-row>
+								</ion-grid>
+							</ion-item>
+							<ion-item class="team-bar">
+								<ion-avatar item-left>
+									<ion-img [src]="(match.awayId | teamBasicPipe | async)?.logo"></ion-img>
+								</ion-avatar>
+								<ion-grid>
+									<ion-row>
+										<ion-col class="team-name">
+											{{(match.awayId | teamBasicPipe | async)?.name}}
+										</ion-col>
+										<ion-col width-20 class="team-score">
+											{{match.awayScore}}
+										</ion-col>
+									</ion-row>
+								</ion-grid>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+</ion-grid>

@@ -6,10 +6,12 @@ import {Subject} from 'rxjs/Subject';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {ScheduleMatchPage} from '../schedule-match/schedule-match';
 import * as moment from 'moment';
+import {MatchesPageTemplate} from '../matches/matches-template';
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
-  pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
+  pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe],
+  directives:[MatchesPageTemplate]
 })
 
 export class LeagueStatsPage {

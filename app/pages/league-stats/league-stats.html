@@ -22,7 +22,7 @@
 			<ion-segment-button value="goals">
 				射手榜
 			</ion-segment-button>
-			<ion-segment-button value="fixtures" (click)="showMatches(today.toString())">
+			<ion-segment-button value="fixtures"><!--(click)="showMatches(today.toString())"-->
 				Fixtures
 			</ion-segment-button>
 		</ion-segment>
@@ -123,15 +123,15 @@
 					</ion-col>
 					<ion-col width-33>
 						<p text-center><label>{{g.Goals}}</label></p>
-					</ion-col>		
+					</ion-col>
 				</ion-row>
 			</ion-item>
 
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
-			 <ion-grid>
-    <ion-row>
+			<!--<ion-grid>
+				<ion-row>
 					<ion-col width-20 class="matches-date-tab-col">
 						<ion-list class="date-tab-list">
 							<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
@@ -140,13 +140,13 @@
 						</ion-list>
 					</ion-col>
 					<ion-col width-80 class="matches-match-info-col">
-						<ion-item *ngFor="let match of afMatches | async" (click) = "popupUpdateSchedulePage(match.$key)">
+						<ion-item *ngFor="let match of afMatches | async" (click)="popupUpdateSchedulePage(match.$key)">
 							<ion-grid>
-                <ion-row>
-                  <ion-col class="matches-time">
-                    {{match.time | numberToTimePipe}}
-                  </ion-col>
-                </ion-row>
+								<ion-row>
+									<ion-col class="matches-time">
+										{{match.time | numberToTimePipe}}
+									</ion-col>
+								</ion-row>
 								<ion-row>
 									<ion-col class="matches-info" no-padding>
 										<ion-item class="team-bar">
@@ -185,7 +185,8 @@
 						</ion-item>
 					</ion-col>
 				</ion-row>
-        </ion-grid>
+			</ion-grid>-->
+			<my-matches-page></my-matches-page>
 		</div>
 	</div>
 
