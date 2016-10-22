@@ -388,7 +388,6 @@ export class FirebaseManager {
 
   /********** All Misc Operations ***********/
   calculateMVP(homeStats: any, awayStats: any) {
-    let mvp = Array<any>();
 
     // find won and lost team
     let homeWon = (homeStats.goals - awayStats.goals) >= 0;
@@ -433,11 +432,15 @@ export class FirebaseManager {
       defMvp = this.getDefMvp(candidates.slice(0, spliter));
     
     // summarize
-    while (mvp.length < 4) {
-      mvp.push(goalsMvp.shift());
-      mvp.push(assistsMvp.shift());
-      mvp.push(gkMvp.shift());
-      mvp.push(defMvp.shift());
+    let mvp = Array<any>();
+    while (mvp.length < 4 
+          || (goalsMvp.length == 0 && assistsMvp.length == 0 
+              && gkMvp.length == 0 && defMvp.length == 0)) 
+    {
+      mvp.push(goalsMvp.shift().$key);
+      mvp.push(assistsMvp.shift().$key);
+      mvp.push(gkMvp.shift().$key);
+      mvp.push(defMvp.shift().$key);
     }
 
     return mvp.slice(0, 4);
