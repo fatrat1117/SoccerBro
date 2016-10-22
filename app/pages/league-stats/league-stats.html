@@ -107,6 +107,26 @@
 					</ion-col>
 				</ion-row>
 			</ion-item>
+
+			<ion-item *ngFor="let g of goals" class="goals-title">
+				<ion-row class="first-row">
+					<ion-col no-padding width-33 class="rank flex-center">
+						<p text-left>{{g.Name}}</p>
+					</ion-col>
+					<ion-col no-padding width-33 class="team-name flex-center">
+						<ion-row class="first-row">
+							<ion-thumbnail class="flex-center">
+								<img class="standings-team-img" src="img/test_team.jpg">
+							</ion-thumbnail>
+							<p text-left class="truncate-p"><label>{{g.Team}}</label></p>
+						</ion-row>
+					</ion-col>
+					<ion-col width-33>
+						<p text-center><label>{{g.Goals}}</label></p>
+					</ion-col>		
+				</ion-row>
+			</ion-item>
+
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
