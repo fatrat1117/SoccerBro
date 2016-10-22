@@ -333,6 +333,19 @@ export class FirebaseManager {
     .catch(err=>error(err));
   }
 
+  computeTournamentTable(id) {
+    console.log('computeTournamentTable');
+    this.af.database.list('/matches/list', {
+      query: {
+        orderByChild: 'tournamentId',
+        equalTo: id
+      }
+    }).subscribe(rawData=> {
+      console.log('raw data', rawData);
+      
+    });
+  }
+
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {
     this.af.database.list(`/misc/feedbacks`).push({
