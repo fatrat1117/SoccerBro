@@ -1,13 +1,11 @@
-<!--
-  Generated template for the LeagueStatsPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
 	<ion-navbar>
 		<ion-title>League Statistics</ion-title>
+		<ion-buttons end>
+			<button (click)="addTournamentMatch()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -21,7 +19,7 @@
 			<ion-segment-button value="goals">
 				射手榜
 			</ion-segment-button>
-			<ion-segment-button value="fixtures" (click) = "showMatches(today.toString())">
+			<ion-segment-button value="fixtures" (click)="showMatches(today.toString())">
 				Fixtures
 			</ion-segment-button>
 		</ion-segment>

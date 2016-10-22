@@ -34,6 +34,7 @@ export class ScheduleMatchPage {
   awayAssists = [];
   awayYellowCards = [];
   awayRedCards = [];
+  tournamentId = [];
 
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
@@ -48,6 +49,8 @@ export class ScheduleMatchPage {
     this.matchDate = this.minDate;
     this.matchTime = "15:00";
     this.mId = params.get('mId');
+    this.tournamentId = params.get('tournamentId');
+
     let self = this;
     if (this.mId) {
       console.log('match id', this.mId);
@@ -146,7 +149,7 @@ export class ScheduleMatchPage {
       alert(err);
     };
 
-    this.fm.scheduleMatch({
+    let matchData = {
       homeId: this.home.id,
       awayId: this.away.id,
       date: tDate,
@@ -154,7 +157,11 @@ export class ScheduleMatchPage {
       locationName: this.location.name,
       locationAddress: this.location.address,
       notice: this.notice
-    }, 
+    }
+    if (this.tournamentId)
+      matchData["tournamentId"] = this.tournamentId;
+      
+    this.fm.scheduleMatch(matchData, 
     success, 
     error);
   }

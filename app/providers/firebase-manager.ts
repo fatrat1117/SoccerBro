@@ -289,12 +289,18 @@ export class FirebaseManager {
     return this.af.database.object('/matches/dates/' + day);
   }
 
+  getTournamentMatchDate(id, day) {
+    return this.af.database.object('/tournaments/list/' + id + '/dates/' + day);
+  }
+
   scheduleMatch(matchObj, success, error) {
     console.log('scheduleMatch', matchObj);
     
     this.getMatchList().push(matchObj)
     .then(newMatch=> {
       this.getMatchDate(matchObj.date).set(true);
+      if (matchObj.tournamentId)
+        this.getTournamentMatchDate(matchObj.tournamentId, matchObj.date).set(true);
       success();
     })
     .catch(err => error(err));

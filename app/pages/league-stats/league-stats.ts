@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, ModalController} from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager'; 
 import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {Subject} from 'rxjs/Subject';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {ScheduleMatchPage} from '../schedule-match/schedule-match';
 import * as moment from 'moment';
 
 @Component({
@@ -18,9 +19,14 @@ export class LeagueStatsPage {
   afMatches: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
+  tournamentId : any;
 
   constructor(private nav: NavController,
-  private fm: FirebaseManager) {
+  private fm: FirebaseManager,
+  private navParams: NavParams,
+  private modalController: ModalController) {
+    this.tournamentId = this.navParams.get('tournamentId');
+
     this.standings = [
       {
         Rank:"1",
@@ -77,5 +83,9 @@ export class LeagueStatsPage {
   showMatches(date: string) {
       console.log('showMatches', date);
       this.dateSubject.next(Number(date));
+  }
+
+  addTournamentMatch() {
+    this.modalController.create(ScheduleMatchPage, {tournamentId: this.tournamentId}).present();
   }
 }
