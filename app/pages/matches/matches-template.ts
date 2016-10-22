@@ -8,12 +8,13 @@ import {Subject} from 'rxjs/Subject';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
 
+
 @Component({
-  templateUrl: 'build/pages/matches/matches.html',
+  selector:'my-matches-page',
+  templateUrl: 'build/pages/matches/matches-template.html',
   pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
 })
-
-export class MatchesPage {
+export class MatchesPageTemplate {
 
   dates: any;
   datesColorArray:any;
