@@ -80,10 +80,10 @@ export class LeagueStatsPage {
     console.log("I clicked the standing cell");
   }
 
-  showMatches(date: string) {
-      console.log('showMatches', date);
-      this.dateSubject.next(Number(date));
-  }
+  // showMatches(date: string) {
+  //     console.log('showMatches', date);
+  //     this.dateSubject.next(Number(date));
+  // }
 
   addTournamentMatch() {
     this.modalController.create(ScheduleMatchPage, {tournamentId: this.tournamentId}).present();

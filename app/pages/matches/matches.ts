@@ -12,6 +12,11 @@ import * as moment from 'moment';
   templateUrl: 'build/pages/matches/matches.html',
   pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
 })
+
+@Component({
+  templateUrl: 'build/pages/league-stats/league-stats.html',
+  pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
+})
 export class MatchesPage {
 
   dates: any;
@@ -64,10 +69,14 @@ export class MatchesPage {
 
   initialDatesColorArray(dates:any){
     this.datesColorArray = new Array(dates.length);
-    if (this.datesColorArray.length > 0){
-      this.datesColorArray[0] = "#2E9008";
-    }
-    for (var i = 1 ; i < this.datesColorArray.length; i++){
+    // if (this.datesColorArray.length > 0){
+    //   this.datesColorArray[0] = "#2E9008";
+    // }
+    for (var i = 0 ; i < this.datesColorArray.length; i++){
+      if (this.dates[i].$key === this.today){
+        this.datesColorArray[i] = "#2E9008";
+        this.currentSelectedDateIndex = i;
+      }
       this.datesColorArray[i] = "none";
     }
   }
