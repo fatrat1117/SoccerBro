@@ -293,6 +293,16 @@ export class FirebaseManager {
     return this.af.database.object('/tournaments/list/' + id + '/dates/' + day);
   }
 
+  getMatchesByTournamentId(id){
+     return this.af.database.list('/matches/list', {
+      query: {
+        orderByChild: 'tournamentId',
+        equalTo: id
+      }
+    });
+  }
+
+
   scheduleMatch(matchObj, success, error) {
     console.log('scheduleMatch', matchObj);
 

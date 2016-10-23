@@ -22,13 +22,14 @@
 			<ion-segment-button value="goals">
 				射手榜
 			</ion-segment-button>
-			<ion-segment-button value="fixtures"><!--(click)="showMatches(today.toString())"-->
+			<ion-segment-button value="fixtures">
+				<!--(click)="showMatches(today.toString())"-->
 				Fixtures
 			</ion-segment-button>
 		</ion-segment>
 	</ion-header-bar>
 
-	<div [ngSwitch]="leagueStats">
+	<div [ngSwitch]="leagueStats" class="league-stats">
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
 			<ion-item>
 				<ion-row class="standings-title">
@@ -130,7 +131,7 @@
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
-			<!--<ion-grid>
+			<ion-grid>
 				<ion-row>
 					<ion-col width-20 class="matches-date-tab-col">
 						<ion-list class="date-tab-list">
@@ -185,8 +186,11 @@
 						</ion-item>
 					</ion-col>
 				</ion-row>
-			</ion-grid>-->
-			<my-matches-page></my-matches-page>
+			</ion-grid>
+			<!--<my-matches-page></my-matches-page>-->
+			<ion-item *ngFor="let match of afMatches | async">
+				{{match.date}}
+			</ion-item>
 		</div>
 	</div>
 

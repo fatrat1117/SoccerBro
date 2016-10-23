@@ -1,25 +1,26 @@
-ion-thumbnail{
-  max-width: 3rem;
-  max-height: 3rem;
-  min-width: 3rem;
-  min-height: 3rem;
-  img{
-    max-width: 3rem;
-    max-height: 3rem;
-    margin:0;
-    display: inline-block;
+.league-stats{
+    ion-thumbnail{
+      max-width: 3rem;
+      max-height: 3rem;
+      min-width: 3rem;
+      min-height: 3rem;
+      img{
+        max-width: 3rem;
+        max-height: 3rem;
+        margin:0;
+        display: inline-block;
+      }
+    }
 
-  }
-}
-
-.item p{
-  line-height: 200%;
-}
+    .item p{
+      line-height: 200%;
+    }
 
 
-.standings-team-img{
-  max-width: 1.4rem;
-  max-height: 1.4rem;
+    .standings-team-img{
+      max-width: 1.4rem;
+      max-height: 1.4rem;
+    }
 }
 
 //jixiang
