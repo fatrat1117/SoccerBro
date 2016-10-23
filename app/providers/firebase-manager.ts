@@ -226,10 +226,6 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/players/${playerId}`);
   }
 
-
-
-
-
   /********** All Public Operations ***********/
   getPlayerPublic(playerId: string) {
     return this.af.database.object(`public/players/${playerId}`);
@@ -325,6 +321,10 @@ export class FirebaseManager {
     return this.af.database.list('/tournaments/list');
   }
 
+  getTournamentTable(id) {
+    return this.af.database.object('/tournaments/list/'+ id + '/table');
+  }
+
   createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
 
@@ -349,7 +349,8 @@ export class FirebaseManager {
           this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
         }
       })
-      console.log(tableData);
+      //console.log(tableData);
+      this.getTournamentTable(id).set(tableData).then(()=>console.log('computeTournamentTable done'));
     });
   }
 
@@ -381,8 +382,6 @@ export class FirebaseManager {
       result[teamId1].PTS = result[teamId1].PTS + 1;
     }
   }
-
-
 
 
 
