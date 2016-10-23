@@ -94,22 +94,27 @@ export class FirebaseManager {
   }
 
   // post-precess raw data
-  processMatchData(data) {
-    console.log("processMatchData");
-    let homeStats = this.getTeamData(data.homeId, data.homeScore, data.homeGoals, 
-                                      data.homeAssists, data.homeRedCards, data.homeYellowCards);
-
+  processMatchData(id: string) {
+    this.getMatch(id).take(1).subscribe(data => {
+      let database = `/matches/data/${data.date}/${id}/`
+      // home
+      this.addProcessedData(database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
+        data.homeAssists, data.homeRedCards, data.homeYellowCards);
+      // away
+      this.addProcessedData(database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
+        data.awayAssists, data.awayRedCards, data.awayYellowCards);
+    });
   }
 
-  getTeamData(id: string, score: number, goals: Array<any>, 
-              assists: Array<any>, red: Array<any>, yellow: Array<any>) {
+  getTeamData(id: string, score: number, goals: Array<any>,
+    assists: Array<any>, red: Array<any>, yellow: Array<any>) {
     let teamData: any = {};
     teamData.teamId = id;
     teamData.score = score;
     teamData.red = 0;
     teamData.yellow = 0;
     // create player dictionary
-    let players: {[num: number]: any} = {};
+    let players: { [num: number]: any } = {};
     for (var p of goals) {
       if (players[p.num] == undefined)
         players[p.num] = {};
@@ -133,12 +138,21 @@ export class FirebaseManager {
       teamData.yellow += p.cards;
     }
 
-/*
+    // find player id
+    teamData.players = {};
     this.getPlayers(id).take(1).subscribe(snapshots => {
-
+      snapshots.forEach(p => {
+        if (players[p.number] != undefined)
+          teamData.players[p.$key] = players[p.number];
+      })
     });
-    */
+
+    return teamData;
   }
+
+
+
+
 
   /********** All Teams Operations ***********/
   getTeam(teamId: string) {
@@ -273,6 +287,10 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/players/${playerId}`);
   }
 
+
+
+
+
   /********** All Public Operations ***********/
   getPlayerPublic(playerId: string) {
     return this.af.database.object(`public/players/${playerId}`);
@@ -306,7 +324,11 @@ export class FirebaseManager {
     });
   }
 
-  //Matches 
+
+
+
+
+  /********** All Matches Operations ***********/
   getMatchList() {
     return this.af.database.list('/matches/list');
   }
@@ -352,12 +374,12 @@ export class FirebaseManager {
   updateMatch(id, matchObj, success, error) {
     console.log('updateMatch', matchObj);
 
-    this.processMatchData(matchObj);
 
     this.getMatch(id).update(matchObj)
       .then(newMatch => {
         this.getMatchDate(matchObj.date).set(true);
         success();
+        this.processMatchData(id);
       })
       .catch(err => error(err));
 
@@ -366,13 +388,69 @@ export class FirebaseManager {
   deleteMatch(id) {
     this.getMatch(id).remove();
   }
-  //Tournament
+
+  addProcessedData(database: string, id: string, score: number, goals: Array<any>,
+    assists: Array<any>, red: Array<any>, yellow: Array<any>) {
+    let teamData: any = {};
+    teamData.teamId = id;
+    teamData.score = score;
+    teamData.red = 0;
+    teamData.yellow = 0;
+    // create player dictionary
+    let players: { [num: number]: any } = {};
+    if (goals != undefined) {
+      for (var p of goals) {
+        if (players[p.num] == undefined)
+          players[p.num] = {};
+        players[p.num].goals = p.goals;
+      }
+    }
+    if (assists != undefined) {
+      for (var p of assists) {
+        if (players[p.num] == undefined)
+          players[p.num] = {};
+        players[p.num].assists = p.assists;
+      }
+    }
+    if (red != undefined) {
+      for (var p of red) {
+        if (players[p.num] == undefined)
+          players[p.num] = {};
+        players[p.num].red = p.cards;
+        teamData.red += p.cards;
+      }
+    }
+    if (yellow != undefined) {
+      for (var p of yellow) {
+        if (players[p.num] == undefined)
+          players[p.num] = {};
+        players[p.num].yellow = p.cards;
+        teamData.yellow += p.cards;
+      }
+    }
+
+    // find player id
+    teamData.players = {};
+    this.getPlayers(id).take(1).subscribe(snapshots => {
+      snapshots.forEach(p => {
+        if (players[p.number] != undefined)
+          teamData.players[p.$key] = players[p.number];
+      })
+      this.af.database.object(database).set(teamData);
+    });
+  }
+
+
+
+
+
+  /********** All Tournament Operations ***********/
   getTournamentList() {
     return this.af.database.list('/tournaments/list');
   }
 
   getTournamentTable(id) {
-    return this.af.database.object('/tournaments/list/'+ id + '/table');
+    return this.af.database.object('/tournaments/list/' + id + '/table');
   }
 
   createTournament(tournamentObj, success, error) {
@@ -400,7 +478,7 @@ export class FirebaseManager {
         }
       })
       //console.log(tableData);
-      this.getTournamentTable(id).set(tableData).then(()=>console.log('computeTournamentTable done'));
+      this.getTournamentTable(id).set(tableData).then(() => console.log('computeTournamentTable done'));
     });
   }
 
@@ -445,7 +523,7 @@ export class FirebaseManager {
     for (let p of wonStats) {
       if (p.yellow == 0 && p.red == 0)
         candidates.push(p);
-        spliter++;
+      spliter++;
     }
     for (let p of lostStats) {
       if (p.yellow == 0 && p.red == 0)
@@ -475,13 +553,12 @@ export class FirebaseManager {
       defMvp = this.getDefMvp(candidates.slice(spliter));
     else if (lostStats.goals < averageScore) // won def mvp
       defMvp = this.getDefMvp(candidates.slice(0, spliter));
-    
+
     // summarize
     let mvp = Array<any>();
-    while (mvp.length < 4 
-          || (goalsMvp.length == 0 && assistsMvp.length == 0 
-              && gkMvp.length == 0 && defMvp.length == 0)) 
-    {
+    while (mvp.length < 4
+      || (goalsMvp.length == 0 && assistsMvp.length == 0
+        && gkMvp.length == 0 && defMvp.length == 0)) {
       mvp.push(goalsMvp.shift().$key);
       mvp.push(assistsMvp.shift().$key);
       mvp.push(gkMvp.shift().$key);
@@ -528,7 +605,7 @@ export class FirebaseManager {
     let positions = ["CB", "SB", "DMF"];
     for (let p of candidates) {
       let pos = p.position.toUpperCase();
-      if (positions.indexOf(pos) >= 0) 
+      if (positions.indexOf(pos) >= 0)
         result.push(p);
     }
     this.shuffle(result);

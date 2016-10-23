@@ -170,7 +170,8 @@ export class ScheduleMatchPage {
     let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
     let tDate = this.am.dateTimeStringToNumber(this.matchDate);
 
-    let updateMatchData = {date: tDate,
+    let updateMatchData = {
+      date: tDate,
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
