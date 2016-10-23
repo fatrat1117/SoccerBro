@@ -453,6 +453,10 @@ export class FirebaseManager {
     return this.af.database.object('/tournaments/list/' + id + '/table');
   }
 
+  getTournamentTableList(id) {
+    return this.af.database.list('/tournaments/list/' + id + '/table');
+  }
+
   createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
 

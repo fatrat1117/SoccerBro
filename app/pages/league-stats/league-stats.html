@@ -30,13 +30,14 @@
 
 	<div [ngSwitch]="leagueStats">
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
-			<ion-item>
+			<ion-list>
+				<ion-item>
 				<ion-row class="standings-title">
-					<ion-col class="team">
+					<ion-col class="team" width-30>
 						<p text-left><label>Team</label></p>
 					</ion-col>
 					<ion-col>
-						<p text-center><label>GP</label></p>
+						<p text-center><label>P</label></p>
 					</ion-col>
 					<ion-col>
 						<p text-center><label>W</label></p>
@@ -55,21 +56,21 @@
 					</ion-col>
 				</ion-row>
 			</ion-item>
-			<ion-item *ngFor="let s of standings" no-margin>
+			<ion-item *ngFor="let s of standings; let i = index;" no-margin>
 				<ion-row class="standings-stats">
-					<ion-col no-padding width-10 class="rank flex-center">
-						<p text-left>{{s.Rank}}</p>
-					</ion-col>
-					<ion-col no-padding width-20 class="team-name flex-center">
+					<!--<ion-col no-padding width-10 class="rank flex-center">
+						<p text-left>{{i + 1}}</p>
+					</ion-col>-->
+					<ion-col no-padding width-30 class="team-name flex-center">
 						<ion-row>
 							<ion-thumbnail class="flex-center">
-								<img class="standings-team-img" src="img/test_team.jpg">
+								<ion-img class="standings-team-img" [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
 							</ion-thumbnail>
-							<p text-left class="truncate-p"><label>{{s.Team}}</label></p>
+							<p text-left class="truncate-p"><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
 						</ion-row>
 					</ion-col>
 					<ion-col>
-						<p text-center><label>{{s.GP}}</label></p>
+						<p text-center><label>{{s.P}}</label></p>
 					</ion-col>
 					<ion-col>
 						<p text-center><label>{{s.W}}</label></p>
@@ -81,13 +82,14 @@
 						<p text-center><label>{{s.L}}</label></p>
 					</ion-col>
 					<ion-col class="max-width-16p">
-						<p text-center><label>{{s.GF}}/{{s.GA}}</label></p>
+						<p text-center><label>{{s.GS}}/{{s.GA}}</label></p>
 					</ion-col>
 					<ion-col>
 						<p text-center><label>{{s.PTS}}</label></p>
 					</ion-col>
 				</ion-row>
 			</ion-item>
+			</ion-list>
 		</div>
 
 		<!--
