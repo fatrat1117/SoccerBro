@@ -15,7 +15,7 @@ import { MatchesPageTemplate } from '../matches/matches-template';
 })
 
 export class LeagueStatsPage {
-  standings: any[];
+  standings: any;
   goals: any[];
   leagueStats: string = "standings";
   dates: any;
@@ -32,6 +32,11 @@ export class LeagueStatsPage {
     private navParams: NavParams,
     private modalController: ModalController) {
     this.tournamentId = this.navParams.get('tournamentId');
+    let self = this;
+    fm.getTournamentTableList(this.tournamentId).subscribe(tables => {
+      console.log('getTournamentTable', tables);
+        self.standings = tables;
+      })
 
     this.standings = [
       {
@@ -74,6 +79,47 @@ export class LeagueStatsPage {
         PTS: "87",
       },
     ];
+    // this.standings = [
+    //   {
+    //     Rank:"1",
+    //     Logo:"<ion-icon name='ios-football'></ion-icon>",
+    //     Team: "Chelsea",
+    //     GP:"38",
+    //     W:"26",
+    //     D:"9",
+    //     L:"3",
+    //     GF:"73",
+    //     GA:"32",
+    //     GD:"41",
+    //     PTS:"87",
+    //   },
+    //   {
+    //     Rank:"2",
+    //     Logo:"<ion-icon name='ios-football'></ion-icon>",
+    //     Team: "Man. City",
+    //     GP:"38",
+    //     W:"26",
+    //     D:"9",
+    //     L:"3",
+    //     GF:"73",
+    //     GA:"32",
+    //     GD:"41",
+    //     PTS:"87",
+    //   },
+    //   {
+    //     Rank:"3",
+    //     Logo:"<ion-icon name='ios-football'></ion-icon>",
+    //     Team: "Arsenal",
+    //     GP:"38",
+    //     W:"26",
+    //     D:"9",
+    //     L:"3",
+    //     GF:"73",
+    //     GA:"32",
+    //     GD:"41",
+    //     PTS:"87",
+    //   },
+    // ];
 
     this.goals = [
       {
@@ -83,7 +129,6 @@ export class LeagueStatsPage {
       },
     ];
 
-    let self = this;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
