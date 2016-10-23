@@ -93,6 +93,53 @@ export class FirebaseManager {
     });
   }
 
+  // post-precess raw data
+  processMatchData(data) {
+    console.log("processMatchData");
+    let homeStats = this.getTeamData(data.homeId, data.homeScore, data.homeGoals, 
+                                      data.homeAssists, data.homeRedCards, data.homeYellowCards);
+
+  }
+
+  getTeamData(id: string, score: number, goals: Array<any>, 
+              assists: Array<any>, red: Array<any>, yellow: Array<any>) {
+    let teamData: any = {};
+    teamData.teamId = id;
+    teamData.score = score;
+    teamData.red = 0;
+    teamData.yellow = 0;
+    // create player dictionary
+    let players: {[num: number]: any} = {};
+    for (var p of goals) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].goals = p.goals;
+    }
+    for (var p of assists) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].assists = p.assists;
+    }
+    for (var p of red) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].red = p.cards;
+      teamData.red += p.cards;
+    }
+    for (var p of yellow) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].yellow = p.cards;
+      teamData.yellow += p.cards;
+    }
+
+/*
+    this.getPlayers(id).take(1).subscribe(snapshots => {
+
+    });
+    */
+  }
+
   /********** All Teams Operations ***********/
   getTeam(teamId: string) {
     return this.af.database.object(`/teams/${teamId}`);
@@ -309,12 +356,15 @@ export class FirebaseManager {
   updateMatch(id, matchObj, success, error) {
     console.log('updateMatch', matchObj);
 
+    this.processMatchData(matchObj);
+
     this.getMatch(id).update(matchObj)
       .then(newMatch => {
         this.getMatchDate(matchObj.date).set(true);
         success();
       })
       .catch(err => error(err));
+
   }
 
   deleteMatch(id) {
@@ -386,23 +436,17 @@ export class FirebaseManager {
 
 
 
-  /********** All Misc Operations ***********/
-  calculateMVP(homeStats: any, awayStats: any) {
-
-    // find won and lost team
-    let homeWon = (homeStats.goals - awayStats.goals) >= 0;
-    let won = homeWon ? homeStats : awayStats;
-    let lost = homeWon ? awayStats : homeStats;
-
+  /********** MVP ***********/
+  calculateMVP(wonStats: any, lostStats: any) {
     // filter out yellow/red cards
     let candidates = Array<any>();
     let spliter = 0;
-    for (let p of won) {
+    for (let p of wonStats) {
       if (p.yellow == 0 && p.red == 0)
         candidates.push(p);
         spliter++;
     }
-    for (let p of lost) {
+    for (let p of lostStats) {
       if (p.yellow == 0 && p.red == 0)
         candidates.push(p);
     }
@@ -413,22 +457,22 @@ export class FirebaseManager {
     // assists
     let assistsMvp = this.getAssistsMvp(candidates);
     // gk
-    let minGoals = 2;
+    let minScore = 2;
     let gkMvp = Array<any>();
-    if (won.goals < minGoals && lost.goals < minGoals)
+    if (wonStats.score < minScore && lostStats.score < minScore)
       gkMvp = this.getGkMvp(candidates);
-    else if (won.goals < minGoals) // lost gk mvp
+    else if (wonStats.goals < minScore) // lost gk mvp
       gkMvp = this.getGkMvp(candidates.slice(spliter));
-    else if (lost.goals < minGoals) // won gk mvp
+    else if (lostStats.goals < minScore) // won gk mvp
       gkMvp = this.getGkMvp(candidates.slice(0, spliter));
     // def
-    let averageGoals = 3;
+    let averageScore = 3;
     let defMvp = Array<any>();
-    if (won.goals < averageGoals && lost.goals < averageGoals)
+    if (wonStats.goals < averageScore && lostStats.goals < averageScore)
       defMvp = this.getDefMvp(candidates);
-    else if (won.goals < averageGoals) // lost def mvp
+    else if (wonStats.goals < averageScore) // lost def mvp
       defMvp = this.getDefMvp(candidates.slice(spliter));
-    else if (lost.goals < averageGoals) // won def mvp
+    else if (lostStats.goals < averageScore) // won def mvp
       defMvp = this.getDefMvp(candidates.slice(0, spliter));
     
     // summarize
