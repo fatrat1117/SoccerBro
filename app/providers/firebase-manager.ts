@@ -347,18 +347,23 @@ export class FirebaseManager {
   processMatchData(id: string) {
 
     this.getMatch(id).take(1).subscribe(data => {
-      let database = `/matches/data/${data.date}/${id}/`
+      let database = `/matches/data/${data.date}/${id}/`;
+      let n = 2;
+      let successCallback = () => {
+        if (--n == 0)
+          this.updateMVP(database);
+      }
       // home
-      this.addProcessedData(database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
+      this.addProcessedData(successCallback, database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
         data.homeAssists, data.homeRedCards, data.homeYellowCards);
       // away
-      this.addProcessedData(database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
+      this.addProcessedData(successCallback, database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
         data.awayAssists, data.awayRedCards, data.awayYellowCards);
 
       // calculate mvp
-      setTimeout(() => {
+      //setTimeout(() => {
         //this.updateMVP(database);
-      }, 1500)
+      //}, 1500)
 
     });
   }
@@ -407,7 +412,7 @@ export class FirebaseManager {
     return teamData;
   }
 
-  addProcessedData(database: string, id: string, score: number, goals: Array<any>,
+  addProcessedData(success, database: string, id: string, score: number, goals: Array<any>,
     assists: Array<any>, red: Array<any>, yellow: Array<any>) {
     let teamData: any = {};
     teamData.teamId = id;
@@ -456,12 +461,17 @@ export class FirebaseManager {
       })
       // add pocessed data
       this.af.database.object(database).set(teamData)
-        .then(() => {this.addPlayersPosition(database, teamData.players)})
+        .then(() => {
+          let successCallback = () =>{
+            success();
+          }
+          this.addPlayersPosition(database, teamData.players, successCallback);
+        })
         .catch(err => console.log(err));
     });
   }
 
-  addPlayersPosition(database: string, players: Array<any>) {
+  addPlayersPosition(database: string, players: Array<any>, success) {
     let n = Object.keys(players).length;
     for (let key in players) {
       this.getPlayerDetail(key).take(1).subscribe(p => {
@@ -471,12 +481,14 @@ export class FirebaseManager {
             --n;
             if (0 == n) {
               //done, add success callback here
+              success();
             }
           });
         } else {
           --n;
           if (0 == n) {
               //done, add success callback here
+              success();
             }
         }
       })
