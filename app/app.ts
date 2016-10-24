@@ -34,7 +34,8 @@ export class MyApp {
   }
 
   registerForPushNotifications() {
-    if(this.platform.is('mobileweb'))
+    if(this.platform.is('mobileweb') ||
+    this.platform.is('core'))
       return;
 
     let notificationOpenedCallback = jsonData => {
