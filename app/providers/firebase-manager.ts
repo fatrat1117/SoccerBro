@@ -93,62 +93,6 @@ export class FirebaseManager {
     });
   }
 
-  // post-precess raw data
-  processMatchData(id: string) {
-    this.getMatch(id).take(1).subscribe(data => {
-      let database = `/matches/data/${data.date}/${id}/`
-      // home
-      this.addProcessedData(database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
-        data.homeAssists, data.homeRedCards, data.homeYellowCards);
-      // away
-      this.addProcessedData(database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
-        data.awayAssists, data.awayRedCards, data.awayYellowCards);
-    });
-  }
-
-  getTeamData(id: string, score: number, goals: Array<any>,
-    assists: Array<any>, red: Array<any>, yellow: Array<any>) {
-    let teamData: any = {};
-    teamData.teamId = id;
-    teamData.score = score;
-    teamData.red = 0;
-    teamData.yellow = 0;
-    // create player dictionary
-    let players: { [num: number]: any } = {};
-    for (var p of goals) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].goals = p.goals;
-    }
-    for (var p of assists) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].assists = p.assists;
-    }
-    for (var p of red) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].red = p.cards;
-      teamData.red += p.cards;
-    }
-    for (var p of yellow) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].yellow = p.cards;
-      teamData.yellow += p.cards;
-    }
-
-    // find player id
-    teamData.players = {};
-    this.getPlayers(id).take(1).subscribe(snapshots => {
-      snapshots.forEach(p => {
-        if (players[p.number] != undefined)
-          teamData.players[p.$key] = players[p.number];
-      })
-    });
-
-    return teamData;
-  }
 
 
 
@@ -358,8 +302,8 @@ export class FirebaseManager {
     return this.af.database.object('/tournaments/list/' + id + '/dates/' + day);
   }
 
-  getMatchesByTournamentId(id){
-     return this.af.database.list('/matches/list', {
+  getMatchesByTournamentId(id) {
+    return this.af.database.list('/matches/list', {
       query: {
         orderByChild: 'tournamentId',
         equalTo: id
@@ -397,6 +341,70 @@ export class FirebaseManager {
 
   deleteMatch(id) {
     this.getMatch(id).remove();
+  }
+
+  // post-precess raw data
+  processMatchData(id: string) {
+
+    this.getMatch(id).take(1).subscribe(data => {
+      let database = `/matches/data/${data.date}/${id}/`
+      // home
+      this.addProcessedData(database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
+        data.homeAssists, data.homeRedCards, data.homeYellowCards);
+      // away
+      this.addProcessedData(database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
+        data.awayAssists, data.awayRedCards, data.awayYellowCards);
+
+      // calculate mvp
+      setTimeout(() => {
+        this.updateMVP(database);
+      }, 1500)
+
+    });
+  }
+
+  getTeamData(id: string, score: number, goals: Array<any>,
+    assists: Array<any>, red: Array<any>, yellow: Array<any>) {
+    let teamData: any = {};
+    teamData.teamId = id;
+    teamData.score = score;
+    teamData.red = 0;
+    teamData.yellow = 0;
+    // create player dictionary
+    let players: { [num: number]: any } = {};
+    for (var p of goals) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].goals = p.goals;
+    }
+    for (var p of assists) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].assists = p.assists;
+    }
+    for (var p of red) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].red = p.cards;
+      teamData.red += p.cards;
+    }
+    for (var p of yellow) {
+      if (players[p.num] == undefined)
+        players[p.num] = {};
+      players[p.num].yellow = p.cards;
+      teamData.yellow += p.cards;
+    }
+
+    // find player id
+    teamData.players = {};
+    this.getPlayers(id).take(1).subscribe(snapshots => {
+      snapshots.forEach(p => {
+        if (players[p.number] != undefined)
+          teamData.players[p.$key] = players[p.number];
+      })
+    });
+
+    return teamData;
   }
 
   addProcessedData(database: string, id: string, score: number, goals: Array<any>,
@@ -446,82 +454,19 @@ export class FirebaseManager {
         if (players[p.number] != undefined)
           teamData.players[p.$key] = players[p.number];
       })
-      this.af.database.object(database).set(teamData);
+      // add pocessed data
+      this.af.database.object(database).set(teamData)
+        .then(_ => this.addPlayersPosition(database, teamData.players))
+        .catch(err => console.log(err));
     });
   }
 
-
-
-
-
-  /********** All Tournament Operations ***********/
-  getTournamentList() {
-    return this.af.database.list('/tournaments/list');
-  }
-
-  getTournamentTable(id) {
-    return this.af.database.object('/tournaments/list/' + id + '/table');
-  }
-
-  getTournamentTableList(id) {
-    return this.af.database.list('/tournaments/list/' + id + '/table');
-  }
-
-  createTournament(tournamentObj, success, error) {
-    console.log('createTournament', tournamentObj);
-
-    this.getTournamentList().push({ name: tournamentObj.name })
-      .then(newTournament => success())
-      .catch(err => error(err));
-  }
-
-  computeTournamentTable(id) {
-    console.log('computeTournamentTable');
-    this.af.database.list('/matches/list', {
-      query: {
-        orderByChild: 'tournamentId',
-        equalTo: id
-      }
-    }).subscribe(rawData => {
-      console.log('raw data', rawData);
-      let tableData = {};
-      rawData.forEach(match => {
-        if (match.homeScore && match.awayScore) {
-          this.computeOneMatch(tableData, match.homeId, match.awayId, match.homeScore, match.awayScore);
-          this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
-        }
+  addPlayersPosition(database: string, players: Array<any>) {
+    for (let key in players) {
+      this.getPlayerDetail(key).take(1).subscribe(p => {
+        if (p.position != undefined)
+          this.af.database.object(database + '/players/' + key).update({ position: p.position })
       })
-      //console.log(tableData);
-      this.getTournamentTable(id).set(tableData).then(() => console.log('computeTournamentTable done'));
-    });
-  }
-
-  computeOneMatch(result, teamId1, teamId2, score1, score2) {
-    if (!result[teamId1]) {
-      result[teamId1] = {
-        W: 0,
-        L: 0,
-        D: 0,
-        P: 0,
-        PTS: 0,
-        GA: 0,
-        GS: 0
-      }
-    }
-
-    ++result[teamId1].P;
-    result[teamId1].GS = result[teamId1].GS + score1;
-    result[teamId1].GA = result[teamId1].GA + score2;
-    if (score1 > score2) {
-      ++result[teamId1].W;
-      result[teamId1].PTS = result[teamId1].PTS + 3;
-    }
-    else if (score1 < score2) {
-      ++result[teamId1].L;
-    }
-    else {
-      ++result[teamId1].D;
-      result[teamId1].PTS = result[teamId1].PTS + 1;
     }
   }
 
@@ -530,6 +475,18 @@ export class FirebaseManager {
 
 
   /********** MVP ***********/
+  updateMVP(database: string) {
+    this.af.database.object(database).take(1).subscribe(data => {
+      let homeStats = data.homeStats;
+      let awayStats = data.awayStats;
+      let isHomeWon = homeStats.score >= awayStats.score;
+      let wonStats = isHomeWon ? homeStats : awayStats;
+      let lostStats = isHomeWon ? awayStats : homeStats;
+      let result = this.calculateMVP(wonStats, lostStats);
+      console.log(result);
+    })
+  }
+
   calculateMVP(wonStats: any, lostStats: any) {
     // filter out yellow/red cards
     let candidates = Array<any>();
@@ -632,6 +589,87 @@ export class FirebaseManager {
       [a[i - 1], a[j]] = [a[j], a[i - 1]];
     }
   }
+
+
+
+
+
+  /********** All Tournament Operations ***********/
+  getTournamentList() {
+    return this.af.database.list('/tournaments/list');
+  }
+
+  getTournamentTable(id) {
+    return this.af.database.object('/tournaments/list/' + id + '/table');
+  }
+
+  getTournamentTableList(id) {
+    return this.af.database.list('/tournaments/list/' + id + '/table');
+  }
+
+  createTournament(tournamentObj, success, error) {
+    console.log('createTournament', tournamentObj);
+
+    this.getTournamentList().push({ name: tournamentObj.name })
+      .then(newTournament => success())
+      .catch(err => error(err));
+  }
+
+  computeTournamentTable(id) {
+    console.log('computeTournamentTable');
+    this.af.database.list('/matches/list', {
+      query: {
+        orderByChild: 'tournamentId',
+        equalTo: id
+      }
+    }).subscribe(rawData => {
+      console.log('raw data', rawData);
+      let tableData = {};
+      rawData.forEach(match => {
+        if (match.homeScore && match.awayScore) {
+          this.computeOneMatch(tableData, match.homeId, match.awayId, match.homeScore, match.awayScore);
+          this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
+        }
+      })
+      //console.log(tableData);
+      this.getTournamentTable(id).set(tableData).then(() => console.log('computeTournamentTable done'));
+    });
+  }
+
+  computeOneMatch(result, teamId1, teamId2, score1, score2) {
+    if (!result[teamId1]) {
+      result[teamId1] = {
+        W: 0,
+        L: 0,
+        D: 0,
+        P: 0,
+        PTS: 0,
+        GA: 0,
+        GS: 0
+      }
+    }
+
+    ++result[teamId1].P;
+    result[teamId1].GS = result[teamId1].GS + score1;
+    result[teamId1].GA = result[teamId1].GA + score2;
+    if (score1 > score2) {
+      ++result[teamId1].W;
+      result[teamId1].PTS = result[teamId1].PTS + 3;
+    }
+    else if (score1 < score2) {
+      ++result[teamId1].L;
+    }
+    else {
+      ++result[teamId1].D;
+      result[teamId1].PTS = result[teamId1].PTS + 1;
+    }
+  }
+
+
+
+
+
+
 
 
 

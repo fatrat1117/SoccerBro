@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {NavController, ModalController} from 'ionic-angular';
-import {transPipe, Localization} from '../../providers/localization'
-import {ScheduleMatchPage} from '../schedule-match/schedule-match';
-import {FirebaseManager} from '../../providers/firebase-manager';
-import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
-import {Subject} from 'rxjs/Subject';
-import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import { Component } from '@angular/core';
+import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import { transPipe, Localization } from '../../providers/localization'
+import { ScheduleMatchPage } from '../schedule-match/schedule-match';
+import { FirebaseManager } from '../../providers/firebase-manager';
+import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
+import { Subject } from 'rxjs/Subject';
+import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
 
 @Component({
@@ -16,7 +16,7 @@ import * as moment from 'moment';
 export class MatchesPage {
 
   dates: any;
-  datesColorArray:any;
+  datesColorArray: any;
   currentSelectedDateIndex = 0;
   afMatches: any;
   dateSubject = new Subject();
@@ -25,14 +25,15 @@ export class MatchesPage {
   constructor(private navCtrl: NavController,
     local: Localization,
     private modalController: ModalController,
+    private loadingCtrl: LoadingController,
     fm: FirebaseManager) {
 
-    let  self = this;
+    let self = this;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
       //console.log(dates);
-      setTimeout(function() {
+      setTimeout(function () {
         console.log('show today', self.today);
         self.dateSubject.next(self.today);
       }, 1000);
@@ -45,11 +46,11 @@ export class MatchesPage {
     this.modalController.create(ScheduleMatchPage).present();
   }
 
-  showMatches(date: string, i : number) {
+  showMatches(date: string, i: number) {
     // console.log('currentSelectedDate', date);
     // console.log('lastSelectedDate',this.dates[this.currentSelectedDateIndex].$key);
-    
-    if (this.dates[this.currentSelectedDateIndex].$key === date){
+
+    if (this.dates[this.currentSelectedDateIndex].$key === date) {
       return;
     }
     this.dateSubject.next(Number(date));
@@ -58,18 +59,27 @@ export class MatchesPage {
   }
 
   popupUpdateSchedulePage(matchId) {
-    this.modalController.create(ScheduleMatchPage, {
+    let modal = this.modalController.create(ScheduleMatchPage, {
       mId: matchId
-    }).present();
+    });
+
+    modal.onDidDismiss(() => {
+      this.loadingCtrl.create({
+        content: "Updating data...",
+        duration: 1500
+      }).present();
+    })
+
+    modal.present();
   }
 
-  initialDatesColorArray(dates:any){
+  initialDatesColorArray(dates: any) {
     this.datesColorArray = new Array(dates.length);
     // if (this.datesColorArray.length > 0){
     //   this.datesColorArray[0] = "#2E9008";
     // }
-    for (var i = 0 ; i < this.datesColorArray.length; i++){
-      if (this.dates[i].$key === this.today){
+    for (var i = 0; i < this.datesColorArray.length; i++) {
+      if (this.dates[i].$key === this.today) {
         this.datesColorArray[i] = "#2E9008";
         this.currentSelectedDateIndex = i;
       }
@@ -77,8 +87,8 @@ export class MatchesPage {
     }
   }
 
-  setDatesColorArray(index:number){
-    for (var i = 0 ; i < this.datesColorArray.length;i++) {
+  setDatesColorArray(index: number) {
+    for (var i = 0; i < this.datesColorArray.length; i++) {
       if (index === i) {
         this.datesColorArray[i] = "#2E9008";
       } else {
@@ -87,11 +97,11 @@ export class MatchesPage {
     }
   }
 
-  getDateTabBGColor(date:string){
+  getDateTabBGColor(date: string) {
     for (let i in this.dates) {
-        if (this.dates[i] === date){
-            return this.datesColorArray[i];
-        }
+      if (this.dates[i] === date) {
+        return this.datesColorArray[i];
+      }
     }
     return;
   }
