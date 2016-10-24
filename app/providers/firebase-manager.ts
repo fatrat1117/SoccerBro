@@ -456,16 +456,29 @@ export class FirebaseManager {
       })
       // add pocessed data
       this.af.database.object(database).set(teamData)
-        .then(_ => this.addPlayersPosition(database, teamData.players))
+        .then(() => {this.addPlayersPosition(database, teamData.players)})
         .catch(err => console.log(err));
     });
   }
 
   addPlayersPosition(database: string, players: Array<any>) {
+    let n = Object.keys(players).length;
     for (let key in players) {
       this.getPlayerDetail(key).take(1).subscribe(p => {
-        if (p.position != undefined)
+        if (p.position != undefined) {
           this.af.database.object(database + '/players/' + key).update({ position: p.position })
+          .then(()=>{
+            --n;
+            if (0 == n) {
+              //done, add success callback here
+            }
+          });
+        } else {
+          --n;
+          if (0 == n) {
+              //done, add success callback here
+            }
+        }
       })
     }
   }
