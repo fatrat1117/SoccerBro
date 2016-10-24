@@ -357,7 +357,7 @@ export class FirebaseManager {
 
       // calculate mvp
       setTimeout(() => {
-        this.updateMVP(database);
+        //this.updateMVP(database);
       }, 1500)
 
     });
