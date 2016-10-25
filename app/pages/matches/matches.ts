@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { transPipe, Localization } from '../../providers/localization'
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
 import { FirebaseManager } from '../../providers/firebase-manager';
@@ -25,7 +25,6 @@ export class MatchesPage {
   constructor(private navCtrl: NavController,
     local: Localization,
     private modalController: ModalController,
-    private loadingCtrl: LoadingController,
     fm: FirebaseManager) {
 
     let self = this;
@@ -59,18 +58,9 @@ export class MatchesPage {
   }
 
   popupUpdateSchedulePage(matchId) {
-    let modal = this.modalController.create(ScheduleMatchPage, {
+    this.modalController.create(ScheduleMatchPage, {
       mId: matchId
-    });
-
-    modal.onDidDismiss(() => {
-      this.loadingCtrl.create({
-        content: "Updating data...",
-        duration: 1500
-      }).present();
-    })
-
-    modal.present();
+    }).present();
   }
 
   initialDatesColorArray(dates: any) {

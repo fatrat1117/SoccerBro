@@ -350,8 +350,9 @@ export class FirebaseManager {
       let database = `/matches/data/${data.date}/${id}/`;
       let n = 2;
       let successCallback = () => {
-        if (--n == 0)
+        if (--n == 0) {
           this.updateMVP(database);
+        }
       }
       // home
       this.addProcessedData(successCallback, database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
@@ -359,57 +360,7 @@ export class FirebaseManager {
       // away
       this.addProcessedData(successCallback, database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
         data.awayAssists, data.awayRedCards, data.awayYellowCards);
-
-      // calculate mvp
-      //setTimeout(() => {
-        //this.updateMVP(database);
-      //}, 1500)
-
     });
-  }
-
-  getTeamData(id: string, score: number, goals: Array<any>,
-    assists: Array<any>, red: Array<any>, yellow: Array<any>) {
-    let teamData: any = {};
-    teamData.teamId = id;
-    teamData.score = score;
-    teamData.red = 0;
-    teamData.yellow = 0;
-    // create player dictionary
-    let players: { [num: number]: any } = {};
-    for (var p of goals) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].goals = p.goals;
-    }
-    for (var p of assists) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].assists = p.assists;
-    }
-    for (var p of red) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].red = p.cards;
-      teamData.red += p.cards;
-    }
-    for (var p of yellow) {
-      if (players[p.num] == undefined)
-        players[p.num] = {};
-      players[p.num].yellow = p.cards;
-      teamData.yellow += p.cards;
-    }
-
-    // find player id
-    teamData.players = {};
-    this.getPlayers(id).take(1).subscribe(snapshots => {
-      snapshots.forEach(p => {
-        if (players[p.number] != undefined)
-          teamData.players[p.$key] = players[p.number];
-      })
-    });
-
-    return teamData;
   }
 
   addProcessedData(success, database: string, id: string, score: number, goals: Array<any>,
@@ -462,7 +413,7 @@ export class FirebaseManager {
       // add pocessed data
       this.af.database.object(database).set(teamData)
         .then(() => {
-          let successCallback = () =>{
+          let successCallback = () => {
             success();
           }
           this.addPlayersPosition(database, teamData.players, successCallback);
@@ -471,25 +422,28 @@ export class FirebaseManager {
     });
   }
 
-  addPlayersPosition(database: string, players: Array<any>, success) {
+  addPlayersPosition(database: string, players: any, success) {
     let n = Object.keys(players).length;
+    if (n == 0) {
+      success();
+      return;
+    }
+
     for (let key in players) {
       this.getPlayerDetail(key).take(1).subscribe(p => {
         if (p.position != undefined) {
           this.af.database.object(database + '/players/' + key).update({ position: p.position })
-          .then(()=>{
-            --n;
-            if (0 == n) {
-              //done, add success callback here
-              success();
-            }
-          });
+            .then(() => {
+              if (--n == 0) {
+                //done, add success callback here
+                success();
+              }
+            });
         } else {
-          --n;
-          if (0 == n) {
-              //done, add success callback here
-              success();
-            }
+          if (--n == 0) {
+            //done, add success callback here
+            success();
+          }
         }
       })
     }
@@ -502,13 +456,16 @@ export class FirebaseManager {
   /********** MVP ***********/
   updateMVP(database: string) {
     this.af.database.object(database).take(1).subscribe(data => {
+      console.log(data);
+
       let homeStats = data.homeStats;
       let awayStats = data.awayStats;
       let isHomeWon = homeStats.score >= awayStats.score;
       let wonStats = isHomeWon ? homeStats : awayStats;
       let lostStats = isHomeWon ? awayStats : homeStats;
-      let result = this.calculateMVP(wonStats, lostStats);
-      console.log(result);
+      //this.calculateMVP(wonStats, lostStats);
+      let mvp = this.calculateMVP(wonStats, lostStats);
+      this.af.database.object(database + "/mvp/candidates").set(mvp);
     })
   }
 
@@ -516,14 +473,20 @@ export class FirebaseManager {
     // filter out yellow/red cards
     let candidates = Array<any>();
     let spliter = 0;
-    for (let p of wonStats) {
-      if (p.yellow == 0 && p.red == 0)
-        candidates.push(p);
+    for (let key in wonStats.players) {
+      let p = wonStats.players[key];
+      if (p.yellow > 0 || p.red > 0)
+        continue;
+      p.id = key;
+      candidates.push(p);
       spliter++;
     }
-    for (let p of lostStats) {
-      if (p.yellow == 0 && p.red == 0)
-        candidates.push(p);
+    for (let key in lostStats.players) {
+      let p = lostStats.players[key];
+      if (p.yellow > 0 || p.red > 0)
+        continue;
+      p.id = key;
+      candidates.push(p);
     }
 
     // find mvp for different positions
@@ -536,39 +499,81 @@ export class FirebaseManager {
     let gkMvp = Array<any>();
     if (wonStats.score < minScore && lostStats.score < minScore)
       gkMvp = this.getGkMvp(candidates);
-    else if (wonStats.goals < minScore) // lost gk mvp
+    else if (wonStats.score < minScore) // lost gk mvp
       gkMvp = this.getGkMvp(candidates.slice(spliter));
-    else if (lostStats.goals < minScore) // won gk mvp
+    else if (lostStats.score < minScore) // won gk mvp
       gkMvp = this.getGkMvp(candidates.slice(0, spliter));
     // def
     let averageScore = 3;
     let defMvp = Array<any>();
-    if (wonStats.goals < averageScore && lostStats.goals < averageScore)
+    if (wonStats.score < averageScore && lostStats.score < averageScore)
       defMvp = this.getDefMvp(candidates);
-    else if (wonStats.goals < averageScore) // lost def mvp
+    else if (wonStats.score < averageScore) // lost def mvp
       defMvp = this.getDefMvp(candidates.slice(spliter));
-    else if (lostStats.goals < averageScore) // won def mvp
+    else if (lostStats.score < averageScore) // won def mvp
       defMvp = this.getDefMvp(candidates.slice(0, spliter));
 
     // summarize
-    let mvp = Array<any>();
-    while (mvp.length < 4
-      || (goalsMvp.length == 0 && assistsMvp.length == 0
-        && gkMvp.length == 0 && defMvp.length == 0)) {
-      mvp.push(goalsMvp.shift().$key);
-      mvp.push(assistsMvp.shift().$key);
-      mvp.push(gkMvp.shift().$key);
-      mvp.push(defMvp.shift().$key);
+    let mvp = {};
+    while (goalsMvp.length != 0 || assistsMvp.length != 0 || gkMvp.length != 0 || defMvp.length != 0) {
+      // best goals
+      if (goalsMvp.length > 0) {
+        let p = goalsMvp.shift();
+        mvp[p.id] = {};
+        mvp[p.id].description = p.goals + "Goals";
+      }
+      if (Object.keys(mvp).length > 3)
+        break;
+
+      // best assists
+      if (assistsMvp.length > 0) {
+        let p = assistsMvp.shift();
+        if (mvp[p.id] == undefined) {
+          mvp[p.id] = {};
+          mvp[p.id].description = p.assists + " Assists";
+        }
+        else
+          mvp[p.id].description += ", " + p.assists + "Assists";
+      }
+      if (Object.keys(mvp).length > 3)
+        break;
+
+      // best gk
+      if (gkMvp.length > 0) {
+        let p = gkMvp.shift();
+        if (mvp[p.id] == undefined) {
+          mvp[p.id] = {};
+          mvp[p.id].description = "? Saves";
+        }
+        else
+          mvp[p.id].description += ", " + "? Saves";
+      }
+      if (Object.keys(mvp).length > 3)
+        break;
+
+      // best def
+      if (defMvp.length > 0) {
+        let p = defMvp.shift();
+        if (mvp[p.id] == undefined) {
+          mvp[p.id] = {};
+          mvp[p.id].description = "? Blockings";
+        }
+        else
+          mvp[p.id].description += ", " + "? Blockings";
+      }
+      if (Object.keys(mvp).length > 3)
+        break;
+
     }
 
-    return mvp.slice(0, 4);
+    return mvp;
   }
 
   getGoalsMvp(candidates: Array<any>) {
     let minGoals = 2;
     let result = Array<any>();
     for (let p of candidates) {
-      if (p.goals >= minGoals)
+      if (p.goals != undefined && p.goals >= minGoals)
         result.push(p);
     }
     result.sort((p1, p2) => p1.goals - p2.goals);
@@ -579,7 +584,7 @@ export class FirebaseManager {
     let minAssists = 2;
     let result = Array<any>();
     for (let p of candidates) {
-      if (p.goals >= minAssists)
+      if (p.assists != undefined && p.assists >= minAssists)
         result.push(p);
     }
     result.sort((p1, p2) => p1.assists - p2.assists);
@@ -589,7 +594,7 @@ export class FirebaseManager {
   getGkMvp(candidates: Array<any>) {
     let result = Array<any>();
     for (let p of candidates) {
-      if (p.position.toUpperCase() == "GK")
+      if (p.position != undefined && p.position.toUpperCase() == "GK")
         result.push(p);
     }
     this.shuffle(result);
@@ -600,6 +605,8 @@ export class FirebaseManager {
     let result = Array<any>();
     let positions = ["CB", "SB", "DMF"];
     for (let p of candidates) {
+      if (p.position == undefined)
+        continue;
       let pos = p.position.toUpperCase();
       if (positions.indexOf(pos) >= 0)
         result.push(p);
