@@ -27,13 +27,13 @@
   <!-- chose mvp -->
   <ion-list no-lines [hidden]="!showMVP">
     <ion-item>Vote for MVP</ion-item>
-    <ion-item *ngFor="let p of mvpArray; let i = index;" (click)="setMVP(i)">
+    <ion-item *ngFor="let p of candidates | async" (click)="setMVP(p.$key)">
       <ion-avatar item-left>
-        <img src="img/test_avatar.jpg">
+        <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
       </ion-avatar>
-      <h3>P0 (<span primary>DMF</span>)</h3>
-      <p>5 Goals</p>
-      <button ion-button icon-only clear class="disable-hover" item-right [ngStyle]="getMVPColorStyle(p)">
+      <h3>{{ (p.$key | playerBasicPipe | async)?.displayName }}</h3>
+      <p>{{ p.description }}</p>
+      <button ion-button icon-only clear class="disable-hover" item-right [ngStyle]="getMVPColorStyle(p.$key)">
         <ion-icon name="thumbs-up"></ion-icon>
       </button>
     </ion-item>

@@ -1,17 +1,25 @@
 import {Component} from '@angular/core';
 import {PopoverController} from 'ionic-angular';
 
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {FirebaseManager} from '../../providers/firebase-manager';
+
 @Component({
-  templateUrl: 'build/pages/match-rating/match-rating.html'
+  templateUrl: 'build/pages/match-rating/match-rating.html',
+  pipes: [PlayerBasicPipe]
 })
 export class MatchRatingPage {
   starArray = [0, 1, 2, 3, 4];
-  mvpArray = [0, 0, 0, 0];
   rating: number;
   showMVP: boolean;
-  constructor(private popoverCtrl: PopoverController) {
+  candidates: any;
+  selectedMVP: string;
+  constructor(private popoverCtrl: PopoverController, private fm: FirebaseManager) {
     this.rating = 0;
     this.showMVP = false;
+
+    this.candidates = this.fm.getMVPCandidates(1477929600000, "-KUkNLvBQG1p8H1pntYi");
+    this.selectedMVP = "";
   }
 
   setRating(index: number) {
@@ -21,9 +29,8 @@ export class MatchRatingPage {
     }, 500);
   }
 
-  setMVP(index: number) {
-    this.mvpArray = [0, 0, 0, 0];
-    this.mvpArray[index] = 1;
+  setMVP(id: string) {
+    this.selectedMVP = id;
   }
 
   getStarColorStyle(index: number) {
@@ -35,9 +42,10 @@ export class MatchRatingPage {
     return style;
   }
 
-  getMVPColorStyle(isSelected: number) {
+  getMVPColorStyle(id: string) {
     let style: any = {};
-    if (isSelected == 0)
+    
+    if (id != this.selectedMVP)
     {
       style.color = 'lightgray';
     }

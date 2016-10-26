@@ -622,6 +622,10 @@ export class FirebaseManager {
     }
   }
 
+  getMVPCandidates(date: number, matchId: string) {
+    return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
+  }
+
 
 
 
