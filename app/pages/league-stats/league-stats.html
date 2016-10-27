@@ -33,63 +33,58 @@
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
 			<ion-list>
 				<ion-item>
-				<ion-row class="standings-title">
-					<ion-col class="team" width-30>
-						<p text-left><label>Team</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>P</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>W</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>D</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>L</label></p>
-					</ion-col>
-					<ion-col class="max-width-16p">
-						<p text-center><label>GF/GA</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>PTS</label></p>
-					</ion-col>
-				</ion-row>
-			</ion-item>
-			<ion-item *ngFor="let s of standings; let i = index;" no-margin>
-				<ion-row class="standings-stats">
-					<!--<ion-col no-padding width-10 class="rank flex-center">
-						<p text-left>{{i + 1}}</p>
-					</ion-col>-->
-					<ion-col no-padding width-30 class="team-name flex-center">
-						<ion-row>
-							<ion-thumbnail class="flex-center">
-								<ion-img class="standings-team-img" [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
+					<ion-row>
+						<ion-col width-50>
+							<p text-left><label>Team</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>P</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>W</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>D</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>L</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>GF/GA</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>PTS</label></p>
+						</ion-col>
+					</ion-row>
+				</ion-item>
+				<ion-item *ngFor="let s of standings; let i = index;" no-margin>
+					<ion-row>
+						<ion-col width-50>
+							<ion-thumbnail>
+								<ion-img [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
 							</ion-thumbnail>
-							<p text-left class="truncate-p"><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
-						</ion-row>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>{{s.P}}</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>{{s.W}}</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>{{s.D}}</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>{{s.L}}</label></p>
-					</ion-col>
-					<ion-col class="max-width-16p">
-						<p text-center><label>{{s.GS}}/{{s.GA}}</label></p>
-					</ion-col>
-					<ion-col>
-						<p text-center><label>{{s.PTS}}</label></p>
-					</ion-col>
-				</ion-row>
-			</ion-item>
+							<p text-left><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.P}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.W}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.D}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.L}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.GS}}/{{s.GA}}</label></p>
+						</ion-col>
+						<ion-col>
+							<p text-center><label>{{s.PTS}}</label></p>
+						</ion-col>
+					</ion-row>
+				</ion-item>
 			</ion-list>
 		</div>
 
