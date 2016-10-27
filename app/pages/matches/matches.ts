@@ -15,9 +15,6 @@ import * as moment from 'moment';
 })
 
 export class MatchesPage {
-  @Input() 
-  tournamentId : string;
-  
   dates: any;
   datesColorArray: any;
   currentSelectedDateIndex = -1;
@@ -25,11 +22,12 @@ export class MatchesPage {
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
 
+  @Input() tournamentId;
   constructor(private navCtrl: NavController,
     local: Localization,
     private modalController: ModalController,
     fm: FirebaseManager) {
-      console.log('matches tournamentId', this.tournamentId);
+    console.log('matches tournamentId', this.tournamentId);
     let self = this;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
