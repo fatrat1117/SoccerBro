@@ -32,6 +32,7 @@ export class LeagueStatsPage {
     private navParams: NavParams,
     private modalController: ModalController) {
     this.tournamentId = this.navParams.get('tournamentId');
+    console.log('tournamentId', this.tournamentId);
     let self = this;
     fm.getTournamentTableList(this.tournamentId).subscribe(tables => {
       console.log('getTournamentTable', tables);
@@ -56,9 +57,6 @@ export class LeagueStatsPage {
       }, 1000);
     });
     this.afMatches = fm.queryMatches(this.dateSubject);
-
-    console.log(this.tournamentId);
-
     this.afMatchesBytournamentId = fm.getMatchesByTournamentId(this.tournamentId);
 
     this.afMatchesBytournamentId.subscribe(matches => {
