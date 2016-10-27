@@ -128,7 +128,7 @@
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
-			<ion-grid>
+			<!--<ion-grid>
 				<ion-row>
 					<ion-col width-20 class="matches-date-tab-col">
 						<ion-list class="date-tab-list">
@@ -183,11 +183,11 @@
 						</ion-item>
 					</ion-col>
 				</ion-row>
-			</ion-grid>
-			<!--<my-matches-page></my-matches-page>-->
-			<ion-item *ngFor="let match of afMatches | async">
+			</ion-grid>-->
+			<my-matches-page [tournamentId] = "1"></my-matches-page>
+			<!--<ion-item *ngFor="let match of afMatches | async">
 				{{match.date}}
-			</ion-item>
+			</ion-item>-->
 		</div>
 	</div>
 

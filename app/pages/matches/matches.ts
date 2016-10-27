@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { transPipe, Localization } from '../../providers/localization'
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
@@ -9,12 +9,15 @@ import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
 
 @Component({
+  selector: 'my-matches-page',
   templateUrl: 'build/pages/matches/matches.html',
   pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
 })
 
 export class MatchesPage {
-
+  @Input() 
+  tournamentId : string;
+  
   dates: any;
   datesColorArray: any;
   currentSelectedDateIndex = -1;
@@ -26,7 +29,7 @@ export class MatchesPage {
     local: Localization,
     private modalController: ModalController,
     fm: FirebaseManager) {
-
+      console.log('matches tournamentId', this.tournamentId);
     let self = this;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
