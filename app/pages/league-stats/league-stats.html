@@ -184,7 +184,9 @@
 					</ion-col>
 				</ion-row>
 			</ion-grid>-->
-			<my-matches-page [tournamentId] = tournamentId></my-matches-page>
+      <h1>{{tournamentId}}</h1>
+      <h1>请不要把matches里面的content,header 删掉, 给我点时间学习</h1>
+			<matches-content  [tournamentId] = tournamentId></matches-content>
 			<!--<ion-item *ngFor="let match of afMatches | async">
 				{{match.date}}
 			</ion-item>-->

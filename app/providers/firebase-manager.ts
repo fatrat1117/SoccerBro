@@ -43,7 +43,7 @@ export class FirebaseManager {
 
     console.log('updatePlayer', p, basic, detail);
     this.getPlayerBasic(p.pId).update(basic).then(_ => success()).catch(err => error(err));
-    //concurrent update, return success when basic update is done. 
+    //concurrent update, return success when basic update is done.
     //trade off: update performance exchange update integrity
     this.getPlayerDetail(p.pId).update(detail);
   }
@@ -290,12 +290,17 @@ export class FirebaseManager {
     });
   }
 
+
   getMatchDates() {
     return this.af.database.list('/matches/dates');
   }
 
   getMatchDate(day) {
     return this.af.database.object('/matches/dates/' + day);
+  }
+
+  getTournamentDateByTournamentId(id){
+    return this.af.database.list('/tournaments/list/'+ id + '/dates');
   }
 
   getTournamentMatchDate(id, day) {

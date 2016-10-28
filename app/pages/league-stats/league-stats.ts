@@ -6,12 +6,12 @@ import { Subject } from 'rxjs/Subject';
 import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
 import * as moment from 'moment';
-import { MatchesPage } from '../matches/matches';
+import { MatchesPageContent } from '../matches/matches-content';
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
   pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe],
-  directives: [MatchesPage]
+  directives: [MatchesPageContent]
 })
 
 export class LeagueStatsPage {
@@ -25,7 +25,7 @@ export class LeagueStatsPage {
   afMatchesBytournamentId: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
-  tournamentId: any;
+  public tournamentId:string = "initial";
 
   constructor(private nav: NavController,
     private fm: FirebaseManager,

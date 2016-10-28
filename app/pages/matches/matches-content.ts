@@ -7,32 +7,35 @@ import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
 import { Subject } from 'rxjs/Subject';
 import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
-//
-// import {MatchesPageHeader} from '../matches/matches-header';
-// import {MatchesPageContent} from '../matches/matches-content';
 
 @Component({
-  selector: 'my-matches-page',
-  templateUrl: 'build/pages/matches/matches.html',
+  selector: 'matches-content',
+  templateUrl: 'build/pages/matches/matches-content.html',
   pipes: [transPipe, StringToDatePipe, NumberToTimePipe, TeamBasicPipe]
-  // directives: [MatchesPageHeader,MatchesPageContent]
 })
 
-export class MatchesPage {
+
+export class MatchesPageContent {
+  fireBaseManager:any;
   dates: any;
+  datesForLeagues:any;
   datesColorArray: any;
   currentSelectedDateIndex = -1;
   afMatches: any;
   dateSubject = new Subject();
+  afMatchesBytournamentId: any;
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
 
-  @Input() tournamentId = "default";
+  @Input() tournamentId = "";
+
   constructor(private navCtrl: NavController,
-    local: Localization,
-    private modalController: ModalController,
-    fm: FirebaseManager) {
-    //console.log('matches tournamentId', this.tournamentId);
+              local: Localization,
+              private modalController: ModalController,
+              fm: FirebaseManager) {
+
+
     let self = this;
+    self.fireBaseManager = fm;
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
@@ -49,14 +52,50 @@ export class MatchesPage {
         console.log(snapshot);
       });
     });
+
+    //console.log('matches tournamentId', this.tournamentId);
+    // setTimeout(function () {
+    //   console.log('matches tournamentId', this.tournamentId);
+    // }, 10000);
+
+
   }
 
+  ngAfterViewInit() {
+    this.getDatesByTournamentId();
+    this.getMatcheByTournamentId();
+    this.testLoad();
+  }
+
+  testLoad(){
+    console.log("hahahahaha");
+  }
+
+  getMatcheByTournamentId(){
+
+    this.afMatchesBytournamentId = this.fireBaseManager.getMatchesByTournamentId(this.tournamentId);
+    this.afMatchesBytournamentId.subscribe(matches => {
+      console.log(matches);
+      // matches.forEach(match => {
+      //   console.log(match.date);
+      // });
+    });
+  }
+
+  getDatesByTournamentId(){
+    var tempObserverObject = this.fireBaseManager.getTournamentDateByTournamentId(this.tournamentId);
+    tempObserverObject.subscribe(datesForLeagues =>{
+        this.datesForLeagues = datesForLeagues;
+         console.log("DATES here==>",datesForLeagues);
+    })
+  }
 
   showScheduleMatchModal() {
     this.modalController.create(ScheduleMatchPage).present();
   }
 
   showMatches(date: string, i: number) {
+
     if (this.currentSelectedDateIndex != -1 && this.dates[this.currentSelectedDateIndex].$key === date) {
       return;
     }
