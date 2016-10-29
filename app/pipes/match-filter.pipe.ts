@@ -15,3 +15,16 @@ export class MatchFilterPipe implements PipeTransform {
     }
   }
 }
+
+@Pipe({
+  name: 'tournamentFilterPipe'
+})
+
+export class TournamentFilterPipe implements PipeTransform {
+  transform(matches: any[], tournamentId) {
+    if (matches && tournamentId) {
+      return matches.filter(v => v.tournamentId == tournamentId);
+    }
+    return matches;
+  }
+}
