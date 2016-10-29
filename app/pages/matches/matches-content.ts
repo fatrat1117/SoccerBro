@@ -1,10 +1,10 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { transPipe, Localization } from '../../providers/localization'
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
 import { FirebaseManager } from '../../providers/firebase-manager';
 import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
-import { TournamentFilterPipe} from '../../pipes/match-filter.pipe';
+import { TournamentFilterPipe } from '../../pipes/match-filter.pipe';
 import { Subject } from 'rxjs/Subject';
 import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
@@ -16,7 +16,7 @@ import * as moment from 'moment';
 })
 
 
-export class MatchesPageContent {
+export class MatchesPageContent implements OnInit {
   dates: any;
   datesColorArray: any;
   currentSelectedDateIndex = -1;
@@ -28,25 +28,27 @@ export class MatchesPageContent {
   constructor(private navCtrl: NavController,
     local: Localization,
     private modalController: ModalController,
-    fm: FirebaseManager) {
-    //console.log('matches tournamentId', this.tournamentId);
+    private fm: FirebaseManager) {
+    this.afMatches = fm.queryMatches(this.dateSubject);
+  }
+
+  ngOnInit() {
+    console.log('matches tournamentId', this.tournamentId);
     let self = this;
-    fm.getMatchDates().subscribe(dates => {
+    let afDates;
+    if (this.tournamentId) 
+      afDates = this.fm.getTournamentDateByTournamentId(this.tournamentId);
+    else
+      afDates = this.fm.getMatchDates();
+    afDates.subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
       //console.log(dates);
       setTimeout(function () {
-        console.log('show today', self.today);
+        //console.log('show today', self.today);
         self.dateSubject.next(self.today);
       }, 1000);
     });
-    this.afMatches = fm.queryMatches(this.dateSubject);
-    // this.afMatches.subscribe(snapshots => {
-    //   console.log(snapshots);
-    //   snapshots.forEach(snapshot => {
-    //     console.log(snapshot);
-    //   });
-    // });
   }
 
   showMatches(date: string, i: number) {
