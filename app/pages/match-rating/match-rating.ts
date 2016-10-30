@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {PopoverController} from 'ionic-angular';
+import {ViewController, NavParams} from 'ionic-angular';
 
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {FirebaseManager} from '../../providers/firebase-manager';
@@ -9,16 +9,22 @@ import {FirebaseManager} from '../../providers/firebase-manager';
   pipes: [PlayerBasicPipe]
 })
 export class MatchRatingPage {
+  matchDate: number;
+  matchId: string;
   starArray = [0, 1, 2, 3, 4];
   rating: number;
   showMVP: boolean;
   candidates: any;
   selectedMVP: string;
-  constructor(private popoverCtrl: PopoverController, private fm: FirebaseManager) {
+  constructor(private viewCtrl: ViewController, private fm: FirebaseManager, private navParams: NavParams) {
+    console.log(this.navParams);
+    this.matchDate = this.navParams.get('matchDate');
+    this.matchId = this.navParams.get('matchId');
+    
     this.rating = 0;
     this.showMVP = false;
 
-    this.candidates = this.fm.getMVPCandidates(1477929600000, "-KUkNLvBQG1p8H1pntYi");
+    this.candidates = this.fm.getMVPCandidates(this.matchDate, this.matchId);
     this.selectedMVP = "";
   }
 
@@ -54,5 +60,10 @@ export class MatchRatingPage {
 
   back() {
     this.showMVP = false;
+  }
+
+  submit() {
+    this.fm.voteMvp(this.matchDate, this.matchId, this.selectedMVP);
+    this.viewCtrl.dismiss();
   }
 }

@@ -78,6 +78,14 @@ export class FirebaseManager {
     });
   }
 
+  getToVoteInfo() {
+    return this.af.database.list(`/players/${this.selfId}/to-vote`, {
+      query: {
+        orderByValue: true
+      }
+    });
+  }
+
   //common
   increasePopularity(afPublic, success = null) {
     let sub = afPublic.subscribe(snapshot => {
@@ -231,6 +239,14 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/players/${playerId}`);
   }
 
+  setTeamPlayersToVote(teamId, matchId, date) {
+    this.af.database.list(`/teams/${teamId}/players`).take(1).subscribe(players => {
+      players.forEach(p => {
+        this.af.database.object(`/players/${p.$key}/to-vote/${matchId}`).set(date);
+      })
+    });
+  }
+
 
 
 
@@ -357,6 +373,8 @@ export class FirebaseManager {
       let successCallback = () => {
         if (--n == 0) {
           this.updateMVP(database);
+          this.setTeamPlayersToVote(data.homeId, id, data.date);
+          this.setTeamPlayersToVote(data.awayId, id, data.date);
         }
       }
       // home
@@ -629,6 +647,11 @@ export class FirebaseManager {
 
   getMVPCandidates(date: number, matchId: string) {
     return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
+  }
+
+  voteMvp(date: number, matchId: string, playerId: string) {
+    this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);
+    this.af.database.object(`/players/${this.selfId}/to-vote/${matchId}`).remove();
   }
 
 

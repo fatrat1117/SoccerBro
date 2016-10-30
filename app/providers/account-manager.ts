@@ -1,15 +1,15 @@
-import {ModalController, NavController, Page, ToastController, LoadingController, AlertController, PopoverController} from 'ionic-angular';
-import {Injectable} from '@angular/core';
+import { ModalController, NavController, Page, ToastController, LoadingController, AlertController, PopoverController } from 'ionic-angular';
+import { Injectable } from '@angular/core';
 import { Camera } from 'ionic-native';
 import {
   FIREBASE_PROVIDERS, defaultFirebase,
   AngularFire, firebaseAuthConfig, AuthProviders,
   AuthMethods, FirebaseListObservable, FirebaseObjectObservable
 } from 'angularfire2';
-import {LoginPage} from '../pages/login/login';
-import {MatchRatingPage} from '../pages/match-rating/match-rating';
-import {FirebaseManager} from './firebase-manager';
-import {Localization} from './localization';
+import { LoginPage } from '../pages/login/login';
+import { MatchRatingPage } from '../pages/match-rating/match-rating';
+import { FirebaseManager } from './firebase-manager';
+import { Localization } from './localization';
 import * as moment from 'moment';
 
 declare let firebase: any;
@@ -75,7 +75,7 @@ export class AccountManager {
 
   setupListener(success, error) {
     console.log('setupListener');
-    
+
     let self = this;
     let user = firebase.auth().currentUser;
     //unsub to prevent dupliates
@@ -91,10 +91,10 @@ export class AccountManager {
           self.fm.selfTeamId = currPlayerData.teamId;
           self.fm.selfId = user.uid;
           console.log('event fired', eventFired);
-          
+
           if (false === eventFired) {
-              success();
-              eventFired = true;
+            success();
+            eventFired = true;
           }
         }
         else {
@@ -109,9 +109,9 @@ export class AccountManager {
             photoURL: photoURL,
             displayName: user.displayName || user.email,
             created: true
-          }).catch(err => 
+          }).catch(err =>
             error(err)
-          );
+            );
           //update player public
           self.fm.getPlayerPublic(user.uid).update({ popularity: 1 });
         }
@@ -480,7 +480,7 @@ export class AccountManager {
   }
 
   //push
-  postNotification(messageObj, pushIds, success=null, error=null) {
+  postNotification(messageObj, pushIds, success = null, error = null) {
     console.log('push Notification', pushIds);
 
     let notificationObj = {
@@ -519,7 +519,7 @@ export class AccountManager {
       }, 1000);
     } else
       this.createLoading();
-    
+
     //auto dismiss to prevent dead lock
     setTimeout(() => {
       this.destroyLoading();
@@ -558,9 +558,29 @@ export class AccountManager {
   }
 
   showMatchVip() {
-    console.log('showMatchVip');
-    let popover = this.popoverCtrl.create(MatchRatingPage);
+    this.fm.getToVoteInfo().take(1).subscribe(snapshots => {
+      if (snapshots.length == 0)
+        return;
+      // unvoted match
+      this.popoverCtrl.create(
+        MatchRatingPage,
+        { matchDate: snapshots[0].$value, matchId: snapshots[0].$key }).present();
+    });
+
+
+    /*
+    this.fm.checkIsVoted(1477929600000, "-KUkNLvBQG1p8H1pntYi").take(1).subscribe(snapshot => {
+      if (snapshot.$value == undefined)
+        this.popoverCtrl.create(
+          MatchRatingPage,
+          { matchDate: 1477929600000, matchId: "-KUkNLvBQG1p8H1pntYi" }).present();
+    });
+    */
+    /*
+    let popover = this.popoverCtrl.create(
+      MatchRatingPage, {matchDate: 1477929600000, matchId: "-KUkNLvBQG1p8H1pntYi"});
     popover.present();
+    */
   }
 
 
