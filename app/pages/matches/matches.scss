@@ -38,50 +38,89 @@
   ion-label{
     margin-right: 0.3em;
     margin-left: 0.3em;
+    margin:0;
   }
 
   .matches-time{
-    display: -webkit-flex;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
     display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-    font-size: 0.8em;
+    align-items: center;
+    justify-content: center;
+
+    .matches-time-wrapper{
+
+
+        .item{
+          min-height:2.2em;
+          font-size: 0.345em;
+        }
+        .item-inner{
+          border-bottom:none;
+        }
+
+        ion-label{
+          margin:0;
+          text-align: center;
+        }
+
+    }
+
   }
 
   .matches-info{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+    font-size: 0.345em;
+
     .team-bar{
-      padding-left:0;
+      padding-left:0.5em;
       ion-img{
-        max-width: 2em;
-        max-height: 2em;
+        max-width: 1.5em;
+        max-height: 1.5em;
         border-radius: 50%;
       }
       ion-avatar[item-left]{
         margin:0;
+        min-height: 1.8em;
+        min-width: 1.8em;
       }
 
       .team-name{
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 0.8em;
+        font-size: 0.345em;
 
         -webkit-box-flex: 0;
-        -webkit-flex: 0 0 85%;
-        -ms-flex: 0 0 85%;
-        flex: 0 0 85%;
-        max-width: 85%;
+        -webkit-flex: 0 0 75%;
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%;
       }
       .team-score{
-        font-size: 0.8em;
+        font-size: 0.345em;
+        line-height: 1;
 
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 15%;
         -ms-flex: 0 0 15%;
         flex: 0 0 15%;
         max-width: 15%;
+      }
+
+      .item-inner{
+        border-bottom: none;
+      }
+
+      .item{
+        min-height: 2em;
       }
     }
   }
