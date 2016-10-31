@@ -25,7 +25,8 @@ export class LeagueStatsPage {
   afMatchesBytournamentId: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
-  public tournamentId:string = "initial";
+  tournamentId : any;
+  tournamentInfo:any;
 
   constructor(private nav: NavController,
     private fm: FirebaseManager,
