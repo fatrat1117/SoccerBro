@@ -2,6 +2,9 @@
 	<ion-navbar>
 		<ion-title>League Statistics</ion-title>
 		<ion-buttons end>
+			<button (click)="remove()">
+        <ion-icon name="trash" danger></ion-icon>
+      </button>
 			<button (click)="compute()">
         <ion-icon name="calculator"></ion-icon>
       </button>
@@ -128,7 +131,7 @@
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
-			<matches-content  [tournamentId] = tournamentId></matches-content>
+			<matches-content [tournamentId]=t ournamentId></matches-content>
 		</div>
 	</div>
 

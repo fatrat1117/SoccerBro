@@ -119,9 +119,7 @@ export class LeagueStatsPage {
 
   initialDatesColorArray(dates: any) {
     this.datesColorArray = new Array(dates.length);
-    // if (this.datesColorArray.length > 0){
-    //   this.datesColorArray[0] = "#2E9008";
-    // }
+
     for (var i = 0; i < this.datesColorArray.length; i++) {
       if (this.dates[i].$key === this.today) {
         this.datesColorArray[i] = "#2E9008";
@@ -149,4 +147,9 @@ export class LeagueStatsPage {
     }
     return;
   }
-}
+
+  remove() {
+    this.fm.removeTournament(this.tournamentId);
+    this.nav.pop();
+  }
+ }

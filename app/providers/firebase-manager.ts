@@ -671,6 +671,13 @@ export class FirebaseManager {
     return this.af.database.list('/tournaments/list/' + id + '/table');
   }
 
+  getTournament(id) {
+    return this.af.database.object('/tournaments/list/' + id);
+  }
+
+  removeTournament(id) {
+    this.getTournament(id).remove();
+  }
   createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
 
@@ -728,16 +735,6 @@ export class FirebaseManager {
       result[teamId1].PTS = result[teamId1].PTS + 1;
     }
   }
-
-
-
-
-
-
-
-
-
-
 
   /********** All Misc Operations ***********/
   sendFeedback(content: string) {
