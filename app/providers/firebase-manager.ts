@@ -86,6 +86,10 @@ export class FirebaseManager {
     });
   }
 
+  removeToVote(matchId) {
+    this.af.database.object(`/players/${this.selfId}/to-vote/${matchId}`).remove();
+  }
+
   //common
   increasePopularity(afPublic, success = null) {
     let sub = afPublic.subscribe(snapshot => {
@@ -364,9 +368,13 @@ export class FirebaseManager {
     this.getMatch(id).remove();
   }
 
+  getMatchBasicData(id, date) {
+    return this.af.database.object(`/matches/data/${date}/${id}/basic`)
+  }
+
+
   // post-precess raw data
   processMatchData(id: string) {
-
     this.getMatch(id).take(1).subscribe(data => {
       let database = `/matches/data/${data.date}/${id}/`;
       let n = 2;
@@ -377,11 +385,23 @@ export class FirebaseManager {
           this.setTeamPlayersToVote(data.awayId, id, data.date);
         }
       }
+      // update basic info
+      let basic: any = {};
+      basic.awayId = data.awayId;
+      basic.homeId = data.homeId;
+      basic.locationAddress = data.locationAddress;
+      basic.locationName = data.locationName;
+      basic.time = data.time;
+      if (data.refreeName)
+        basic.refreeName = data.refreeName;
+      if (data.tournamentId)
+        basic.tournamentId = data.tournamentId;
+      this.af.database.object(database + "basic").set(basic);
       // home
-      this.addProcessedData(successCallback, database + "homeStats", data.homeId, data.homeScore, data.homeGoals,
+      this.addProcessedData(successCallback, database + "statistic/home", data.homeId, data.homeScore, data.homeGoals,
         data.homeAssists, data.homeRedCards, data.homeYellowCards);
       // away
-      this.addProcessedData(successCallback, database + "awayStats", data.awayId, data.awayScore, data.awayGoals,
+      this.addProcessedData(successCallback, database + "statistic/away", data.awayId, data.awayScore, data.awayGoals,
         data.awayAssists, data.awayRedCards, data.awayYellowCards);
     });
   }
@@ -478,11 +498,9 @@ export class FirebaseManager {
 
   /********** MVP ***********/
   updateMVP(database: string) {
-    this.af.database.object(database).take(1).subscribe(data => {
-      console.log(data);
-
-      let homeStats = data.homeStats;
-      let awayStats = data.awayStats;
+    this.af.database.object(database + "statistic").take(1).subscribe(data => {
+      let homeStats = data.home;
+      let awayStats = data.away;
       let isHomeWon = homeStats.score >= awayStats.score;
       let wonStats = isHomeWon ? homeStats : awayStats;
       let lostStats = isHomeWon ? awayStats : homeStats;
@@ -649,9 +667,12 @@ export class FirebaseManager {
     return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
   }
 
+  voteRefree(date, matchId, name, rating) {
+    this.af.database.object(`/matches/data/${date}/${matchId}/refrees/${name}`).set(rating);
+  }
   voteMvp(date: number, matchId: string, playerId: string) {
     this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);
-    this.af.database.object(`/players/${this.selfId}/to-vote/${matchId}`).remove();
+    this.removeToVote(matchId);
   }
 
 

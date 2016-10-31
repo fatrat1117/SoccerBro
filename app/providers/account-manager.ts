@@ -559,12 +559,21 @@ export class AccountManager {
 
   showMatchVip() {
     this.fm.getToVoteInfo().take(1).subscribe(snapshots => {
-      if (snapshots.length == 0)
-        return;
-      // unvoted match
-      this.popoverCtrl.create(
-        MatchRatingPage,
-        { matchDate: snapshots[0].$value, matchId: snapshots[0].$key }).present();
+      let toVote = null;
+      // remove outdated matches
+      snapshots.forEach(snapshot => {
+        let diff = moment().diff(moment(snapshot.$value), 'hours');
+        if (diff > 48)  // 2 days ago
+          this.fm.removeToVote(snapshot.$key);
+        else if (toVote == null)
+          toVote = snapshot;
+      });
+      // check if has unvoted match
+      if (toVote != null) {
+        this.popoverCtrl.create(
+          MatchRatingPage,
+          { matchDate: toVote.$value, matchId: toVote.$key }).present();
+      }
     });
 
 

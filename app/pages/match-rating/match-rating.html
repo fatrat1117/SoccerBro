@@ -2,18 +2,16 @@
   <!-- rate match -->
   <ion-list no-lines [hidden]="showMVP">
     <ion-item>
-      <h2>STK <span danger>vs</span> EP Sport</h2>
-      <p>Sunday, 2:47 PM</p>
+      <h2>
+        {{ ((matchBasic | async)?.homeId | teamBasicPipe | async)?.name }} 
+        <span danger>vs</span> 
+        {{ ((matchBasic | async)?.awayId | teamBasicPipe | async)?.name}}
+      </h2>
+      <p>{{ (matchBasic | async)?.time | momentPipe}}</p>
     </ion-item>
     <ion-item>
-      <ion-avatar item-left>
-        <img src="img/test_avatar.jpg">
-      </ion-avatar>
-      <h3>Li Hao (<span primary>DMF</span>)</h3>
-      <p>5 Goals, 10 Asists</p>
-    </ion-item>
-    <ion-item>
-      <p text-center>Rate your referee</p>
+      <p text-center>Rate referee</p>
+      <h2 text-center>{{ (matchBasic | async)?.refreeName }}</h2>
       <p text-center no-padding>
         <button *ngFor="let i of starArray" ion-button icon-only clear class="disable-hover" 
                 [ngStyle]="getStarColorStyle(i)"

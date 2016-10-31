@@ -1,21 +1,25 @@
 import {Component} from '@angular/core';
 import {ViewController, NavParams} from 'ionic-angular';
 
-import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {FirebaseManager} from '../../providers/firebase-manager';
+import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {MomentPipe} from '../../pipes/moment.pipe';
 
 @Component({
   templateUrl: 'build/pages/match-rating/match-rating.html',
-  pipes: [PlayerBasicPipe]
+  pipes: [PlayerBasicPipe, TeamBasicPipe, MomentPipe]
 })
 export class MatchRatingPage {
   matchDate: number;
   matchId: string;
+  matchBasic: any;
   starArray = [0, 1, 2, 3, 4];
   rating: number;
   showMVP: boolean;
   candidates: any;
   selectedMVP: string;
+  refreeName: string;
   constructor(private viewCtrl: ViewController, private fm: FirebaseManager, private navParams: NavParams) {
     console.log(this.navParams);
     this.matchDate = this.navParams.get('matchDate');
@@ -24,12 +28,14 @@ export class MatchRatingPage {
     this.rating = 0;
     this.showMVP = false;
 
+    this.matchBasic = this.fm.getMatchBasicData(this.matchId, this.matchDate);
     this.candidates = this.fm.getMVPCandidates(this.matchDate, this.matchId);
     this.selectedMVP = "";
   }
 
   setRating(index: number) {
     this.rating = index + 1;
+    
     setTimeout(() => {
       this.showMVP = true;
     }, 500);
@@ -63,6 +69,9 @@ export class MatchRatingPage {
   }
 
   submit() {
+    this.fm.getMatchBasicData(this.matchId, this.matchDate).take(1).subscribe(snapshot => {
+      this.fm.voteRefree(this.matchDate, this.matchId, snapshot.refreeName, this.rating);
+    })
     this.fm.voteMvp(this.matchDate, this.matchId, this.selectedMVP);
     this.viewCtrl.dismiss();
   }
