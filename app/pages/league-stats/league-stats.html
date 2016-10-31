@@ -2,6 +2,9 @@
 	<ion-navbar>
 		<ion-title>League Statistics</ion-title>
 		<ion-buttons end>
+			<button (click)="remove()">
+        <ion-icon name="trash" danger></ion-icon>
+      </button>
 			<button (click)="compute()">
         <ion-icon name="calculator"></ion-icon>
       </button>
@@ -16,6 +19,9 @@
 <ion-content no-padding>
 	<ion-header-bar class="bar-stable">
 		<ion-segment [(ngModel)]="leagueStats">
+			<ion-segment-button value="info">
+				INFO
+			</ion-segment-button>
 			<ion-segment-button value="standings">
 				积分榜
 			</ion-segment-button>
@@ -23,13 +29,16 @@
 				射手榜
 			</ion-segment-button>
 			<ion-segment-button value="fixtures">
-				<!--(click)="showMatches(today.toString())"-->
 				Fixtures
 			</ion-segment-button>
 		</ion-segment>
 	</ion-header-bar>
 
 	<div [ngSwitch]="leagueStats" class="league-stats">
+		<div *ngSwitchCase="'info'">
+			<textarea rows="15" [(ngModel)]="tournamentInfo"></textarea>
+		</div>
+
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
 			<ion-list>
 				<ion-item>
@@ -128,7 +137,7 @@
 		</div>
 
 		<div *ngSwitchCase="'fixtures'">
-			<matches-content  [tournamentId] = tournamentId></matches-content>
+			<matches-content [tournamentId]=t ournamentId></matches-content>
 		</div>
 	</div>
 

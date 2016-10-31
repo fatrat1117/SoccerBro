@@ -21,7 +21,7 @@ export class ScheduleMatchPage {
   matchDate: string;
   matchTime: string;
   notice: string;
-  //pushIds = [];
+  refereeName: any;
   busy = false;
   mId: any;
   homeScore = 0;
@@ -185,7 +185,8 @@ export class ScheduleMatchPage {
       awayGoals: this.awayGoals,
       awayAssists: this.awayAssists,
       awayYellowCards: this.awayYellowCards,
-      awayRedCards: this.awayRedCards
+      awayRedCards: this.awayRedCards,
+      refereeName: this.refereeName
     };
 
     let self = this;
