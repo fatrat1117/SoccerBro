@@ -19,6 +19,9 @@
 <ion-content no-padding>
 	<ion-header-bar class="bar-stable">
 		<ion-segment [(ngModel)]="leagueStats">
+			<ion-segment-button value="info">
+				INFO
+			</ion-segment-button>
 			<ion-segment-button value="standings">
 				积分榜
 			</ion-segment-button>
@@ -26,13 +29,16 @@
 				射手榜
 			</ion-segment-button>
 			<ion-segment-button value="fixtures">
-				<!--(click)="showMatches(today.toString())"-->
 				Fixtures
 			</ion-segment-button>
 		</ion-segment>
 	</ion-header-bar>
 
 	<div [ngSwitch]="leagueStats" class="league-stats">
+		<div *ngSwitchCase="'info'">
+			<textarea rows="15" [(ngModel)]="tournamentInfo"></textarea>
+		</div>
+
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
 			<ion-list>
 				<ion-item>

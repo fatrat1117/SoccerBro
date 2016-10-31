@@ -678,6 +678,7 @@ export class FirebaseManager {
   removeTournament(id) {
     this.getTournament(id).remove();
   }
+  
   createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
 
