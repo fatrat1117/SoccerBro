@@ -279,12 +279,17 @@
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayRedCards)"></ion-icon>
 			</ion-item>
 		</ion-list>
+
+	<ion-item *ngIf="mId">
+      <ion-label primary>Referee</ion-label>
+      <ion-input type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
+    </ion-item>
 	</ion-card>
 
 	<ion-row padding-horizontal>
 		<ion-col text-center>
 			<button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
-			<button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="updateMatch()">Update</button>
+			<button *ngIf="mId" [disabled]="busy || !location.address || !refereeName" block secondary small (click)="updateMatch()">Update</button>
 		</ion-col>
 		<ion-col text-center>
 			<button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
