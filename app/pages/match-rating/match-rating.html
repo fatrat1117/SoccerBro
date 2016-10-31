@@ -11,7 +11,7 @@
     </ion-item>
     <ion-item>
       <p text-center>Rate referee</p>
-      <h2 text-center>{{ (matchBasic | async)?.refreeName }}</h2>
+      <h2 text-center>{{ (matchBasic | async)?.refereeName }}</h2>
       <p text-center no-padding>
         <button *ngFor="let i of starArray" ion-button icon-only clear class="disable-hover" 
                 [ngStyle]="getStarColorStyle(i)"

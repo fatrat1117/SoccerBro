@@ -392,8 +392,8 @@ export class FirebaseManager {
       basic.locationAddress = data.locationAddress;
       basic.locationName = data.locationName;
       basic.time = data.time;
-      if (data.refreeName)
-        basic.refreeName = data.refreeName;
+      if (data.refereeName)
+        basic.refereeName = data.refereeName;
       if (data.tournamentId)
         basic.tournamentId = data.tournamentId;
       this.af.database.object(database + "basic").set(basic);
@@ -667,8 +667,8 @@ export class FirebaseManager {
     return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
   }
 
-  voteRefree(date, matchId, name, rating) {
-    this.af.database.object(`/matches/data/${date}/${matchId}/refrees/${name}`).set(rating);
+  voteReferee(date, matchId, name, rating) {
+    this.af.database.object(`/matches/data/${date}/${matchId}/referees/${name}`).set(rating);
   }
   voteMvp(date: number, matchId: string, playerId: string) {
     this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);

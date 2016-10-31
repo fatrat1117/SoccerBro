@@ -19,7 +19,7 @@ export class MatchRatingPage {
   showMVP: boolean;
   candidates: any;
   selectedMVP: string;
-  refreeName: string;
+  refereeName: string;
   constructor(private viewCtrl: ViewController, private fm: FirebaseManager, private navParams: NavParams) {
     console.log(this.navParams);
     this.matchDate = this.navParams.get('matchDate');
@@ -70,7 +70,7 @@ export class MatchRatingPage {
 
   submit() {
     this.fm.getMatchBasicData(this.matchId, this.matchDate).take(1).subscribe(snapshot => {
-      this.fm.voteRefree(this.matchDate, this.matchId, snapshot.refreeName, this.rating);
+      this.fm.voteReferee(this.matchDate, this.matchId, snapshot.refereeName, this.rating);
     })
     this.fm.voteMvp(this.matchDate, this.matchId, this.selectedMVP);
     this.viewCtrl.dismiss();
