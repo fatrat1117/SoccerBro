@@ -92,6 +92,8 @@ export class ScheduleMatchPage {
         if (matchSnapshot.awayRedCards)
           self.awayRedCards = matchSnapshot.awayRedCards;
 
+        if (matchSnapshot.refereeName)
+          self.refereeName = matchSnapshot.refereeName;
         fm.getTeamBasic(matchSnapshot.homeId).subscribe(teamSnapshot=> self.home["name"] = teamSnapshot.name);
         fm.getTeamBasic(matchSnapshot.awayId).subscribe(teamSnapshot=> self.away["name"] = teamSnapshot.name);
       });
