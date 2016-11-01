@@ -350,15 +350,13 @@ export class FirebaseManager {
       .catch(err => error(err));
   }
 
-  updateMatch(id, matchObj, success, error) {
+  updateMatch(id, matchObj, oldDate, success, error) {
     console.log('updateMatch', matchObj);
-
-
     this.getMatch(id).update(matchObj)
       .then(newMatch => {
         this.getMatchDate(matchObj.date).set(true);
         success();
-        this.processMatchData(id);
+        this.processMatchData(id, oldDate);
       })
       .catch(err => error(err));
 
@@ -374,7 +372,11 @@ export class FirebaseManager {
 
 
   // post-precess raw data
-  processMatchData(id: string) {
+  processMatchData(id, oldDate) {
+    // remove old data
+    console.log(oldDate);
+    
+    this.af.database.object(`/matches/data/${oldDate}/${id}/`).remove();
     this.getMatch(id).take(1).subscribe(data => {
       let database = `/matches/data/${data.date}/${id}/`;
       let n = 2;

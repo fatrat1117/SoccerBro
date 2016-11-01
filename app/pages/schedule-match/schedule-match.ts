@@ -14,6 +14,7 @@ declare var google: any;
   pipes: [transPipe]
 })
 export class ScheduleMatchPage {
+  oldDate: string;
   home: any;
   away: any;
   location: any;
@@ -64,6 +65,7 @@ export class ScheduleMatchPage {
         self.location["name"] = matchSnapshot.locationName;
         self.location["address"] = matchSnapshot.locationAddress;
         self.matchDate = am.numberToDateString(matchSnapshot.date);
+        self.oldDate = matchSnapshot.date;
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
         //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
@@ -199,6 +201,7 @@ export class ScheduleMatchPage {
     };
 
     this.fm.updateMatch(this.mId, updateMatchData, 
+    this.oldDate,
     success, 
     error);
   }
