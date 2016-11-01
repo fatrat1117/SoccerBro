@@ -52,7 +52,7 @@
 		<ion-item>
 			<ion-label stacked primary>{{'Location' | trans}}</ion-label>
 			<ion-label>
-				<input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
+				<input id="autocompleteInput" [(ngModel)]="location.name" style="width:100%; border:none; text-align:center;" />
 			</ion-label>
 		</ion-item>
 

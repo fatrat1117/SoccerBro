@@ -55,7 +55,7 @@ export class TabsPage implements OnInit {
             console.log('initialize success');
             self.am.dismissLoading();
             setTimeout(() => {
-              self.am.showMatchVip();
+              self.am.showMatchMVP();
             }, 2000);
           }
         }

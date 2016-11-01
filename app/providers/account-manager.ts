@@ -557,16 +557,21 @@ export class AccountManager {
     alert.present();
   }
 
-  showMatchVip() {
+  showMatchMVP() {
     this.fm.getToVoteInfo().take(1).subscribe(snapshots => {
       let toVote = null;
       // remove outdated matches
       snapshots.forEach(snapshot => {
-        let diff = moment().diff(moment(snapshot.$value), 'hours');
-        if (diff > 48)  // 2 days ago
-          this.fm.removeToVote(snapshot.$key);
-        else if (toVote == null)
-          toVote = snapshot;
+        let today = moment();
+        let matchDate = moment(snapshot.$value);
+        if (today >= matchDate)
+        {
+          let diff = today.diff(matchDate, 'hours');
+          if (diff > 48)  // 2 days ago
+            this.fm.removeToVote(snapshot.$key);
+          else if (toVote == null)
+            toVote = snapshot;
+        }
       });
       // check if has unvoted match
       if (toVote != null) {
