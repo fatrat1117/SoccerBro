@@ -35,9 +35,10 @@
 	</ion-header-bar>
 
 	<div [ngSwitch]="leagueStats" class="league-stats">
-		<div *ngSwitchCase="'info'">
-			<textarea rows="15" [(ngModel)]="tournamentInfo"></textarea>
-		</div>
+		<ion-card *ngSwitchCase="'info'">
+			<ion-textarea rows="15" [(ngModel)]="tournamentDescription"></ion-textarea>
+			<button (click)="updateTournamentInfo()">Update</button>
+		</ion-card>
 
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
 			<ion-list>

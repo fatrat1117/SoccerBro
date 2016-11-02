@@ -26,7 +26,8 @@ export class LeagueStatsPage {
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
   tournamentId : any;
-  tournamentInfo:any;
+  afTournamentInfo: any;
+  tournamentDescription: any;
 
   constructor(private nav: NavController,
     private fm: FirebaseManager,
@@ -57,26 +58,14 @@ export class LeagueStatsPage {
         self.dateSubject.next(self.today);
       }, 1000);
     });
+
     this.afMatches = fm.queryMatches(this.dateSubject);
     this.afMatchesBytournamentId = fm.getMatchesByTournamentId(this.tournamentId);
-
-    this.afMatchesBytournamentId.subscribe(matches => {
-      console.log(matches);
-      matches.forEach(match => {
-        console.log(match.date);
-      });
-    });
-
-
-
-
-
-    // for (let tournament in this.afMatchesBytournamentId){
-    //   console.log("Matches",tournament);
-    // }
-
-    //console.log('byIdMatcheList', this.afMatchesBytournamentId);
-    console.log('today', this.today);
+    this.afTournamentInfo = fm.getTournamentInfo(this.tournamentId);
+    this.afTournamentInfo.subscribe(info => {
+      if (info.description)
+        this.tournamentDescription = info.description;
+    })
   }
 
   testClick() {
@@ -152,5 +141,9 @@ export class LeagueStatsPage {
   remove() {
     this.fm.removeTournament(this.tournamentId);
     this.nav.pop();
+  }
+
+  updateTournamentInfo() {
+    this.afTournamentInfo.update({description: this.tournamentDescription});
   }
  }

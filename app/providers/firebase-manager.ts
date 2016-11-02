@@ -698,6 +698,10 @@ export class FirebaseManager {
     return this.af.database.object('/tournaments/list/' + id);
   }
 
+  getTournamentInfo(id) {
+    return this.af.database.object('/tournaments/list/' + id + '/info');
+  }
+
   removeTournament(id) {
     this.getTournament(id).remove();
   }
