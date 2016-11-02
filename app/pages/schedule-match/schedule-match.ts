@@ -22,11 +22,11 @@ export class ScheduleMatchPage {
   matchDate: string;
   matchTime: string;
   notice: string;
-  refereeName: any;
+  refereeName = '';
   busy = false;
   mId: any;
-  homeScore = 0;
-  awayScore = 0;
+  homeScore: any;
+  awayScore: any;
   homeGoals = [];
   homeAssists = [];
   homeYellowCards = [];
@@ -180,8 +180,6 @@ export class ScheduleMatchPage {
       locationName: this.location.name,
       locationAddress: this.location.address,
       notice: this.notice,
-      homeScore: this.homeScore,
-      awayScore: this.awayScore,
       homeGoals: this.homeGoals,
       homeAssists: this.homeAssists,
       homeYellowCards: this.homeYellowCards,
@@ -192,6 +190,11 @@ export class ScheduleMatchPage {
       awayRedCards: this.awayRedCards,
       refereeName: this.refereeName
     };
+
+    if (this.homeScore)
+      updateMatchData["homeScore"] = this.homeScore;
+    if (this.awayScore)
+      updateMatchData["awayScore"] = this.awayScore;
 
     let self = this;
     let success = () => {
