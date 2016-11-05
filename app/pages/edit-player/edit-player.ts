@@ -21,7 +21,8 @@ export class EditPlayerPage {
   logoData: any;
   logoUrl: any;
   teams: any[];
-
+  numberChanged = false;
+  
   constructor(private am: AccountManager,
               private navParams: NavParams,
               private nav: NavController,
