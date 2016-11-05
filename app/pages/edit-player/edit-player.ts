@@ -4,10 +4,11 @@ import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {ManageTeamPage} from '../manage-team/manage-team';
 import {transPipe} from '../../providers/localization'
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/edit-player/edit-player.html',
-  pipes: [transPipe]
+  pipes: [transPipe, TeamBasicPipe]
 })
 export class EditPlayerPage {
   busy: boolean;
@@ -19,6 +20,7 @@ export class EditPlayerPage {
   player: any;
   logoData: any;
   logoUrl: any;
+  teams: any[];
 
   constructor(private am: AccountManager,
               private navParams: NavParams,
@@ -41,6 +43,9 @@ export class EditPlayerPage {
       position: '',
       description: ''
     };
+    this.fm.getSelfTeams().take(1).subscribe(snapShots => {
+      this.teams = snapShots;
+    });
   }
 
   changePhoto() {
@@ -63,8 +68,10 @@ export class EditPlayerPage {
     //console.log(obj);
 
     let self = this;
+    let successCount = this.teams.length + 1;
     let success = _ => {
-      self.nav.pop();
+      if (--successCount == 0)
+        self.nav.pop();
       //self.team.logo = self.team.name = self.team.description = '';
       //self.busy = false;
     }
@@ -73,6 +80,11 @@ export class EditPlayerPage {
       self.busy = false;
     }
     this.fm.updatePlayer(obj, success, error);
+
+    // update team number
+    this.teams.forEach(t => {
+      this.fm.updateTeamNumber(t.$key, t.$value, success, error);
+    })
   }
 
   save() {

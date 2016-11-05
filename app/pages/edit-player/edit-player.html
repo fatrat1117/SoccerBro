@@ -69,5 +69,13 @@
       <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetail | async)?.description" (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>
+
+    <!-- numbers -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-item *ngFor="let team of teams">
+      <ion-label >{{ (team.$key | teamBasicPipe | async)?.name }}</ion-label>
+      <ion-input text-right type="number" [(ngModel)]="team.$value">
+      </ion-input>
+    </ion-item>
   </ion-item-group>
 </ion-content>

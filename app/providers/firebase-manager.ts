@@ -48,6 +48,30 @@ export class FirebaseManager {
     this.getPlayerDetail(p.pId).update(detail);
   }
 
+  updateTeamNumber(teamId, number, success, error) {
+    this.getPlayers(teamId).take(1).subscribe(players => {
+      players.forEach(p => {
+        if (p.number == number)
+        {
+          if (p.$key == this.selfId)
+          {
+            success();
+            return;
+          }
+
+          if (p.$key != this.selfId)
+          {
+            error("Number exists");
+            return;
+          }
+        }
+      })
+    });
+    this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).set(number);
+    this.af.database.object(`/teams/${teamId}/players/${this.selfId}`).update({ number: number });
+    success();
+  }
+
   getSelfMatchNotifications() {
     return this.af.database.list(`/players/${this.selfId}/match-notifications`, {
       query: { orderByChild: 'time' }
