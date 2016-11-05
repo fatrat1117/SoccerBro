@@ -50,26 +50,27 @@ export class FirebaseManager {
 
   updateTeamNumber(teamId, number, success, error) {
     this.getPlayers(teamId).take(1).subscribe(players => {
+      console.log(teamId);
+      console.log(players);
+      
+      let isValid = true;
       players.forEach(p => {
-        if (p.number == number)
-        {
-          if (p.$key == this.selfId)
-          {
+        if (p.number == number) {
+          if (p.$key == this.selfId) {
+            isValid = false;
             success();
-            return;
-          }
-
-          if (p.$key != this.selfId)
-          {
+          } else {
+            isValid = false;
             error("Number exists");
-            return;
           }
         }
       })
+      if (isValid) {
+        this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).set(number);
+        this.af.database.object(`/teams/${teamId}/players/${this.selfId}`).update({ number: number });
+        success();
+      }
     });
-    this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).set(number);
-    this.af.database.object(`/teams/${teamId}/players/${this.selfId}`).update({ number: number });
-    success();
   }
 
   getSelfMatchNotifications() {
