@@ -49,9 +49,7 @@ export class FirebaseManager {
   }
 
   updateTeamNumber(teamId, number, success, error) {
-    this.getPlayers(teamId).take(1).subscribe(players => {
-      console.log(teamId);
-      console.log(players);
+    let subscription = this.getPlayers(teamId).subscribe(players => {
       
       let isValid = true;
       players.forEach(p => {
@@ -65,6 +63,8 @@ export class FirebaseManager {
           }
         }
       })
+      
+      subscription.unsubscribe();
       if (isValid) {
         this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).set(number);
         this.af.database.object(`/teams/${teamId}/players/${this.selfId}`).update({ number: number });
