@@ -48,8 +48,8 @@ export class FirebaseManager {
     this.getPlayerDetail(p.pId).update(detail);
   }
 
-  updateTeamNumber(teamId, number, success, error) {
-    let subscription = this.getPlayers(teamId).subscribe(players => {
+  validateTeamNumber(teamId, number, success, error) {
+    let subscription = this.getTeamPlayers(teamId).subscribe(players => {
       
       let isValid = true;
       players.forEach(p => {
@@ -66,11 +66,15 @@ export class FirebaseManager {
       
       subscription.unsubscribe();
       if (isValid) {
-        this.af.database.object(`/players/${this.selfId}/teams/${teamId}`).set(number);
-        this.af.database.object(`/teams/${teamId}/players/${this.selfId}`).update({ number: number });
+        this.updateTeamNumber(teamId, this.selfId, number);
         success();
       }
     });
+  }
+
+  updateTeamNumber(teamId, playerId, number) {
+      this.af.database.object(`/players/${playerId}/teams/${teamId}`).set(number);
+      this.af.database.object(`/teams/${teamId}/players/${playerId}`).update({ number: number });
   }
 
   getSelfMatchNotifications() {
@@ -148,10 +152,6 @@ export class FirebaseManager {
     return this.af.database.object(`/teams/${teamId}/detail-info`);
   }
 
-  getPlayers(teamId: string) {
-    return this.af.database.list(`/teams/${teamId}/players`);
-  }
-
   getPlayersObj(teamId: string) {
     return this.af.database.object(`/teams/${teamId}/players`);
   }
@@ -220,7 +220,7 @@ export class FirebaseManager {
   withdrawSelfMatch(matchId: string) {
     const promise = this.af.database.object(`/teams/${this.selfTeamId}/matches/${matchId}`).remove();
     promise.then(_ => {
-      let subscription = this.getPlayers(this.selfTeamId).subscribe(snapshots => {
+      let subscription = this.getTeamPlayers(this.selfTeamId).subscribe(snapshots => {
         subscription.unsubscribe();
         snapshots.forEach(snapshot => {
           this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
@@ -475,7 +475,7 @@ export class FirebaseManager {
 
     // find player id
     teamData.players = {};
-    this.getPlayers(id).take(1).subscribe(snapshots => {
+    this.getTeamPlayers(id).take(1).subscribe(snapshots => {
       snapshots.forEach(p => {
         if (players[p.number] != undefined)
           teamData.players[p.$key] = players[p.number];

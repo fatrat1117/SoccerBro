@@ -22,7 +22,7 @@ export class ManagePlayerPage {
   private nav : NavController,
   private fm: FirebaseManager) {
     this.tId = this.navParams.get('tId');
-    this.players = this.fm.getPlayers(this.tId);
+    this.players = this.fm.getTeamPlayers(this.tId);
     this.busy = false;
     // this.teams = [];
     // let self = this;

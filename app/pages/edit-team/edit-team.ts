@@ -4,6 +4,7 @@ import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {SearchPlayerPage} from '../search-player/search-player';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
+import {ManageNumberPage} from '../manage-number/manage-number';
 import {transPipe} from '../../providers/localization'
 
 @Component({
@@ -53,6 +54,10 @@ export class EditTeamPage {
       self.busy = false;
     }
     this.am.selectImgGetData(success, error);
+  }
+
+  managePlayerNumber() {
+    this.modalCtrl.create(ManageNumberPage, { teamId: this.tId }).present();
   }
 
   searchPlayer() {

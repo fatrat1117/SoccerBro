@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'Players' | trans}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let player of players">
+      <ion-label dark floating>
+        {{ (player.$key | playerBasicPipe | async)?.displayName }}
+      </ion-label>
+      <ion-input text-center primary type="number" [ngModel]="player.number" (ngModelChange)="player.number=$event;numberChanged=true;">
+      </ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-row padding-horizontal>
+    <ion-col text-center>
+      <button block secondary small [disabled]="busy || !numberChanged" (click)="save()">
+        {{'Save' | trans}}
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
