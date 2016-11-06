@@ -16,6 +16,7 @@ import * as moment from 'moment';
 })
 export class LeaguePage {
   afTournaments : any;
+  afWhitelist: any;
 
   constructor(private navCtrl: NavController,
     private local: Localization,
@@ -24,15 +25,8 @@ export class LeaguePage {
 
     let  self = this;
     this.afTournaments = fm.getTournamentList();
-    // fm.getMatchDates().subscribe(dates => {
-    //   self.dates = dates;
-    //   //console.log(dates);
-    //   setTimeout(function() {
-    //     console.log('show today', self.today);
-    //     self.dateSubject.next(self.today);
-    //   }, 1000);
-    // });
-    // this.afMatches = fm.queryMatches(this.dateSubject);
+    if (fm.selfId)
+      this.afWhitelist = fm.getTournamentAdmin(fm.selfId);
   }
 
   addTournament() {
