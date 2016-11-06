@@ -26,7 +26,7 @@ export class LeaguePage {
     let  self = this;
     this.afTournaments = fm.getTournamentList();
     if (fm.selfId)
-      this.afWhitelist = fm.getTournamentAdmin(fm.selfId);
+      this.afWhitelist = fm.getTournamentsAdmin(fm.selfId);
   }
 
   addTournament() {
