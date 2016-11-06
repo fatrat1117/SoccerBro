@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>League Statistics</ion-title>
-		<ion-buttons end>
+		<ion-buttons end *ngIf="(afWhitelist | async)?.$value">
 			<button (click)="remove()">
         <ion-icon name="trash" danger></ion-icon>
       </button>
@@ -36,8 +36,8 @@
 
 	<div [ngSwitch]="leagueStats" class="league-stats">
 		<ion-card *ngSwitchCase="'info'">
-			<ion-textarea rows="15" [(ngModel)]="tournamentDescription"></ion-textarea>
-			<button (click)="updateTournamentInfo()">Update</button>
+			<ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled] = "!((afWhitelist | async)?.$value)"></ion-textarea>
+			<button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
 		</ion-card>
 
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">

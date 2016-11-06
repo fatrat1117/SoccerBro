@@ -815,6 +815,14 @@ export class FirebaseManager {
     this.getTournament(id).remove();
   }
   
+  getTournamentsAdmin(id) {
+    return this.af.database.object('/tournaments/whitelist/' + id);
+  }
+
+  getTournamentAdmin(id) {
+    return this.af.database.object('/tournaments/list/' + id + '/whitelist/' + this.selfId);
+  }
+
   createTournament(tournamentObj, success, error) {
     console.log('createTournament', tournamentObj);
 
