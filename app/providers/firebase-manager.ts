@@ -23,6 +23,10 @@ export class FirebaseManager {
     return this.af.database.object(`/players/${playerId}/detail-info`);
   }
 
+  getPlayerRole(id) {
+    return this.af.database.object(`/players/${id}/role`);
+  }
+
   updatePlayer(p, success, error) {
     let basic = {};
     if (p.photo)
