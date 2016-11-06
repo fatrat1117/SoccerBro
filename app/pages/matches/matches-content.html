@@ -1,62 +1,62 @@
 <ion-list>
-    <ion-grid no-padding>
-    <ion-row>
-					<ion-col width-20 class="matches-date-tab-col">
-						<ion-list class="date-tab-list">
-							<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
-								{{date.$key | stringToDatePipe}}
-							</ion-item>
-						</ion-list>
-					</ion-col>
-					<ion-col width-80 class="matches-match-info-col">
-						<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId" (click) = "popupUpdateSchedulePage(match.$key)">
-							<ion-grid no-padding>
-								<ion-row>
-									<ion-col class="matches-info" no-padding>
-										<ion-item class="team-bar">
-											<ion-avatar item-left>
-												<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
-											</ion-avatar>
-											<ion-grid no-padding>
-												<ion-row no-padding>
-													<ion-col no-padding class="team-name">
+	<ion-grid no-padding>
+		<ion-row>
+			<ion-col width-20 class="matches-date-tab-col">
+				<ion-list class="date-tab-list">
+					<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
+						{{date.$key | stringToDatePipe}}
+					</ion-item>
+				</ion-list>
+			</ion-col>
+			<ion-col width-80 class="matches-match-info-col">
+				<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId" (click)="popupUpdateSchedulePage(match.$key)">
+					<ion-grid no-padding>
+						<ion-row>
+							<ion-col class="matches-info" no-padding>
+								<ion-item class="team-bar">
+									<ion-avatar item-left>
+										<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
+									</ion-avatar>
+									<ion-grid no-padding>
+										<ion-row no-padding>
+											<ion-col no-padding class="team-name">
 
-														{{(match.homeId | teamBasicPipe | async)?.name}}
+												{{(match.homeId | teamBasicPipe | async)?.name}}
 
-													</ion-col>
-													<ion-col no-padding width-10 class="team-score">
-                           {{match.homeScore}}
-													</ion-col>
-												</ion-row>
-											</ion-grid>
-										</ion-item>
+											</ion-col>
+											<ion-col no-padding width-10 class="team-score">
+												{{match.homeScore}}
+											</ion-col>
+										</ion-row>
+									</ion-grid>
+								</ion-item>
 
-										<ion-item class="team-bar">
-											<ion-avatar item-left>
-												<ion-img [src]="(match.awayId | teamBasicPipe | async)?.logo"></ion-img>
-											</ion-avatar>
-											<ion-grid no-padding>
-												<ion-row no-padding>
-													<ion-col no-padding class="team-name">
-														{{(match.awayId | teamBasicPipe | async)?.name}}
-													</ion-col>
-													<ion-col no-padding width-20 class="team-score">
-														{{match.awayScore}}
-													</ion-col>
-												</ion-row>
-											</ion-grid>
-										</ion-item>
-                  </ion-col>
-                  <ion-col class="matches-time">
-                    <div class="matches-time-wrapper">
-                    <ion-item>{{match.time | numberToTimePipe}}</ion-item>
-                    <ion-item>战报</ion-item>
-                    </div>
-                  </ion-col>
-								</ion-row>
-							</ion-grid>
-						</ion-item>
-					</ion-col>
-				</ion-row>
-        </ion-grid>
-  </ion-list>
+								<ion-item class="team-bar">
+									<ion-avatar item-left>
+										<ion-img [src]="(match.awayId | teamBasicPipe | async)?.logo"></ion-img>
+									</ion-avatar>
+									<ion-grid no-padding>
+										<ion-row no-padding>
+											<ion-col no-padding class="team-name">
+												{{(match.awayId | teamBasicPipe | async)?.name}}
+											</ion-col>
+											<ion-col no-padding width-20 class="team-score">
+												{{match.awayScore}}
+											</ion-col>
+										</ion-row>
+									</ion-grid>
+								</ion-item>
+							</ion-col>
+							<ion-col class="matches-time">
+								<div class="matches-time-wrapper">
+									<ion-item>{{match.time | numberToTimePipe}}</ion-item>
+									<ion-item>战报</ion-item>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-list>
