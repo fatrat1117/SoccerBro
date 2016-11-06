@@ -18,7 +18,11 @@ import {MatchesPageContent} from '../matches/matches-content';
 })
 
 export class MatchesPage {
-  constructor(private modalController: ModalController) {
+  afRole: any;
+  constructor(private modalController: ModalController,
+  fm : FirebaseManager) {
+    if (fm.selfId)
+      this.afRole = fm.getPlayerRole(fm.selfId);
   }
 
    showScheduleMatchModal() {
