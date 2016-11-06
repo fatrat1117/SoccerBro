@@ -13,7 +13,6 @@ import { transPipe } from '../../providers/localization'
 })
 export class MatchNotPage {
   matches: any;
-  matchId: string;
   jerseyColor: string;
   notice: string;
   pushIds = [];
@@ -59,7 +58,7 @@ export class MatchNotPage {
 
   // post
   postNewMatch() {
-    console.log(this.upcomingMatch);
+    //console.log(this.upcomingMatch);
 
     // let time = moment(this.matchDate + " " + this.matchTime).unix() * 1000;
 

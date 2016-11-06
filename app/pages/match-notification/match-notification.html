@@ -10,7 +10,7 @@
   <ion-list>
     <!-- match -->
     <ion-item tappable>
-      <ion-label stacked primary>Match Notification</ion-label>
+      <ion-label stacked primary>Match</ion-label>
       <ion-select [(ngModel)]="upcomingMatch" text-center >
         <ion-option *ngFor="let m of matches | async" value="{{m.$key}}">
         {{ m.time | stringToDatePipe }} - {{(m.opponentId | teamBasicPipe | async)?.name}}
