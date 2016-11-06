@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 
+import * as moment from 'moment';
 declare let firebase: any;
 
 @Injectable()
@@ -217,6 +218,8 @@ export class FirebaseManager {
     this.updateTotalMatches(this.selfTeamId);
   }
 
+  
+
   withdrawSelfMatch(matchId: string) {
     const promise = this.af.database.object(`/teams/${this.selfTeamId}/matches/${matchId}`).remove();
     promise.then(_ => {
@@ -370,6 +373,22 @@ export class FirebaseManager {
         this.getMatchDate(matchObj.date).set(true);
         if (matchObj.tournamentId)
           this.getTournamentMatchDate(matchObj.tournamentId, matchObj.date).set(true);
+
+        // add to team match
+        let matchId = newMatch["key"];
+        let teamData = {
+          time: matchObj.time,
+          locationName: matchObj.locationName,
+          locationAddress: matchObj.locationAddress,
+          isPosted: false
+        };
+        // add to home team
+        teamData["opponentId"] = matchObj.awayId;
+        this.addTeamMatch(matchId, teamData, matchObj.homeId);
+        // add to away team
+        teamData["opponentId"] = matchObj.homeId;
+        this.addTeamMatch(matchId, teamData, matchObj.awayId);
+
         success();
       })
       .catch(err => error(err));
@@ -380,21 +399,86 @@ export class FirebaseManager {
     this.getMatch(id).update(matchObj)
       .then(newMatch => {
         this.getMatchDate(matchObj.date).set(true);
-        success();
+        // update team match
+        let teamData = {
+          time: matchObj.time,
+          locationName: matchObj.locationName,
+          locationAddress: matchObj.locationAddress
+        };
+        // update home team
+        teamData["opponentId"] = matchObj.awayId;
+        this.addTeamMatch(id, teamData, matchObj.homeId);
+        // update away team
+        teamData["opponentId"] = matchObj.homeId;
+        this.addTeamMatch(id, teamData, matchObj.awayId);
+
+        // process raw data
         this.processMatchData(id, oldDate);
+
+        success();
       })
       .catch(err => error(err));
 
   }
 
+  addTeamMatch(matchId: string, match: any, teamId: string) {
+    match.createdAt = firebase.database.ServerValue.TIMESTAMP;
+    this.getTeamMatch(teamId, matchId).update(match);
+    /*
+    const promise = this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
+    promise.then(newMatch => {
+      let id = newMatch["key"];
+      // add to team players
+      this.getPlayersObj(teamId).subscribe(snapshots => {
+        for (let pId in snapshots) {
+          if (pId != '$key') {
+            this.addMatchNotification(pId, id, {
+              isRead: false,
+              teamId: teamId,
+              opponentId: match.opponentId,
+              time: match.time
+            });
+          }
+        }
+      });
+    }).catch(err => {
+      alert(err);
+    });
+    */
+
+    // update totalMatches
+    this.updateTotalMatches(this.selfTeamId);
+  }
+
+  deleteTeamMatch(teamId: string, matchId: string) {
+    this.getTeamMatch(teamId, matchId).remove();
+  }
+
   deleteMatch(id) {
-    this.getMatch(id).remove();
+    this.getMatch(id).take(1).subscribe(snapShot => {
+      this.deleteTeamMatch(snapShot.homeId, id);
+      this.deleteTeamMatch(snapShot.awayId, id);
+      this.getMatch(id).remove();
+    })
+  }
+
+  getTeamMatch(teamId: string, matchId: string) {
+    return this.af.database.object(`/teams/${teamId}/matches/${matchId}`);
+  }
+
+  getSelfUnpostedMatches() {
+    let now = moment().unix() * 1000
+    return this.af.database.list(`/teams/${this.selfTeamId}/matches`, {
+      query: {
+        orderByChild: 'time',
+        startAt: now
+      }
+    });
   }
 
   getMatchBasicData(id, date) {
     return this.af.database.object(`/matches/data/${date}/${id}/basic`)
   }
-
 
   // post-precess raw data
   processMatchData(id, oldDate) {

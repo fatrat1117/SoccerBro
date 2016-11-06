@@ -165,9 +165,7 @@ export class ScheduleMatchPage {
     if (this.tournamentId)
       matchData["tournamentId"] = this.tournamentId;
 
-    this.fm.scheduleMatch(matchData, 
-    success, 
-    error);
+    this.fm.scheduleMatch(matchData, success, error);
   }
 
   updateMatch() {
@@ -188,7 +186,9 @@ export class ScheduleMatchPage {
       awayAssists: this.awayAssists,
       awayYellowCards: this.awayYellowCards,
       awayRedCards: this.awayRedCards,
-      refereeName: this.refereeName
+      refereeName: this.refereeName,
+      homeId: this.home.id,
+      awayId: this.away.id
     };
 
     if (this.homeScore)

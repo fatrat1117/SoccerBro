@@ -5,7 +5,7 @@ import {transPipe} from '../../providers/localization'
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {ChatRoomPage} from '../chat-room/chat-room';
 import {MatchInfoPage} from '../match-info/match-info';
-import {NewMatchPage} from '../new-match/new-match';
+import {MatchNotPage} from '../match-notification/match-notification';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import {MatchInfoPipe} from '../../pipes/match-info.pipe';
 import {MatchFilterPipe} from '../../pipes/match-filter.pipe';
@@ -59,6 +59,10 @@ export class MessagePage {
 
   trackByKey(_item) {
     return _item.key
+  }
+
+  addNewMatchNot() {
+    this.modalController.create(MatchNotPage).present();
   }
 
   /*

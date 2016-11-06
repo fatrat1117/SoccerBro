@@ -45,7 +45,7 @@ export class StringToDatePipe implements PipeTransform {
   transform(timestamp: string) {
     let t = Number(timestamp);
     console.log(t);
-    return moment(t).format('M/D');
+    return moment(t).format('M/DD');
   }
 }
 

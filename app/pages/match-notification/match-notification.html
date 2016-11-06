@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Match Notification
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <!-- match -->
+    <ion-item tappable>
+      <ion-label stacked primary>Match Notification</ion-label>
+      <ion-select text-center >
+        <ion-option *ngFor="let m of matches | async" value="m.$key">
+          {{ m.time | stringToDatePipe }} - {{(m.opponentId | teamBasicPipe | async)?.name}}
+        </ion-option>
+        <ion-option>
+          1
+        </ion-option>
+
+        <ion-option>
+          2
+        </ion-option>
+      </ion-select>
+    </ion-item> 
+
+    <!-- color -->
+    <ion-item tappable (click)="pickColor()">
+      <ion-label stacked primary>{{'JerseyColor' | trans}}</ion-label>
+      <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor!='white'">
+        <ion-icon name="ios-shirt" [style.color]="jerseyColor"></ion-icon>
+      </ion-label>
+      <ion-label no-margin margin-bottom text-center style="font-size:200%;" *ngIf="jerseyColor=='white'">
+        <ion-icon name="ios-shirt-outline" style="color:lightgrey;"></ion-icon>
+      </ion-label>
+    </ion-item>
+
+    <!-- notice -->
+    <ion-item>
+      <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
+      <ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
+      </ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-row padding-horizontal>
+    <ion-col text-center>
+      <button block secondary small>{{'Post' | trans}}</button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

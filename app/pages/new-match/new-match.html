@@ -8,27 +8,6 @@
 
 <ion-content>
   <ion-list>
-    <!-- opponent -->
-    <!-->
-    <ion-item (click)="searchTeam()" text-center>
-      <ion-avatar item-left>
-        <img [src]="opponent?.logo || 'img/none.png'">
-      </ion-avatar>
-      <h2>{{ opponent?.name || "Select your opponent" }}</h2>
-    </ion-item>
-    <ion-item (click)="searchTeam()">
-      <ion-label stacked primary>Opponent</ion-label>
-      <ion-label>
-        <ion-row center>
-          <ion-avatar style="margin-right:10px; margin-left:auto;">
-            <img [src]="opponent?.logo || 'img/none.png'">
-          </ion-avatar>
-          <h2 style="margin-right:auto;">{{ opponent?.name }}</h2>
-        </ion-row>
-      </ion-label>
-    </ion-item>
-    <-->
-
       <!-- opponent -->
       <ion-item tappable (click)="searchTeam()">
         <ion-label stacked primary>{{'Opponent' | trans}}</ion-label>
@@ -44,17 +23,19 @@
           <input id="autocompleteInput" placeholder="" style="width:100%; border:none; text-align:center;" />
         </ion-label>
       </ion-item>
-
+      
       <!-- date -->
       <ion-item>
         <ion-label stacked primary>{{'Date' | trans}}</ion-label>
         <ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
       </ion-item>
+
       <!-- time -->
       <ion-item>
         <ion-label stacked primary>{{'Time' | trans}}</ion-label>
         <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
       </ion-item>
+
       <!-- color -->
       <ion-item tappable (click)="pickColor()">
         <ion-label stacked primary>{{'JerseyColor' | trans}}</ion-label>
