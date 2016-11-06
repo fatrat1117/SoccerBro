@@ -2,12 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { transPipe, Localization } from '../../providers/localization'
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
+import { MatchInfoPageContent } from '../match-info/match-info-content';
 import { FirebaseManager } from '../../providers/firebase-manager';
 import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
 import { TournamentFilterPipe } from '../../pipes/match-filter.pipe';
 import { Subject } from 'rxjs/Subject';
 import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
+
 
 @Component({
   selector: 'matches-content',
@@ -36,7 +38,7 @@ export class MatchesPageContent implements OnInit {
     console.log('matches tournamentId', this.tournamentId);
     let self = this;
     let afDates;
-    if (this.tournamentId) 
+    if (this.tournamentId)
       afDates = this.fm.getTournamentDateByTournamentId(this.tournamentId);
     else
       afDates = this.fm.getMatchDates();
@@ -63,6 +65,15 @@ export class MatchesPageContent implements OnInit {
   popupUpdateSchedulePage(matchId) {
     this.modalController.create(ScheduleMatchPage, {
       mId: matchId
+    }).present();
+  }
+
+  popupMatchResult(matchId , teamId , opponentId,e){
+    e.stopPropagation();
+    this.modalController.create(MatchInfoPageContent , {
+      teamId:teamId,
+      opponentId:opponentId,
+      matchId:matchId
     }).present();
   }
 

@@ -50,7 +50,7 @@
 							<ion-col class="matches-time">
 								<div class="matches-time-wrapper">
 									<ion-item>{{match.time | numberToTimePipe}}</ion-item>
-									<ion-item>战报</ion-item>
+									<ion-item (click)="popupMatchResult(match.$key,match.homeId,match.awayId,$event)">战报</ion-item>
 								</div>
 							</ion-col>
 						</ion-row>
