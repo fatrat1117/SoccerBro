@@ -20,6 +20,7 @@ export class MyPlayerPage {
   afBasic: any;
   afDetail: any;
   afPublic: any;
+  secretCount = 0;
   // Radar
   public radarChartLabels:string[];
 
@@ -53,5 +54,9 @@ export class MyPlayerPage {
     }
 
     this.fm.increasePopularity(this.afPublic, success);
+  }
+
+  onClickImg() {
+    ++this.secretCount;
   }
 }
