@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Matches</ion-title>
-    <ion-buttons *ngIf="((afRole | async)?.$value) == 'captain'" end>
+    <ion-buttons end><!-- *ngIf="((afRole | async)?.$value) == 'captain'" end-->
       <button (click)="showScheduleMatchModal()">
         <ion-icon name="add"></ion-icon>
       </button>
