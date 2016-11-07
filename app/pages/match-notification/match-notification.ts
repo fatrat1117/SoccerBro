@@ -16,10 +16,17 @@ export class MatchNotPage {
   jerseyColor: string;
   notice: string;
   pushIds = [];
-  upcomingMatch: any;
+  selectedIndex: any;
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
     private fm: FirebaseManager, private am: AccountManager) {
-    this.matches = this.fm.getSelfUnpostedMatches();
+    this.matches = [];
+    this.fm.getSelfUpcomingMatches().subscribe(snapshots => {
+      snapshots.forEach(m => {
+        if (!m.isPosted) {
+          this.matches.push(m);
+        }
+      })
+    });
 
     this.jerseyColor = 'transparent';
     this.notice = "";
@@ -75,16 +82,18 @@ export class MatchNotPage {
     //   notice: this.notice
     // });
 
-    // // push notification
-    // let message = {
-    //     'en': "A new match is waiting for you to join!",
-    //     'zh-Hans': "一场新球赛等待你的加入！" 
-    // };
+    let m = this.matches[this.selectedIndex];
+    this.fm.updateSelfMatch(m.$key, this.jerseyColor, this.notice, m.opponentId, m.time);
 
-    // //let success = result => {};
-    // //let error = err => {};
-    // this.am.postNotification(message, this.pushIds);
+    // push notification
+    let message = {
+        'en': "A new match is waiting for you to join!",
+        'zh-Hans': "一场新球赛等待你的加入！" 
+    };
 
-    // this.dismiss();
+    //let success = result => {};
+    //let error = err => {};
+    this.am.postNotification(message, this.pushIds);
+    this.dismiss();
   }
 }

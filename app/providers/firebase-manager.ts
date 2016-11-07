@@ -106,6 +106,10 @@ export class FirebaseManager {
     this.af.database.object(`/players/${playerId}/match-notifications/${matchID}`).set(notification);
   }
 
+  removeMatchNotification(playerId: string, matchID: string) {
+    this.af.database.object(`/players/${playerId}/match-notifications/${matchID}`).remove();
+  }
+
   changeNotificationStatus(matchId: string, isRead: boolean) {
     this.af.database.object(`/players/${this.selfId}/match-notifications/${matchId}`).update({
       isRead: isRead
@@ -223,12 +227,23 @@ export class FirebaseManager {
   }
 
   
+  withdrawSelfMatch(matchId: string) {
+    this.getTeamPlayers(this.selfTeamId).take(1).subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+          this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
+        });
+    });
 
+    this.getTeamMatch(this.selfTeamId, matchId).update({
+      isPosted: false
+    });
+  }
+
+  /*
   withdrawSelfMatch(matchId: string) {
     const promise = this.af.database.object(`/teams/${this.selfTeamId}/matches/${matchId}`).remove();
     promise.then(_ => {
-      let subscription = this.getTeamPlayers(this.selfTeamId).subscribe(snapshots => {
-        subscription.unsubscribe();
+      this.getTeamPlayers(this.selfTeamId).take(1).subscribe(snapshots => {
         snapshots.forEach(snapshot => {
           this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
         });
@@ -238,6 +253,7 @@ export class FirebaseManager {
     // update totalMatches
     this.updateTotalMatches(this.selfTeamId);
   }
+  */
 
   getMatchPlayers(teamId: string, matchId: string) {
     return this.af.database.list(`/teams/${teamId}/matches/${matchId}/players`);
@@ -388,10 +404,10 @@ export class FirebaseManager {
         };
         // add to home team
         teamData["opponentId"] = matchObj.awayId;
-        this.addTeamMatch(matchId, teamData, matchObj.homeId);
+        this.updateTeamMatch(matchId, teamData, matchObj.homeId);
         // add to away team
         teamData["opponentId"] = matchObj.homeId;
-        this.addTeamMatch(matchId, teamData, matchObj.awayId);
+        this.updateTeamMatch(matchId, teamData, matchObj.awayId);
 
         success();
       })
@@ -411,10 +427,10 @@ export class FirebaseManager {
         };
         // update home team
         teamData["opponentId"] = matchObj.awayId;
-        this.addTeamMatch(id, teamData, matchObj.homeId);
+        this.updateTeamMatch(id, teamData, matchObj.homeId);
         // update away team
         teamData["opponentId"] = matchObj.homeId;
-        this.addTeamMatch(id, teamData, matchObj.awayId);
+        this.updateTeamMatch(id, teamData, matchObj.awayId);
 
         // process raw data
         this.processMatchData(id, oldDate);
@@ -425,9 +441,15 @@ export class FirebaseManager {
 
   }
 
-  addTeamMatch(matchId: string, match: any, teamId: string) {
+  updateTeamMatch(matchId: string, match: any, teamId: string) {
     match.createdAt = firebase.database.ServerValue.TIMESTAMP;
     this.getTeamMatch(teamId, matchId).update(match);
+    this.getTeamMatch(teamId, matchId).take(1).subscribe(m => {
+      if (m.isPosted) {
+        // add to team players
+        this.addToPlayerNot(teamId, matchId, m.opponentId, m.time);
+      }
+    });
     /*
     const promise = this.af.database.list(`/teams/${this.selfTeamId}/matches`).push(match);
     promise.then(newMatch => {
@@ -455,7 +477,12 @@ export class FirebaseManager {
   }
 
   deleteTeamMatch(teamId: string, matchId: string) {
-    this.getTeamMatch(teamId, matchId).remove();
+    this.getTeamMatch(teamId, matchId).take(1).subscribe(m => {
+      if (m.isPosted) {
+        this.removePlayerNot(teamId, matchId);
+      }
+      this.getTeamMatch(teamId, matchId).remove();
+    });
   }
 
   deleteMatch(id) {
@@ -466,11 +493,12 @@ export class FirebaseManager {
     })
   }
 
+
   getTeamMatch(teamId: string, matchId: string) {
     return this.af.database.object(`/teams/${teamId}/matches/${matchId}`);
   }
 
-  getSelfUnpostedMatches() {
+  getSelfUpcomingMatches() {
     let now = moment().unix() * 1000
     return this.af.database.list(`/teams/${this.selfTeamId}/matches`, {
       query: {
@@ -479,6 +507,42 @@ export class FirebaseManager {
       }
     });
   }
+
+  updateSelfMatch(matchId, color, notice, opponentId, time) {
+    this.getTeamMatch(this.selfTeamId, matchId).update({
+      isPosted: true,
+      color: color,
+      notice: notice
+    });
+
+    this.addToPlayerNot(this.selfTeamId, matchId, opponentId, time);
+  }
+
+  addToPlayerNot(teamId, matchId, opponentId, time) {
+    this.getPlayersObj(teamId).subscribe(snapshots => {
+      for (let pId in snapshots) {
+        if (pId != '$key') {
+          this.addMatchNotification(pId, matchId, {
+            isRead: false,
+            teamId: this.selfTeamId,
+            opponentId: opponentId,
+            time: time
+          });
+        }
+      }
+    });
+  }
+
+  removePlayerNot(teamId, matchId) {
+    this.getPlayersObj(teamId).subscribe(snapshots => {
+      for (let pId in snapshots) {
+        if (pId != '$key') {
+          this.removeMatchNotification(pId, matchId);
+        }
+      }
+    });
+  }
+  
 
   getMatchBasicData(id, date) {
     return this.af.database.object(`/matches/data/${date}/${id}/basic`)

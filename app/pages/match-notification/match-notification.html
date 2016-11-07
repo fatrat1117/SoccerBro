@@ -11,8 +11,8 @@
     <!-- match -->
     <ion-item tappable>
       <ion-label stacked primary>Match</ion-label>
-      <ion-select [(ngModel)]="upcomingMatch" text-center >
-        <ion-option *ngFor="let m of matches | async" value="{{m.$key}}">
+      <ion-select [(ngModel)]="selectedIndex" text-center >
+        <ion-option *ngFor="let m of matches; let i = index" value="{{i}}">
         {{ m.time | stringToDatePipe }} - {{(m.opponentId | teamBasicPipe | async)?.name}}
         </ion-option>
       </ion-select>
