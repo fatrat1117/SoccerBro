@@ -20,6 +20,17 @@
         </button>
       </p>
     </ion-item>
+
+    <ion-item text-wrap>
+      <button ion-button *ngFor="let fb of positiveFb; let i=index;" 
+              [color]="fb.value ? 'dark' : 'light'" (click)="selectFb(i)">
+        {{ fb.key }}
+      </button>
+    </ion-item>
+
+    <ion-item>
+      <button full primary small>Next</button>
+    </ion-item>
   </ion-list>
 
   <!-- chose mvp -->

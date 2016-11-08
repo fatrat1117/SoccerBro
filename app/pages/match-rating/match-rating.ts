@@ -20,6 +20,7 @@ export class MatchRatingPage {
   candidates: any;
   selectedMVP: string;
   refereeName: string;
+  positiveFb = [];
   constructor(private viewCtrl: ViewController, private fm: FirebaseManager, private navParams: NavParams) {
     console.log(this.navParams);
     this.matchDate = this.navParams.get('matchDate');
@@ -31,7 +32,24 @@ export class MatchRatingPage {
     this.matchBasic = this.fm.getMatchBasicData(this.matchId, this.matchDate);
     this.candidates = this.fm.getMVPCandidates(this.matchDate, this.matchId);
     this.selectedMVP = "";
+    this.initFeedbacks();
   }
+
+  initFeedbacks() {
+    // positive
+    this.positiveFb = [
+      {key: "Punctual", value: false},
+      {key: "Active", value: false},
+      {key: "Competent", value: false},
+      {key: "Well Judged", value: false},
+    ];
+  }
+
+  selectFb(index) {
+    this.positiveFb[index].value = !this.positiveFb[index].value;
+  }
+
+
 
   setRating(index: number) {
     this.rating = index + 1;
