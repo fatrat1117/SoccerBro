@@ -45,3 +45,9 @@ ion-content {
 ion-img img {
   min-height: initial;
 }
+
+.no-scroll {
+    scroll-content {
+        overflow-y: hidden;
+    }
+}
