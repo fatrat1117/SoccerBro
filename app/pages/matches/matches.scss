@@ -126,3 +126,23 @@
   }
 }
 
+.no-scroll {
+        overflow-y: hidden;
+}
+
+.scroll {
+        overflow-y: scroll;
+}
+
+.left-scrollview {
+  width: 20%;
+  top: 56px;
+}
+
+.right-scrollview {
+  position: absolute;
+  top: 0;
+  width: 80%;
+  left: 20%;
+  top: 56px;
+}
