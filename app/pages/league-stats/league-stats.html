@@ -34,7 +34,7 @@
 		</ion-segment>
 	</ion-header-bar>
 
-	<div [ngSwitch]="leagueStats" class="league-stats">
+	<div [ngSwitch]="leagueStats" class="league-stats" style="height:100%">
 		<ion-card *ngSwitchCase="'info'">
 			<ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled] = "!((afWhitelist | async)?.$value)"></ion-textarea>
 			<button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
@@ -137,7 +137,7 @@
 
 		</div>
 
-		<div *ngSwitchCase="'fixtures'">
+		<div *ngSwitchCase="'fixtures'" style="height:100%">
 			<matches-content [tournamentId]=t ournamentId></matches-content>
 		</div>
 	</div>
