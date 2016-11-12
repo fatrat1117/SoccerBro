@@ -549,6 +549,10 @@ export class FirebaseManager {
     return this.af.database.object(`/matches/data/${date}/${id}/basic`)
   }
 
+  getRefereeName(id, date) {
+    return this.af.database.object(`/matches/data/${date}/${id}/referee/name`)
+  }
+
   // post-precess raw data
   processMatchData(id, oldDate) {
     // remove old data
@@ -577,6 +581,8 @@ export class FirebaseManager {
       if (data.tournamentId)
         basic.tournamentId = data.tournamentId;
       this.af.database.object(database + "basic").set(basic);
+      // referee
+      this.getRefereeName(id, data.date).set(data.refereeName);
       // home
       this.addProcessedData(successCallback, database + "statistic/home", data.homeId, data.homeScore, data.homeGoals,
         data.homeAssists, data.homeRedCards, data.homeYellowCards);
@@ -741,7 +747,7 @@ export class FirebaseManager {
       if (goalsMvp.length > 0) {
         let p = goalsMvp.shift();
         mvp[p.id] = {};
-        mvp[p.id].description = p.goals + "Goals";
+        mvp[p.id].description = p.goals + " Goals";
       }
       if (Object.keys(mvp).length > 3)
         break;
@@ -847,8 +853,14 @@ export class FirebaseManager {
     return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
   }
 
-  voteReferee(date, matchId, name, rating) {
-    this.af.database.object(`/matches/data/${date}/${matchId}/referees/${name}`).set(rating);
+  voteReferee(date, matchId, rating, tags) {
+    let data:any = {}
+    data.score = rating;
+    //this.af.database.object(`/matches/data/${date}/${matchId}/referee/ratings/${this.selfId}/score`).set(rating);
+    tags.forEach(t => {
+      data[t] = rating;
+    })
+    this.af.database.object(`/matches/data/${date}/${matchId}/referee/ratings/${this.selfId}`).set(data);
   }
   voteMvp(date: number, matchId: string, playerId: string) {
     this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);

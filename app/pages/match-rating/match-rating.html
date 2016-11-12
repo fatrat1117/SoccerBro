@@ -1,17 +1,32 @@
-<ion-content>
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Rate your match
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="cancel()"> 
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div text-center>
+    <h6>
+      {{ ((matchBasic | async)?.homeId | teamBasicPipe | async)?.name }} 
+      <span danger>vs</span> 
+      {{ ((matchBasic | async)?.awayId | teamBasicPipe | async)?.name}}
+    </h6>
+    <p>{{ (matchBasic | async)?.time | momentPipe}}</p>
+  </div>
+
   <!-- rate match -->
-  <ion-list no-lines [hidden]="showMVP">
+  <ion-list no-lines>
+    <ion-item primary>Referee</ion-item>
     <ion-item>
-      <h2>
-        {{ ((matchBasic | async)?.homeId | teamBasicPipe | async)?.name }} 
-        <span danger>vs</span> 
-        {{ ((matchBasic | async)?.awayId | teamBasicPipe | async)?.name}}
-      </h2>
-      <p>{{ (matchBasic | async)?.time | momentPipe}}</p>
-    </ion-item>
-    <ion-item>
-      <p text-center>Rate referee</p>
       <h2 text-center>{{ (matchBasic | async)?.refereeName }}</h2>
+      <p text-center *ngIf="rating > 0">{{ rating | ratingDescPipe }}</p>
       <p text-center no-padding>
         <button *ngFor="let i of starArray" ion-button icon-only clear class="disable-hover" 
                 [ngStyle]="getStarColorStyle(i)"
@@ -21,22 +36,19 @@
       </p>
     </ion-item>
 
-    <ion-item text-wrap>
-      <button ion-button *ngFor="let fb of positiveFb; let i=index;" 
+    <ion-item text-wrap *ngIf="rating > 0">
+      <p text-center>{{ rating | ratingHeaderPipe }}</p>
+      <button ion-button *ngFor="let fb of fbTags; let i=index;" 
               [color]="fb.value ? 'dark' : 'light'" (click)="selectFb(i)">
-        {{ fb.key }}
+        {{ fb.key | ratingTagPipe: rating }}
       </button>
-    </ion-item>
-
-    <ion-item>
-      <button full primary small>Next</button>
     </ion-item>
   </ion-list>
 
   <!-- chose mvp -->
-  <ion-list no-lines [hidden]="!showMVP">
-    <ion-item>Vote for MVP</ion-item>
-    <ion-item *ngFor="let p of candidates | async" (click)="setMVP(p.$key)">
+  <ion-list no-lines *ngIf="candidates?.length">
+    <ion-item primary>MVP</ion-item>
+    <ion-item *ngFor="let p of candidates" (click)="setMVP(p.$key)">
       <ion-avatar item-left>
         <ion-img [src]="(p.$key | playerBasicPipe | async)?.photoURL"></ion-img>
       </ion-avatar>
@@ -46,16 +58,7 @@
         <ion-icon name="thumbs-up"></ion-icon>
       </button>
     </ion-item>
-
-    <ion-item>
-      <ion-row> 
-        <ion-col text-center>
-          <button full primary small (click)="back()">Back</button>
-        </ion-col>
-        <ion-col text-center>
-          <button full secondary small (click)="submit()">Submit</button>
-        </ion-col>
-      </ion-row>
-    </ion-item>
   </ion-list>
+
+  <button block secondary (click)="submit()">Submit</button>
 </ion-content>

@@ -33,6 +33,7 @@ export class AccountManager {
     private loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public localization: Localization,
+    private modalCtrl: ModalController,
     private popoverCtrl: PopoverController) {
     this.afTeams = this.af.database.list('/teams');
     //this.teamsOfCurrPlayer = [];
@@ -575,7 +576,7 @@ export class AccountManager {
       });
       // check if has unvoted match
       if (toVote != null) {
-        this.popoverCtrl.create(
+        this.modalCtrl.create(
           MatchRatingPage,
           { matchDate: toVote.$value, matchId: toVote.$key }).present();
       }

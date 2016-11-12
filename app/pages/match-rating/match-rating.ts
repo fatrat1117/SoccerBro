@@ -4,11 +4,12 @@ import {ViewController, NavParams} from 'ionic-angular';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import {RatingDescPipe, RatingHeaderPipe, RatingTagPipe} from '../../pipes/rating.pipe';
 import {MomentPipe} from '../../pipes/moment.pipe';
 
 @Component({
   templateUrl: 'build/pages/match-rating/match-rating.html',
-  pipes: [PlayerBasicPipe, TeamBasicPipe, MomentPipe]
+  pipes: [PlayerBasicPipe, TeamBasicPipe, MomentPipe, RatingDescPipe, RatingHeaderPipe, RatingTagPipe]
 })
 export class MatchRatingPage {
   matchDate: number;
@@ -16,47 +17,45 @@ export class MatchRatingPage {
   matchBasic: any;
   starArray = [0, 1, 2, 3, 4];
   rating: number;
-  showMVP: boolean;
   candidates: any;
   selectedMVP: string;
   refereeName: string;
-  positiveFb = [];
+  fbTags = [];
   constructor(private viewCtrl: ViewController, private fm: FirebaseManager, private navParams: NavParams) {
     console.log(this.navParams);
     this.matchDate = this.navParams.get('matchDate');
     this.matchId = this.navParams.get('matchId');
     
     this.rating = 0;
-    this.showMVP = false;
 
     this.matchBasic = this.fm.getMatchBasicData(this.matchId, this.matchDate);
-    this.candidates = this.fm.getMVPCandidates(this.matchDate, this.matchId);
+    this.fm.getMVPCandidates(this.matchDate, this.matchId).take(1).subscribe(snapshots => {
+      this.candidates = snapshots;
+    });
     this.selectedMVP = "";
     this.initFeedbacks();
   }
 
   initFeedbacks() {
     // positive
-    this.positiveFb = [
-      {key: "Punctual", value: false},
-      {key: "Active", value: false},
-      {key: "Competent", value: false},
-      {key: "Well Judged", value: false},
+    this.fbTags = [
+      {key: "punctuality", value: false},
+      {key: "activeness", value: false},
+      {key: "competency", value: false},
+      {key: "judgement", value: false}
     ];
   }
 
   selectFb(index) {
-    this.positiveFb[index].value = !this.positiveFb[index].value;
+    this.fbTags[index].value = !this.fbTags[index].value;
   }
 
-
-
   setRating(index: number) {
-    this.rating = index + 1;
-    
-    setTimeout(() => {
-      this.showMVP = true;
-    }, 500);
+    if (this.rating != index + 1)
+    {
+      this.initFeedbacks();
+      this.rating = index + 1;
+    }
   }
 
   setMVP(id: string) {
@@ -82,15 +81,19 @@ export class MatchRatingPage {
     return style;
   }
 
-  back() {
-    this.showMVP = false;
+  submit() {
+    let tags = [];
+    this.fbTags.forEach(t => {
+      if (t.value)
+        tags.push(t.key);
+    })
+
+    this.fm.voteReferee(this.matchDate, this.matchId, this.rating, tags);
+    this.fm.voteMvp(this.matchDate, this.matchId, this.selectedMVP);
+    this.viewCtrl.dismiss();
   }
 
-  submit() {
-    this.fm.getMatchBasicData(this.matchId, this.matchDate).take(1).subscribe(snapshot => {
-      this.fm.voteReferee(this.matchDate, this.matchId, snapshot.refereeName, this.rating);
-    })
-    this.fm.voteMvp(this.matchDate, this.matchId, this.selectedMVP);
+  cancel() {
     this.viewCtrl.dismiss();
   }
 }
