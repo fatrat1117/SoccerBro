@@ -36,6 +36,7 @@ export class ScheduleMatchPage {
   awayYellowCards = [];
   awayRedCards = [];
   tournamentId = [];
+  attendances = [];
 
   constructor(private viewCtrl: ViewController, 
               private modalCtrl: ModalController,
@@ -73,6 +74,9 @@ export class ScheduleMatchPage {
           self.homeScore = matchSnapshot.homeScore;
         if (matchSnapshot.awayScore)
           self.awayScore = matchSnapshot.awayScore;
+
+        if (matchSnapshot.attendances)  
+          self.attendances = matchSnapshot.attendances;
 
         if (matchSnapshot.homeGoals)
           self.homeGoals = matchSnapshot.homeGoals;
@@ -178,6 +182,7 @@ export class ScheduleMatchPage {
       locationName: this.location.name,
       locationAddress: this.location.address,
       notice: this.notice,
+      attendances: this.attendances,
       homeGoals: this.homeGoals,
       homeAssists: this.homeAssists,
       homeYellowCards: this.homeYellowCards,
@@ -225,6 +230,10 @@ export class ScheduleMatchPage {
 
   addRedCard(cards) {
     cards.push({num: 0, cards: 1});
+  }
+
+  addAttendance() {
+    this.attendances.push({num: 0});
   }
 
   toNumber(s) {

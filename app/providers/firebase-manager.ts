@@ -433,7 +433,8 @@ export class FirebaseManager {
         this.updateTeamMatch(id, teamData, matchObj.awayId);
 
         // process raw data
-        this.processMatchData(id, oldDate);
+        if (matchObj.homeScore && matchObj.awayScore)
+          this.processMatchData(id, oldDate);
 
         success();
       })

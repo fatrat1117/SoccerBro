@@ -77,6 +77,34 @@
 
 	<ion-card *ngIf='mId'>
 		<ion-card-header>
+			Attendances
+		</ion-card-header>
+
+		<ion-list>
+			<ion-list-header>
+				<ion-buttons end>
+					<button (click)="addAttendance()" clear>
+        <ion-icon name="add"></ion-icon>
+		Add attendance
+      </button>
+				</ion-buttons>
+				<ion-grid>
+					<ion-row>
+						<ion-col>
+							Player Number
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-list-header>
+			<ion-item *ngFor="let player of attendances">
+				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayGoals)"></ion-icon>
+			</ion-item>
+		</ion-list>
+	</ion-card>
+
+	<ion-card *ngIf='mId'>
+		<ion-card-header>
 			{{home?.name}}
 		</ion-card-header>
 
@@ -100,7 +128,10 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeGoals">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-select [(ngModel)]="player.num" (ngModelChange)="player.num=toNumber($event)">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
+				<!--<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>-->
 				<ion-input type="number" min='0' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeGoals)"></ion-icon>
 			</ion-item>
@@ -280,10 +311,10 @@
 			</ion-item>
 		</ion-list>
 
-	<ion-item *ngIf="mId">
-      <ion-label primary>Referee</ion-label>
-      <ion-input type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
-    </ion-item>
+		<ion-item *ngIf="mId">
+			<ion-label primary>Referee</ion-label>
+			<ion-input type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
+		</ion-item>
 	</ion-card>
 
 	<ion-row padding-horizontal>
