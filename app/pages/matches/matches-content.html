@@ -60,16 +60,15 @@
 		</ion-row>
 	</ion-grid>
 </ion-list>-->
-
-<ion-content class="left-scrollview matches-date-tab-col">
+<div class="left-scrollview matches-date-tab-col">
 	<ion-list class="date-tab-list">
 		<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
 			{{date.$key | stringToDatePipe}}
 		</ion-item>
 	</ion-list>
-</ion-content>
+</div>
 
-<ion-content class="right-scrollview matches-match-info-col">
+<div class="right-scrollview matches-match-info-col">
 	<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId" (click)="popupUpdateSchedulePage(match.$key)">
 		<ion-grid no-padding>
 			<ion-row>
@@ -117,4 +116,4 @@
 			</ion-row>
 		</ion-grid>
 	</ion-item>
-</ion-content>
+</div>

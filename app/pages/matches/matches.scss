@@ -136,14 +136,15 @@
 
 .left-scrollview {
   width: 20%;
-  top: 56px;
   height: 100%;
+  overflow: scroll;
 }
 
 .right-scrollview {
-  position: absolute;
-  top: 0;
+  display: inline-block;
   width: 80%;
   left: 20%;
-  top: 56px;
+  overflow: scroll;
+  top: 0;
+  position: absolute;
 }
