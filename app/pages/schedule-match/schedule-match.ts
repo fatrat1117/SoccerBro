@@ -217,11 +217,11 @@ export class ScheduleMatchPage {
   }
 
   addGoal(goals) {
-    goals.push({num: 0, goals: 0});
+    goals.push({num: 0, goals: 1});
   }
 
   addAssist(assists) {
-    assists.push({num: 0, assists: 0});
+    assists.push({num: 0, assists: 1});
   }
 
   addYellowCard(cards) {

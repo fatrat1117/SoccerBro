@@ -128,11 +128,10 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeGoals">
-				<ion-select [(ngModel)]="player.num" (ngModelChange)="player.num=toNumber($event)">
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
 					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
 				</ion-select>
-				<!--<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>-->
-				<ion-input type="number" min='0' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
+				<ion-input type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeGoals)"></ion-icon>
 			</ion-item>
 		</ion-list>
@@ -154,8 +153,10 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeAssists">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-				<ion-input type="number" min='0' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
+				<ion-input type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeAssists)"></ion-icon>
 			</ion-item>
 		</ion-list>
@@ -177,7 +178,9 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeYellowCards">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
 				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeYellowCards)"></ion-icon>
 			</ion-item>
@@ -200,7 +203,9 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of homeRedCards">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
 				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeRedCards)"></ion-icon>
 			</ion-item>
@@ -233,8 +238,10 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayGoals">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-				<ion-input type="number" min='0' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
+				<ion-input type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayGoals)"></ion-icon>
 			</ion-item>
 		</ion-list>
@@ -259,8 +266,10 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayAssists">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-				<ion-input type="number" min='0' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
+				<ion-input type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayAssists)"></ion-icon>
 			</ion-item>
 		</ion-list>
@@ -282,7 +291,9 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayYellowCards">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
 				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayYellowCards)"></ion-icon>
 			</ion-item>
@@ -305,7 +316,9 @@
 				</ion-grid>
 			</ion-list-header>
 			<ion-item *ngFor="let player of awayRedCards">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+					<ion-option *ngFor="let a of attendances" value="{{a.num}}">{{a.num}}</ion-option>
+				</ion-select>
 				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
 				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayRedCards)"></ion-icon>
 			</ion-item>
