@@ -52,8 +52,7 @@ export class ScheduleMatchPage {
     this.matchTime = "15:00";
     this.mId = params.get('mId');
     this.tournamentId = params.get('tournamentId');
-
-    console.log("****",this.mId);
+    
     let self = this;
     if (this.mId) {
       console.log('match id', this.mId);
