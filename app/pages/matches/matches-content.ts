@@ -2,7 +2,7 @@ import {Component, Input, ElementRef, OnInit, ViewChild, ContentChildren, QueryL
 import {NavController, ModalController} from 'ionic-angular';
 import {transPipe, Localization} from '../../providers/localization'
 import {ScheduleMatchPage} from '../schedule-match/schedule-match';
-import {MatchInfoPageContent} from '../match-info/match-info-content';
+import {MatchResultPage} from '../match-result/match-result';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
 import {TournamentFilterPipe} from '../../pipes/match-filter.pipe';
@@ -96,11 +96,10 @@ export class MatchesPageContent implements OnInit {
     }).present();
   }
 
-  popupMatchResult(matchId, teamId, opponentId, e) {
+  popupMatchResult(matchId, date, e) {
     e.stopPropagation();
-    this.modalController.create(MatchInfoPageContent, {
-      teamId: teamId,
-      opponentId: opponentId,
+    this.modalController.create(MatchResultPage, {
+      date: date,
       matchId: matchId
     }).present();
   }

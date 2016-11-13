@@ -49,10 +49,12 @@
 					<div class="matches-time-wrapper">
 						<!--ion-item>{{match.time | numberToTimePipe}}</ion-item-->
 						<ion-item>
-							<ion-img class="mvp-avatar" src="img/test_avatar.jpg"></ion-img>
-							<!--p>{{match.time | numberToTimePipe}}</p-->
+							<!--ion-img class="mvp-avatar" src="img/test_avatar.jpg"></ion-img-->
+							<!--p danger>MVP</p-->
+							<!--p>Li Haohaohao</p-->
+							<p>{{match.time | numberToTimePipe}}</p>
 						</ion-item>
-						<button text-center (click)="popupMatchResult(match.$key,match.homeId,match.awayId,$event)" clear>Details</button>
+						<button text-center (click)="popupMatchResult(match.$key,match.date,$event)" clear>Details</button>
 					</div>
 				</ion-col>
 			</ion-row>

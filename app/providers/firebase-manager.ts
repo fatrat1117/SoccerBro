@@ -549,6 +549,10 @@ export class FirebaseManager {
     return this.af.database.object(`/matches/data/${date}/${id}/basic`)
   }
 
+  getMatchStats(id, date) {
+    return this.af.database.object(`/matches/data/${date}/${id}/statistic`)
+  }
+
   getRefereeName(id, date) {
     return this.af.database.object(`/matches/data/${date}/${id}/referee/name`)
   }
