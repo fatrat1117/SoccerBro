@@ -49,7 +49,7 @@ export class ScheduleMatchPage {
     this.location = {};
     this.notice  = "";
     this.minDate = moment("20160101", "YYYYMMDD").format("YYYY-MM-DD");
-    this.matchDate = this.minDate;
+    this.matchDate =  moment().format("YYYY-MM-DD");
     this.matchTime = "15:00";
     this.mId = params.get('mId');
     this.tournamentId = params.get('tournamentId');
@@ -109,12 +109,6 @@ export class ScheduleMatchPage {
 
   ngOnInit() {
     this.autocomplete();
-  }
-
-  updateUI() {
-    //console.log(document.getElementById("autocompleteInput"));
-    
-    //document.getElementById("autocompleteInput").textContent = "2";
   }
 
   searchTeam(teamType) {
