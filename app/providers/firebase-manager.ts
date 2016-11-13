@@ -853,6 +853,14 @@ export class FirebaseManager {
     return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates`);
   }
 
+  getMVPCandidateVotes(date: number, matchId: string, pId: string) {
+    return this.af.database.list(`/matches/data/${date}/${matchId}/mvp/candidates/${pId}/votes`);
+  }
+
+  getMVPWinner(date: number, matchId: string) {
+    return this.af.database.object(`/matches/data/${date}/${matchId}/mvp/winner`);
+  }
+
   voteReferee(date, matchId, rating, tags) {
     let data:any = {}
     data.score = rating;
@@ -862,9 +870,32 @@ export class FirebaseManager {
     })
     this.af.database.object(`/matches/data/${date}/${matchId}/referee/ratings/${this.selfId}`).set(data);
   }
+
   voteMvp(date: number, matchId: string, playerId: string) {
-    this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);
-    this.removeToVote(matchId);
+    let promise = this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);
+    promise.then(_ => {
+      //this.removeToVote(matchId);
+      this.updateMVPWinner(date, matchId);
+    })
+  }
+
+  updateMVPWinner(date: number, matchId: string) {
+    let max = 0;
+    let winnerId = '';
+    this.getMVPCandidates(date, matchId).take(1).subscribe(snapshots => {
+      snapshots.forEach(s => {
+        this.getMVPCandidateVotes(date, matchId, s.$key).take(1).subscribe(votes => {
+          console.log(votes);
+          let count = votes.length;
+          if (count >= 5 && count > max) {
+            max = count;
+            winnerId = s.$key;
+          }
+        })
+      })
+      if (max >= 5)
+        this.getMVPWinner(date, matchId).set(winnerId);
+    });
   }
 
 
