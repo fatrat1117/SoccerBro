@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
-import { transPipe, Localization } from '../../providers/localization'
-import { ScheduleMatchPage } from '../schedule-match/schedule-match';
-import { MatchInfoPageContent } from '../match-info/match-info-content';
-import { FirebaseManager } from '../../providers/firebase-manager';
-import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
-import { TournamentFilterPipe } from '../../pipes/match-filter.pipe';
-import { Subject } from 'rxjs/Subject';
-import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
+import {Component, Input, ElementRef, OnInit, ViewChild, ContentChildren, QueryList} from '@angular/core';
+import {NavController, ModalController} from 'ionic-angular';
+import {transPipe, Localization} from '../../providers/localization'
+import {ScheduleMatchPage} from '../schedule-match/schedule-match';
+import {MatchInfoPageContent} from '../match-info/match-info-content';
+import {FirebaseManager} from '../../providers/firebase-manager';
+import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
+import {TournamentFilterPipe} from '../../pipes/match-filter.pipe';
+import {Subject} from 'rxjs/Subject';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
 
 
@@ -28,11 +28,14 @@ export class MatchesPageContent implements OnInit {
 
   @Input() tournamentId;
   @Input() rightViewTop;
+  @ViewChild('sketchElement') sketchElement:ElementRef;
+  @ContentChildren('list_item') items: Array<ElementRef>;
+
 
   constructor(private navCtrl: NavController,
-    local: Localization,
-    private modalController: ModalController,
-    private fm: FirebaseManager) {
+              local: Localization,
+              private modalController: ModalController,
+              private fm: FirebaseManager) {
     this.afMatches = fm.queryMatches(this.dateSubject);
   }
 
@@ -47,12 +50,35 @@ export class MatchesPageContent implements OnInit {
     afDates.subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
-      //console.log(dates);
       setTimeout(function () {
         //console.log('show today', self.today);
         self.dateSubject.next(self.today);
       }, 1000);
+
     });
+  }
+
+
+  ngAfterViewInit() {
+    // sketchElement is usable
+    console.log(this.sketchElement.nativeElement.offsetTop);
+    console.log(this.sketchElement.nativeElement.children);
+    console.log(this.sketchElement.nativeElement.children[0].offsetTop);
+    console.log(this.sketchElement.nativeElement.children[0].children[0]);
+    console.log(this.sketchElement.nativeElement.children[0].children.length);
+    // console.log(this.sketchElement.nativeElement.children[0].childNodes);
+
+    // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0];
+    // console.log(this.sketchElement.nativeElement.children[0].childNodes);
+    //
+    // console.log(this.sketchElement.nativeElement.children[0]);
+    // for (let i in this.sketchElement.nativeElement.children[0].childNodes){
+    //   console.log(i);
+    // }
+    // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0].children;
+    // console.log(list[0]);
+
+
   }
 
   showMatches(date: string, i: number) {
@@ -70,12 +96,12 @@ export class MatchesPageContent implements OnInit {
     }).present();
   }
 
-  popupMatchResult(matchId , teamId , opponentId,e){
+  popupMatchResult(matchId, teamId, opponentId, e) {
     e.stopPropagation();
-    this.modalController.create(MatchInfoPageContent , {
-      teamId:teamId,
-      opponentId:opponentId,
-      matchId:matchId
+    this.modalController.create(MatchInfoPageContent, {
+      teamId: teamId,
+      opponentId: opponentId,
+      matchId: matchId
     }).present();
   }
 
@@ -110,4 +136,24 @@ export class MatchesPageContent implements OnInit {
       }
     }
   }
+
+  scrollToToday() {
+    let todayIndex: number = 0;
+    for (let i in this.dates) {
+      if (this.dates[i].$key >= this.today) {
+        todayIndex = parseInt(i);
+        break;
+      }
+    }
+    // window.location.href  = "localhost:8100#matches-scroll-target-"+todayIndex.toString();
+    //document.getElementById("matches-scroll-target-"+todayIndex.toString()).scrollIntoView();
+    var id = "matches-scroll-target-" + todayIndex.toString();
+    console.log(id);
+    const tmp = document.getElementById("matches-scroll-target-17");
+    console.log(document.getElementById("matches-scroll-target-" + todayIndex.toString()));
+    //var top = document.getElementById("matches-scroll-target-"+todayIndex.toString()).offsetTop;
+    //window.scrollTo(0, top);
+  }
+
+
 }

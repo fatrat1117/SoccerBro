@@ -1,6 +1,6 @@
-<div class="left-scrollview matches-date-tab-col">
+<div class="left-scrollview matches-date-tab-col" #sketchElement [ngStyle]="{'top': leftViewTop+'px'}">
 	<ion-list class="date-tab-list">
-		<ion-item *ngFor="let date of dates;let i = index;" (click)="showMatches(date.$key,i)" [style.background]="getDateTabBGColor(date)">
+		<ion-item *ngFor="let date of dates;let i = index;" #list_item (click)="showMatches(date.$key,i)"[id]="'matches-scroll-target-'+i" [style.background]="getDateTabBGColor(date)">
 			{{date.$key | stringToDatePipe}}
 		</ion-item>
 	</ion-list>
