@@ -9,7 +9,7 @@
       .item-inner {
         padding-right: 0;
         ion-label {
-          //font-size: 0.4em;
+          font-size: 0.4em;
           margin: 0 auto;
           display: flex;
           justify-content: center;
@@ -43,7 +43,7 @@
     .matches-time-wrapper {
       .item {
         min-height: 2.2em;
-        //font-size: 0.345em;
+        font-size: 75%;
       }
       .item-inner {
         border-bottom: none;
@@ -60,19 +60,18 @@
     -ms-flex: 0 0 75%;
     flex: 0 0 75%;
     max-width: 75%;
-    //font-size: 0.345em;
+    font-size: 0.345em;
     .team-bar {
       padding-left: 0.5em;
-      /*
-      ion-img {
+      /*ion-img {
         max-width: 1.5em;
         max-height: 1.5em;
         border-radius: 50%;
-      }
-      */
+      }*/
+  
       ion-avatar[item-left] {
         border-radius: 0;
-        //margin: 0;
+        margin: 0;
         //min-height: 1.8em;
         //min-width: 1.8em;
       }
@@ -80,7 +79,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        //font-size: 0.345em;
+        font-size: 75%;
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 75%;
         -ms-flex: 0 0 75%;
@@ -88,7 +87,7 @@
         max-width: 75%;
       }
       .team-score {
-        //font-size: 0.345em;
+        font-size: 75%;
         line-height: 1;
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 15%;
@@ -125,6 +124,13 @@
   width: 80%;
   left: 20%;
   overflow: scroll;
-  top: 0;
   position: absolute;
+  top: 0px;
+}
+
+.mvp-avatar {
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+  margin:auto;
 }
