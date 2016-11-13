@@ -874,7 +874,7 @@ export class FirebaseManager {
   voteMvp(date: number, matchId: string, playerId: string) {
     let promise = this.af.database.object(`/matches/data/${date}/${matchId}/mvp/candidates/${playerId}/votes/${this.selfId}`).set(true);
     promise.then(_ => {
-      //this.removeToVote(matchId);
+      this.removeToVote(matchId);
       this.updateMVPWinner(date, matchId);
     })
   }
@@ -882,10 +882,9 @@ export class FirebaseManager {
   updateMVPWinner(date: number, matchId: string) {
     let max = 0;
     let winnerId = '';
-    this.getMVPCandidates(date, matchId).take(1).subscribe(snapshots => {
+    this.getMVPCandidates(date, matchId).subscribe(snapshots => {
       snapshots.forEach(s => {
-        this.getMVPCandidateVotes(date, matchId, s.$key).take(1).subscribe(votes => {
-          console.log(votes);
+        this.getMVPCandidateVotes(date, matchId, s.$key).subscribe(votes => {
           let count = votes.length;
           if (count >= 5 && count > max) {
             max = count;

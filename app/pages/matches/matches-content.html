@@ -109,8 +109,12 @@
 				</ion-col>
 				<ion-col class="matches-time">
 					<div class="matches-time-wrapper">
-						<ion-item>{{match.time | numberToTimePipe}}</ion-item>
-						<button (click)="popupMatchResult(match.$key,match.homeId,match.awayId,$event)" clear>战报</button>
+						<!--ion-item>{{match.time | numberToTimePipe}}</ion-item-->
+						<ion-item>
+							<ion-img class="mvp-avatar" src="img/test_avatar.jpg"></ion-img>
+							<p>{{match.time | numberToTimePipe}}</p>
+						</ion-item>
+						<button text-center (click)="popupMatchResult(match.$key,match.homeId,match.awayId,$event)" clear>Details</button>
 					</div>
 				</ion-col>
 			</ion-row>
