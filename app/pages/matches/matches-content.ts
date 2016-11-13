@@ -41,6 +41,9 @@ export class MatchesPageContent implements OnInit {
 
   ngOnInit() {
     console.log('matches tournamentId', this.tournamentId);
+    console.log(this.sketchElement);
+    console.log(this.sketchElement.nativeElement.offsetTop);
+    
     let self = this;
     let afDates;
     if (this.tournamentId)
@@ -54,18 +57,17 @@ export class MatchesPageContent implements OnInit {
         //console.log('show today', self.today);
         self.dateSubject.next(self.today);
       }, 1000);
-
     });
   }
 
 
-  ngAfterViewInit() {
+ // ngAfterViewInit() {
     // sketchElement is usable
-    console.log(this.sketchElement.nativeElement.offsetTop);
-    console.log(this.sketchElement.nativeElement.children);
-    console.log(this.sketchElement.nativeElement.children[0].offsetTop);
-    console.log(this.sketchElement.nativeElement.children[0].children[0]);
-    console.log(this.sketchElement.nativeElement.children[0].children.length);
+    // console.log(this.sketchElement.nativeElement.offsetTop);
+    // console.log(this.sketchElement.nativeElement.children);
+    // console.log(this.sketchElement.nativeElement.children[0].offsetTop);
+    // console.log(this.sketchElement.nativeElement.children[0].children[0]);
+    // console.log(this.sketchElement.nativeElement.children[0].children.length);
     // console.log(this.sketchElement.nativeElement.children[0].childNodes);
 
     // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0];
@@ -79,7 +81,7 @@ export class MatchesPageContent implements OnInit {
     // console.log(list[0]);
 
 
-  }
+  //}
 
   showMatches(date: string, i: number) {
     if (this.currentSelectedDateIndex != -1 && this.dates[this.currentSelectedDateIndex].$key === date) {
