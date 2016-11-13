@@ -36,12 +36,11 @@ export class ScheduleMatchPage {
   awayYellowCards = [];
   awayRedCards = [];
   tournamentId = [];
-  homePlayers = [];
-  awayPlayers = [];
+  attendances = [];
 
-  constructor(private viewCtrl: ViewController, 
+  constructor(private viewCtrl: ViewController,
               private modalCtrl: ModalController,
-              private popoverController: PopoverController, 
+              private popoverController: PopoverController,
               private _loader: MapsAPILoader,
               private fm: FirebaseManager,
               private am: AccountManager,
@@ -49,11 +48,11 @@ export class ScheduleMatchPage {
     this.location = {};
     this.notice  = "";
     this.minDate = moment("20160101", "YYYYMMDD").format("YYYY-MM-DD");
-    this.matchDate = this.minDate;
+    this.matchDate =  moment().format("YYYY-MM-DD");
     this.matchTime = "15:00";
     this.mId = params.get('mId');
     this.tournamentId = params.get('tournamentId');
-
+    
     let self = this;
     if (this.mId) {
       console.log('match id', this.mId);
@@ -76,10 +75,8 @@ export class ScheduleMatchPage {
         if (matchSnapshot.awayScore)
           self.awayScore = matchSnapshot.awayScore;
 
-        if (matchSnapshot.homePlayers)  
-          self.homePlayers = matchSnapshot.homePlayers;
-        if (matchSnapshot.awayPlayers)  
-          self.awayPlayers = matchSnapshot.awayPlayers;
+        if (matchSnapshot.attendances)
+          self.attendances = matchSnapshot.attendances;
 
         if (matchSnapshot.homeGoals)
           self.homeGoals = matchSnapshot.homeGoals;
@@ -113,7 +110,7 @@ export class ScheduleMatchPage {
 
   updateUI() {
     //console.log(document.getElementById("autocompleteInput"));
-    
+
     //document.getElementById("autocompleteInput").textContent = "2";
   }
 
@@ -150,7 +147,7 @@ export class ScheduleMatchPage {
     let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
     let tDate = this.am.dateTimeStringToNumber(this.matchDate);
     //console.log(this.matchDate, this.matchTime, t, tDate);
-    
+
     let self = this;
     let success = () => {
       alert('schedule match successful');
@@ -185,8 +182,7 @@ export class ScheduleMatchPage {
       locationName: this.location.name,
       locationAddress: this.location.address,
       notice: this.notice,
-      homePlayers: this.homePlayers,
-      awayPlayers: this.awayPlayers,
+      attendances: this.attendances,
       homeGoals: this.homeGoals,
       homeAssists: this.homeAssists,
       homeYellowCards: this.homeYellowCards,
@@ -214,9 +210,9 @@ export class ScheduleMatchPage {
       alert(err);
     };
 
-    this.fm.updateMatch(this.mId, updateMatchData, 
+    this.fm.updateMatch(this.mId, updateMatchData,
     this.oldDate,
-    success, 
+    success,
     error);
   }
 
@@ -236,8 +232,8 @@ export class ScheduleMatchPage {
     cards.push({num: 0, cards: 1});
   }
 
-  addPlayer(player) {
-    player.push({num: 0});
+  addAttendance() {
+    this.attendances.push({num: 0});
   }
 
   toNumber(s) {
