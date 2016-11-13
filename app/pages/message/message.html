@@ -71,9 +71,12 @@
 
     
   </div>
+  <div *ngIf="(currentTeam | teamBasicPipe | async)?.captain == pId && message == 'notifications' ">
     <button fab fab-bottom fab-right danger class="disable-hover" (click)="addNewMatchNot()">
       <ion-icon name="add"></ion-icon>
     </button>
+  </div>
+
   <!-->
   <button (click)="test()">test notification</button>
   <button (click)="postNewMatch()">post new match</button>

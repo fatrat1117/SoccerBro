@@ -48,17 +48,18 @@
     </ion-card-content>
   </ion-card>
 
-  <!-->
-  <div class="fab-buttons">
-    <button secondary fab fab-bottom fab-left (click)="editTeam()">
-      <ion-icon name="md-create"></ion-icon>
+  <div *ngIf="(isTeamPlayer | async)?.isMember" class="fab-buttons">
+    <button primary fab fab-bottom fab-left (click)="editTeam()">
+      <ion-icon name="create"></ion-icon>
     </button>
-    <button primary fab fab-bottom fab-right (click)="invitePlayer()">
-      <ion-icon name="md-person-add"></ion-icon>
-    </button>
+    <div *ngIf="(tId | teamBasicPipe | async)?.captain === pId">
+      <button  secondary fab fab-bottom fab-right (click)="invitePlayer()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </div>
   </div>
-  <!-->
 
+  <!-->
   <div *ngIf="(isTeamPlayer | async)?.isMember">
     <button fab fab-bottom fab-right danger class="floating-button disable-hover" (click)="showMenu()">
       <ion-icon [name]="isOpen ? 'close' : 'add'"></ion-icon>
@@ -71,12 +72,13 @@
         <button fab fab-bottom fab-right small class="post disable-hover" (click)="addNewMatch()">
           <ion-icon name="football"></ion-icon>
         </button>
-            <button fab fab-bottom fab-right small class="edit disable-hover" (click)="editTeam()">
+        <button fab fab-bottom fab-right small class="edit disable-hover" (click)="editTeam()">
           <ion-icon name="create"></ion-icon>
         </button>
       </div>
     </div>
   </div>
+  <-->
 
 
 </ion-content>

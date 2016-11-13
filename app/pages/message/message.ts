@@ -18,6 +18,8 @@ import {Localization} from '../../providers/localization';
   pipes: [TeamBasicPipe, MatchInfoPipe, MatchFilterPipe, transPipe, MomentPipe]
 })
 export class MessagePage {
+  currentTeam: string;
+  pId: string;
   message: string;
   teams: any;
   matches: any;
@@ -43,6 +45,8 @@ export class MessagePage {
       }, 500);
       this.uid = this.fm.selfId;
     }
+    this.currentTeam = this.fm.selfTeamId;
+    this.pId = this.fm.selfId;
   }
 
   enterChatRoom(id) {
