@@ -1,47 +1,37 @@
-.matches-date-tab-col{
-  .input-wrapper:active{
+.matches-date-tab-col {
+  .input-wrapper:active {
     border: solid 1px #8ed058;
     background: #a9db80;
   }
-
-  .date-tab-list{
-    ion-item{
+  .date-tab-list {
+    ion-item {
       padding-left: 0;
-      .item-inner{
+      .item-inner {
         padding-right: 0;
-        ion-label{
-          font-size: 0.4em;
+        ion-label {
+          //font-size: 0.4em;
           margin: 0 auto;
           display: flex;
           justify-content: center;
         }
       }
-
     }
-
   }
 }
 
-
-.matches-match-info-col{
-
-
-
-  .item{
-    padding-left:0;
+.matches-match-info-col {
+  .item {
+    padding-left: 0;
   }
-
-  .item-inner{
+  .item-inner {
     padding-right: 0;
   }
-
-  ion-label{
+  ion-label {
     margin-right: 0.3em;
     margin-left: 0.3em;
-    margin:0;
+    margin: 0;
   }
-
-  .matches-time{
+  .matches-time {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 25%;
     -ms-flex: 0 0 25%;
@@ -50,76 +40,66 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    .matches-time-wrapper{
-
-
-        .item{
-          min-height:2.2em;
-          font-size: 0.345em;
-        }
-        .item-inner{
-          border-bottom:none;
-        }
-
-        ion-label{
-          margin:0;
-          text-align: center;
-        }
-
+    .matches-time-wrapper {
+      .item {
+        min-height: 2.2em;
+        //font-size: 0.345em;
+      }
+      .item-inner {
+        border-bottom: none;
+      }
+      ion-label {
+        margin: 0;
+        text-align: center;
+      }
     }
-
   }
-
-  .matches-info{
+  .matches-info {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 75%;
     -ms-flex: 0 0 75%;
     flex: 0 0 75%;
     max-width: 75%;
-    font-size: 0.345em;
-
-    .team-bar{
-      padding-left:0.5em;
-      ion-img{
+    //font-size: 0.345em;
+    .team-bar {
+      padding-left: 0.5em;
+      /*
+      ion-img {
         max-width: 1.5em;
         max-height: 1.5em;
         border-radius: 50%;
       }
-      ion-avatar[item-left]{
-        margin:0;
-        min-height: 1.8em;
-        min-width: 1.8em;
+      */
+      ion-avatar[item-left] {
+        border-radius: 0;
+        //margin: 0;
+        //min-height: 1.8em;
+        //min-width: 1.8em;
       }
-
-      .team-name{
+      .team-name {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 0.345em;
-
+        //font-size: 0.345em;
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 75%;
         -ms-flex: 0 0 75%;
         flex: 0 0 75%;
         max-width: 75%;
       }
-      .team-score{
-        font-size: 0.345em;
+      .team-score {
+        //font-size: 0.345em;
         line-height: 1;
-
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 15%;
         -ms-flex: 0 0 15%;
         flex: 0 0 15%;
         max-width: 15%;
       }
-
-      .item-inner{
+      .item-inner {
         border-bottom: none;
       }
-
-      .item{
+      .item {
         min-height: 2em;
       }
     }
@@ -127,11 +107,11 @@
 }
 
 .no-scroll {
-        overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .scroll {
-        overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 .left-scrollview {

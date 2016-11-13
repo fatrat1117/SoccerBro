@@ -47,8 +47,6 @@ export class RatingTagPipe implements PipeTransform {
   }
 
   transform(key: string, rating: number) {
-    console.log(this.positiveTags);
-    
     if (rating >= 5)
       return this.positiveTags[key];
     else
