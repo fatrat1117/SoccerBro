@@ -27,6 +27,8 @@ export class MatchesPageContent implements OnInit {
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
 
   @Input() tournamentId;
+  @Input() rightViewTop;
+
   constructor(private navCtrl: NavController,
     local: Localization,
     private modalController: ModalController,
