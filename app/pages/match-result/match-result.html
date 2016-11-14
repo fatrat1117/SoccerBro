@@ -31,13 +31,14 @@
   </ion-row>
   <ion-list>
     <!-- mvp -->
-    <ion-item>
+    <ion-item *ngIf="mvp?.votesCount > 0">
       <ion-avatar item-left>
-        <ion-img [src]="(mvp | playerBasicPipe | async)?.photoURL"></ion-img>
+        <ion-img [src]="(mvp?.id | playerBasicPipe | async)?.photoURL"></ion-img>
       </ion-avatar>
-      <h2> {{ (mvp | playerBasicPipe | async)?.displayName }}</h2>
-      <p>3 Goals</p>
-      <ion-icon item-right name="thumbs-up" danger></ion-icon>
+      <h2>{{ (mvp?.id | playerBasicPipe | async)?.displayName }}</h2>
+      <p>{{ mvp?.description }}</p>
+      <ion-badge item-right danger>MVP</ion-badge>
+      <!--ion-badge item-right>{{ mvp?.votesCount }}</ion-badge-->
     </ion-item>
     <!-- score -->
     <ion-item>

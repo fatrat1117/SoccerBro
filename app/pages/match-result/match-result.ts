@@ -31,7 +31,7 @@ export class MatchResultPage {
 
     this.matchStats = fm.getMatchStats(this.matchId, this.date);
     fm.getMVPWinner(this.date, this.matchId).subscribe(snapshot => {
-      this.mvp = snapshot.$value;
+      this.mvp = snapshot;
     });
   }
 
