@@ -58,27 +58,7 @@ export class MatchesPageContent implements OnInit {
     afDates.subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
-      setTimeout(function () {
-        let iToday = -1;
-        for (let i = 0; i < dates.length; ++i) {
-          if (self.today.toString() == dates[i].$key) {
-            iToday = i;
-            break;
-          }
-        }
-
-        console.log('today index', iToday);
-
-        if (iToday != -1) {
-          self.dateSubject.next(self.today);
-          self.setDatesColorArray(iToday);
-          self.currentSelectedDateIndex = iToday;
-
-          let scrollableDiv = document.getElementById("sketchElement");
-          scrollableDiv.scrollTop += 20 * iToday;
-        }
-
-      }, 1000);
+      self.scrollToToday(self.dates);
     });
   }
 
@@ -138,22 +118,35 @@ export class MatchesPageContent implements OnInit {
     }
   }
 
-  scrollToToday() {
-    let todayIndex: number = 0;
-    for (let i in this.dates) {
-      if (this.dates[i].$key >= this.today) {
-        todayIndex = parseInt(i);
-        break;
+  scrollToToday(dates) {
+
+    let self = this;
+    setTimeout(function () {
+      let iToday = -1;
+      for (let i = 0; i < dates.length; ++i) {
+        if (self.today.toString() == dates[i].$key) {
+          iToday = i;
+          break;
+        }
       }
-    }
-    // window.location.href  = "localhost:8100#matches-scroll-target-"+todayIndex.toString();
-    //document.getElementById("matches-scroll-target-"+todayIndex.toString()).scrollIntoView();
-    var id = "matches-scroll-target-" + todayIndex.toString();
-    console.log(id);
-    const tmp = document.getElementById("matches-scroll-target-17");
-    console.log(document.getElementById("matches-scroll-target-" + todayIndex.toString()));
-    //var top = document.getElementById("matches-scroll-target-"+todayIndex.toString()).offsetTop;
-    //window.scrollTo(0, top);
+
+      console.log('today index', iToday);
+
+      if (iToday != -1) {
+        self.dateSubject.next(self.today);
+        self.setDatesColorArray(iToday);
+        self.currentSelectedDateIndex = iToday;
+
+        let scrollableDiv = document.getElementById("sketchElement");
+        //let scrollableItem = document.getElementById("matches-scroll-target-1");
+        let scrollableItem = scrollableDiv.getElementsByTagName("ion-item");
+        if (scrollableItem.length > 0){
+          scrollableDiv.scrollTop += scrollableItem[0].clientHeight * iToday;
+        }
+
+      }
+
+    }, 1000);
   }
 
 
