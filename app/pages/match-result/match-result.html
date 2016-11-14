@@ -1,0 +1,106 @@
+<ion-card>
+  <!-- match info -->
+  <ion-row>
+    <!-- my team -->
+    <ion-col center>
+      <ion-item>
+        <ion-thumbnail>
+          <img class="team-logo-img" [src]="(matchBasic?.homeId | teamBasicPipe | async)?.logo">
+        </ion-thumbnail>
+        <p text-center>&nbsp;{{ (matchBasic?.homeId | teamBasicPipe | async)?.name }}</p>
+      </ion-item>
+    </ion-col>
+    <!-- time -->
+    <ion-col center text-center>
+      <!--ion-item style="text-align:center">
+        <ion-icon name="md-rainy" secondary><p>35&deg;C</p></ion-icon>
+      </ion-item-->
+      <p>{{ getTime(matchBasic?.time) }}</p>
+      <p>{{ getDay(matchBasic?.time) }}</p>
+      <p>{{ getDate(matchBasic?.time) }}</p>
+    </ion-col>
+    <!-- opponent team -->
+    <ion-col center>
+      <ion-item>
+        <ion-thumbnail>
+          <img class="team-logo-img" [src]="(matchBasic?.awayId | teamBasicPipe | async)?.logo">
+        </ion-thumbnail>
+        <p text-center>&nbsp;{{ (matchBasic?.awayId | teamBasicPipe | async)?.name }}</p>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <!-- mvp -->
+    <ion-item *ngIf="mvp?.votesCount > 0">
+      <ion-avatar item-left>
+        <ion-img [src]="(mvp?.id | playerBasicPipe | async)?.photoURL"></ion-img>
+      </ion-avatar>
+      <h2>{{ (mvp?.id | playerBasicPipe | async)?.displayName }}</h2>
+      <p>{{ mvp?.description }}</p>
+      <ion-badge item-right danger>MVP</ion-badge>
+      <!--ion-badge item-right>{{ mvp?.votesCount }}</ion-badge-->
+    </ion-item>
+    <!-- score -->
+    <ion-item>
+      <ion-row center>
+        <ion-col text-center>
+          {{ (matchStats | async)?.home?.score }}
+        </ion-col>
+        <ion-col text-center>
+          <ion-icon name="football" primary></ion-icon>
+        </ion-col>
+        <ion-col text-center>
+          {{ (matchStats | async)?.away?.score }}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <!-- red -->
+    <ion-item>
+      <ion-row center>
+        <ion-col text-center>
+          {{ (matchStats | async)?.home?.red }}
+        </ion-col>
+        <ion-col text-center>
+          <ion-icon name="square" class="red-card"></ion-icon>
+        </ion-col>
+        <ion-col text-center>
+          {{ (matchStats | async)?.away?.red }}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <!-- yellow -->
+    <ion-item>
+      <ion-row center>
+        <ion-col text-center>
+          {{ (matchStats | async)?.home?.yellow }}
+        </ion-col>
+        <ion-col text-center>
+          <ion-icon name="square" class="yellow-card"></ion-icon>
+        </ion-col>
+        <ion-col text-center>
+          {{ (matchStats | async)?.away?.yellow }}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+  </ion-list>
+  <ion-row padding-horizontal="">
+    <ion-col text-center="">
+      <button (click)="dismiss()" class="disable-hover button button-default button-block button-small button-danger button-icon-left"><span class="button-inner">
+        <ion-icon name="close" role="img" class="ion-md-close" aria-label="close"></ion-icon>
+        CLOSE
+      </span><ion-button-effect></ion-button-effect></button>
+    </ion-col>
+  </ion-row>
+  <!-->
+  <ion-row>
+    <ion-item *ngFor="let player of matchPlayers">
+      <ion-avatar>
+        <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL">
+        </ion-img>
+      </ion-avatar>
+      <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
+    </ion-item>
+  </ion-row>
+  <-->
+</ion-card>
