@@ -138,6 +138,7 @@ export class MatchesPageContent implements OnInit {
         self.currentSelectedDateIndex = iToday;
 
         let scrollableDiv = document.getElementById("sketchElement");
+        scrollableDiv.scrollTop = 0;
         //let scrollableItem = document.getElementById("matches-scroll-target-1");
         let scrollableItem = scrollableDiv.getElementsByTagName("ion-item");
         if (scrollableItem.length > 0){
