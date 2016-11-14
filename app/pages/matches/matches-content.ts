@@ -77,6 +77,7 @@ export class MatchesPageContent implements OnInit {
     // }
     // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0].children;
     // console.log(list[0]);
+    this.scrollToToday();
 
 
   }
