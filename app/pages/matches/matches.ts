@@ -22,7 +22,7 @@ export class MatchesPage {
   currTeamId;
   pId;
   constructor(private modalController: ModalController,
-  fm : FirebaseManager) {
+  private fm : FirebaseManager) {
     this.currTeamId = fm.selfTeamId;
     this.pId = fm.selfId;
     //if (fm.selfId)
@@ -31,5 +31,9 @@ export class MatchesPage {
 
    showScheduleMatchModal() {
     this.modalController.create(ScheduleMatchPage).present();
+  }
+
+  export() {
+    this.fm.exportMatchesData();
   }
 }

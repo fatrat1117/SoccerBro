@@ -55,7 +55,7 @@ export class FirebaseManager {
 
   validateTeamNumber(teamId, number, success, error) {
     let subscription = this.getTeamPlayers(teamId).subscribe(players => {
-      
+
       let isValid = true;
       players.forEach(p => {
         if (p.number == number) {
@@ -68,7 +68,7 @@ export class FirebaseManager {
           }
         }
       })
-      
+
       subscription.unsubscribe();
       if (isValid) {
         this.updateTeamNumber(teamId, this.selfId, number);
@@ -78,8 +78,8 @@ export class FirebaseManager {
   }
 
   updateTeamNumber(teamId, playerId, number) {
-      this.af.database.object(`/players/${playerId}/teams/${teamId}`).set(number);
-      this.af.database.object(`/teams/${teamId}/players/${playerId}`).update({ number: number });
+    this.af.database.object(`/players/${playerId}/teams/${teamId}`).set(number);
+    this.af.database.object(`/teams/${teamId}/players/${playerId}`).update({ number: number });
   }
 
   getSelfMatchNotifications() {
@@ -226,12 +226,12 @@ export class FirebaseManager {
     this.updateTotalMatches(this.selfTeamId);
   }
 
-  
+
   withdrawSelfMatch(matchId: string) {
     this.getTeamPlayers(this.selfTeamId).take(1).subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-          this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
-        });
+      snapshots.forEach(snapshot => {
+        this.af.database.object(`/players/${snapshot.$key}/match-notifications/${matchId}`).remove();
+      });
     });
 
     this.getTeamMatch(this.selfTeamId, matchId).update({
@@ -341,8 +341,31 @@ export class FirebaseManager {
 
 
   /********** All Matches Operations ***********/
+  exportMatchesData() {
+    let afMatchesExport = this.getMatchesExport();
+    let matches = [];
+    this.getMatchList().subscribe(snapshots => {
+      snapshots.forEach(m => {
+        if (m.homeId && m.awayId && m.homeScore && m.awayScore) {
+          var obj = {
+            homeId: m.homeId,
+            awayId: m.awayId,
+            homeScore: m.homeScore,
+            awayScore: m.awayScore,
+          };
+          matches.push(obj);
+        }
+        afMatchesExport.set({matches: matches});
+      })
+    });
+  }
+
   getMatchList() {
     return this.af.database.list('/matches/list');
+  }
+
+  getMatchesExport() {
+    return this.af.database.object('/matches/export');
   }
 
   getMatch(id) {
@@ -367,8 +390,8 @@ export class FirebaseManager {
     return this.af.database.object('/matches/dates/' + day);
   }
 
-  getTournamentDateByTournamentId(id){
-    return this.af.database.list('/tournaments/list/'+ id + '/dates');
+  getTournamentDateByTournamentId(id) {
+    return this.af.database.list('/tournaments/list/' + id + '/dates');
   }
 
   getTournamentMatchDate(id, day) {
@@ -543,7 +566,7 @@ export class FirebaseManager {
       }
     });
   }
-  
+
 
   getMatchBasicData(id, date) {
     return this.af.database.object(`/matches/data/${date}/${id}/basic`)
@@ -561,7 +584,7 @@ export class FirebaseManager {
   processMatchData(id, oldDate) {
     // remove old data
     console.log(oldDate);
-    
+
     this.af.database.object(`/matches/data/${oldDate}/${id}/`).remove();
     this.getMatch(id).take(1).subscribe(data => {
       let database = `/matches/data/${data.date}/${id}/`;
@@ -866,7 +889,7 @@ export class FirebaseManager {
   }
 
   voteReferee(date, matchId, rating, tags) {
-    let data:any = {}
+    let data: any = {}
     data.score = rating;
     //this.af.database.object(`/matches/data/${date}/${matchId}/referee/ratings/${this.selfId}/score`).set(rating);
     tags.forEach(t => {
@@ -935,7 +958,7 @@ export class FirebaseManager {
   removeTournament(id) {
     this.getTournament(id).remove();
   }
-  
+
   getTournamentsAdmin(id) {
     return this.af.database.object('/tournaments/whitelist/' + id);
   }

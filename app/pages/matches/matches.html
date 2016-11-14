@@ -1,8 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Matches</ion-title>
-    <ion-buttons *ngIf="(currTeamId | teamBasicPipe | async)?.captain === pId" end>
-      <button (click)="showScheduleMatchModal()">
+    <ion-buttons end>
+      <button (click)="export()">
+        <ion-icon name="calculator"></ion-icon>
+      </button>
+      <button *ngIf="(currTeamId | teamBasicPipe | async)?.captain === pId" (click)="showScheduleMatchModal()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
