@@ -1,13 +1,13 @@
-import {Component, Input, ElementRef, OnInit, ViewChild, ContentChildren, QueryList} from '@angular/core';
-import {NavController, ModalController} from 'ionic-angular';
-import {transPipe, Localization} from '../../providers/localization'
-import {ScheduleMatchPage} from '../schedule-match/schedule-match';
-import {MatchResultPage} from '../match-result/match-result';
-import {FirebaseManager} from '../../providers/firebase-manager';
-import {StringToDatePipe, NumberToTimePipe} from '../../pipes/moment.pipe';
-import {TournamentFilterPipe} from '../../pipes/match-filter.pipe';
-import {Subject} from 'rxjs/Subject';
-import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
+import { Component, Input, ElementRef, OnInit, ViewChild, ContentChildren, QueryList } from '@angular/core';
+import { NavController, ModalController } from 'ionic-angular';
+import { transPipe, Localization } from '../../providers/localization'
+import { ScheduleMatchPage } from '../schedule-match/schedule-match';
+import { MatchResultPage } from '../match-result/match-result';
+import { FirebaseManager } from '../../providers/firebase-manager';
+import { StringToDatePipe, NumberToTimePipe } from '../../pipes/moment.pipe';
+import { TournamentFilterPipe } from '../../pipes/match-filter.pipe';
+import { Subject } from 'rxjs/Subject';
+import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import * as moment from 'moment';
 
 
@@ -28,60 +28,60 @@ export class MatchesPageContent implements OnInit {
 
   @Input() tournamentId;
   @Input() rightViewTop;
-  @ViewChild('sketchElement') sketchElement:ElementRef;
-  @ContentChildren('list_item') items: Array<ElementRef>;
+  //@ViewChild('sketchElement') sketchElement:ElementRef;
+  //@ContentChildren('list_item') items: Array<ElementRef>;
 
 
   constructor(private navCtrl: NavController,
-              local: Localization,
-              private modalController: ModalController,
-              private fm: FirebaseManager) {
+    local: Localization,
+    private modalController: ModalController,
+    private fm: FirebaseManager) {
     this.afMatches = fm.queryMatches(this.dateSubject);
   }
 
   ngOnInit() {
     console.log('matches tournamentId', this.tournamentId);
-    console.log(this.sketchElement);
-    console.log(this.sketchElement.nativeElement.offsetTop);
-    
+
+    // setTimeout(function() {
+    //    var objDiv = document.getElementById("sketchElement");
+    //   console.log(objDiv);
+    //   objDiv.scrollTop += 20;
+    // }, 1000);
+
     let self = this;
     let afDates;
     if (this.tournamentId)
       afDates = this.fm.getTournamentDateByTournamentId(this.tournamentId);
     else
       afDates = this.fm.getMatchDates();
+
     afDates.subscribe(dates => {
       self.dates = dates;
       self.initialDatesColorArray(self.dates);
       setTimeout(function () {
-        //console.log('show today', self.today);
-        self.dateSubject.next(self.today);
+        let iToday = -1;
+        for (let i = 0; i < dates.length; ++i) {
+          if (self.today.toString() == dates[i].$key) {
+            iToday = i;
+            break;
+          }
+        }
+
+        console.log('today index', iToday);
+
+        if (iToday != -1) {
+          self.dateSubject.next(self.today);
+          self.setDatesColorArray(iToday);
+          self.currentSelectedDateIndex = iToday;
+
+          let scrollableDiv = document.getElementById("sketchElement");
+          scrollableDiv.scrollTop += 20 * iToday;
+        }
+
       }, 1000);
     });
   }
 
-
- // ngAfterViewInit() {
-    // sketchElement is usable
-    // console.log(this.sketchElement.nativeElement.offsetTop);
-    // console.log(this.sketchElement.nativeElement.children);
-    // console.log(this.sketchElement.nativeElement.children[0].offsetTop);
-    // console.log(this.sketchElement.nativeElement.children[0].children[0]);
-    // console.log(this.sketchElement.nativeElement.children[0].children.length);
-    // console.log(this.sketchElement.nativeElement.children[0].childNodes);
-
-    // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0];
-    // console.log(this.sketchElement.nativeElement.children[0].childNodes);
-    //
-    // console.log(this.sketchElement.nativeElement.children[0]);
-    // for (let i in this.sketchElement.nativeElement.children[0].childNodes){
-    //   console.log(i);
-    // }
-    // let list:Array<ElementRef> = this.sketchElement.nativeElement.children[0].children;
-    // console.log(list[0]);
-
-
-  //}
 
   showMatches(date: string, i: number) {
     if (this.currentSelectedDateIndex != -1 && this.dates[this.currentSelectedDateIndex].$key === date) {
