@@ -149,4 +149,12 @@ export class LeagueStatsPage {
   updateTournamentInfo() {
     this.afTournamentInfo.update({description: this.tournamentDescription});
   }
+
+  ImportTeamAbility() {
+    let obj = JSON.parse(this.tournamentDescription);
+    console.log(obj);
+    for(let tId in obj) {
+      this.fm.getTeamPublic(tId).update({ability: obj[tId]});
+    }
+  }
  }

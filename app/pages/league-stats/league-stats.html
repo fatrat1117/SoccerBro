@@ -38,6 +38,7 @@
 		<ion-card *ngSwitchCase="'info'">
 			<ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled] = "!((afWhitelist | async)?.$value)"></ion-textarea>
 			<button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
+			<button (click)="ImportTeamAbility()">Import Team Ability</button>
 		</ion-card>
 
 		<div *ngSwitchCase="'standings'" class="league-stats-standing">
