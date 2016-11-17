@@ -149,6 +149,4 @@ export class MatchesPageContent implements OnInit {
 
     }, 1000);
   }
-
-
 }

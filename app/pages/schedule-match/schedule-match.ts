@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {ViewController, ModalController, PopoverController, NavParams} from 'ionic-angular';
-import {MapsAPILoader} from 'angular2-google-maps/core';
+import { Component } from '@angular/core';
+import { ViewController, ModalController, PopoverController, NavParams } from 'ionic-angular';
+import { MapsAPILoader } from 'angular2-google-maps/core';
 import * as moment from 'moment';
-import {SearchTeamPage} from '../search-team/search-team';
-import {ColorPickerPage} from '../color-picker/color-picker';
-import {FirebaseManager} from '../../providers/firebase-manager'
-import {AccountManager} from '../../providers/account-manager'
-import {transPipe} from '../../providers/localization'
+import { SearchTeamPage } from '../search-team/search-team';
+import { ColorPickerPage } from '../color-picker/color-picker';
+import { FirebaseManager } from '../../providers/firebase-manager'
+import { AccountManager } from '../../providers/account-manager'
+import { transPipe } from '../../providers/localization'
 declare var google: any;
 
 @Component({
@@ -39,17 +39,17 @@ export class ScheduleMatchPage {
   homePlayers = [];
   awayPlayers = [];
 
-  constructor(private viewCtrl: ViewController, 
-              private modalCtrl: ModalController,
-              private popoverController: PopoverController, 
-              private _loader: MapsAPILoader,
-              private fm: FirebaseManager,
-              private am: AccountManager,
-              params: NavParams) {
+  constructor(private viewCtrl: ViewController,
+    private modalCtrl: ModalController,
+    private popoverController: PopoverController,
+    private _loader: MapsAPILoader,
+    private fm: FirebaseManager,
+    private am: AccountManager,
+    params: NavParams) {
     this.location = {};
-    this.notice  = "";
+    this.notice = "";
     this.minDate = moment("20160101", "YYYYMMDD").format("YYYY-MM-DD");
-    this.matchDate =  moment().format("YYYY-MM-DD");
+    this.matchDate = moment().format("YYYY-MM-DD");
     this.matchTime = "15:00";
     this.mId = params.get('mId');
     this.tournamentId = params.get('tournamentId');
@@ -57,7 +57,7 @@ export class ScheduleMatchPage {
     let self = this;
     if (this.mId) {
       console.log('match id', this.mId);
-      fm.getMatch(this.mId).subscribe(matchSnapshot=> {
+      fm.getMatch(this.mId).subscribe(matchSnapshot => {
         console.log(matchSnapshot);
         self.home = {};
         self.away = {};
@@ -76,9 +76,9 @@ export class ScheduleMatchPage {
         if (matchSnapshot.awayScore)
           self.awayScore = matchSnapshot.awayScore;
 
-        if (matchSnapshot.homePlayers)  
+        if (matchSnapshot.homePlayers)
           self.homePlayers = matchSnapshot.homePlayers;
-        if (matchSnapshot.awayPlayers)  
+        if (matchSnapshot.awayPlayers)
           self.awayPlayers = matchSnapshot.awayPlayers;
 
         if (matchSnapshot.homeGoals)
@@ -101,8 +101,8 @@ export class ScheduleMatchPage {
 
         if (matchSnapshot.refereeName)
           self.refereeName = matchSnapshot.refereeName;
-        fm.getTeamBasic(matchSnapshot.homeId).subscribe(teamSnapshot=> self.home["name"] = teamSnapshot.name);
-        fm.getTeamBasic(matchSnapshot.awayId).subscribe(teamSnapshot=> self.away["name"] = teamSnapshot.name);
+        fm.getTeamBasic(matchSnapshot.homeId).subscribe(teamSnapshot => self.home["name"] = teamSnapshot.name);
+        fm.getTeamBasic(matchSnapshot.awayId).subscribe(teamSnapshot => self.away["name"] = teamSnapshot.name);
       });
     }
   }
@@ -114,10 +114,12 @@ export class ScheduleMatchPage {
   searchTeam(teamType) {
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
-      if (1 == teamType)
-        this.home = data.team;
-      else
-        this.away = data.team;
+      if (data) {
+        if (1 == teamType)
+          this.home = data.team;
+        else
+          this.away = data.team;
+      }
     });
     searchTeamModal.present();
   }
@@ -144,7 +146,7 @@ export class ScheduleMatchPage {
     let t = this.am.dateTimeStringToNumber(this.matchDate + " " + this.matchTime);
     let tDate = this.am.dateTimeStringToNumber(this.matchDate);
     //console.log(this.matchDate, this.matchTime, t, tDate);
-    
+
     let self = this;
     let success = () => {
       alert('schedule match successful');
@@ -208,30 +210,30 @@ export class ScheduleMatchPage {
       alert(err);
     };
 
-    this.fm.updateMatch(this.mId, updateMatchData, 
-    this.oldDate,
-    success, 
-    error);
+    this.fm.updateMatch(this.mId, updateMatchData,
+      this.oldDate,
+      success,
+      error);
   }
 
   addGoal(goals) {
-    goals.push({num: 0, goals: 1});
+    goals.push({ num: 0, goals: 1 });
   }
 
   addAssist(assists) {
-    assists.push({num: 0, assists: 1});
+    assists.push({ num: 0, assists: 1 });
   }
 
   addYellowCard(cards) {
-    cards.push({num: 0, cards: 1});
+    cards.push({ num: 0, cards: 1 });
   }
 
   addRedCard(cards) {
-    cards.push({num: 0, cards: 1});
+    cards.push({ num: 0, cards: 1 });
   }
 
   addPlayer(player) {
-    player.push({num: 0});
+    player.push({ num: 0 });
   }
 
   toNumber(s) {

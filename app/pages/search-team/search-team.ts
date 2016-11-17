@@ -77,4 +77,8 @@ export class SearchTeamPage {
   dismiss(team: any) {
     this.viewCtrl.dismiss({ team: team });
   }
+
+  close() {
+    this.viewCtrl.dismiss();
+  }
 }
