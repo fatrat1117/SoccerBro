@@ -13,8 +13,8 @@
           <p danger>{{(afTeamPublic | async)?.popularity }}</p>
         </div>
         <div class="right">
-          <p class="player-title-text">{{'Matches' | trans}}</p>
-          <p secondary>{{(afTeam | async)?.totalMatches }}</p>
+          <p class="player-title-text">{{'Ability' | trans}}</p>
+          <p secondary>{{(afTeamPublic | async)?.ability }}</p>
         </div>
       </div>
       <img class="avatar" [src]="(afTeam | async)?.logo">
