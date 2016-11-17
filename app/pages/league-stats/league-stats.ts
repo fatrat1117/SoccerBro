@@ -25,7 +25,7 @@ export class LeagueStatsPage {
   afMatchesBytournamentId: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
-  tournamentId : any;
+  tournamentId: any;
   afTournamentInfo: any;
   tournamentDescription: any;
   afWhitelist: any;
@@ -39,8 +39,8 @@ export class LeagueStatsPage {
     let self = this;
     fm.getTournamentTableList(this.tournamentId).subscribe(tables => {
       console.log('getTournamentTable', tables);
-        self.standings = tables;
-      });
+      self.standings = tables;
+    });
 
     this.goals = [
       {
@@ -147,14 +147,18 @@ export class LeagueStatsPage {
   }
 
   updateTournamentInfo() {
-    this.afTournamentInfo.update({description: this.tournamentDescription});
+    this.afTournamentInfo.update({ description: this.tournamentDescription });
   }
 
   ImportTeamAbility() {
-    let obj = JSON.parse(this.tournamentDescription);
-    console.log(obj);
-    for(let tId in obj) {
-      this.fm.getTeamPublic(tId).update({ability: obj[tId]});
+    try {
+      let obj = JSON.parse(this.tournamentDescription);
+      for (let tId in obj) {
+        this.fm.getTeamPublic(tId).update({ ability: obj[tId] });
+      }
+    }
+    catch (e) {
+      alert(e);
     }
   }
- }
+}
