@@ -22,28 +22,24 @@ export class StatsPage {
   //maxTeam = 20;
   playerSize = new Subject();
   teamSize = new Subject();
+  teamSortBy = new Subject();
   teamData = { enableScroll: true, maxTeam: 20 };
   playerData = { enableScroll: true, maxPlayer: 20 };
+  teamSortByStr = "ability";
 
   constructor(private nav: NavController,
   private fm: FirebaseManager,
   private am: AccountManager) {
     this.afPlayers = fm.queryPublicPlayers('popularity', this.playerSize);
-    this.afTeams = fm.queryPublicTeams('popularity', this.teamSize);
+    this.afTeams = fm.queryPublicTeams(this.teamSortBy, this.teamSize);
     this.updateTeamSize();
   }
-
-  // initialize() {
-  //   setTimeout(()=>{
-  //     this.playerSize.next(this.maxPlayer);
-  //     this.teamSize.next(this.maxTeam);
-  //   }, 500);
-  // }
 
   updateTeamSize() {
     this.am.presentLoading(4000, false);
 
     setTimeout(() => {
+      this.teamSortBy.next(this.teamSortByStr);
       this.teamSize.next(this.teamData.maxTeam);
     }, 500);
   }
@@ -67,12 +63,6 @@ export class StatsPage {
   enterStandings() {
     this.nav.push(LeagueStatsPage);
   }
-
-  /*
-  swipeTo(name: string) {
-    this.stats = name;
-  }
-  */
 
   morePlayer(infiniteScroll) {
     console.log('more player available', this.fm.totalPlayers, this.playerData);
@@ -101,5 +91,10 @@ export class StatsPage {
       infiniteScroll.enable(enable);
       infiniteScroll.complete();
     }, 500);
+  }
+
+  sortTeamBy(str) {
+    this.teamSortByStr = str;
+    this.teamSortBy.next(this.teamSortByStr);
   }
 }

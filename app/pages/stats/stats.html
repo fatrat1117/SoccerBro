@@ -14,6 +14,14 @@
 <ion-content>
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
+      <ion-select [ngModel] = "teamSortByStr" (ngModelChange)="sortTeamBy($event)">
+        <ion-option value="ability">
+          {{'Ability' | trans}}
+        </ion-option>
+        <ion-option value="popularity">
+          {{'Popularity' | trans}}
+        </ion-option>
+      </ion-select>
       <ion-list>
         <ion-item *ngFor="let t of afTeams | async | reverseAndCountTeamPipe : teamData; let i = index;" tappable (click)="goTeamPage(t.$key)" style="margin-bottom:20px">
           <ion-thumbnail item-left>
@@ -25,8 +33,8 @@
           </h2>
           <ion-row>
             <ion-col>
-              <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;{{'Played' | trans}}</label></p>
-              <p text-center>{{(t.$key | teamBasicPipe | async)?.totalMatches}}</p>
+              <p text-center><label><ion-icon name='football'></ion-icon>&nbsp;{{'Ability' | trans}}</label></p>
+              <p text-center>{{t.ability}}</p>
             </ion-col>
             <ion-col>
               <p text-center><label><ion-icon name='people'></ion-icon>&nbsp;{{'Players' | trans}}</label></p>
