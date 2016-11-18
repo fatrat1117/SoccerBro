@@ -3,6 +3,11 @@
 		<ion-title>
 			{{'NewMatch' | trans}}
 		</ion-title>
+					<ion-select [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
+			<ion-option value="5">5 v 5</ion-option>
+			<ion-option value="7">7 v 7</ion-option>
+			<ion-option value="11">11 v 11</ion-option>
+		</ion-select>
 		<ion-buttons end *ngIf="mId">
 			<button (click)="deleteMatch()">
         <ion-icon name="trash" danger></ion-icon>

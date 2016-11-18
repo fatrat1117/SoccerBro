@@ -38,6 +38,7 @@ export class ScheduleMatchPage {
   tournamentId = [];
   homePlayers = [];
   awayPlayers = [];
+  matchType = 11;
 
   constructor(private viewCtrl: ViewController,
     private modalCtrl: ModalController,
@@ -71,6 +72,8 @@ export class ScheduleMatchPage {
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
         //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
+        if ("type" in matchSnapshot)
+          self.matchType = matchSnapshot.type;
         if ("homeScore" in matchSnapshot)
           self.homeScore = matchSnapshot.homeScore;
         if ("awayScore" in matchSnapshot)
@@ -193,7 +196,8 @@ export class ScheduleMatchPage {
       awayRedCards: this.awayRedCards,
       refereeName: this.refereeName,
       homeId: this.home.id,
-      awayId: this.away.id
+      awayId: this.away.id,
+      type: this.matchType
     };
 
     if (this.homeScore)
