@@ -16,7 +16,7 @@ import { MatchesPageContent } from '../matches/matches-content';
 
 export class LeagueStatsPage {
   standings: any;
-  goals: any[];
+  //goals: any[];
   leagueStats: string = "standings";
   dates: any;
   datesColorArray: any;
@@ -42,13 +42,13 @@ export class LeagueStatsPage {
       self.standings = tables;
     });
 
-    this.goals = [
-      {
-        Name: "Tianyi",
-        Team: "Everpioneer FC",
-        Goals: "90"
-      },
-    ];
+    // this.goals = [
+    //   {
+    //     Name: "Tianyi",
+    //     Team: "Everpioneer FC",
+    //     Goals: "90"
+    //   },
+    // ];
 
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;

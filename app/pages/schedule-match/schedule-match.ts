@@ -71,9 +71,9 @@ export class ScheduleMatchPage {
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
         //console.log(self.matchTime);
         self.notice = matchSnapshot.notice;
-        if (matchSnapshot.homeScore)
+        if ("homeScore" in matchSnapshot)
           self.homeScore = matchSnapshot.homeScore;
-        if (matchSnapshot.awayScore)
+        if ("awayScore" in matchSnapshot)
           self.awayScore = matchSnapshot.awayScore;
 
         if (matchSnapshot.homePlayers)

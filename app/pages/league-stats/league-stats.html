@@ -25,9 +25,9 @@
 			<ion-segment-button value="standings">
 				积分榜
 			</ion-segment-button>
-			<ion-segment-button value="goals">
+			<!--<ion-segment-button value="goals">
 				射手榜
-			</ion-segment-button>
+			</ion-segment-button>-->
 			<ion-segment-button value="fixtures">
 				Fixtures
 			</ion-segment-button>
@@ -102,7 +102,7 @@
 		<!--
   Goals rank page by Tianyi
   -->
-		<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
+		<!--<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
 			<ion-item class="goals-title">
 				<ion-row class="first-row">
 					<ion-col  width-33>
@@ -136,7 +136,7 @@
 				</ion-row>
 			</ion-item>
 
-		</div>
+		</div>-->
 
 		<div *ngSwitchCase="'fixtures'" style="height:100%">
 			<matches-content [tournamentId]=tournamentId rightViewTop='42'></matches-content>
