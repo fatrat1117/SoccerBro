@@ -31,6 +31,7 @@ export class LeagueStatsPage {
   tournamentDescription: any;
   afWhitelist: any;
   afTournamentName;
+  afTournamentsAdmin;
 
   constructor(private nav: NavController,
     private fm: FirebaseManager,
@@ -72,6 +73,9 @@ export class LeagueStatsPage {
     this.afTournamentName = fm.getTournamentName(this.tournamentId);
 
     this.afWhitelist = fm.getTournamentAdmin(this.tournamentId);
+    if (fm.selfId) {
+      this.afTournamentsAdmin = fm.getTournamentsAdmin(fm.selfId);
+    }
   }
 
   testClick() {
