@@ -140,6 +140,8 @@ export class Localization {
             Logo: 'Logo',
             SoccerBro: 'SoccerBro',
             OK: 'OK',
+            Tournaments: 'Tournaments',
+            FriendlyMatches: 'Matches'
         },
 
         zh: {
@@ -260,7 +262,9 @@ export class Localization {
             EditTeam: '编辑球队',
             Logo: '队徽',
             SoccerBro: '足球兄弟',
-            OK: '确定'
+            OK: '确定',
+            Tournaments: '比赛',
+            FriendlyMatches: '友谊赛'
         }
     }
 }
