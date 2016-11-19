@@ -346,7 +346,7 @@ export class FirebaseManager {
     let matches = [];
     this.getMatchList().subscribe(snapshots => {
       snapshots.forEach(m => {
-        if (m.homeId && m.awayId && m.homeScore && m.awayScore) {
+        if (m.homeId && m.awayId && "homeScore" in m && "awayScore" in m) {
           var obj = {
             homeId: m.homeId,
             awayId: m.awayId,
@@ -456,7 +456,7 @@ export class FirebaseManager {
         this.updateTeamMatch(id, teamData, matchObj.awayId);
 
         // process raw data
-        if (matchObj.homeScore && matchObj.awayScore)
+        if ("homeScore" in matchObj && "awayScore" in matchObj)
           this.processMatchData(id, oldDate);
 
         success();
@@ -953,6 +953,10 @@ export class FirebaseManager {
     return this.af.database.object('/tournaments/list/' + id + '/info');
   }
 
+  getTournamentName(id) {
+    return this.af.database.object('/tournaments/list/' + id + '/name');
+  }
+
   removeTournament(id) {
     this.getTournament(id).remove();
   }
@@ -984,7 +988,7 @@ export class FirebaseManager {
       console.log('raw data', rawData);
       let tableData = {};
       rawData.forEach(match => {
-        if (match.homeScore && match.awayScore) {
+        if ("homeScore" in match && "awayScore" in match) {
           this.computeOneMatch(tableData, match.homeId, match.awayId, match.homeScore, match.awayScore);
           this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
         }

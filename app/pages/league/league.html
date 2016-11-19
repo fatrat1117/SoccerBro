@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Tournaments</ion-title>
+    <ion-title>{{'Tournaments' | trans}}</ion-title>
     <ion-buttons end>
       <button *ngIf="(afWhitelist | async)?.$value" (click)="addTournament()">
         <ion-icon name="add"></ion-icon>

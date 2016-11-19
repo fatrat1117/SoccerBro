@@ -7,16 +7,17 @@ import { TeamBasicPipe } from '../../pipes/team-basic.pipe';
 import { ScheduleMatchPage } from '../schedule-match/schedule-match';
 import * as moment from 'moment';
 import { MatchesPageContent } from '../matches/matches-content';
+import {transPipe} from '../../providers/localization'
 
 @Component({
   templateUrl: 'build/pages/league-stats/league-stats.html',
-  pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe],
+  pipes: [StringToDatePipe, NumberToTimePipe, TeamBasicPipe, transPipe],
   directives: [MatchesPageContent]
 })
 
 export class LeagueStatsPage {
   standings: any;
-  goals: any[];
+  //goals: any[];
   leagueStats: string = "standings";
   dates: any;
   datesColorArray: any;
@@ -29,6 +30,7 @@ export class LeagueStatsPage {
   afTournamentInfo: any;
   tournamentDescription: any;
   afWhitelist: any;
+  afTournamentName;
 
   constructor(private nav: NavController,
     private fm: FirebaseManager,
@@ -42,13 +44,13 @@ export class LeagueStatsPage {
       self.standings = tables;
     });
 
-    this.goals = [
-      {
-        Name: "Tianyi",
-        Team: "Everpioneer FC",
-        Goals: "90"
-      },
-    ];
+    // this.goals = [
+    //   {
+    //     Name: "Tianyi",
+    //     Team: "Everpioneer FC",
+    //     Goals: "90"
+    //   },
+    // ];
 
     fm.getMatchDates().subscribe(dates => {
       self.dates = dates;
@@ -67,6 +69,7 @@ export class LeagueStatsPage {
       if (info.description)
         this.tournamentDescription = info.description;
     })
+    this.afTournamentName = fm.getTournamentName(this.tournamentId);
 
     this.afWhitelist = fm.getTournamentAdmin(this.tournamentId);
   }

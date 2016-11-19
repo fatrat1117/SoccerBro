@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>League Statistics</ion-title>
+		<ion-title>{{(afTournamentName | async)?.$value}}</ion-title>
 		<ion-buttons end *ngIf="(afWhitelist | async)?.$value">
 			<button (click)="remove()">
         <ion-icon name="trash" danger></ion-icon>
@@ -20,16 +20,16 @@
 	<ion-header-bar class="bar-stable">
 		<ion-segment [(ngModel)]="leagueStats">
 			<ion-segment-button value="info">
-				INFO
+				{{'Info' | trans | uppercase}}
 			</ion-segment-button>
 			<ion-segment-button value="standings">
-				积分榜
+				{{'Table' | trans | uppercase}}
 			</ion-segment-button>
-			<ion-segment-button value="goals">
+			<!--<ion-segment-button value="goals">
 				射手榜
-			</ion-segment-button>
+			</ion-segment-button>-->
 			<ion-segment-button value="fixtures">
-				Fixtures
+				{{'Fixtures' | trans | uppercase}}
 			</ion-segment-button>
 		</ion-segment>
 	</ion-header-bar>
@@ -102,7 +102,7 @@
 		<!--
   Goals rank page by Tianyi
   -->
-		<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
+		<!--<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
 			<ion-item class="goals-title">
 				<ion-row class="first-row">
 					<ion-col  width-33>
@@ -136,7 +136,7 @@
 				</ion-row>
 			</ion-item>
 
-		</div>
+		</div>-->
 
 		<div *ngSwitchCase="'fixtures'" style="height:100%">
 			<matches-content [tournamentId]=tournamentId rightViewTop='42'></matches-content>

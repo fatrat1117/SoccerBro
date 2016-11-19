@@ -18,15 +18,15 @@ import {MatchesPageContent} from '../matches/matches-content';
 })
 
 export class MatchesPage {
-  //afRole: any;
+  afWhitelist;
   currTeamId;
   pId;
   constructor(private modalController: ModalController,
   private fm : FirebaseManager) {
     this.currTeamId = fm.selfTeamId;
     this.pId = fm.selfId;
-    //if (fm.selfId)
-      //this.afRole = fm.getPlayerRole(fm.selfId);
+    if (fm.selfId)
+      this.afWhitelist = fm.getTournamentsAdmin(fm.selfId);
   }
 
    showScheduleMatchModal() {
@@ -34,6 +34,6 @@ export class MatchesPage {
   }
 
   export() {
-    this.fm.exportMatchesData();
+
   }
 }
