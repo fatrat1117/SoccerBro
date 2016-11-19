@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{'Players' | trans}}</ion-title>
+    <ion-buttons end *ngIf="showClose">
+      <button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

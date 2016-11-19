@@ -1,108 +1,104 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>{{(afTournamentName | async)?.$value}}</ion-title>
-		<ion-buttons end *ngIf="(afWhitelist | async)?.$value">
-			<button (click)="remove()">
+  <ion-navbar>
+    <ion-title>{{(afTournamentName | async)?.$value}}</ion-title>
+    <ion-buttons end *ngIf="(afWhitelist | async)?.$value">
+      <button (click)="remove()">
         <ion-icon name="trash" danger></ion-icon>
       </button>
-			<button (click)="compute()">
+      <button (click)="compute()">
         <ion-icon name="calculator"></ion-icon>
       </button>
-			<button (click)="addTournamentMatch()">
+      <button (click)="addTournamentMatch()">
         <ion-icon name="add"></ion-icon>
       </button>
-		</ion-buttons>
-	</ion-navbar>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
-
-
 <ion-content no-padding>
-	<ion-header-bar class="bar-stable">
-		<ion-segment [(ngModel)]="leagueStats">
-			<ion-segment-button value="info">
-				{{'Info' | trans | uppercase}}
-			</ion-segment-button>
-			<ion-segment-button value="standings">
-				{{'Table' | trans | uppercase}}
-			</ion-segment-button>
-			<!--<ion-segment-button value="goals">
+  <ion-header-bar class="bar-stable">
+    <ion-segment [(ngModel)]="leagueStats">
+      <ion-segment-button value="info">
+        {{'Info' | trans | uppercase}}
+      </ion-segment-button>
+      <ion-segment-button value="standings">
+        {{'Table' | trans | uppercase}}
+      </ion-segment-button>
+      <!--<ion-segment-button value="goals">
 				射手榜
 			</ion-segment-button>-->
-			<ion-segment-button value="fixtures">
-				{{'Fixtures' | trans | uppercase}}
-			</ion-segment-button>
-		</ion-segment>
-	</ion-header-bar>
-
-	<div [ngSwitch]="leagueStats" class="league-stats" style="height:100%">
-		<ion-card *ngSwitchCase="'info'">
-			<ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled] = "!((afWhitelist | async)?.$value)"></ion-textarea>
-			<button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
-			<button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
-		</ion-card>
-
-		<div *ngSwitchCase="'standings'" class="league-stats-standing">
-			<ion-list>
-				<ion-item>
-					<ion-row>
-						<ion-col width-50>
-							<p text-left><label>Team</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>P</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>W</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>D</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>L</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>GF/GA</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>PTS</label></p>
-						</ion-col>
-					</ion-row>
-				</ion-item>
-				<ion-item *ngFor="let s of standings; let i = index;" no-margin>
-					<ion-row>
-						<ion-col width-50>
-							<ion-thumbnail>
-								<ion-img [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
-							</ion-thumbnail>
-							<p text-left><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.P}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.W}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.D}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.L}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.GS}}/{{s.GA}}</label></p>
-						</ion-col>
-						<ion-col>
-							<p text-center><label>{{s.PTS}}</label></p>
-						</ion-col>
-					</ion-row>
-				</ion-item>
-			</ion-list>
-		</div>
-
-		<!--
+      <ion-segment-button value="fixtures">
+        {{'Fixtures' | trans | uppercase}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-header-bar>
+  <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%">
+    <ion-card *ngSwitchCase="'info'" text-wrap>
+      <ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled]="!((afWhitelist | async)?.$value)"></ion-textarea>
+      <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
+      <button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
+      <button *ngIf="tournamentDescLink" (click)="ShowDetails()">More Details</button>
+    </ion-card>
+      <div *ngSwitchCase="'standings'" class="league-stats-standing">
+        <ion-list>
+          <ion-item>
+            <ion-row>
+              <ion-col width-50>
+                <p text-left><label>Team</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>P</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>W</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>D</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>L</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>GF/GA</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>PTS</label></p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <ion-item *ngFor="let s of standings; let i = index;" no-margin>
+            <ion-row>
+              <ion-col width-50>
+                <ion-thumbnail>
+                  <ion-img [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
+                </ion-thumbnail>
+                <p text-left><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.P}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.W}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.D}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.L}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.GS}}/{{s.GA}}</label></p>
+              </ion-col>
+              <ion-col>
+                <p><label>{{s.PTS}}</label></p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
+      </div>
+      <!--
   Goals rank page by Tianyi
   -->
-		<!--<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
+      <!--<div *ngSwitchCase="'goals'" class="league-stats-goals-panel">
 			<ion-item class="goals-title">
 				<ion-row class="first-row">
 					<ion-col  width-33>
@@ -137,10 +133,8 @@
 			</ion-item>
 
 		</div>-->
-
-		<div *ngSwitchCase="'fixtures'" style="height:100%">
-			<matches-content [tournamentId]=tournamentId rightViewTop='42'></matches-content>
-		</div>
-	</div>
-
+      <div *ngSwitchCase="'fixtures'" style="height:100%">
+        <matches-content [tournamentId]=tournamentId rightViewTop='42'></matches-content>
+      </div>
+  </div>
 </ion-content>

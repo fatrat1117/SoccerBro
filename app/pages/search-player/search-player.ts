@@ -14,9 +14,11 @@ export class SearchPlayerPage {
   teamId: string;
   totalPlayers: any[];
   filteredPlayers: any[];
+  showClose: boolean;
   constructor(private nav: NavController, private navParams: NavParams, private fm: FirebaseManager, private viewCtrl: ViewController) {
     this.teamId = this.navParams.get('teamId');
     this.showDetail = this.navParams.get('showDetail');
+    this.showClose = this.navParams.get('showClose');
     this.totalPlayers = [];
 
     // firebase
@@ -63,5 +65,9 @@ export class SearchPlayerPage {
       this.nav.push(MyPlayerPage, { pId: id });
     else
       this.viewCtrl.dismiss({ playerId: id });
+  }
+
+  close() {
+    this.viewCtrl.dismiss();
   }
 }

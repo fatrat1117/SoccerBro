@@ -756,7 +756,7 @@ export class FirebaseManager {
     else if (lostStats.score < minScore) // won gk mvp
       gkMvp = this.getGkMvp(candidates.slice(0, spliter));
     // def
-    let averageScore = 3;
+    let averageScore = 2;
     let defMvp = Array<any>();
     if (wonStats.score < averageScore && lostStats.score < averageScore)
       defMvp = this.getDefMvp(candidates);

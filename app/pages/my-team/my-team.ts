@@ -94,7 +94,7 @@ export class MyTeamPage {
 
 
   searchPlayers() {
-    this.nav.push(SearchPlayerPage, { teamId: this.tId, showDetail: true });
+    this.nav.push(SearchPlayerPage, { teamId: this.tId, showDetail: true, showClose: false });
   }
 
   showMenu() {

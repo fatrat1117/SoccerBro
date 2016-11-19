@@ -29,6 +29,7 @@ export class LeagueStatsPage {
   tournamentId: any;
   afTournamentInfo: any;
   tournamentDescription: any;
+  tournamentDescLink: any;
   afWhitelist: any;
   afTournamentName;
   afTournamentsAdmin;
@@ -69,6 +70,8 @@ export class LeagueStatsPage {
     this.afTournamentInfo.subscribe(info => {
       if (info.description)
         this.tournamentDescription = info.description;
+      if (info.link)
+        this.tournamentDescLink = info.link;
     })
     this.afTournamentName = fm.getTournamentName(this.tournamentId);
 
@@ -167,5 +170,9 @@ export class LeagueStatsPage {
     catch (e) {
       alert(e);
     }
+  }
+
+  ShowDetails() {
+    window.open(this.tournamentDescLink, "_system");
   }
 }

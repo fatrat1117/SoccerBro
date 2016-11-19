@@ -38,6 +38,9 @@
     display: flex;
 
   }
+  p{
+    margin: auto;
+  }
   .standings-title{
     .team{
       -webkit-box-flex: 0;
@@ -55,7 +58,6 @@
         align-items: center;
         justify-content: center;
         line-height: 0;
-
       }
     }
 
@@ -111,8 +113,6 @@
 
 
 
-
-
 //tianyi
 .league-stats-goals-panel{
 
@@ -130,4 +130,5 @@
   }
   }
 }
+
 

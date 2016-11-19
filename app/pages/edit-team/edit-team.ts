@@ -61,9 +61,10 @@ export class EditTeamPage {
   }
 
   searchPlayer() {
-    let searchPlayerModal = this.modalCtrl.create(SearchPlayerPage, { teamId: this.tId, showDetail: false });
+    let searchPlayerModal = this.modalCtrl.create(SearchPlayerPage, { teamId: this.tId, showDetail: false, showClose: true });
     searchPlayerModal.onDidDismiss(data => {
-      this.newCaptain = data.playerId;
+      if (data)
+        this.newCaptain = data.playerId;
     });
     searchPlayerModal.present();
   }
