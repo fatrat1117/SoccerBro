@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>League Statistics</ion-title>
+		<ion-title>{{(afTournamentName | async)?.$value}}</ion-title>
 		<ion-buttons end *ngIf="(afWhitelist | async)?.$value">
 			<button (click)="remove()">
         <ion-icon name="trash" danger></ion-icon>
@@ -20,16 +20,16 @@
 	<ion-header-bar class="bar-stable">
 		<ion-segment [(ngModel)]="leagueStats">
 			<ion-segment-button value="info">
-				INFO
+				{{'Info' | trans | uppercase}}
 			</ion-segment-button>
 			<ion-segment-button value="standings">
-				积分榜
+				{{'Table' | trans | uppercase}}
 			</ion-segment-button>
 			<!--<ion-segment-button value="goals">
 				射手榜
 			</ion-segment-button>-->
 			<ion-segment-button value="fixtures">
-				Fixtures
+				{{'Fixtures' | trans | uppercase}}
 			</ion-segment-button>
 		</ion-segment>
 	</ion-header-bar>

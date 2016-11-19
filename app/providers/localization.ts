@@ -141,7 +141,10 @@ export class Localization {
             SoccerBro: 'SoccerBro',
             OK: 'OK',
             Tournaments: 'Tournaments',
-            FriendlyMatches: 'Matches'
+            FriendlyMatches: 'Matches',
+            Info: 'Info',
+            Table: 'Table',
+            Fixtures: 'Fixtures'
         },
 
         zh: {
@@ -264,7 +267,10 @@ export class Localization {
             SoccerBro: '足球兄弟',
             OK: '确定',
             Tournaments: '比赛',
-            FriendlyMatches: '友谊赛'
+            FriendlyMatches: '友谊赛',
+            Info: '信息',
+            Table: '积分榜',
+            Fixtures: '赛程表'
         }
     }
 }
