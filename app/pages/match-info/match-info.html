@@ -48,8 +48,8 @@
       <!-- address -->
       <ion-item text-wrap>
         <ion-icon name="ios-shirt" item-left large style="color:transparent;" [style.color]="(teamId | matchInfoPipe: matchId | async)?.color"></ion-icon>
-        <h>{{ (teamId | matchInfoPipe: matchId | async)?.locationName }}</h>
-        <p>{{ (teamId | matchInfoPipe: matchId | async)?.locationAddress }}</p>
+        <h class="selectable">{{ (teamId | matchInfoPipe: matchId | async)?.locationName }}</h>
+        <p class="selectable">{{ (teamId | matchInfoPipe: matchId | async)?.locationAddress }}</p>
         <!-->
         <ion-icon name="md-rainy" secondary item-right text-center><p>35&deg;C</p></ion-icon>
         <-->
@@ -57,7 +57,7 @@
 
       <!-- notice -->
       <ion-item text-wrap *ngIf="(teamId | matchInfoPipe: matchId | async)?.notice !== ''">
-        {{ (teamId | matchInfoPipe: matchId | async)?.notice }}
+        <h class="selectable"> {{ (teamId | matchInfoPipe: matchId | async)?.notice }}</h>
       </ion-item>
 
       <!-- players -->

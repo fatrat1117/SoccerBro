@@ -33,8 +33,10 @@
     <!-- address -->
     <ion-item text-wrap>
       <ion-icon name="locate" item-left primary></ion-icon>
-      <h>{{ rawData.locationName }}</h>
-      <p>{{ rawData.locationAddress }}</p>
+      <!--ion-input disabled="true" [value]="rawData.locationAddress" style="color:black !important;">
+      </ion-input-->
+      <h2 class="selectable">{{ rawData.locationName }}</h2>
+      <p class="selectable">{{ rawData.locationAddress }}</p>
       <!-->
       <ion-icon name="md-rainy" secondary item-right text-center>
         <p>35&deg;C</p>

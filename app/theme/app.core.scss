@@ -53,3 +53,10 @@ ion-img img {
         overflow-y: hidden;
     }
 }
+
+.selectable {
+  -webkit-user-select: auto;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
