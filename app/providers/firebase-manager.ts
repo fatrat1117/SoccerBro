@@ -583,8 +583,6 @@ export class FirebaseManager {
   // post-precess raw data
   processMatchData(id, oldDate) {
     // remove old data
-    console.log(oldDate);
-
     this.af.database.object(`/matches/data/${oldDate}/${id}/`).remove();
     this.getMatch(id).take(1).subscribe(data => {
       let database = `/matches/data/${data.date}/${id}/`;

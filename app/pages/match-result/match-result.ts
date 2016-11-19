@@ -13,28 +13,33 @@ import * as moment from 'moment';
   pipes: [TeamBasicPipe, MatchInfoPipe, PlayerBasicPipe, transPipe]
 })
 export class MatchResultPage {
-  date: number;
-  matchId: string;
-  matchBasic: any;
+  rawData: any;
+  isProcessed: boolean;
+  //matchBasic: any;
   matchStats: any;
   mvp: any;
   constructor(private viewCtrl: ViewController, private params: NavParams, private fm: FirebaseManager) {
-    this.date = params.get("date");
-    this.matchId = params.get("matchId");
+    this.rawData = params.get("rawData");
+    this.isProcessed = params.get("isProcessed");
+    let matchId = this.rawData.$key;
+    let matchDate = this.rawData.date;
 
-    fm.getMatchBasicData(this.matchId, this.date).subscribe(snapshot => {
+/*
+    fm.getMatchBasicData(matchId, matchDate).subscribe(snapshot => {
       this.matchBasic = snapshot;
       //this.matchBasic.time = this.getTime(snapshot.time);
       //this.matchBasic.day = this.getTime(snapshot.time);
       //this.matchBasic.date = this.getTime(snapshot.time);
     });
+    */
 
-    this.matchStats = fm.getMatchStats(this.matchId, this.date);
-    fm.getMVPWinner(this.date, this.matchId).subscribe(snapshot => {
-      this.mvp = snapshot;
-    });
+    if (this.isProcessed) {
+      this.matchStats = fm.getMatchStats(matchId, matchDate);
+      fm.getMVPWinner(matchDate, matchId).subscribe(snapshot => {
+        this.mvp = snapshot;
+      });
+    }
   }
-
 
   getTime(time: number) {
     return moment(time).format("HH:mm")

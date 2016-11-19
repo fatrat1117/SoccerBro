@@ -78,11 +78,12 @@ export class MatchesPageContent implements OnInit {
     }).present();
   }
 
-  popupMatchResult(matchId, date, e) {
+  popupMatchResult(rawData, e) {
     e.stopPropagation();
+    let isProcessed = "homeScore" in rawData;
     this.modalController.create(MatchResultPage, {
-      date: date,
-      matchId: matchId
+      rawData: rawData,
+      isProcessed: isProcessed
     }).present();
   }
 

@@ -54,7 +54,7 @@
 							<!--p>Li Haohaohao</p-->
 							<p>{{match.time | numberToTimePipe}}</p>
 						</ion-item>
-						<button *ngIf="match.homeScore >= 0" text-center (click)="popupMatchResult(match.$key,match.date,$event)" clear>Details</button>
+						<button text-center (click)="popupMatchResult(match,$event)" clear>Details</button>
 					</div>
 				</ion-col>
 			</ion-row>

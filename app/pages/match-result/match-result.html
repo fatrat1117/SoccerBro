@@ -5,9 +5,9 @@
     <ion-col center>
       <ion-item>
         <ion-thumbnail>
-          <img class="team-logo-img" [src]="(matchBasic?.homeId | teamBasicPipe | async)?.logo">
+          <img class="team-logo-img" [src]="(rawData.homeId | teamBasicPipe | async)?.logo">
         </ion-thumbnail>
-        <p text-center>&nbsp;{{ (matchBasic?.homeId | teamBasicPipe | async)?.name }}</p>
+        <p text-center>&nbsp;{{ (rawData.homeId | teamBasicPipe | async)?.name }}</p>
       </ion-item>
     </ion-col>
     <!-- time -->
@@ -15,74 +15,87 @@
       <!--ion-item style="text-align:center">
         <ion-icon name="md-rainy" secondary><p>35&deg;C</p></ion-icon>
       </ion-item-->
-      <p>{{ getTime(matchBasic?.time) }}</p>
-      <p>{{ getDay(matchBasic?.time) }}</p>
-      <p>{{ getDate(matchBasic?.time) }}</p>
+      <p>{{ getTime(rawData.time) }}</p>
+      <p>{{ getDay(rawData.time) }}</p>
+      <p>{{ getDate(rawData.time) }}</p>
     </ion-col>
     <!-- opponent team -->
     <ion-col center>
       <ion-item>
         <ion-thumbnail>
-          <img class="team-logo-img" [src]="(matchBasic?.awayId | teamBasicPipe | async)?.logo">
+          <img class="team-logo-img" [src]="(rawData.awayId | teamBasicPipe | async)?.logo">
         </ion-thumbnail>
-        <p text-center>&nbsp;{{ (matchBasic?.awayId | teamBasicPipe | async)?.name }}</p>
+        <p text-center>&nbsp;{{ (rawData.awayId | teamBasicPipe | async)?.name }}</p>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-list>
-    <!-- mvp -->
-    <ion-item *ngIf="mvp?.votesCount > 0">
-      <ion-avatar item-left>
-        <ion-img [src]="(mvp?.id | playerBasicPipe | async)?.photoURL"></ion-img>
-      </ion-avatar>
-      <h2>{{ (mvp?.id | playerBasicPipe | async)?.displayName }}</h2>
-      <p>{{ mvp?.description }}</p>
-      <ion-badge item-right danger>MVP</ion-badge>
-      <!--ion-badge item-right>{{ mvp?.votesCount }}</ion-badge-->
+    <!-- address -->
+    <ion-item text-wrap>
+      <ion-icon name="locate" item-left primary></ion-icon>
+      <h>{{ rawData.locationName }}</h>
+      <p>{{ rawData.locationAddress }}</p>
+      <!-->
+      <ion-icon name="md-rainy" secondary item-right text-center>
+        <p>35&deg;C</p>
+      </ion-icon>
+      <-->
     </ion-item>
-    <!-- score -->
-    <ion-item>
-      <ion-row center>
-        <ion-col text-center>
-          {{ (matchStats | async)?.home?.score }}
-        </ion-col>
-        <ion-col text-center>
-          <ion-icon name="football" primary></ion-icon>
-        </ion-col>
-        <ion-col text-center>
-          {{ (matchStats | async)?.away?.score }}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-    <!-- red -->
-    <ion-item>
-      <ion-row center>
-        <ion-col text-center>
-          {{ (matchStats | async)?.home?.red }}
-        </ion-col>
-        <ion-col text-center>
-          <ion-icon name="square" class="red-card"></ion-icon>
-        </ion-col>
-        <ion-col text-center>
-          {{ (matchStats | async)?.away?.red }}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-    <!-- yellow -->
-    <ion-item>
-      <ion-row center>
-        <ion-col text-center>
-          {{ (matchStats | async)?.home?.yellow }}
-        </ion-col>
-        <ion-col text-center>
-          <ion-icon name="square" class="yellow-card"></ion-icon>
-        </ion-col>
-        <ion-col text-center>
-          {{ (matchStats | async)?.away?.yellow }}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-
+    <div *ngIf="isProcessed">
+      <!-- mvp -->
+      <ion-item *ngIf="mvp?.votesCount > 0">
+        <ion-avatar item-left>
+          <ion-img [src]="(mvp?.id | playerBasicPipe | async)?.photoURL"></ion-img>
+        </ion-avatar>
+        <h2>{{ (mvp?.id | playerBasicPipe | async)?.displayName }}</h2>
+        <p>{{ mvp?.description }}</p>
+        <ion-icon name="trophy" item-right primary text-center style="color:gold">
+          <p>MVP</p>
+        </ion-icon>
+      </ion-item>
+      <!-- score -->
+      <ion-item>
+        <ion-row center>
+          <ion-col text-center>
+            {{ (matchStats | async)?.home?.score }}
+          </ion-col>
+          <ion-col text-center>
+            <ion-icon name="football" primary></ion-icon>
+          </ion-col>
+          <ion-col text-center>
+            {{ (matchStats | async)?.away?.score }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <!-- red -->
+      <ion-item>
+        <ion-row center>
+          <ion-col text-center>
+            {{ (matchStats | async)?.home?.red }}
+          </ion-col>
+          <ion-col text-center>
+            <ion-icon name="square" class="red-card"></ion-icon>
+          </ion-col>
+          <ion-col text-center>
+            {{ (matchStats | async)?.away?.red }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <!-- yellow -->
+      <ion-item>
+        <ion-row center>
+          <ion-col text-center>
+            {{ (matchStats | async)?.home?.yellow }}
+          </ion-col>
+          <ion-col text-center>
+            <ion-icon name="square" class="yellow-card"></ion-icon>
+          </ion-col>
+          <ion-col text-center>
+            {{ (matchStats | async)?.away?.yellow }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
   </ion-list>
   <ion-row padding-horizontal="">
     <ion-col text-center="">
