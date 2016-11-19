@@ -992,14 +992,14 @@ export class FirebaseManager {
           this.computeOneMatch(tableData, match.homeId, match.awayId, match.homeScore, match.awayScore);
           this.computeOneMatch(tableData, match.awayId, match.homeId, match.awayScore, match.homeScore);
         }
-      })
-      //console.log(tableData);
+      });
+
       this.getTournamentTable(id).set(tableData).then(() => console.log('computeTournamentTable done'));
     });
   }
 
   computeOneMatch(result, teamId1, teamId2, score1, score2) {
-    if (!result[teamId1]) {
+    if (!(teamId1 in result)) {
       result[teamId1] = {
         W: 0,
         L: 0,
@@ -1007,7 +1007,8 @@ export class FirebaseManager {
         P: 0,
         PTS: 0,
         GA: 0,
-        GS: 0
+        GS: 0,
+        winList: {},
       }
     }
 
@@ -1017,6 +1018,7 @@ export class FirebaseManager {
     if (score1 > score2) {
       ++result[teamId1].W;
       result[teamId1].PTS = result[teamId1].PTS + 3;
+      result[teamId1].winList[teamId2] = true;
     }
     else if (score1 < score2) {
       ++result[teamId1].L;
