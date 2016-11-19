@@ -1018,7 +1018,7 @@ export class FirebaseManager {
     if (score1 > score2) {
       ++result[teamId1].W;
       result[teamId1].PTS = result[teamId1].PTS + 3;
-      result.winList[teamId2] = true;
+      result[teamId1].winList[teamId2] = true;
     }
     else if (score1 < score2) {
       ++result[teamId1].L;
