@@ -33,12 +33,12 @@ $badge-font-size : 0.5rem;
     max-width: 10%;
   }
   .data-column{
-    flex: 0 0 5%;
-    max-width: 5%;
+    flex: 0 0 6%;
+    max-width: 6%;
   }
   .data-column-broad{
-    flex: 0 0 12%;
-    max-width: 12%;
+    flex: 0 0 10%;
+    max-width: 10%;
   }
   .max-width-16p{
     max-width:16% !important;
@@ -49,6 +49,15 @@ $badge-font-size : 0.5rem;
     font-size: 74%;
   }
 
+  p{
+    margin: auto;
+    margin-left: 0;
+  }
+
+  ion-row{
+
+    border-bottom: solid 1px rgba(204, 204, 204, 0.29);
+  }
   ion-col{
     display: flex;
     padding: 0;
@@ -62,19 +71,12 @@ $badge-font-size : 0.5rem;
        max-height: 3rem;
      }
     }
-
-    p{
-      overflow: hidden;
-    }
     ion-badge{
       font-size:$badge-font-size;
       padding: 1.5px 4px;
     }
   }
-  p{
-    margin: auto;
-    margin-left: 0;
-  }
+
   .standings-title{
     .team{
       -webkit-box-flex: 0;

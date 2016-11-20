@@ -21,7 +21,7 @@
     <ion-grid>
       <ion-row>
         <ion-col width-80>
-          <ion-item><!--tappable (click)="searchTeam(1)"-->
+          <ion-item tappable (click)="searchTeam(1)">
             <ion-label stacked primary>{{'HomeTeam' | trans}}</ion-label>
             <ion-label text-center>
               <h2 style="margin-right:auto;">&nbsp;{{ home?.name }}</h2>
@@ -37,7 +37,7 @@
       </ion-row>
       <ion-row>
         <ion-col width-80>
-          <ion-item><!--tappable (click)="searchTeam(2)"-->
+          <ion-item tappable (click)="searchTeam(2)">
             <ion-label stacked primary>{{'AwayTeam' | trans}}</ion-label>
             <ion-label text-center>
               <h2 style="margin-right:auto;">&nbsp;{{ away?.name }}</h2>
@@ -77,7 +77,7 @@
     </ion-item>
   </ion-list>
   <!-- home -->
-  <ion-list-header>
+  <ion-list-header *ngIf="mId">
     {{'HomeTeam' | trans}}
   </ion-list-header>
   <ion-card *ngIf='mId'>
@@ -195,7 +195,7 @@
     </ion-list>
   </ion-card>
   <!--away-->
-  <ion-list-header>
+  <ion-list-header *ngIf="mId">
     {{'AwayTeam' | trans}}
   </ion-list-header>
   <ion-card *ngIf='mId'>
@@ -313,17 +313,17 @@
     </ion-list>
   </ion-card>
   <!--referee-->
-  <ion-list-header>
+  <ion-list-header *ngIf="mId">
     {{'Referee' | trans}}
   </ion-list-header>
   <ion-item *ngIf="mId">
-    <ion-label primary>Name</ion-label>
+    <ion-label primary>{{'Name' | trans}}</ion-label>
     <ion-input text-center type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
   </ion-item>
   <ion-row padding-horizontal>
     <ion-col text-center>
       <button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
-      <button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="updateMatch()">Update</button>
+      <button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="updateMatch()">{{'Update' | trans}}</button>
     </ion-col>
     <ion-col text-center>
       <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>

@@ -155,7 +155,8 @@ export class Localization {
             Referee: 'Referee',
             SortBy: 'Sort By',
             Update: 'Update',
-            Close: 'Close'
+            Close: 'Close',
+            Name: 'Name'
         },
 
         zh: {
@@ -292,7 +293,8 @@ export class Localization {
             Referee: '裁判',
             SortBy: '按条件排序',
             Update: '更新',
-            Close: '关闭'
+            Close: '关闭',
+            Name: '姓名'
         }
     }
 }
