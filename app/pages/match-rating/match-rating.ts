@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController, NavParams} from 'ionic-angular';
-
+import { transPipe } from '../../providers/localization'
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {PlayerBasicPipe} from '../../pipes/player-basic.pipe';
 import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
@@ -9,7 +9,7 @@ import {MomentPipe} from '../../pipes/moment.pipe';
 
 @Component({
   templateUrl: 'build/pages/match-rating/match-rating.html',
-  pipes: [PlayerBasicPipe, TeamBasicPipe, MomentPipe, RatingDescPipe, RatingHeaderPipe, RatingTagPipe]
+  pipes: [PlayerBasicPipe, TeamBasicPipe, MomentPipe, RatingDescPipe, RatingHeaderPipe, RatingTagPipe, transPipe]
 })
 export class MatchRatingPage {
   matchDate: number;

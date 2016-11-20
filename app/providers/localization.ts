@@ -162,7 +162,13 @@ export class Localization {
             W: 'W',
             L: 'L',
             D: 'D',
-            PTS: 'PTS'
+            PTS: 'PTS',
+            RateMatch: 'Rate Match',
+            Terrible: 'Terrible',
+            Bad: 'Bad',
+            OK2: 'OK',
+            Good: 'Good',
+            Excellent: 'Excellent'
         },
 
         zh: {
@@ -306,7 +312,13 @@ export class Localization {
             W: '胜',
             L: '负',
             D: '平',
-            PTS: '积分'
+            PTS: '积分',
+            RateMatch: '比赛评价',
+            Terrible: '很糟糕',
+            Bad: '差',
+            OK2: '一般',
+            Good: '好',
+            Excellent: '很满意'
         }
     }
 }
