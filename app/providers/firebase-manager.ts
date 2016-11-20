@@ -441,11 +441,15 @@ export class FirebaseManager {
       .catch(err => error(err));
   }
 
-  updateMatch(id, matchObj, oldDate, success, error) {
+  updateMatch(tournamentId, id, matchObj, oldDate, success, error) {
     console.log('updateMatch', matchObj);
     this.getMatch(id).update(matchObj)
-      .then(newMatch => {
+      .then(() => {
+        console.log('match updated tournament id', tournamentId);
+        
         this.getMatchDate(matchObj.date).set(true);
+        if (tournamentId)
+          this.getTournamentMatchDate(tournamentId, matchObj.date).set(true);
         // update team match
         let teamData = {
           time: matchObj.time,

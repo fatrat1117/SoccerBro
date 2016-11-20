@@ -35,7 +35,7 @@ export class ScheduleMatchPage {
   awayAssists = [];
   awayYellowCards = [];
   awayRedCards = [];
-  tournamentId = [];
+  tournamentId;
   homePlayers = [];
   awayPlayers = [];
   matchType = 11;
@@ -53,9 +53,9 @@ export class ScheduleMatchPage {
     this.matchDate = moment().format("YYYY-MM-DD");
     this.matchTime = "15:00";
     this.mId = params.get('mId');
-    this.tournamentId = params.get('tournamentId');
-
+    
     let self = this;
+    //check mid for update match
     if (this.mId) {
       console.log('match id', this.mId);
       fm.getMatch(this.mId).subscribe(matchSnapshot => {
@@ -78,6 +78,8 @@ export class ScheduleMatchPage {
           self.homeScore = matchSnapshot.homeScore;
         if ("awayScore" in matchSnapshot)
           self.awayScore = matchSnapshot.awayScore;
+        if ("tournamentId" in matchSnapshot) 
+          self.tournamentId = matchSnapshot.tournamentId;
 
         if (matchSnapshot.homePlayers)
           self.homePlayers = matchSnapshot.homePlayers;
@@ -107,6 +109,9 @@ export class ScheduleMatchPage {
         fm.getTeamBasic(matchSnapshot.homeId).subscribe(teamSnapshot => self.home["name"] = teamSnapshot.name);
         fm.getTeamBasic(matchSnapshot.awayId).subscribe(teamSnapshot => self.away["name"] = teamSnapshot.name);
       });
+    } else {
+      this.tournamentId = params.get('tournamentId');
+      console.log('tournamentId', this.tournamentId);
     }
   }
 
@@ -169,7 +174,7 @@ export class ScheduleMatchPage {
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
-      //notice: this.notice,
+      type: this.matchType,
       createBy: this.fm.selfId
     }
     if (this.tournamentId)
@@ -218,7 +223,7 @@ export class ScheduleMatchPage {
       alert(err);
     };
 
-    this.fm.updateMatch(this.mId, updateMatchData,
+    this.fm.updateMatch(this.tournamentId, this.mId, updateMatchData,
       this.oldDate,
       success,
       error);
