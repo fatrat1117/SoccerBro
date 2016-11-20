@@ -115,7 +115,7 @@
             {{'Goals' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addGoal(homeGoals)">
+        <button [disabled]='0===homePlayers.length' item-right clear (click)="addGoal(homeGoals)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -139,7 +139,7 @@
             {{'Assists' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addAssist(homeAssists)">
+        <button [disabled]='0===homePlayers.length' item-right clear (click)="addAssist(homeAssists)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -163,7 +163,7 @@
             {{'Yellow' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addYellowCard(homeYellowCards)">
+        <button [disabled]='0===homePlayers.length' item-right clear (click)="addYellowCard(homeYellowCards)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -187,7 +187,7 @@
             {{'Red' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addRedCard(homeRedCards)">
+        <button [disabled]='0===homePlayers.length' item-right clear (click)="addRedCard(homeRedCards)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -233,7 +233,7 @@
             {{'Goals' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addGoal(awayGoals)">
+        <button [disabled]='0===awayPlayers.length' item-right clear (click)="addGoal(awayGoals)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -257,7 +257,7 @@
             {{'Assists' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addAssist(awayAssists)">
+        <button [disabled]='0===awayPlayers.length' item-right clear (click)="addAssist(awayAssists)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -281,7 +281,7 @@
             {{'Yellow' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addYellowCard(awayYellowCards)">
+        <button [disabled]='0===awayPlayers.length' item-right clear (click)="addYellowCard(awayYellowCards)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
@@ -305,7 +305,7 @@
             {{'Red' | trans}}
           </ion-col>
         </ion-row>
-        <button item-right clear (click)="addRedCard(awayRedCards)">
+        <button [disabled]='0===awayPlayers.length' item-right clear (click)="addRedCard(awayRedCards)">
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>

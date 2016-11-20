@@ -155,7 +155,7 @@ export class ScheduleMatchPage {
 
     let self = this;
     let success = () => {
-      alert('schedule match successful');
+      //alert('schedule match successful');
       self.dismiss();
     };
     let error = err => {
