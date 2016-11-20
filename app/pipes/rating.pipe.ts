@@ -1,11 +1,20 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {Localization} from '../providers/localization';
 
 @Pipe({
   name: 'ratingDescPipe'
 })
 
 export class RatingDescPipe implements PipeTransform {
-  descriptions = ["Terrible", "Bad", "OK", "Good", "Excellent"]
+  constructor(loc : Localization) {
+    this.descriptions = [loc.getString("Terrible"), 
+    loc.getString("Bad"), 
+    loc.getString("OK"), 
+    loc.getString("Good"), 
+    loc.getString("Excellent")];
+  }
+
+  descriptions; 
   transform(rating: number) {
     return this.descriptions[rating - 1];
   }
