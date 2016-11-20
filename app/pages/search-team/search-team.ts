@@ -28,27 +28,6 @@ export class SearchTeamPage {
       });
       this.resetFilter();
     });
-
-
-    /*
-        // firebase
-        let teamItems = af.database.list('/teams', {
-          query: { orderByChild: 'name' }
-        });
-        let subscription = teamItems.subscribe(snapshots => {
-          subscription.unsubscribe();
-          snapshots.forEach(snapshot => {
-            let team: any = {};
-            
-            team.id = snapshot.$key;
-            team.name = snapshot.name;
-            team.logo = snapshot.logo;
-            this.totalTeams.push(team);
-          });
-          this.resetFilter();
-        });
-    */
-
   }
 
   resetFilter() {
