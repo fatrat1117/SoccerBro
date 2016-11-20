@@ -92,9 +92,9 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of homePlayers">
+      <ion-item *ngFor="let player of homePlayers; let i = index;">
         <ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, homePlayers)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, homePlayers)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add goals -->
@@ -113,12 +113,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of homeGoals">
+      <ion-item *ngFor="let player of homeGoals; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeGoals)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, homeGoals)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add assists -->
@@ -137,12 +137,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of homeAssists">
+      <ion-item *ngFor="let player of homeAssists; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeAssists)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, homeAssists)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add yellow card -->
@@ -161,12 +161,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of homeYellowCards">
+      <ion-item *ngFor="let player of homeYellowCards; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeYellowCards)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, homeYellowCards)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add Red card -->
@@ -185,12 +185,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of homeRedCards">
+      <ion-item *ngFor="let player of homeRedCards; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeRedCards)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, homeRedCards)"></ion-icon>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -210,9 +210,9 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of awayPlayers">
+      <ion-item *ngFor="let player of awayPlayers; let i = index;">
         <ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayPlayers)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, awayPlayers)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add goals -->
@@ -231,12 +231,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of awayGoals">
+      <ion-item *ngFor="let player of awayGoals; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayGoals)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, awayGoals)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add assists -->
@@ -255,12 +255,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of awayAssists">
+      <ion-item *ngFor="let player of awayAssists; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayAssists)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, awayAssists)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add yellow card -->
@@ -279,12 +279,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of awayYellowCards">
+      <ion-item *ngFor="let player of awayYellowCards; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayYellowCards)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, awayYellowCards)"></ion-icon>
       </ion-item>
     </ion-list>
     <!-- add red card -->
@@ -303,12 +303,12 @@
 				<ion-icon name="add"></ion-icon>
 			</button>
       </ion-item-divider>
-      <ion-item *ngFor="let player of awayRedCards">
+      <ion-item *ngFor="let player of awayRedCards; let i = index;">
         <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
           <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
         </ion-select>
         <ion-input text-center type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
-        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayRedCards)"></ion-icon>
+        <ion-icon danger name="trash" item-right (click)="delRecord(i, awayRedCards)"></ion-icon>
       </ion-item>
     </ion-list>
   </ion-card>
