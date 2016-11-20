@@ -40,33 +40,35 @@
     </ion-card>
     <div *ngSwitchCase="'standings'" class="league-stats-standing">
       <ion-grid>
-        <ion-row>
-          <ion-col>
+        <ion-row no-margin>
+          <ion-col class="badge">
           </ion-col>
           <ion-col width-50>
-            <p text-left><label>Team</label></p>
+            <ion-avatar>
+            </ion-avatar>
+            <p text-center><label>Team</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>P</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>W</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>D</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>L</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column-broad">
             <p><label>GF/GA</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>PTS</label></p>
           </ion-col>
         </ion-row>
         <ion-row *ngFor="let s of standings; let i = index;" no-margin>
-          <ion-col>
+          <ion-col class="badge">
             <ion-badge style="position:absolute;">{{ s.rank }}</ion-badge>
           </ion-col>
           <ion-col width-50>
@@ -75,22 +77,22 @@
             </ion-avatar>
             <p text-left><label>{{(s.$key | teamBasicPipe | async)?.name}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>{{s.P}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>{{s.W}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>{{s.D}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>{{s.L}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column-broad">
             <p><label>{{s.GS}}/{{s.GA}}</label></p>
           </ion-col>
-          <ion-col>
+          <ion-col class="data-column">
             <p><label>{{s.PTS}}</label></p>
           </ion-col>
         </ion-row>

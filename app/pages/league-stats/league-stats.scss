@@ -1,3 +1,5 @@
+$badge-font-size : 0.5rem;
+
 .league-stats{
     ion-thumbnail{
       max-width: 3rem;
@@ -26,9 +28,22 @@
 //jixiang
 .league-stats-standing{
 
+  .badge{
+    flex: 0 0 10%;
+    max-width: 10%;
+  }
+  .data-column{
+    flex: 0 0 5%;
+    max-width: 5%;
+  }
+  .data-column-broad{
+    flex: 0 0 12%;
+    max-width: 12%;
+  }
   .max-width-16p{
     max-width:16% !important;
   }
+
 
   label{
     font-size: 74%;
@@ -36,10 +51,29 @@
 
   ion-col{
     display: flex;
+    padding: 0;
+    align-items: center;
+    ion-avatar{
+      align-items: center;
+      //justify-content: center;
+      display: flex;
+     img{
+       max-width: 3rem;
+       max-height: 3rem;
+     }
+    }
 
+    p{
+      overflow: hidden;
+    }
+    ion-badge{
+      font-size:$badge-font-size;
+      padding: 1.5px 4px;
+    }
   }
   p{
     margin: auto;
+    margin-left: 0;
   }
   .standings-title{
     .team{
