@@ -103,19 +103,8 @@
     <ion-col text-center="">
       <button (click)="dismiss()" class="disable-hover button button-default button-block button-small button-danger button-icon-left"><span class="button-inner">
         <ion-icon name="close" role="img" class="ion-md-close" aria-label="close"></ion-icon>
-        CLOSE
+        {{'Close' | trans}}
       </span><ion-button-effect></ion-button-effect></button>
     </ion-col>
   </ion-row>
-  <!-->
-  <ion-row>
-    <ion-item *ngFor="let player of matchPlayers">
-      <ion-avatar>
-        <ion-img [src]="(player.$key | playerBasicPipe | async)?.photoURL">
-        </ion-img>
-      </ion-avatar>
-      <p>{{ (player.$key | playerBasicPipe | async)?.displayName }}</p>
-    </ion-item>
-  </ion-row>
-  <-->
 </ion-card>

@@ -154,7 +154,8 @@ export class Localization {
             HomeTeam: 'Home Team',
             Referee: 'Referee',
             SortBy: 'Sort By',
-            Update: 'Update'
+            Update: 'Update',
+            Close: 'Close'
         },
 
         zh: {
@@ -290,7 +291,8 @@ export class Localization {
             HomeTeam: '主队',
             Referee: '裁判',
             SortBy: '按条件排序',
-            Update: '更新'
+            Update: '更新',
+            Close: '关闭'
         }
     }
 }
