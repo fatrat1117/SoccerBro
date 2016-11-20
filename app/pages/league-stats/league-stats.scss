@@ -35,10 +35,16 @@ $badge-font-size : 0.5rem;
   .data-column{
     flex: 0 0 6%;
     max-width: 6%;
+    p {
+      margin: auto;
+    }
   }
   .data-column-broad{
     flex: 0 0 10%;
     max-width: 10%;
+    p {
+      margin: auto;
+    }
   }
   .max-width-16p{
     max-width:16% !important;
