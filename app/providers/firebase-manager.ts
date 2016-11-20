@@ -909,6 +909,7 @@ export class FirebaseManager {
   }
 
   updateMVPWinner(date: number, matchId: string) {
+    let minCount = 1;
     let max = 0;
     let winnerId = '';
     let description = '';
@@ -916,14 +917,14 @@ export class FirebaseManager {
       snapshots.forEach(s => {
         this.getMVPCandidateVotes(date, matchId, s.$key).subscribe(votes => {
           let count = votes.length;
-          if (count >= 5 && count > max) {
+          if (count >= minCount && count > max) {
             max = count;
             winnerId = s.$key;
             description = s.description;
           }
         })
       })
-      if (max >= 5)
+      if (max >= minCount)
         this.getMVPWinner(date, matchId).set({
           description: description,
           id: winnerId,
