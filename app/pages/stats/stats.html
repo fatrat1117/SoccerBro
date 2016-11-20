@@ -14,7 +14,7 @@
   <div [ngSwitch]="stats">
     <div *ngSwitchCase="'teams'">
       <ion-item style="margin-bottom: 10px">
-        <ion-label>Sort By</ion-label>
+        <ion-label>{{'SortBy' | trans}}</ion-label>
         <ion-select [ngModel]="teamSortByStr" (ngModelChange)="sortTeamBy($event)" text-center>
           <ion-option value="ability">
             {{'Ability' | trans}}

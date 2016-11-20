@@ -25,6 +25,8 @@ export class MatchesPageContent implements OnInit {
   afMatches: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
+  selfId;
+  afTournamentAdmin;
 
   @Input() tournamentId;
   @Input() rightViewTop;
@@ -37,21 +39,18 @@ export class MatchesPageContent implements OnInit {
     private modalController: ModalController,
     private fm: FirebaseManager) {
     this.afMatches = fm.queryMatches(this.dateSubject);
+    this.selfId = fm.selfId;
   }
 
   ngOnInit() {
     console.log('matches tournamentId', this.tournamentId);
 
-    // setTimeout(function() {
-    //    var objDiv = document.getElementById("sketchElement");
-    //   console.log(objDiv);
-    //   objDiv.scrollTop += 20;
-    // }, 1000);
-
     let self = this;
     let afDates;
-    if (this.tournamentId)
+    if (this.tournamentId) {
       afDates = this.fm.getTournamentDateByTournamentId(this.tournamentId);
+      this.afTournamentAdmin = this.fm.getTournamentAdmin(this.tournamentId);
+    }
     else
       afDates = this.fm.getMatchDates();
 
@@ -72,10 +71,13 @@ export class MatchesPageContent implements OnInit {
     this.currentSelectedDateIndex = i;
   }
 
-  popupUpdateSchedulePage(matchId) {
-    this.modalController.create(ScheduleMatchPage, {
-      mId: matchId
-    }).present();
+  popupUpdateSchedulePage(match, e) {
+    e.stopPropagation();
+    //if (this.fm.selfId && match.createBy === this.fm.selfId) {
+      this.modalController.create(ScheduleMatchPage, {
+        mId: match.$key
+      }).present();
+    //}
   }
 
   popupMatchResult(rawData, e) {
@@ -142,7 +144,7 @@ export class MatchesPageContent implements OnInit {
         scrollableDiv.scrollTop = 0;
         //let scrollableItem = document.getElementById("matches-scroll-target-1");
         let scrollableItem = scrollableDiv.getElementsByTagName("ion-item");
-        if (scrollableItem.length > 0){
+        if (scrollableItem.length > 0) {
           scrollableDiv.scrollTop += scrollableItem[0].clientHeight * iToday;
         }
 
