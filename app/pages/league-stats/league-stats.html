@@ -16,8 +16,8 @@
 </ion-header>
 <ion-content no-padding>
   <ion-header-bar class="bar-stable">
-    <ion-segment [(ngModel)]="leagueStats" padding>
-      <ion-segment-button value="info">
+    <ion-segment [(ngModel)]="leagueStats" id="segment" padding>
+      <ion-segment-button value="info" padding>
         {{'Info' | trans | uppercase}}
       </ion-segment-button>
       <ion-segment-button value="standings">
@@ -140,7 +140,7 @@
 
 		</div>-->
     <div *ngSwitchCase="'fixtures'" style="height:100%">
-      <matches-content [tournamentId]=tournamentId rightViewTop='42'></matches-content>
+      <matches-content [tournamentId]=tournamentId rightViewTop='75'></matches-content>
     </div>
   </div>
 </ion-content>
