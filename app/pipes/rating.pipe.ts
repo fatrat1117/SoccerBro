@@ -1,11 +1,20 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {Localization} from '../providers/localization';
 
 @Pipe({
   name: 'ratingDescPipe'
 })
 
 export class RatingDescPipe implements PipeTransform {
-  descriptions = ["Terrible", "Bad", "OK", "Good", "Excellent"]
+  constructor(loc : Localization) {
+    this.descriptions = [loc.getString("Terrible"), 
+    loc.getString("Bad"), 
+    loc.getString("OK"), 
+    loc.getString("Good"), 
+    loc.getString("Excellent")];
+  }
+
+  descriptions; 
   transform(rating: number) {
     return this.descriptions[rating - 1];
   }
@@ -16,11 +25,13 @@ export class RatingDescPipe implements PipeTransform {
 })
 
 export class RatingHeaderPipe implements PipeTransform {
+  constructor(private loc : Localization) {}
+
   transform(rating: number) {
     if (rating >=5)
-      return "Give a compliment?";
+      return this.loc.getString("Giveacompliment") + '?';
     else
-      return "What went wrong?";
+      return this.loc.getString("Whatwentwrong") + '?';
   }
 }
 
@@ -32,18 +43,18 @@ export class RatingTagPipe implements PipeTransform {
   positiveTags = {}
   negtiveTags = {}
 
-  constructor() {
+  constructor(loc : Localization) {
     // positive
-    this.positiveTags["punctuality"] = "Punctual";
-    this.positiveTags["activeness"] = "Active";
-    this.positiveTags["competency"] = "Competent";
-    this.positiveTags["judgement"] = "Well-Judged";
+    this.positiveTags["punctuality"] = loc.getString("Punctual");
+    this.positiveTags["activeness"] = loc.getString("Active");
+    this.positiveTags["competency"] = loc.getString("Competent");
+    this.positiveTags["judgement"] = loc.getString("WellJudged");
 
     // negtive
-    this.negtiveTags["punctuality"] = "Not on time";
-    this.negtiveTags["activeness"] = "Inactive";
-    this.negtiveTags["competency"] = "Incapable";
-    this.negtiveTags["judgement"] = "Unfair";
+    this.negtiveTags["punctuality"] = loc.getString("Notontime");
+    this.negtiveTags["activeness"] = loc.getString("Inactive");
+    this.negtiveTags["competency"] = loc.getString("Incapable");
+    this.negtiveTags["judgement"] = loc.getString("Unfair");
   }
 
   transform(key: string, rating: number) {

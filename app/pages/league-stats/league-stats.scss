@@ -1,4 +1,4 @@
-$badge-font-size : 0.5rem;
+$badge-font-size : 80%;
 
 .league-stats{
     ion-thumbnail{
@@ -35,10 +35,16 @@ $badge-font-size : 0.5rem;
   .data-column{
     flex: 0 0 6%;
     max-width: 6%;
+    p {
+      margin: auto;
+    }
   }
   .data-column-broad{
     flex: 0 0 10%;
-    max-width: 10%;
+    max-width: 12%;
+    p {
+      margin: auto;
+    }
   }
   .max-width-16p{
     max-width:16% !important;
@@ -46,7 +52,7 @@ $badge-font-size : 0.5rem;
 
 
   label{
-    font-size: 74%;
+    font-size: 70%;
   }
 
   p{
@@ -72,7 +78,7 @@ $badge-font-size : 0.5rem;
      }
     }
     ion-badge{
-      font-size:$badge-font-size;
+     font-size:$badge-font-size;
       padding: 1.5px 4px;
     }
   }

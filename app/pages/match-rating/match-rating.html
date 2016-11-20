@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Rate match
+      {{'RateMatch' | trans}}
     </ion-title>
     <ion-buttons end>
       <button (click)="cancel()"> 
@@ -23,7 +23,7 @@
 
   <!-- rate match -->
   <ion-list no-lines>
-    <ion-item primary>Referee</ion-item>
+    <ion-item primary>{{'Referee' | trans}}</ion-item>
     <ion-item>
       <h2 text-center>{{ (matchBasic | async)?.refereeName }}</h2>
       <p text-center *ngIf="rating > 0">{{ rating | ratingDescPipe }}</p>
@@ -60,5 +60,5 @@
     </ion-item>
   </ion-list>
 
-  <button block secondary (click)="submit()">Submit</button>
+  <button block secondary (click)="submit()">{{'Submit' | trans}}</button>
 </ion-content>
