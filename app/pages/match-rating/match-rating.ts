@@ -29,9 +29,12 @@ export class MatchRatingPage {
     this.rating = 0;
 
     this.matchBasic = this.fm.getMatchBasicData(this.matchId, this.matchDate);
+    /*
     this.fm.getMVPCandidates(this.matchDate, this.matchId).take(1).subscribe(snapshots => {
       this.candidates = snapshots;
     });
+    */
+    this.candidates = this.fm.getMVPCandidates(this.matchDate, this.matchId);
     this.selectedMVP = "";
     this.initFeedbacks();
   }

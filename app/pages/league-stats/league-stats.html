@@ -16,7 +16,7 @@
 </ion-header>
 <ion-content no-padding>
   <ion-header-bar class="bar-stable">
-    <ion-segment [(ngModel)]="leagueStats">
+    <ion-segment [(ngModel)]="leagueStats" padding>
       <ion-segment-button value="info">
         {{'Info' | trans | uppercase}}
       </ion-segment-button>
@@ -31,13 +31,18 @@
       </ion-segment-button>
     </ion-segment>
   </ion-header-bar>
-  <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%">
-    <ion-card *ngSwitchCase="'info'" text-wrap>
-      <ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled]="!((afWhitelist | async)?.$value)"></ion-textarea>
-      <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
-      <button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
-      <button *ngIf="tournamentDescLink" (click)="ShowDetails()">More Details</button>
-    </ion-card>
+  <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%;">
+    <div *ngSwitchCase="'info'">
+      <ion-card text-wrap>
+        <ion-textarea *ngIf="!((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription" readonly></ion-textarea>
+        <ion-textarea *ngIf="((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription"></ion-textarea>
+      </ion-card>
+      <ion-buttons end>
+        <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
+        <button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
+        <button *ngIf="tournamentDescLink" (click)="ShowDetails()" clear>More Details</button>
+      </ion-buttons>
+    </div>
     <div *ngSwitchCase="'standings'" class="league-stats-standing">
       <ion-grid>
         <ion-row no-margin>

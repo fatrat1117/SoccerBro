@@ -152,7 +152,10 @@ export class Localization {
             Red: 'Red Card',
             AwayTeam: 'Away Team',
             HomeTeam: 'Home Team',
-            Referee: 'Referee'
+            Referee: 'Referee',
+            SortBy: 'Sort By',
+            Update: 'Update',
+            Close: 'Close'
         },
 
         zh: {
@@ -286,7 +289,10 @@ export class Localization {
             Red: '红牌',
             AwayTeam: '客队',
             HomeTeam: '主队',
-            Referee: '裁判'
+            Referee: '裁判',
+            SortBy: '按条件排序',
+            Update: '更新',
+            Close: '关闭'
         }
     }
 }
