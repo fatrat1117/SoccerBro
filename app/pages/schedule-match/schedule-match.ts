@@ -115,6 +115,9 @@ export class ScheduleMatchPage {
   }
 
   searchTeam(teamType) {
+    if (this.mId)
+      return;
+      
     let searchTeamModal = this.modalCtrl.create(SearchTeamPage);
     searchTeamModal.onDidDismiss(data => {
       if (data) {
