@@ -54,11 +54,15 @@
 							<!--p>Li Haohaohao</p-->
 							<p>{{match.time | numberToTimePipe}}</p>
 						</ion-item>
-						<button text-center (click)="popupMatchResult(match,$event)" clear>{{'Details' | trans}}</button>
-						<button *ngIf="(match.homeId | teamBasicPipe | async)?.captain === selfId ||
+            <ion-item>
+						<button class="detail-button" text-center (click)="popupMatchResult(match,$event)" clear>{{'Details' | trans}}</button>
+              <button class="update-button" *ngIf="(match.homeId | teamBasicPipe | async)?.captain === selfId ||
 						(match.awayId | teamBasicPipe | async)?.captain === selfId ||
-						(afTournamentAdmin | async)?.$value" 
-						text-center (click)="popupUpdateSchedulePage(match,$event)" clear>{{'Update' | trans}}</button>
+						(afTournamentAdmin | async)?.$value"
+                      text-center (click)="popupUpdateSchedulePage(match,$event)" clear>{{'Update' | trans}}</button>
+            </ion-item>
+
+
 					</div>
 				</ion-col>
 			</ion-row>
