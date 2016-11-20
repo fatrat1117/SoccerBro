@@ -21,7 +21,7 @@ export class ScheduleMatchPage {
   minDate: string;
   matchDate: string;
   matchTime: string;
-  notice: string;
+  //notice: string;
   refereeName = '';
   busy = false;
   mId: any;
@@ -48,7 +48,7 @@ export class ScheduleMatchPage {
     private am: AccountManager,
     params: NavParams) {
     this.location = {};
-    this.notice = "";
+    //this.notice = "";
     this.minDate = moment("20160101", "YYYYMMDD").format("YYYY-MM-DD");
     this.matchDate = moment().format("YYYY-MM-DD");
     this.matchTime = "15:00";
@@ -71,7 +71,7 @@ export class ScheduleMatchPage {
         self.oldDate = matchSnapshot.date;
         self.matchTime = am.numberToTimeString(matchSnapshot.time);
         //console.log(self.matchTime);
-        self.notice = matchSnapshot.notice;
+        //self.notice = matchSnapshot.notice;
         if ("type" in matchSnapshot)
           self.matchType = matchSnapshot.type;
         if ("homeScore" in matchSnapshot)
@@ -155,7 +155,7 @@ export class ScheduleMatchPage {
 
     let self = this;
     let success = () => {
-      alert('schedule match successful');
+      //alert('schedule match successful');
       self.dismiss();
     };
     let error = err => {
@@ -169,7 +169,7 @@ export class ScheduleMatchPage {
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
-      notice: this.notice,
+      //notice: this.notice,
       createBy: this.fm.selfId
     }
     if (this.tournamentId)
@@ -187,7 +187,7 @@ export class ScheduleMatchPage {
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
-      notice: this.notice,
+      //notice: this.notice,
       homePlayers: this.homePlayers,
       awayPlayers: this.awayPlayers,
       homeGoals: this.homeGoals,

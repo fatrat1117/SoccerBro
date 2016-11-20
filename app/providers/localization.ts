@@ -75,6 +75,7 @@ export class Localization {
             PleaseLogin: 'Please Login',
             Login: 'Login',
             Createteamsuccessfully: 'Create team successfully',
+            Schedulematchsuccessfully: 'Schedule match successfully',
             Youcannotquitdefaultteam: 'You can not quit default team',
             Captaincannotquit: 'Captain can not quit',
             Thanksforyourfeedback: 'Thanks for your feedback',
@@ -168,7 +169,18 @@ export class Localization {
             Bad: 'Bad',
             OK2: 'OK',
             Good: 'Good',
-            Excellent: 'Excellent'
+            Excellent: 'Excellent',
+            Giveacompliment: 'Give a compliment',
+            Whatwentwrong: 'What went wrong',
+            Punctual: 'Punctual',
+            Active: 'Active',
+            Competent: 'Competent',
+            WellJudged: 'Well-Judged',
+            Notontime: 'Not on time',
+            Inactive: 'Inactive',
+            Incapable: 'Incapable',
+            Unfair: 'Unfair',
+            Type: 'Type'
         },
 
         zh: {
@@ -225,6 +237,7 @@ export class Localization {
             PleaseLogin: '请登录',
             Login: '登录',
             Createteamsuccessfully: '创建球队成功',
+            Schedulematchsuccessfully: '创建比赛成功',
             Youcannotquitdefaultteam: '你不能退出默认球队',
             Captaincannotquit: '队长不能退队',
             Thanksforyourfeedback: '感谢你的反馈',
@@ -318,7 +331,18 @@ export class Localization {
             Bad: '差',
             OK2: '一般',
             Good: '好',
-            Excellent: '很满意'
+            Excellent: '很满意',
+            Giveacompliment: '哪些方面做得很好',
+            Whatwentwrong: '哪里出错了',
+            Punctual: '准时',
+            Active: '跑动积极',
+            Competent: '胜任工作',
+            WellJudged: '判罚公平',
+            Notontime: '不准时',
+            Inactive: '跑动消极',
+            Incapable: '他就一SB',
+            Unfair: '黑哨',
+            Type: '场地类型'
         }
     }
 }

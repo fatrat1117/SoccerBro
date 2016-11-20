@@ -39,7 +39,6 @@ export class MessagePage {
   ionViewWillEnter() {
     if (this.uid != this.fm.selfId) {
       setTimeout(() => {
-
         this.teams = this.fm.getSelfTeams();
         this.matches = this.fm.getSelfMatchNotifications();
       }, 500);
