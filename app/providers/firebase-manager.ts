@@ -83,6 +83,14 @@ export class FirebaseManager {
   }
 
   getSelfMatchNotifications() {
+    this.af.database.list(`/players/${this.selfId}/match-notifications`).subscribe(snapshots => {
+      let today = moment();
+      snapshots.forEach(s => {
+        if (today >= s.time){
+          this.removeMatchNotification(this.selfId, s.$key);
+        }
+      });
+    });
     return this.af.database.list(`/players/${this.selfId}/match-notifications`, {
       query: { orderByChild: 'time' }
     });

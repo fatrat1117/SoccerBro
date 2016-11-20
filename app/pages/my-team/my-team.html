@@ -49,14 +49,14 @@
   </ion-card>
 
   <div *ngIf="(isTeamPlayer | async)?.isMember" class="fab-buttons">
-    <button primary fab fab-bottom fab-left (click)="editTeam()">
-      <ion-icon name="create"></ion-icon>
-    </button>
     <div *ngIf="(tId | teamBasicPipe | async)?.captain === pId">
-      <button  secondary fab fab-bottom fab-right (click)="invitePlayer()">
-        <ion-icon name="person-add"></ion-icon>
+      <button primary fab fab-bottom fab-left (click)="editTeam()">
+        <ion-icon name="create"></ion-icon>
       </button>
     </div>
+    <button  secondary fab fab-bottom fab-right (click)="invitePlayer()">
+      <ion-icon name="person-add"></ion-icon>
+    </button>
   </div>
 
   <!-->

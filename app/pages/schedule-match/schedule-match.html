@@ -52,6 +52,15 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <!-- type -->
+    <ion-item>
+      <ion-label stacked primary>Type</ion-label>
+      <ion-select text-center [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
+        <ion-option value="5">5 v 5</ion-option>
+        <ion-option value="7">7 v 7</ion-option>
+        <ion-option value="11">11 v 11</ion-option>
+      </ion-select>
+    </ion-item>
     <!-- location -->
     <ion-item>
       <ion-label stacked primary>{{'Location' | trans}}</ion-label>
@@ -70,11 +79,13 @@
       <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
     </ion-item>
     <!-- notice -->
+    <!-->
     <ion-item>
       <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
       <ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
       </ion-textarea>
     </ion-item>
+    <-->
   </ion-list>
   <!-- home -->
   <ion-list-header *ngIf="mId">
