@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Create Tournament
+      {{'Create' | trans}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label primary>Name</ion-label>
+      <ion-label primary>{{'Name' | trans}}</ion-label>
       <ion-input type="text" placeholder="" [(ngModel)]="name" maxlength="32"></ion-input>
     </ion-item>
     <button (click)="doCreate()" [disabled]="!name.trim().length || busy" block>{{'Create' | trans}}</button>
