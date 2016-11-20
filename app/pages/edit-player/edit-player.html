@@ -17,7 +17,6 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
   <ion-item-group>
     <!-- Basic -->
@@ -33,9 +32,10 @@
       <ion-input type="text" maxlength="32" [ngModel]="(playerBasic)?.displayName" (ngModelChange)="player.name=$event">
       </ion-input>
     </ion-item>
-
     <!-- Detail -->
-    <ion-item-divider light></ion-item-divider>
+    <ion-list-header>
+      {{'Details' | trans}}
+    </ion-list-header>
     <ion-item>
       <ion-label floating>{{'HeightCM' | trans}}</ion-label>
       <ion-input type="number" [ngModel]="(afPlayerDetail | async)?.height" (ngModelChange)="player.height=$event">
@@ -70,11 +70,12 @@
       <ion-textarea type="text" maxlength="128" [ngModel]="(afPlayerDetail | async)?.description" (ngModelChange)="player.description=$event">
       </ion-textarea>
     </ion-item>
-
     <!-- numbers -->
-    <ion-item-divider light></ion-item-divider>
+    <ion-list-header>
+      {{'SquadNumbers' | trans}}
+    </ion-list-header>
     <ion-item *ngFor="let team of teams">
-      <ion-label >{{ (team.$key | teamBasicPipe | async)?.name }}</ion-label>
+      <ion-label>{{ (team.$key | teamBasicPipe | async)?.name }}</ion-label>
       <ion-input text-right type="number" [ngModel]="team.$value" (ngModelChange)="team.$value=$event;numberChanged=true;">
       </ion-input>
     </ion-item>

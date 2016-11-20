@@ -1,364 +1,332 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>
-			{{'NewMatch' | trans}}
-		</ion-title>
-					<ion-select [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
-			<ion-option value="5">5 v 5</ion-option>
-			<ion-option value="7">7 v 7</ion-option>
-			<ion-option value="11">11 v 11</ion-option>
-		</ion-select>
-		<ion-buttons end *ngIf="mId">
-			<button (click)="deleteMatch()">
+  <ion-navbar>
+    <ion-title>
+      {{'NewMatch' | trans}}
+    </ion-title>
+    <ion-select [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
+      <ion-option value="5">5 v 5</ion-option>
+      <ion-option value="7">7 v 7</ion-option>
+      <ion-option value="11">11 v 11</ion-option>
+    </ion-select>
+    <ion-buttons end *ngIf="mId">
+      <button (click)="deleteMatch()">
         <ion-icon name="trash" danger></ion-icon>
       </button>
-		</ion-buttons>
-	</ion-navbar>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
-
 <ion-content>
-	<ion-list>
-		<!-- opponent -->
-		<ion-grid>
-			<ion-row>
-				<ion-col width-80>
-					<ion-item tappable (click)="searchTeam(1)">
-						<ion-label stacked primary>home Team</ion-label>
-						<ion-label text-center>
-							<h2 style="margin-right:auto;">&nbsp;{{ home?.name }}</h2>
-						</ion-label>
-					</ion-item>
-				</ion-col>
-				<ion-col width-20 *ngIf='mId'>
-					<ion-item>
-						<ion-label stacked>Score</ion-label>
-						<ion-input type="number" min='0' max="99" [ngModel]="homeScore" (ngModelChange)="homeScore=toNumber($event)"></ion-input>
-					</ion-item>
-				</ion-col>
-			</ion-row>
-			<ion-row>
-				<ion-col width-80>
-					<ion-item tappable (click)="searchTeam(2)">
-						<ion-label stacked primary>away Team</ion-label>
-						<ion-label text-center>
-							<h2 style="margin-right:auto;">&nbsp;{{ away?.name }}</h2>
-						</ion-label>
-					</ion-item>
-				</ion-col>
-				<ion-col width-20 *ngIf='mId'>
-					<ion-item>
-						<ion-label stacked>Score</ion-label>
-						<ion-input type="number" min='0' max="99" [ngModel]="awayScore" (ngModelChange)="awayScore=toNumber($event)"></ion-input>
-					</ion-item>
-				</ion-col>
-			</ion-row>
-		</ion-grid>
-		<!-- location -->
-		<ion-item>
-			<ion-label stacked primary>{{'Location' | trans}}</ion-label>
-			<ion-label>
-				<input id="autocompleteInput" [(ngModel)]="location.name" style="width:100%; border:none; text-align:center;" />
-			</ion-label>
-		</ion-item>
-
-		<!-- date -->
-		<ion-item>
-			<ion-label stacked primary>{{'Date' | trans}}</ion-label>
-			<ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
-		</ion-item>
-		<!-- time -->
-		<ion-item>
-			<ion-label stacked primary>{{'Time' | trans}}</ion-label>
-			<ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
-		</ion-item>
-
-		<!-- notice -->
-		<ion-item>
-			<ion-label stacked primary>{{'Notice' | trans}}</ion-label>
-			<ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
-			</ion-textarea>
-		</ion-item>
-	</ion-list>
-
-	<ion-card *ngIf='mId'>
-		<ion-card-header>
-			{{home?.name}}
-		</ion-card-header>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addPlayer(homePlayers)" clear>
-        <ion-icon name="add"></ion-icon>
-		Players
-      </button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							Player Number
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of homePlayers">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, homePlayers)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addGoal(homeGoals)" clear>
-        <ion-icon name="add"></ion-icon>
-		Add goal
-      </button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Goals
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of homeGoals">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeGoals)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addAssist(homeAssists)" clear><ion-icon name="add"></ion-icon>Add Assist</button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Assists
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of homeAssists">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeAssists)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addYellowCard(homeYellowCards)" clear><ion-icon name="add"></ion-icon>Add yellow card</button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Yellow Cards
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of homeYellowCards">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeYellowCards)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addRedCard(homeRedCards)" clear><ion-icon name="add"></ion-icon>Add red card</button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Red Cards
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of homeRedCards">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, homeRedCards)"></ion-icon>
-			</ion-item>
-		</ion-list>
-	</ion-card>
-
-	<!--away-->
-	<ion-card *ngIf='mId'>
-		<ion-card-header>
-			{{away?.name}}
-		</ion-card-header>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addPlayer(awayPlayers)" clear>
-        <ion-icon name="add"></ion-icon>
-		Players
-      </button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							Player Number
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of awayPlayers">
-				<ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayPlayers)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addGoal(awayGoals)" clear>
-        <ion-icon name="add"></ion-icon>
-		Add goal
-      </button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Goals
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of awayGoals">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayGoals)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addAssist(awayAssists)" clear>
-        <ion-icon name="add"></ion-icon>
-		Add Assist
-      </button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Assists
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of awayAssists">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayAssists)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addYellowCard(awayYellowCards)" clear><ion-icon name="add"></ion-icon>Add yellow card</button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Yellow Cards
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of awayYellowCards">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayYellowCards)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-list>
-			<ion-list-header>
-				<ion-buttons end>
-					<button (click)="addRedCard(awayRedCards)" clear><ion-icon name="add"></ion-icon>Add red card</button>
-				</ion-buttons>
-				<ion-grid>
-					<ion-row>
-						<ion-col width-50>
-							Player Number
-						</ion-col>
-						<ion-col width-50>
-							Red Cards
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-list-header>
-			<ion-item *ngFor="let player of awayRedCards">
-				<ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
-					<ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
-				</ion-select>
-				<ion-input type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
-				<ion-icon danger name="trash" item-right (click)="delRecord(index, awayRedCards)"></ion-icon>
-			</ion-item>
-		</ion-list>
-
-		<ion-item *ngIf="mId">
-			<ion-label primary>Referee</ion-label>
-			<ion-input type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
-		</ion-item>
-	</ion-card>
-
-	<ion-row padding-horizontal>
-		<ion-col text-center>
-			<button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
-			<button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="updateMatch()">Update</button>
-		</ion-col>
-		<ion-col text-center>
-			<button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
-		</ion-col>
-	</ion-row>
-
+  <ion-list>
+    <!-- opponent -->
+    <ion-grid>
+      <ion-row>
+        <ion-col width-80>
+          <ion-item><!--tappable (click)="searchTeam(1)"-->
+            <ion-label stacked primary>{{'HomeTeam' | trans}}</ion-label>
+            <ion-label text-center>
+              <h2 style="margin-right:auto;">&nbsp;{{ home?.name }}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col width-20 *ngIf='mId'>
+          <ion-item>
+            <ion-label stacked>Score</ion-label>
+            <ion-input type="number" min='0' max="99" [ngModel]="homeScore" (ngModelChange)="homeScore=toNumber($event)"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-80>
+          <ion-item><!--tappable (click)="searchTeam(2)"-->
+            <ion-label stacked primary>{{'AwayTeam' | trans}}</ion-label>
+            <ion-label text-center>
+              <h2 style="margin-right:auto;">&nbsp;{{ away?.name }}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col width-20 *ngIf='mId'>
+          <ion-item>
+            <ion-label stacked>Score</ion-label>
+            <ion-input type="number" min='0' max="99" [ngModel]="awayScore" (ngModelChange)="awayScore=toNumber($event)"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- location -->
+    <ion-item>
+      <ion-label stacked primary>{{'Location' | trans}}</ion-label>
+      <ion-label>
+        <input id="autocompleteInput" [(ngModel)]="location.name" style="width:100%; border:none; text-align:center;" />
+      </ion-label>
+    </ion-item>
+    <!-- date -->
+    <ion-item>
+      <ion-label stacked primary>{{'Date' | trans}}</ion-label>
+      <ion-datetime text-center displayFormat="YYYY-MM-DD" [min]="minDate" [(ngModel)]="matchDate"></ion-datetime>
+    </ion-item>
+    <!-- time -->
+    <ion-item>
+      <ion-label stacked primary>{{'Time' | trans}}</ion-label>
+      <ion-datetime text-center displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="matchTime"></ion-datetime>
+    </ion-item>
+    <!-- notice -->
+    <ion-item>
+      <ion-label stacked primary>{{'Notice' | trans}}</ion-label>
+      <ion-textarea type="text" maxlength="128" [(ngModel)]="notice">
+      </ion-textarea>
+    </ion-item>
+  </ion-list>
+  <!-- home -->
+  <ion-list-header>
+    {{'HomeTeam' | trans}}
+  </ion-list-header>
+  <ion-card *ngIf='mId'>
+    <ion-card-header>
+      {{home?.name}}
+    </ion-card-header>
+    <ion-list>
+      <!-- add players -->
+      <ion-item-divider>
+        {{'Players' | trans}}
+        <button item-right clear (click)="addPlayer(homePlayers)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of homePlayers">
+        <ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, homePlayers)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add goals -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Goals' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addGoal(homeGoals)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of homeGoals">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeGoals)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add assists -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Assists' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addAssist(homeAssists)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of homeAssists">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeAssists)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add yellow card -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Yellow' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addYellowCard(homeYellowCards)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of homeYellowCards">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeYellowCards)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add Red card -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Red' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addRedCard(homeRedCards)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of homeRedCards">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of homePlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, homeRedCards)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <!--away-->
+  <ion-list-header>
+    {{'AwayTeam' | trans}}
+  </ion-list-header>
+  <ion-card *ngIf='mId'>
+    <ion-card-header>
+      {{away?.name}}
+    </ion-card-header>
+    <ion-list>
+      <!-- add players -->
+      <ion-item-divider>
+        {{'Players' | trans}}
+        <button item-right clear (click)="addPlayer(awayPlayers)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of awayPlayers">
+        <ion-input type="number" min='0' [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayPlayers)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add goals -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Goals' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addGoal(awayGoals)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of awayGoals">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="99" [ngModel]="player.goals" (ngModelChange)="player.goals=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayGoals)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add assists -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Assists' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addAssist(awayAssists)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of awayAssists">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="99" [ngModel]="player.assists" (ngModelChange)="player.assists=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayAssists)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add yellow card -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Yellow' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addYellowCard(awayYellowCards)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of awayYellowCards">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="2" [ngModel]="player.cards" (ngModelChange)="player.cards=toNumber($event)"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayYellowCards)"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <!-- add red card -->
+    <ion-item-divider light></ion-item-divider>
+    <ion-list>
+      <ion-item-divider>
+        <ion-row>
+          <ion-col width-50>
+            {{'SquadNumbers' | trans}}
+          </ion-col>
+          <ion-col width-50 text-center>
+            {{'Red' | trans}}
+          </ion-col>
+        </ion-row>
+        <button item-right clear (click)="addRedCard(awayRedCards)">
+				<ion-icon name="add"></ion-icon>
+			</button>
+      </ion-item-divider>
+      <ion-item *ngFor="let player of awayRedCards">
+        <ion-select [ngModel]="player.num" (ngModelChange)="player.num=toNumber($event)" style="width: 50%">
+          <ion-option *ngFor="let a of awayPlayers" value="{{a.num}}">{{a.num}}</ion-option>
+        </ion-select>
+        <ion-input text-center type="number" min='1' max="1" [(ngModel)]="player.cards" [disabled]="true"></ion-input>
+        <ion-icon danger name="trash" item-right (click)="delRecord(index, awayRedCards)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <!--referee-->
+  <ion-list-header>
+    {{'Referee' | trans}}
+  </ion-list-header>
+  <ion-item *ngIf="mId">
+    <ion-label primary>Name</ion-label>
+    <ion-input text-center type="text" placeholder="" [(ngModel)]="refereeName" maxlength="32"></ion-input>
+  </ion-item>
+  <ion-row padding-horizontal>
+    <ion-col text-center>
+      <button *ngIf="!mId" [disabled]="busy || !location.address" block secondary small (click)="postNewMatch()">{{'Post' | trans}}</button>
+      <button *ngIf="mId" [disabled]="busy || !location.address" block secondary small (click)="updateMatch()">Update</button>
+    </ion-col>
+    <ion-col text-center>
+      <button block danger small (click)="dismiss()">{{'Cancel' | trans}}</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

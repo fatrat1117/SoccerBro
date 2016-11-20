@@ -144,7 +144,15 @@ export class Localization {
             FriendlyMatches: 'Matches',
             Info: 'Info',
             Table: 'Table',
-            Fixtures: 'Fixtures'
+            Fixtures: 'Fixtures',
+            SquadNumbers: 'Squad Numbers',
+            Goals: 'Goals',
+            Assists: 'Assists',
+            Yellow: 'Yellow Card',
+            Red: 'Red Card',
+            AwayTeam: 'Away Team',
+            HomeTeam: 'Home Team',
+            Referee: 'Referee'
         },
 
         zh: {
@@ -270,7 +278,15 @@ export class Localization {
             FriendlyMatches: '友谊赛',
             Info: '信息',
             Table: '积分榜',
-            Fixtures: '赛程表'
+            Fixtures: '赛程表',
+            SquadNumbers: '球衣号码',
+            Goals: '进球',
+            Assists: '助攻',
+            Yellow: '黄牌',
+            Red: '红牌',
+            AwayTeam: '客队',
+            HomeTeam: '主队',
+            Referee: '裁判'
         }
     }
 }
