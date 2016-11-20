@@ -178,7 +178,8 @@ export class Localization {
             Notontime: 'Not on time',
             Inactive: 'Inactive',
             Incapable: 'Incapable',
-            Unfair: 'Unfair'
+            Unfair: 'Unfair',
+            Type: 'Type'
         },
 
         zh: {
@@ -338,7 +339,8 @@ export class Localization {
             Notontime: '不准时',
             Inactive: '跑动消极',
             Incapable: '他就一SB',
-            Unfair: '黑哨'
+            Unfair: '黑哨',
+            Type: '场地类型'
         }
     }
 }

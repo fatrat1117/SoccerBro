@@ -127,7 +127,7 @@ export class MatchesPageContent implements OnInit {
     setTimeout(function () {
       let iToday = -1;
       for (let i = 0; i < dates.length; ++i) {
-        if (self.today.toString() == dates[i].$key) {
+        if (Number(dates[i].$key) >= self.today) {
           iToday = i;
           break;
         }

@@ -3,11 +3,6 @@
     <ion-title>
       {{'NewMatch' | trans}}
     </ion-title>
-    <ion-select [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
-      <ion-option value="5">5 v 5</ion-option>
-      <ion-option value="7">7 v 7</ion-option>
-      <ion-option value="11">11 v 11</ion-option>
-    </ion-select>
     <ion-buttons end *ngIf="mId">
       <button (click)="deleteMatch()">
         <ion-icon name="trash" danger></ion-icon>
@@ -17,10 +12,19 @@
 </ion-header>
 <ion-content>
   <ion-list>
+    <!-- type -->
+    <ion-item>
+      <ion-label stacked primary>{{'Type' | trans}}</ion-label>
+      <ion-select text-center [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
+        <ion-option value="5">5 v 5</ion-option>
+        <ion-option value="7">7 v 7</ion-option>
+        <ion-option value="11">11 v 11</ion-option>
+      </ion-select>
+    </ion-item>
     <!-- opponent -->
     <ion-grid>
       <ion-row>
-        <ion-col width-80>
+        <ion-col>
           <ion-item tappable (click)="searchTeam(1)">
             <ion-label stacked primary>{{'HomeTeam' | trans}}</ion-label>
             <ion-label text-center>
@@ -30,13 +34,13 @@
         </ion-col>
         <ion-col width-20 *ngIf='mId'>
           <ion-item>
-            <ion-label stacked>Score</ion-label>
+            <ion-label stacked>{{'Score' | trans}}</ion-label>
             <ion-input type="number" min='0' max="99" [ngModel]="homeScore" (ngModelChange)="homeScore=toNumber($event)"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col width-80>
+        <ion-col>
           <ion-item tappable (click)="searchTeam(2)">
             <ion-label stacked primary>{{'AwayTeam' | trans}}</ion-label>
             <ion-label text-center>
@@ -46,21 +50,12 @@
         </ion-col>
         <ion-col width-20 *ngIf='mId'>
           <ion-item>
-            <ion-label stacked>Score</ion-label>
+            <ion-label stacked>{{'Score' | trans}}</ion-label>
             <ion-input type="number" min='0' max="99" [ngModel]="awayScore" (ngModelChange)="awayScore=toNumber($event)"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!-- type -->
-    <ion-item>
-      <ion-label stacked primary>Type</ion-label>
-      <ion-select text-center [ngModel]="matchType" (ngModelChange)="matchType=toNumber($event)">
-        <ion-option value="5">5 v 5</ion-option>
-        <ion-option value="7">7 v 7</ion-option>
-        <ion-option value="11">11 v 11</ion-option>
-      </ion-select>
-    </ion-item>
     <!-- location -->
     <ion-item>
       <ion-label stacked primary>{{'Location' | trans}}</ion-label>
