@@ -156,7 +156,13 @@ export class Localization {
             SortBy: 'Sort By',
             Update: 'Update',
             Close: 'Close',
-            Name: 'Name'
+            Name: 'Name',
+            GSGA: 'GS/GA',
+            P: 'P',
+            W: 'W',
+            L: 'L',
+            D: 'D',
+            PTS: 'PTS'
         },
 
         zh: {
@@ -294,7 +300,13 @@ export class Localization {
             SortBy: '按条件排序',
             Update: '更新',
             Close: '关闭',
-            Name: '姓名'
+            Name: '姓名',
+            GSGA: '进/失',
+            P: '赛',
+            W: '胜',
+            L: '负',
+            D: '平',
+            PTS: '积分'
         }
     }
 }
