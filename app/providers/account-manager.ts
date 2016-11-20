@@ -565,6 +565,9 @@ export class AccountManager {
       snapshots.forEach(snapshot => {
         let today = moment();
         let matchDate = moment(snapshot.$value);
+        if (toVote == null && today >= matchDate)
+            toVote = snapshot;
+        /*
         if (today >= matchDate)
         {
           let diff = today.diff(matchDate, 'hours');
@@ -573,6 +576,7 @@ export class AccountManager {
           else if (toVote == null)
             toVote = snapshot;
         }
+        */
       });
       // check if has unvoted match
       if (toVote != null) {

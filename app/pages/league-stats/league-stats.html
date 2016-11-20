@@ -31,12 +31,15 @@
       </ion-segment-button>
     </ion-segment>
   </ion-header-bar>
-  <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%">
+  <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%;">
     <ion-card *ngSwitchCase="'info'" text-wrap>
-      <ion-textarea rows="15" [(ngModel)]="tournamentDescription" [disabled]="!((afWhitelist | async)?.$value)"></ion-textarea>
-      <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
-      <button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
-      <button *ngIf="tournamentDescLink" (click)="ShowDetails()">More Details</button>
+      <ion-textarea *ngIf="!((afWhitelist | async)?.$value)" rows="20" [(ngModel)]="tournamentDescription" readonly></ion-textarea>
+      <ion-textarea *ngIf="((afWhitelist | async)?.$value)" rows="20" [(ngModel)]="tournamentDescription"></ion-textarea>
+      <ion-buttons end>
+        <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
+        <button *ngIf="(afTournamentsAdmin | async)?.$value" (click)="ImportTeamAbility()">Import Team Ability</button>
+        <button *ngIf="tournamentDescLink" (click)="ShowDetails()" clear >More Details</button>
+      </ion-buttons>
     </ion-card>
     <div *ngSwitchCase="'standings'" class="league-stats-standing">
       <ion-grid>
