@@ -7,7 +7,7 @@
 </div>
 
 <div class="right-scrollview matches-match-info-col" [ngStyle]="{'top': rightViewTop+'px'}">
-	<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId" (click)="popupUpdateSchedulePage(match.$key)">
+	<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId">
 		<ion-grid no-padding>
 			<ion-row>
 				<ion-col class="matches-info" no-padding>
@@ -54,7 +54,11 @@
 							<!--p>Li Haohaohao</p-->
 							<p>{{match.time | numberToTimePipe}}</p>
 						</ion-item>
-						<button text-center (click)="popupMatchResult(match,$event)" clear>Details</button>
+						<button text-center (click)="popupMatchResult(match,$event)" clear>{{'Details' | trans}}</button>
+						<button *ngIf="(match.homeId | teamBasicPipe | async)?.captain === selfId ||
+						(match.awayId | teamBasicPipe | async)?.captain === selfId ||
+						(afTournamentAdmin | async)?.$value" 
+						text-center (click)="popupUpdateSchedulePage(match,$event)" clear>{{'Update' | trans}}</button>
 					</div>
 				</ion-col>
 			</ion-row>

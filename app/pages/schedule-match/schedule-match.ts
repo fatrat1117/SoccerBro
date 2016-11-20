@@ -166,7 +166,8 @@ export class ScheduleMatchPage {
       time: t,
       locationName: this.location.name,
       locationAddress: this.location.address,
-      notice: this.notice
+      notice: this.notice,
+      createBy: this.fm.selfId
     }
     if (this.tournamentId)
       matchData["tournamentId"] = this.tournamentId;
