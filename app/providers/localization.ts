@@ -168,7 +168,17 @@ export class Localization {
             Bad: 'Bad',
             OK2: 'OK',
             Good: 'Good',
-            Excellent: 'Excellent'
+            Excellent: 'Excellent',
+            Giveacompliment: 'Give a compliment',
+            Whatwentwrong: 'What went wrong',
+            Punctual: 'Punctual',
+            Active: 'Active',
+            Competent: 'Competent',
+            WellJudged: 'Well-Judged',
+            Notontime: 'Not on time',
+            Inactive: 'Inactive',
+            Incapable: 'Incapable',
+            Unfair: 'Unfair'
         },
 
         zh: {
@@ -318,7 +328,17 @@ export class Localization {
             Bad: '差',
             OK2: '一般',
             Good: '好',
-            Excellent: '很满意'
+            Excellent: '很满意',
+            Giveacompliment: '哪些方面做得很好',
+            Whatwentwrong: '哪里出错了',
+            Punctual: '准时',
+            Active: '跑动积极',
+            Competent: '胜任工作',
+            WellJudged: '判罚公平',
+            Notontime: '不准时',
+            Inactive: '跑动消极',
+            Incapable: '他就一SB',
+            Unfair: '黑哨'
         }
     }
 }
