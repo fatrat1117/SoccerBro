@@ -336,10 +336,6 @@ export class FirebaseManager {
     });
   }
 
-
-
-
-
   /********** All Matches Operations ***********/
   exportMatchesData() {
     let afMatchesExport = this.getMatchesExport();
@@ -942,7 +938,8 @@ export class FirebaseManager {
   }
 
   getTournamentTableList(id) {
-    return this.af.database.list('/tournaments/list/' + id + '/table');
+    return this.af.database.list('/tournaments/list/' + id + '/table', 
+    {query: { orderByChild: 'rank' }});
   }
 
   getTournament(id) {
@@ -994,8 +991,36 @@ export class FirebaseManager {
         }
       });
 
+      this.computeRank(tableData);
+      console.log(tableData); 
       this.getTournamentTable(id).set(tableData).then(() => console.log('computeTournamentTable done'));
     });
+  }
+
+  computeRank(tableData){
+    let arr = [];
+    for (let key in tableData) {
+      arr.push(tableData[key]);
+      arr[arr.length - 1]["id"] = key;
+    }
+    arr.sort(function(a, b){
+      if (a.PTS == b.PTS) {
+        let GDA = a.GS - a.GA;
+        let GDB = b.GS - b.GA;
+        
+        if (GDA == GDB) {
+          return b.GS - a.GS;
+        }
+
+        return GDB - GDA;
+      }
+
+      return b.PTS - a.PTS;
+    });
+    
+    for (let i = 0; i < arr.length; ++i) {
+      tableData[arr[i].id]["rank"] = i + 1;
+    }
   }
 
   computeOneMatch(result, teamId1, teamId2, score1, score2) {

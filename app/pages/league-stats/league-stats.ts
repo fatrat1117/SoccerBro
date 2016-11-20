@@ -42,7 +42,7 @@ export class LeagueStatsPage {
     console.log('tournamentId', this.tournamentId);
     let self = this;
     fm.getTournamentTableList(this.tournamentId).subscribe(tables => {
-      console.log('getTournamentTable', tables);
+      //console.log('getTournamentTable', tables);
       self.standings = tables;
     });
 
@@ -84,11 +84,6 @@ export class LeagueStatsPage {
   testClick() {
     console.log("I clicked the standing cell");
   }
-
-  // showMatches(date: string) {
-  //     console.log('showMatches', date);
-  //     this.dateSubject.next(Number(date));
-  // }
 
   addTournamentMatch() {
     this.modalController.create(ScheduleMatchPage, { tournamentId: this.tournamentId }).present();

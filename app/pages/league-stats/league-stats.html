@@ -42,6 +42,8 @@
         <ion-list>
           <ion-item>
             <ion-row>
+            <ion-col>
+            </ion-col>
               <ion-col width-50>
                 <p text-left><label>Team</label></p>
               </ion-col>
@@ -67,6 +69,9 @@
           </ion-item>
           <ion-item *ngFor="let s of standings; let i = index;" no-margin>
             <ion-row>
+              <ion-col>
+              <ion-badge style="position:absolute;">{{ s.rank }}</ion-badge>
+              </ion-col>
               <ion-col width-50>
                 <ion-thumbnail>
                   <ion-img [src]="(s.$key | teamBasicPipe | async)?.logo"></ion-img>
