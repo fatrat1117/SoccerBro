@@ -14,9 +14,9 @@
 <ion-content>
   <ion-card >
     <!-- match info -->
-    <ion-row>
+    <ion-row class="match-info-team-info">
       <!-- my team -->
-      <ion-col center>
+      <ion-col class="home-team-item" center>
        <ion-item>
           <ion-thumbnail>
             <img class="team-logo-img" [src]="(teamId | teamBasicPipe | async)?.logo">
@@ -25,7 +25,7 @@
        </ion-item>
       </ion-col>
       <!-- time -->
-      <ion-col center text-center>
+      <ion-col class="center-info-item" center text-center>
         <!--ion-item style="text-align:center">
           <ion-icon name="md-rainy" secondary><p>35&deg;C</p></ion-icon>
         </ion-item-->
@@ -34,7 +34,7 @@
         <p>{{ getDate((teamId | matchInfoPipe: matchId | async)?.time) }}</p>
       </ion-col>
       <!-- opponent team -->
-      <ion-col center>
+      <ion-col class="away-team-item" center>
        <ion-item>
           <ion-thumbnail>
             <img class="team-logo-img" [src]="(opponentId | teamBasicPipe | async)?.logo">
@@ -81,9 +81,9 @@
     </ion-row>
     <-->
   </ion-card>
-  
+
   <!-- buttons -->
-  <ion-row padding-horizontal> 
+  <ion-row padding-horizontal>
     <ion-col text-center>
       <button block secondary small [disabled]="isGoing" (click)="joinMatch()">
         <ion-icon name="checkmark"></ion-icon>

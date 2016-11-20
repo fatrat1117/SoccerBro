@@ -15,3 +15,37 @@ div.avatar-top {
     margin: auto;
   }
 }
+
+
+
+//jix
+.match-info-team-info{
+  .home-team-item{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 40%;
+    -ms-flex: 0 0 40%;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .away-team-item{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 40%;
+    -ms-flex: 0 0 40%;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+
+  .center-info-item{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 20%;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  p{
+    font-size: 85%;
+    white-space: normal;
+  }
+
+}
