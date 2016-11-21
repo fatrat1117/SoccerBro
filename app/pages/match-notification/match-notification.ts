@@ -34,7 +34,8 @@ export class MatchNotPage {
     // push notification
     if (this.fm.selfTeamId) {
       this.fm.getPlayersObj(this.fm.selfTeamId).subscribe(snapshot => {
-        if (snapshot.$value) {
+        console.log('getPlayersObj', snapshot);
+        //if (snapshot.isMember) {
           for (let pId in snapshot) {
             if (pId != '$key') {
               this.fm.getPlayerDetail(pId).subscribe(detail => {
@@ -44,7 +45,7 @@ export class MatchNotPage {
               });
             }
           }
-        }
+        //}
       });
     }
   }
