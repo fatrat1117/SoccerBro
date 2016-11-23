@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, ModalController, ViewController} from 'ionic-angular';
+import {NavController, ModalController, ViewController, NavParams} from 'ionic-angular';
 import {AccountManager} from '../../providers/account-manager';
 import {FirebaseManager} from '../../providers/firebase-manager';
 import {SearchPlayerPage} from '../search-player/search-player';
@@ -22,11 +22,12 @@ export class EditTeamPage {
   newCaptain: string;
 
   constructor(private am: AccountManager,
+              navParams: NavParams,
               private nav: NavController,
               private fm : FirebaseManager,
               private modalCtrl: ModalController,
               private viewCtrl: ViewController) {
-    this.tId = this.fm.selfTeamId;
+    this.tId = navParams.get('tId');
     this.busy = false;
     this.afTeam = this.fm.getTeamBasic(this.tId);
     this.afTeamDetails = this.fm.getTeamDetail(this.tId);

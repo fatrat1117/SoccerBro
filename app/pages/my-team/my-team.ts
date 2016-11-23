@@ -102,7 +102,7 @@ export class MyTeamPage {
   }
 
   editTeam() {
-    this.modalController.create(EditTeamPage).present();
+    this.modalController.create(EditTeamPage, {tId: this.tId}).present();
   }
 
   addNewMatch() {
