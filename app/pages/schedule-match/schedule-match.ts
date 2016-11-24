@@ -25,8 +25,8 @@ export class ScheduleMatchPage {
   refereeName = '';
   busy = false;
   mId: any;
-  homeScore: any;
-  awayScore: any;
+  homeScore = null;
+  awayScore = null;
   homeGoals = [];
   homeAssists = [];
   homeYellowCards = [];
@@ -209,9 +209,9 @@ export class ScheduleMatchPage {
       type: this.matchType
     };
 
-    if (this.homeScore)
+    if (this.homeScore != null)
       updateMatchData["homeScore"] = this.homeScore;
-    if (this.awayScore)
+    if (this.awayScore != null)
       updateMatchData["awayScore"] = this.awayScore;
 
     let self = this;
