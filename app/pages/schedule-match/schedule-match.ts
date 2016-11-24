@@ -209,9 +209,9 @@ export class ScheduleMatchPage {
       type: this.matchType
     };
 
-    if (this.homeScore != null)
+    if (this.homeScore != null && this.homeScore >= 0)
       updateMatchData["homeScore"] = this.homeScore;
-    if (this.awayScore != null)
+    if (this.awayScore != null && this.awayScore >= 0)
       updateMatchData["awayScore"] = this.awayScore;
 
     let self = this;
