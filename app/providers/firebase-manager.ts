@@ -356,6 +356,7 @@ export class FirebaseManager {
             awayId: m.awayId,
             homeScore: m.homeScore,
             awayScore: m.awayScore,
+            type: m.type
           };
           matches.push(obj);
         }
