@@ -347,8 +347,8 @@ export class FirebaseManager {
   /********** All Matches Operations ***********/
   exportMatchesData() {
     let afMatchesExport = this.getMatchesExport();
-    let matches = [];
     this.getMatchList().subscribe(snapshots => {
+      let matches = [];
       snapshots.forEach(m => {
         if (m.homeId && m.awayId && "homeScore" in m && "awayScore" in m) {
           var obj = {
@@ -359,8 +359,9 @@ export class FirebaseManager {
           };
           matches.push(obj);
         }
-        afMatchesExport.set({matches: matches});
-      })
+      });
+      console.log('exportData', matches);
+      afMatchesExport.set({"matches": matches});
     });
   }
 
