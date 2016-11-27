@@ -7,7 +7,11 @@
 <ion-content>
   <ion-item-group>
     <!-- Me -->
-    <ion-item-divider light></ion-item-divider>
+    <ion-item-divider></ion-item-divider>
+    <ion-item (click)="popupGuide()" detail-push>
+      <ion-icon item-left primary name="cog"></ion-icon>
+      Guide
+    </ion-item>
     <ion-item tappable (click)="goEditPlayerPage()" detail-push>
       <ion-avatar item-left>
         <ion-img [src]="(playerBasic)?.photoURL"></ion-img>
@@ -45,8 +49,4 @@
       {{'Logout' | trans}}
     </ion-item>
   </ion-item-group>
-
-  <!--<button (click)="pushPage()">
-       Go to OtherPage
-     </button>-->
 </ion-content>
