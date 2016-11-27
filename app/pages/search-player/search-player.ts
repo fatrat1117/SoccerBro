@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
-import {FirebaseManager} from '../../providers/firebase-manager';
-import {MyPlayerPage} from '../my-player/my-player';
-import {transPipe} from '../../providers/localization'
+import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { FirebaseManager } from '../../providers/firebase-manager';
+import { MyPlayerPage } from '../my-player/my-player';
+import { transPipe } from '../../providers/localization'
 
 
 @Component({
@@ -23,17 +23,19 @@ export class SearchPlayerPage {
 
     // firebase
     let subscription = this.fm.getTeamPlayers(this.teamId).subscribe(snapshots => {
-      subscription.unsubscribe();
-      snapshots.forEach(snapshot => {
-        let player: any = {};
-        this.fm.getPlayerBasic(snapshot.$key).subscribe(s => {
-          player.id = snapshot.$key;
-          player.displayName = s.displayName;
-          player.photoURL = s.photoURL;
+      setTimeout(() => {
+        subscription.unsubscribe();
+        snapshots.forEach(snapshot => {
+          let player: any = {};
+          this.fm.getPlayerBasic(snapshot.$key).subscribe(s => {
+            player.id = snapshot.$key;
+            player.displayName = s.displayName;
+            player.photoURL = s.photoURL;
+          });
+          this.totalPlayers.push(player);
         });
-        this.totalPlayers.push(player);
-      });
-      this.resetFilter();
+        this.resetFilter();
+      }, 250);
     });
   }
 
