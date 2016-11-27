@@ -20,6 +20,8 @@ export class GuidePage {
   private modalCtrl: ModalController,
   private viewCtrl: ViewController) {
     this.fm.getSelfTeams().subscribe(snapShots => {
+      console.log('getSelfTeams', snapShots);
+      
       this.teams = snapShots;
       snapShots.forEach(s => {
         if (true === s.$value) {
@@ -42,9 +44,16 @@ joinTeam() {
   }
 
   UpdateNumber() {
-
+    this.teams.forEach(t => {
+      let success = () => {};
+      let error = err => {
+        alert(err);
+      };
+      this.fm.validateTeamNumber(t.$key, Number(t.$value), success, error);
+    })
+    
   }
-  
+
   close() {
     this.viewCtrl.dismiss();
   }

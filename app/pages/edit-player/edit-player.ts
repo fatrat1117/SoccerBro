@@ -84,7 +84,7 @@ export class EditPlayerPage {
 
     // update team number
     this.teams.forEach(t => {
-      this.fm.validateTeamNumber(t.$key, t.$value, success, error);
+      this.fm.validateTeamNumber(t.$key, Number(t.$value), success, error);
     })
   }
 
