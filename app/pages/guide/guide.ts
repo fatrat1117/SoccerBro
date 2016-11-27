@@ -4,19 +4,29 @@ import {FirebaseManager} from '../../providers/firebase-manager';
 import {transPipe} from '../../providers/localization'
 import {Localization} from '../../providers/localization';
 import {SearchTeamPage} from '../search-team/search-team';
+import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 
 @Component({
   templateUrl: 'build/pages/guide/guide.html',
-  pipes: [transPipe]
+  pipes: [transPipe, TeamBasicPipe]
 })
 export class GuidePage {
+  teams;
+  needNumber = false;
 
   constructor(private fm : FirebaseManager, 
   private nav : NavController, 
   private local: Localization, 
   private modalCtrl: ModalController,
   private viewCtrl: ViewController) {
-    
+    this.fm.getSelfTeams().subscribe(snapShots => {
+      this.teams = snapShots;
+      snapShots.forEach(s => {
+        if (true === s.$value) {
+            this.needNumber = true;
+        }
+      })
+    });
   }
 
 joinTeam() {
@@ -31,6 +41,10 @@ joinTeam() {
     searchTeamModal.present();
   }
 
+  UpdateNumber() {
+
+  }
+  
   close() {
     this.viewCtrl.dismiss();
   }

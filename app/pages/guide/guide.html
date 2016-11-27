@@ -12,11 +12,17 @@
     <h1>You need a team</h1>
     <button (click) = "joinTeam()">Join a Team</button>
   </ion-slide>
-  <ion-slide>
-    <h1>Slide 2</h1>
+  <ion-slide *ngIf='needNumber'>
+    <h1>What is your number in your team?</h1>
+    <ion-item *ngFor="let team of teams">
+      <ion-label>{{ (team.$key | teamBasicPipe | async)?.name }}</ion-label>
+      <ion-input text-right type="number" [ngModel]="team.$value" (ngModelChange)="team.$value=$event">
+      </ion-input>
+    </ion-item>
+    <button (click)="UpdateNumber()">Update</button>
   </ion-slide>
   <ion-slide>
-    <p>You are all set</p>
+    <h1>You are all set</h1>
     <button (click) = "close()">Done</button>
   </ion-slide>
 </ion-slides>
