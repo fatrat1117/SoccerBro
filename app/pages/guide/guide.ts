@@ -21,7 +21,7 @@ export class GuidePage {
   private viewCtrl: ViewController) {
     this.fm.getSelfTeams().subscribe(snapShots => {
       console.log('getSelfTeams', snapShots);
-      
+      this.needNumber = false;
       this.teams = snapShots;
       snapShots.forEach(s => {
         if (true === s.$value) {
