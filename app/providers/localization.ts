@@ -180,7 +180,13 @@ export class Localization {
             Inactive: 'Inactive',
             Incapable: 'Incapable',
             Unfair: 'Unfair',
-            Type: 'Type'
+            Type: 'Type',
+            Guide: 'Guide',
+            Youneedateam: 'You need a team',
+            Needtofillnumber: 'Square number is your identity to referee. All your performance data is recored based on your square number. Please fill up your square number.',
+            Done: 'Done',
+            Welcometobrotherhood: 'Welcome to brotherhood',
+            Numberexists: 'Number exists'
         },
 
         zh: {
@@ -342,7 +348,13 @@ export class Localization {
             Inactive: '跑动消极',
             Incapable: '他就一SB',
             Unfair: '黑哨',
-            Type: '场地类型'
+            Type: '场地类型',
+            Guide: '设置向导',
+            Youneedateam: '你需要一支球队',
+            Needtofillnumber: '裁判会根据你的球衣号码记录你在比赛中的表现。请正确填写你在球队中的号码。',
+            Done: '完成',
+            Welcometobrotherhood: '欢迎来到兄弟会',
+            Numberexists: '号码已经有人使用了'
         }
     }
 }

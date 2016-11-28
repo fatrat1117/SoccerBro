@@ -11,7 +11,7 @@ import { MatchRatingPage } from '../pages/match-rating/match-rating';
 import { FirebaseManager } from './firebase-manager';
 import { Localization } from './localization';
 import * as moment from 'moment';
-
+import {GuidePage} from '../pages/guide/guide';
 declare let firebase: any;
 
 @Injectable()
@@ -602,7 +602,29 @@ export class AccountManager {
     */
   }
 
+  popupGuide() {
+    this.modalCtrl.create(GuidePage).present();
+  }
 
+  showGuide() {
+    if (!this.fm.selfTeamId) {
+      this.popupGuide();
+      return;
+    }
+
+    this.fm.getSelfTeams().subscribe(snapShots => {
+      console.log('getSelfTeams', snapShots);
+      let needNumber = false;
+      for (let i = 0; i < snapShots.length; ++i) {
+        if (true == snapShots[i].$value) {
+          needNumber = true;
+          break;
+        }
+      }
+      if (needNumber)
+        this.popupGuide();
+    });
+  }
   //time converter
   numberToDateString(date) {
     return moment(date).format("YYYY-MM-DD");

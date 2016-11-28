@@ -13,14 +13,17 @@ import {TeamBasicPipe} from '../../pipes/team-basic.pipe';
 export class GuidePage {
   teams;
   needNumber = false;
+  options = {pager: true};
 
   constructor(private fm : FirebaseManager, 
   private nav : NavController, 
   private local: Localization, 
   private modalCtrl: ModalController,
   private viewCtrl: ViewController) {
+    console.log('Guide poped up');
+    
     this.fm.getSelfTeams().subscribe(snapShots => {
-      console.log('getSelfTeams', snapShots);
+      //console.log('getSelfTeams', snapShots);
       this.needNumber = false;
       this.teams = snapShots;
       snapShots.forEach(s => {

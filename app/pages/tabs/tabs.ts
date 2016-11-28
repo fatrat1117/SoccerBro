@@ -54,6 +54,11 @@ export class TabsPage implements OnInit {
             self.tab3Root = MessagePage;
             console.log('initialize success');
             self.am.dismissLoading();
+
+            setTimeout(() => {
+              self.am.showGuide();
+            }, 5000);
+
             setTimeout(() => {
               self.am.showMatchMVP();
             }, 2000);

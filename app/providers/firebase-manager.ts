@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-
+import {Localization} from './localization';
 import * as moment from 'moment';
 declare let firebase: any;
 
@@ -11,7 +11,8 @@ export class FirebaseManager {
   totalPlayers = 0;
   totalTeams = 0;
 
-  constructor(private af: AngularFire) {
+  constructor(private af: AngularFire,
+  private loc : Localization) {
   }
 
   /********** All Players Operations ***********/
@@ -64,7 +65,7 @@ export class FirebaseManager {
             success();
           } else {
             isValid = false;
-            error("Number exists");
+            error(this.loc.getString('Numberexists'));
           }
         }
       })

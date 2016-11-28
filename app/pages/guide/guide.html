@@ -1,29 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Guide
+      {{'Guide' | trans}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-slides pager='true'>
+  <ion-slides [options] = 'options'>
   <ion-slide *ngIf='!fm.selfTeamId'>
-    <h1>You need a team</h1>
-    <button (click) = "joinTeam()">Join a Team</button>
+    <h1>{{'Youneedateam' | trans}}</h1>
+    <button (click) = "joinTeam()">{{'JoinTeam' | trans}}</button>
   </ion-slide>
   <ion-slide *ngIf='needNumber'>
-    <h1>What is your number in your team?</h1>
+    <h1 danger>{{'Needtofillnumber' | trans}}</h1>
     <ion-item *ngFor="let team of teams">
       <ion-label>{{ (team.$key | teamBasicPipe | async)?.name }}</ion-label>
       <ion-input text-right type="number" [ngModel]="team.$value" (ngModelChange)="team.$value=$event">
       </ion-input>
     </ion-item>
-    <button (click)="UpdateNumber()">Update</button>
+    <button (click)="UpdateNumber()">{{'Update' | trans}}</button>
   </ion-slide>
   <ion-slide>
-    <h1>You are all set</h1>
-    <button (click) = "close()">Done</button>
+    <h1>{{'Welcometobrotherhood' | trans}}</h1>
+    <button (click) = "close()">{{'Done' | trans}}</button>
   </ion-slide>
 </ion-slides>
 </ion-content>
