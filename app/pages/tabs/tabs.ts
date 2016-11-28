@@ -57,7 +57,7 @@ export class TabsPage implements OnInit {
 
             setTimeout(() => {
               self.am.showGuide();
-            }, 5000);
+            }, 3500);
 
             setTimeout(() => {
               self.am.showMatchMVP();
