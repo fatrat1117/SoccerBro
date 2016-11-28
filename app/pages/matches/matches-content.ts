@@ -133,10 +133,12 @@ export class MatchesPageContent implements OnInit {
         }
       }
 
-      console.log('today index', iToday);
+      console.log('today index', iToday, self.today);
 
       if (iToday != -1) {
-        self.dateSubject.next(self.today);
+        let closeToToday = Number(dates[iToday].$key);
+        console.log('date close to today', closeToToday);
+        self.dateSubject.next(closeToToday);
         self.setDatesColorArray(iToday);
         self.currentSelectedDateIndex = iToday;
 

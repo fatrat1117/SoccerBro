@@ -22,7 +22,6 @@ export class LeagueStatsPage {
   dates: any;
   datesColorArray: any;
   currentSelectedDateIndex = 0;
-  afMatches: any;
   afMatchesBytournamentId: any;
   dateSubject = new Subject();
   today = moment(moment().format("YYYY-MM-DD")).unix() * 1000;
@@ -54,17 +53,6 @@ export class LeagueStatsPage {
     //   },
     // ];
 
-    fm.getMatchDates().subscribe(dates => {
-      self.dates = dates;
-      self.initialDatesColorArray(self.dates);
-      //console.log(dates);
-      setTimeout(function () {
-        console.log('show today', self.today);
-        self.dateSubject.next(self.today);
-      }, 1000);
-    });
-
-    this.afMatches = fm.queryMatches(this.dateSubject);
     this.afMatchesBytournamentId = fm.getMatchesByTournamentId(this.tournamentId);
     this.afTournamentInfo = fm.getTournamentInfo(this.tournamentId);
     this.afTournamentInfo.subscribe(info => {
