@@ -26,11 +26,12 @@ export class GuidePage {
       //console.log('getSelfTeams', snapShots);
       this.needNumber = false;
       this.teams = snapShots;
-      snapShots.forEach(s => {
-        if (true === s.$value) {
-            this.needNumber = true;
+      for (let i = 0; i < snapShots.length; ++i) {
+        if (true == snapShots[i].$value) {
+          this.needNumber = true;
+          break;
         }
-      })
+      }
     });
   }
 
