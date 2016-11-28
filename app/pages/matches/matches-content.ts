@@ -121,6 +121,14 @@ export class MatchesPageContent implements OnInit {
     }
   }
 
+  getRightViewMarginBottom(itemNumber:number){
+      if (itemNumber == 0){
+        return 0;
+      }else{
+        return -1;
+      }
+  }
+
   scrollToToday(dates) {
 
     let self = this;

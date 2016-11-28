@@ -7,10 +7,10 @@
 </div>
 
 <div class="right-scrollview matches-match-info-col" [ngStyle]="{'top': rightViewTop+'px'}">
-	<ion-item *ngFor="let match of afMatches | async | tournamentFilterPipe : tournamentId">
+	<ion-item *ngFor="let j = index;let match of afMatches | async | tournamentFilterPipe : tournamentId ">
 		<ion-grid no-padding>
 			<ion-row>
-				<ion-col class="matches-info" no-padding>
+				<ion-col class="matches-info" no-padding [ngStyle]="{'margin-bottom': getRightViewMarginBottom(j)+'px'}">
 					<ion-item class="team-bar">
 						<ion-avatar item-left>
 							<ion-img [src]="(match.homeId | teamBasicPipe | async)?.logo"></ion-img>
