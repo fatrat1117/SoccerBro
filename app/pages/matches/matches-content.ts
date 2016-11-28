@@ -74,9 +74,9 @@ export class MatchesPageContent implements OnInit {
   popupUpdateSchedulePage(match, e) {
     e.stopPropagation();
     //if (this.fm.selfId && match.createBy === this.fm.selfId) {
-      this.modalController.create(ScheduleMatchPage, {
-        mId: match.$key
-      }).present();
+    this.modalController.create(ScheduleMatchPage, {
+      mId: match.$key
+    }).present();
     //}
   }
 
@@ -143,13 +143,14 @@ export class MatchesPageContent implements OnInit {
         self.currentSelectedDateIndex = iToday;
 
         let scrollableDiv = document.getElementById("sketchElement");
-        scrollableDiv.scrollTop = 0;
-        //let scrollableItem = document.getElementById("matches-scroll-target-1");
-        let scrollableItem = scrollableDiv.getElementsByTagName("ion-item");
-        if (scrollableItem.length > 0) {
-          scrollableDiv.scrollTop += scrollableItem[0].clientHeight * iToday;
+        if (scrollableDiv) {
+          scrollableDiv.scrollTop = 0;
+          //let scrollableItem = document.getElementById("matches-scroll-target-1");
+          let scrollableItem = scrollableDiv.getElementsByTagName("ion-item");
+          if (scrollableItem.length > 0) {
+            scrollableDiv.scrollTop += scrollableItem[0].clientHeight * iToday;
+          }
         }
-
       }
 
     }, 1000);
