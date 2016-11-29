@@ -34,8 +34,8 @@
   <div [ngSwitch]="leagueStats" class="league-stats" style="height:100%;">
     <div *ngSwitchCase="'info'">
       <ion-card text-wrap>
-        <ion-textarea *ngIf="!((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription" readonly></ion-textarea>
-        <ion-textarea *ngIf="((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription"></ion-textarea>
+        <ion-textarea class="selectable" *ngIf="!((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription" readonly></ion-textarea>
+        <ion-textarea class="selectable"  *ngIf="((afWhitelist | async)?.$value)" rows="18" [(ngModel)]="tournamentDescription"></ion-textarea>
       </ion-card>
       <ion-buttons end>
         <button *ngIf="(afWhitelist | async)?.$value" (click)="updateTournamentInfo()">Update</button>
