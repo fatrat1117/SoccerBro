@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
-import {AccountManager} from '../../providers/account-manager'
+import {FirebaseManager} from '../../providers/firebase-manager'
 import {transPipe} from '../../providers/localization'
 
 @Component({
@@ -12,7 +12,7 @@ export class CreateTeamPage {
   location: any;
   busy: boolean;
   constructor(private viewCtrl: ViewController,
-    private am: AccountManager) {
+    private fm: FirebaseManager) {
     this.busy = false;
     this.location = 'SG';
     this.teamName = '';
@@ -44,6 +44,6 @@ export class CreateTeamPage {
       self.busy = false;
       alert(e);
     }
-    this.am.createTeam(teamObj, success, error);
+    this.fm.createTeam(teamObj, success, error);
   }
 }

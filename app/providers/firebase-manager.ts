@@ -175,16 +175,73 @@ export class FirebaseManager {
 
   joinTeam(id) {
     this.getTeamOfPlayer(this.selfId, id).set(true);
-    this.getPlayerOfTeam(this.selfId, id).set(true);
-    this.getPlayerBasic(this.selfId).update({ teamId: id });
+    this.getPlayerOfTeam(this.selfId, id).set({ isMember: true });
+    //set default team if no team
+    if (!this.selfTeamId)
+      this.getPlayerBasic(this.selfId).update({ teamId: id });
 
     let afTeamBasic = this.getTeamBasic(id);
     let sub = afTeamBasic.subscribe(snapshot => {
       setTimeout(() => {
         sub.unsubscribe();
+        //increase total by 1
+        //trade-off: performance is better than updateTotalPlayers but might have bug when 2 players join at same time
         afTeamBasic.update({ totalPlayers: snapshot.totalPlayers + 1 });
       },
         250);
+    });
+  }
+
+createTeam(teamObj, success, error) {
+    let self = this;
+    console.log("createTeam", teamObj);
+    const queryObservable = this.af.database.list('/public/teams', {
+      query: {
+        orderByChild: 'name',
+        equalTo: teamObj.name
+      }
+    });
+
+    let subscription = queryObservable.subscribe(queriedItems => {
+      console.log("check team name", queriedItems);
+      //stopping monitoring changes
+      subscription.unsubscribe();
+      if (0 === queriedItems.length) {
+        let teamData = {
+          "basic-info":
+          {
+            name: teamObj.name,
+            captain: this.selfId,
+            logo: 'img/none.png',
+            totalMatches: 0,
+            totalPlayers: 0
+          },
+          "detail-info": {
+            founder: this.selfId,
+            location: teamObj.location
+          }
+        };
+
+        this.getAllTeams().push(teamData).then(newTeam => {
+          console.log('create team success', newTeam);
+          let newTeamId = newTeam["key"];
+          //joinTeam
+          this.joinTeam(newTeamId);
+          //update default  
+          // if (!this.selfTeamId) {
+          //   this.getPlayerBasic(this.selfId).update({ teamId: newTeamId });
+          // }
+          //update public
+          this.getTeamPublic(newTeamId).update(
+            {
+              name: teamObj.name,
+              popularity: 1
+            });
+          success();
+        }).catch(err => error(err));
+      } else {
+        error(this.loc.getString("Teamexists"));
+      }
     });
   }
 
@@ -234,6 +291,10 @@ export class FirebaseManager {
         success();
       }).catch(err => error(err));
     }).catch(err => error(err));
+  }
+
+  getAllTeams() {
+    return this.af.database.list('/teams');
   }
 
   addSelfMatch(match: any) {

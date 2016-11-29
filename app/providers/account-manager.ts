@@ -11,7 +11,7 @@ import { MatchRatingPage } from '../pages/match-rating/match-rating';
 import { FirebaseManager } from './firebase-manager';
 import { Localization } from './localization';
 import * as moment from 'moment';
-import {GuidePage} from '../pages/guide/guide';
+import { GuidePage } from '../pages/guide/guide';
 declare let firebase: any;
 
 @Injectable()
@@ -81,7 +81,7 @@ export class AccountManager {
     let user = firebase.auth().currentUser;
     //unsub to prevent dupliates
     this.unsubAll();
-    let eventFired = false;
+    var eventFired = false;
     let sub = this.afCurrPlayer.subscribe(currPlayerData => {
       console.log("current player changed", currPlayerData);
 
@@ -92,10 +92,9 @@ export class AccountManager {
           self.fm.selfTeamId = currPlayerData.teamId;
           self.fm.selfId = user.uid;
           console.log('event fired', eventFired);
-
           if (false === eventFired) {
-            success();
             eventFired = true;
+            success();
           }
         }
         else {
@@ -233,70 +232,70 @@ export class AccountManager {
     return this.af.database.list("/playersOfTeam/" + tId);
   }
 
-  createTeam(teamObj, success, error) {
-    let self = this;
-    console.log("createTeam", teamObj);
-    const queryObservable = this.af.database.list('/public/teams', {
-      query: {
-        orderByChild: 'name',
-        equalTo: teamObj.name
-      }
-    });
+  // createTeam(teamObj, success, error) {
+  //   let self = this;
+  //   console.log("createTeam", teamObj);
+  //   const queryObservable = this.af.database.list('/public/teams', {
+  //     query: {
+  //       orderByChild: 'name',
+  //       equalTo: teamObj.name
+  //     }
+  //   });
 
-    let subscription = queryObservable.subscribe(queriedItems => {
-      console.log("check team name", queriedItems);
-      //stopping monitoring changes
-      subscription.unsubscribe();
-      if (0 === queriedItems.length) {
-        let teamData = {
-          "basic-info":
-          {
-            name: teamObj.name,
-            captain: this.currentUser.uid,
-            logo: 'img/none.png',
-            totalMatches: 0,
-            totalPlayers: 1
-          },
-          "detail-info": {
-            founder: this.currentUser.uid,
-            location: teamObj.location
-          }
-        };
+  //   let subscription = queryObservable.subscribe(queriedItems => {
+  //     console.log("check team name", queriedItems);
+  //     //stopping monitoring changes
+  //     subscription.unsubscribe();
+  //     if (0 === queriedItems.length) {
+  //       let teamData = {
+  //         "basic-info":
+  //         {
+  //           name: teamObj.name,
+  //           captain: this.currentUser.uid,
+  //           logo: 'img/none.png',
+  //           totalMatches: 0,
+  //           totalPlayers: 1
+  //         },
+  //         "detail-info": {
+  //           founder: this.currentUser.uid,
+  //           location: teamObj.location
+  //         }
+  //       };
 
-        const promise = this.afTeams.push(teamData);
-        promise
-          .then(newTeam => {
-            console.log('create team success', newTeam);
-            let newTeamId = newTeam["key"];
-            //update teams list of player
-            let teamsOfPlayer = this.afGetTeamOfPlayer(this.currentUser.uid, newTeamId);
-            const promiseTP = teamsOfPlayer.set(true);
-            promiseTP.then(_ => {
-              //update players list of team
-              let playersOfTeam = this.afGetPlayerOfTeam(this.currentUser.uid, newTeamId);
-              const promisePT = playersOfTeam.set({ isMember: true });
-              promisePT.then(_ => {
-                if (teamObj.isDefault) {
-                  let player = self.fm.getPlayerBasic(self.currentUser.uid);
-                  player.update({ teamId: newTeamId });
-                }
-                //update public
-                self.fm.getTeamPublic(newTeamId).update(
-                  {
-                    name: teamObj.name,
-                    popularity: 1
-                  });
-                //update total
-                self.fm.updateTotalPlayers(newTeamId);
-                success();
-              }).catch(err => error(err));
-            }).catch(err => error(err));
-          }).catch(err => error(err));
-      } else {
-        error("Team exists");
-      }
-    });
-  }
+  //       const promise = this.afTeams.push(teamData);
+  //       promise
+  //         .then(newTeam => {
+  //           console.log('create team success', newTeam);
+  //           let newTeamId = newTeam["key"];
+  //           //update teams list of player
+  //           let teamsOfPlayer = this.afGetTeamOfPlayer(this.currentUser.uid, newTeamId);
+  //           const promiseTP = teamsOfPlayer.set(true);
+  //           promiseTP.then(_ => {
+  //             //update players list of team
+  //             let playersOfTeam = this.afGetPlayerOfTeam(this.currentUser.uid, newTeamId);
+  //             const promisePT = playersOfTeam.set({ isMember: true });
+  //             promisePT.then(_ => {
+  //               if (teamObj.isDefault) {
+  //                 let player = self.fm.getPlayerBasic(self.currentUser.uid);
+  //                 player.update({ teamId: newTeamId });
+  //               }
+  //               //update public
+  //               self.fm.getTeamPublic(newTeamId).update(
+  //                 {
+  //                   name: teamObj.name,
+  //                   popularity: 1
+  //                 });
+  //               //update total
+  //               self.fm.updateTotalPlayers(newTeamId);
+  //               success();
+  //             }).catch(err => error(err));
+  //           }).catch(err => error(err));
+  //         }).catch(err => error(err));
+  //     } else {
+  //       error("Team exists");
+  //     }
+  //   });
+  // }
 
   switchTeam(tId, success, error) {
     let player = this.afGetCurrentPlayer();
@@ -566,7 +565,7 @@ export class AccountManager {
         let today = moment();
         let matchDate = moment(snapshot.$value);
         if (toVote == null && today >= matchDate)
-            toVote = snapshot;
+          toVote = snapshot;
         /*
         if (today >= matchDate)
         {
@@ -612,19 +611,25 @@ export class AccountManager {
       return;
     }
 
-    this.fm.getSelfTeams().subscribe(snapShots => {
+    let sub = this.fm.getSelfTeams().subscribe(snapShots => {
       console.log('getSelfTeams', snapShots);
-      let needNumber = false;
-      for (let i = 0; i < snapShots.length; ++i) {
-        if (true == snapShots[i].$value) {
-          needNumber = true;
-          break;
+      setTimeout(() => {
+        let needNumber = false;
+        for (let i = 0; i < snapShots.length; ++i) {
+          if (true == snapShots[i].$value) {
+            needNumber = true;
+            break;
+          }
         }
-      }
-      if (needNumber)
-        this.popupGuide();
+
+        if (needNumber)
+          this.popupGuide();
+        
+        sub.unsubscribe();
+      }, 250);
     });
   }
+
   //time converter
   numberToDateString(date) {
     return moment(date).format("YYYY-MM-DD");
