@@ -27,7 +27,7 @@ export class GuidePage {
       this.needNumber = false;
       this.teams = snapShots;
       for (let i = 0; i < snapShots.length; ++i) {
-        if (true == snapShots[i].$value) {
+        if (true === snapShots[i].$value) {
           this.needNumber = true;
           break;
         }
@@ -53,7 +53,8 @@ joinTeam() {
       let error = err => {
         alert(err);
       };
-      this.fm.validateTeamNumber(t.$key, Number(t.$value), success, error);
+      if ('$value' in t)
+        this.fm.validateTeamNumber(t.$key, Number(t.$value), success, error);
     })
     
   }

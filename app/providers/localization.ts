@@ -183,7 +183,7 @@ export class Localization {
             Type: 'Type',
             Guide: 'Guide',
             Youneedateam: 'You need a team',
-            Needtofillnumber: 'All your performance data is recored based on your square number. Please fill up your square number.',
+            Needtofillnumber: 'All your performance data is recored based on your sqaud number. Please fill up your squad number.',
             Done: 'Done',
             Welcometobrotherhood: 'Welcome to brotherhood',
             Numberexists: 'Number exists'

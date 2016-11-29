@@ -616,7 +616,7 @@ export class AccountManager {
       setTimeout(() => {
         let needNumber = false;
         for (let i = 0; i < snapShots.length; ++i) {
-          if (true == snapShots[i].$value) {
+          if (true === snapShots[i].$value) {
             needNumber = true;
             break;
           }
