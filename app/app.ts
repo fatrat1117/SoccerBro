@@ -1,12 +1,12 @@
-import {Component, enableProdMode} from '@angular/core';
-import {Platform, ionicBootstrap} from 'ionic-angular';
-import {StatusBar, Keyboard} from 'ionic-native';
-import {TabsPage} from './pages/tabs/tabs';
+import { Component, enableProdMode } from '@angular/core';
+import { Platform, ionicBootstrap } from 'ionic-angular';
+import { StatusBar, Keyboard } from 'ionic-native';
+import { TabsPage } from './pages/tabs/tabs';
 import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders, AuthMethods } from 'angularfire2';
-import {AccountManager} from './providers/account-manager';
-import {FirebaseManager} from './providers/firebase-manager';
-import {Localization} from './providers/localization';
-import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
+import { AccountManager } from './providers/account-manager';
+import { FirebaseManager } from './providers/firebase-manager';
+import { Localization } from './providers/localization';
+import { GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig } from 'angular2-google-maps/core';
 import '../node_modules/chart.js/dist/Chart.bundle.min.js';
 import globals = require('./providers/globals');
 import * as moment from 'moment';
@@ -17,27 +17,29 @@ import * as moment from 'moment';
 export class MyApp {
 
   private rootPage: any;
-  constructor(private platform: Platform, private localization : Localization) {
+  constructor(private platform: Platform, private localization: Localization) {
     this.rootPage = TabsPage;
     localization.setLang(navigator.language);
 
     platform.ready().then(() => {
       console.log('platforms', platform.platforms());
-      
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       this.registerForPushNotifications();
-      
+
       //Keyboard.disableScroll(true);
     });
   }
 
   registerForPushNotifications() {
-    if(this.platform.is('mobileweb') ||
-    this.platform.is('core'))
+    if (this.platform.is('mobileweb') ||
+      this.platform.is('core'))
       return;
 
+    console.log("init push");
+    
     let notificationOpenedCallback = jsonData => {
       console.log('didReceiveRemoteNotificationCallBack:', jsonData);
     };
